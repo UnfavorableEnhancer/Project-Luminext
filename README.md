@@ -4,8 +4,6 @@
   <img width="1600" alt="wha" src="assets/main_art.png">
 </p>
 
-An advanced open-source spiritual successor of iconic block-stacking puzzle game Lumines:tm:.
-
 ## Links
 **Official discord server (Mods, Development news, Bug-reports, Suggestions, Game discussions and more):**
 https://discord.gg/XwsQcEUCKR 
@@ -26,7 +24,7 @@ In future there's gonna be a lot more skins/gamemodes and features added, so any
 
 ### DISCLAIMER
 *Project Luminext has no relationship with Lumines™ series and wasn't endorsed by it's respective owners: Enhance, Resonair and BNEI, nor any of their affiliates.
-We're not intending to replace original series and please, if you want real Lumines™ remake, check out Lumines Remastered instead: https://luminesremastered.com*
+We're not intending to replace original series and please, if you want real Lumines™ remake, check out [Lumines Remastered](https://luminesremastered.com) instead.*
 
 ## Contribution
 There are several ways to contribute to the Luminext project:
@@ -44,7 +42,7 @@ Currently the following types of mods are possible to create: *custom skins* and
 
 You can find info about making both in our wiki here: *under_construction*
 
-Your finished work should be uploaded to our (https://discord.gg/XwsQcEUCKR)[official Discord server] "mod-release" forum and follow mod publication rules which are also described there.
+Your finished work should be uploaded to our [official Discord server](https://discord.gg/yTQ6nnHDzR) "mod-release" forum and follow mod publication rules which are also described there.
 *Other ways are highly not recommended and we're not taking any responsibility for them.*
 
 ### Contribution to source code, assets
@@ -54,13 +52,15 @@ Design doc and development plan are currently *under construction* but soon woul
 All source code contributors, would get an special discord role and get credited in repo "CREDITS.txt" file and in-game credits screen.
 
 ## Building
-To run the project you only need to download standard Godot Engine 4.3 (without C# support), which you can find here: https://godotengine.org/download
+To run the project you only need to download standard [Godot Engine 4.3 (without C# support)](https://godotengine.org/download)
+
+
 When cloning repo you also must accept sub-module integration since official menu assets are destributed in different repo.
 Then you can just drag & drop cloned project folder to godot project manager and you're ready to go!
 
 Currently those platfroms are supported:
 - Windows - To change exported game exe icon and metadata you'll need to use WindowsSDK rcedit.exe or Resource Hacker.
-- Linux - Nothing special.
+- Linux - Nothing special. (Linux build wasn't tested yet so all bugs and crashes could be very common)
 
 There are also some things which may require additional software to work with:
 - Krita 5.1.5+ - Used to access some graphical assets sources (with .kra extension)
