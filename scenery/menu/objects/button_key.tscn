@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://d36ke10kub5sh"]
+
+[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="1"]
+[ext_resource type="Texture2D" uid="uid://oj1c6i86f7t0" path="res://images/menu/key_graphics.png" id="1_0noro"]
+[ext_resource type="FontFile" uid="uid://dqgb528l5l4wy" path="res://fonts/taskes.ttf" id="3_icmb4"]
+
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1_0noro")
+region = Rect2(128, 384, 128, 128)
+
+[sub_resource type="FontFile" id="2"]
+fallbacks = Array[Font]([ExtResource("1")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/24/0/ascent = 0.0
+cache/0/24/0/descent = 0.0
+cache/0/24/0/underline_position = 0.0
+cache/0/24/0/underline_thickness = 0.0
+cache/0/24/0/scale = 1.0
+cache/0/24/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/32/0/ascent = 0.0
+cache/0/32/0/descent = 0.0
+cache/0/32/0/underline_position = 0.0
+cache/0/32/0/underline_thickness = 0.0
+cache/0/32/0/scale = 1.0
+cache/0/32/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/32/0 = Vector2(0, 0)
+
+[sub_resource type="FontVariation" id="FontVariation_ygeol"]
+base_font = ExtResource("3_icmb4")
+spacing_top = -4
+
+[sub_resource type="LabelSettings" id="LabelSettings_845ke"]
+font = SubResource("FontVariation_ygeol")
+font_size = 18
+
+[node name="TextureRect" type="TextureRect"]
+custom_minimum_size = Vector2(48, 48)
+offset_right = 48.0
+offset_bottom = 48.0
+texture = SubResource("3")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 41.0
+offset_bottom = 40.0
+theme_override_fonts/font = SubResource("2")
+text = "A"
+label_settings = SubResource("LabelSettings_845ke")
+horizontal_alignment = 1

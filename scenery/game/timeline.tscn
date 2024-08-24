@@ -1,0 +1,120 @@
+[gd_scene load_steps=14 format=3 uid="uid://c4se5srlr5r2l"]
+
+[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="1"]
+[ext_resource type="Texture2D" uid="uid://8bfqbqooll58" path="res://images/game/foreground/timeline.png" id="2_73eaq"]
+[ext_resource type="Script" path="res://scripts/game/timeline.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://gx2j08tl7802" path="res://images/game/effects/glow_line.png" id="3_7ns5o"]
+
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("2_73eaq")
+region = Rect2(46, 261, 335, 149)
+
+[sub_resource type="CanvasItemMaterial" id="6"]
+resource_local_to_scene = true
+blend_mode = 1
+
+[sub_resource type="Gradient" id="9"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="10"]
+gradient = SubResource("9")
+
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("2_73eaq")
+region = Rect2(57, 50, 307, 121)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_anij2"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="8"]
+resource_local_to_scene = true
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="5"]
+resource_local_to_scene = true
+gradient = SubResource("8")
+width = 512
+
+[sub_resource type="LabelSettings" id="LabelSettings_cas2q"]
+font = ExtResource("1")
+font_size = 64
+
+[node name="Timeline" type="Node2D"]
+z_index = 200
+scale = Vector2(0.43, 0.43)
+script = ExtResource("3")
+
+[node name="Color" type="Node2D" parent="."]
+modulate = Color(1, 0.772549, 0, 1)
+position = Vector2(0.000350952, -9.30229)
+
+[node name="GLOW" type="Node2D" parent="Color"]
+modulate = Color(1, 1, 1, 0)
+z_index = -1
+position = Vector2(-64.9287, 5.04254)
+scale = Vector2(0.940655, 0.924434)
+
+[node name="Arrow" type="Sprite2D" parent="Color/GLOW"]
+z_index = -1
+position = Vector2(-0.199773, -0.423409)
+scale = Vector2(1.06489, 1.11808)
+texture = SubResource("12")
+
+[node name="Arrow2" type="Sprite2D" parent="Color/GLOW"]
+z_index = -1
+position = Vector2(-0.199773, -0.423409)
+scale = Vector2(1.06489, 1.11808)
+texture = SubResource("12")
+
+[node name="Arrow3" type="Sprite2D" parent="Color/GLOW"]
+z_index = -1
+position = Vector2(-0.199773, -0.423409)
+scale = Vector2(1.06489, 1.11808)
+texture = SubResource("12")
+
+[node name="Stick" type="Sprite2D" parent="Color/GLOW"]
+z_index = -1
+position = Vector2(156.791, 907.092)
+scale = Vector2(0.424927, 3.38775)
+texture = ExtResource("3_7ns5o")
+
+[node name="Gradient" type="Sprite2D" parent="Color/GLOW"]
+modulate = Color(1, 1, 1, 0.376471)
+material = SubResource("6")
+position = Vector2(-92.4846, 919)
+scale = Vector2(7.62337, 26.6898)
+texture = SubResource("10")
+
+[node name="Arrow" type="Sprite2D" parent="Color"]
+position = Vector2(-66, 6)
+texture = SubResource("1")
+
+[node name="Line" type="Line2D" parent="Color"]
+use_parent_material = true
+position = Vector2(90.3581, 836.894)
+scale = Vector2(0.992117, 4.29955)
+points = PackedVector2Array(-8.00001, 188.039, -8.00001, -180.524)
+
+[node name="Gradient" type="Sprite2D" parent="Color"]
+material = SubResource("CanvasItemMaterial_anij2")
+position = Vector2(-175.041, 855.233)
+scale = Vector2(0.987759, 24.6912)
+texture = SubResource("5")
+
+[node name="Number" type="Label" parent="."]
+texture_filter = 1
+offset_left = -177.0
+offset_top = -63.0
+offset_right = 88.0
+offset_bottom = 56.0
+text = "22"
+label_settings = SubResource("LabelSettings_cas2q")
+vertical_alignment = 1
+clip_text = true
+
+[node name="Check" type="Timer" parent="."]
+
+[node name="Clip" type="Sprite2D" parent="."]
+
+[connection signal="timeout" from="Check" to="." method="_check_next_line"]

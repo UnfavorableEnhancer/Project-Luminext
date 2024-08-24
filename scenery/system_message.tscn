@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://01vihxako5y1"]
+
+[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="1"]
+[ext_resource type="Script" path="res://scripts/menu/system_message.gd" id="2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qcnb0"]
+font = ExtResource("1")
+font_size = 32
+
+[node name="SysMes" type="Control"]
+self_modulate = Color(1, 1, 1, 0.5)
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+script = ExtResource("2")
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1084.0
+mouse_filter = 2
+
+[node name="Text" type="Label" parent="Center"]
+custom_minimum_size = Vector2(1500, 0)
+layout_mode = 2
+text = "welcome to the luminext
+SOURCE CODE!"
+label_settings = SubResource("LabelSettings_qcnb0")
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Cover" type="ColorRect" parent="Center/Text"]
+show_behind_parent = true
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -210.0
+offset_top = -24.0
+offset_right = 210.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(1210, 53)
+size_flags_horizontal = 0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.75)

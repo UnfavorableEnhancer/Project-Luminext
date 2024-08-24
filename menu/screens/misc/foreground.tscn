@@ -1,0 +1,157 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxg5e4iwo6hfc"]
+
+[ext_resource type="Script" path="res://menu/scripts/screens/foreground.gd" id="2"]
+[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="5"]
+
+[sub_resource type="Animation" id="6"]
+resource_name = "end"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("S:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("S:pivot_offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1920, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ButtonLayout:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="5"]
+resource_name = "start"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("S:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("S:pivot_offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ButtonLayout:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w5h3p"]
+_data = {
+"end": SubResource("6"),
+"start": SubResource("5")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_75ns1"]
+font = ExtResource("5")
+
+[node name="Foreground" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2")
+
+[node name="A" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_w5h3p")
+}
+
+[node name="S" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0.5)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(1920, 0)
+mouse_filter = 2
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="ProfileLayout" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 1024.0
+offset_top = 1016.0
+offset_right = 1904.0
+offset_bottom = 1080.0
+theme_override_constants/separation = 32
+alignment = 2
+
+[node name="Time" type="Label" parent="ProfileLayout"]
+layout_mode = 2
+text = "00:00:00"
+label_settings = SubResource("LabelSettings_75ns1")
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+
+[node name="Name" type="Label" parent="ProfileLayout"]
+layout_mode = 2
+text = "+REVENANT+"
+label_settings = SubResource("LabelSettings_75ns1")
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+
+[node name="ButtonLayout" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 32.0
+offset_top = 1016.0
+offset_right = 968.0
+offset_bottom = 1080.0
+
+[node name="Timer" type="Timer" parent="."]

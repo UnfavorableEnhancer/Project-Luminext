@@ -1,0 +1,101 @@
+[gd_scene load_steps=8 format=3 uid="uid://cvgy7njkmjnop"]
+
+[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="1"]
+
+[sub_resource type="GDScript" id="3"]
+script/source = "extends FX
+
+func _ready() -> void:
+	use_field_coordinates = false
+	$Message/bonus.text = parameter
+	$ANIM.playback_speed = Data.game.skin.bpm / 120.0
+	
+	_start()
+"
+
+[sub_resource type="Gradient" id="8"]
+offsets = PackedFloat32Array(0, 0.0325203, 0.0785908, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="6"]
+gradient = SubResource("8")
+width = 512
+
+[sub_resource type="LabelSettings" id="LabelSettings_fum44"]
+font = ExtResource("1")
+font_size = 28
+
+[sub_resource type="Animation" id="2"]
+resource_name = "start"
+length = 3.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Message:texture:gradient:offsets")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [PackedFloat32Array(0, 0.0325203, 0.0650406, 0.124661), PackedFloat32Array(0, 0.0325203, 0.0785908, 1), PackedFloat32Array(0, 0.0325203, 0.924119, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Message:texture:gradient:colors")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_foptm"]
+_data = {
+"start": SubResource("2")
+}
+
+[node name="Message" type="Node2D"]
+z_index = 999
+script = SubResource("3")
+
+[node name="Message" type="TextureRect" parent="."]
+offset_left = -348.0
+offset_top = 1008.0
+offset_right = 2296.0
+offset_bottom = 1060.0
+texture = SubResource("6")
+expand_mode = 1
+
+[node name="bonus" type="Label" parent="Message"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 352.0
+offset_top = -4.0
+offset_right = 2272.0
+offset_bottom = 52.0
+pivot_offset = Vector2(0, 64)
+text = "BONUS 12X"
+label_settings = SubResource("LabelSettings_fum44")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ANIM" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_foptm")
+}

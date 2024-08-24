@@ -1,0 +1,2999 @@
+[gd_scene load_steps=73 format=3 uid="uid://dpeeknucofued"]
+
+[ext_resource type="Texture2D" uid="uid://bypbhiqprsji5" path="res://images/menu/random.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://dam67m6wayew5" path="res://menu/images/lines.png" id="2_o6usn"]
+[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="6"]
+[ext_resource type="FontFile" uid="uid://bncda7ixlpa7b" path="res://fonts/rounded_mgenplus.ttf" id="7"]
+[ext_resource type="Texture2D" uid="uid://do04mb8o2x5xh" path="res://menu/images/options_icons.png" id="7_yfvwy"]
+[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="8"]
+[ext_resource type="PackedScene" uid="uid://160thw0yemok" path="res://menu/objects/slider.tscn" id="10"]
+[ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://menu/objects/regular_button.tscn" id="11"]
+[ext_resource type="Texture2D" uid="uid://clbyjed38caju" path="res://menu/images/controls.png" id="11_6sqiv"]
+[ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="13_mvprc"]
+[ext_resource type="Texture2D" uid="uid://dk6bk4i2fqinh" path="res://images/game/export/blocks_sheet.png" id="15"]
+[ext_resource type="Script" path="res://menu/scripts/screens/game_config.gd" id="22"]
+
+[sub_resource type="Animation" id="Animation_ywu7q"]
+resource_name = "end"
+length = 0.75
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top/Iconhold:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Top/Iconhold/Icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.225, 0.45, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0), Vector2(1e-05, 1e-05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Top/Iconhold/Icon:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.45),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Top/Label:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.45, 0.75),
+"transitions": PackedFloat32Array(1, 0.75),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Menu:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.4875, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Menu:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.4875, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Menu/BLOCKS:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.3, 0.4125, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Menu/RULES:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.2625, 0.375, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Menu/PARAMS:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.225, 0.3375, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Menu/Line:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.15, 0.2625, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Menu/Line2:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.15, 0.2625, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Menu/APPLY:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0.15, 0.2625, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Menu/LOAD:scale")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0.1125, 0.225, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Menu/SAVE:scale")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0.075, 0.1875, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Menu/EXIT:scale")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0.0375, 0.15, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Desc:modulate")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0.375, 0.6375, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Desc:scale")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0.375, 0.6375, 0.75),
+"transitions": PackedFloat32Array(1, 1, 0.75),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1), Vector2(0, 1)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Optionsback:scale")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0.2625, 0.525, 0.75),
+"transitions": PackedFloat32Array(1, 1, 0.75),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1e-05), Vector2(1, 0)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Optionsback:modulate")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0.2625, 0.525, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("BLOCKS:modulate")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 0.2625, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("RULES:modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0, 0.2625, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("Menu/Detail4:visible_ratio")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 0.0]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("Desc/Detail3:visible_ratio")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 0.0]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("BLOCKS/Detail5:visible_ratio")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 0.0]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("RULES/Detail5:visible_ratio")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 0.0]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("Background:modulate")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0, 0.375, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("PARAMS:modulate")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="17"]
+resource_name = "start"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top/Iconhold:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Top/Iconhold/Icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Top/Iconhold/Icon:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.4, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Top/Label:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.75, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Menu:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Menu:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Menu/BLOCKS:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Menu/RULES:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.65),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Menu/PARAMS:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.55, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Menu/Line:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.65, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(0, 1), Vector2(1, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Menu/Line2:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.65, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(0, 1), Vector2(1, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Menu/APPLY:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.65, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Menu/LOAD:scale")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 0.7, 0.85),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Menu/SAVE:scale")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 0.75, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Menu/EXIT:scale")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.95),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Desc:modulate")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Desc:scale")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.5),
+"transitions": PackedFloat32Array(0.75, 1, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(1e-05, 1), Vector2(1, 1)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Optionsback:scale")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.65),
+"transitions": PackedFloat32Array(0.75, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 1e-05), Vector2(1, 1)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Optionsback:modulate")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.65),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("BLOCKS:modulate")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 0.65, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("RULES:modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0, 0.65, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("PARAMS:modulate")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0, 0.65, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("Menu/Detail4:visible_ratio")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("Desc/Detail3:visible_ratio")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("BLOCKS/Detail5:visible_ratio")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("RULES/Detail5:visible_ratio")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("Background:modulate")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_77hok"]
+_data = {
+"end": SubResource("Animation_ywu7q"),
+"start": SubResource("17")
+}
+
+[sub_resource type="Shader" id="Shader_dnife"]
+code = "shader_type canvas_item;
+
+uniform float offset : hint_range(-2.0, 4.0) = 0.0;
+uniform float width : hint_range(0.0, 10.0) = 0.0;
+uniform float power : hint_range(0.0, 10.0) = 5.0;
+
+void fragment() {
+	COLOR.a = COLOR.a * smoothstep(offset - width, offset + width, UV.x) * (1.0 - smoothstep(offset - width, offset + width, UV.x)) * power;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ghd84"]
+shader = SubResource("Shader_dnife")
+shader_parameter/offset = 1.1
+shader_parameter/width = 0.075
+shader_parameter/power = 4.237
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0jul4"]
+shader = SubResource("Shader_dnife")
+shader_parameter/offset = -0.0999999
+shader_parameter/width = 0.075
+shader_parameter/power = 4.237
+
+[sub_resource type="Animation" id="Animation_lf8ax"]
+resource_name = "base"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Lines:material:shader_parameter/offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.1, -0.0999999]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Lines2:material:shader_parameter/offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.0999999, 0.625]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jrc8w"]
+_data = {
+"base": SubResource("Animation_lf8ax")
+}
+
+[sub_resource type="StyleBoxFlat" id="83"]
+bg_color = Color(0.270588, 0.278431, 0.270588, 1)
+
+[sub_resource type="StyleBoxFlat" id="89"]
+bg_color = Color(0.0196078, 0.933333, 0.568627, 1)
+
+[sub_resource type="StyleBoxFlat" id="85"]
+bg_color = Color(0.286275, 0.85098, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="86"]
+bg_color = Color(0.298039, 0.298039, 0.298039, 1)
+border_width_left = 16
+border_color = Color(0.4, 0.4, 0.4, 1)
+anti_aliasing = false
+anti_aliasing_size = 0.01
+
+[sub_resource type="Theme" id="92"]
+VScrollBar/styles/grabber = SubResource("83")
+VScrollBar/styles/grabber_highlight = SubResource("89")
+VScrollBar/styles/grabber_pressed = SubResource("85")
+VScrollBar/styles/scroll = SubResource("86")
+
+[sub_resource type="FontFile" id="135"]
+fallbacks = Array[Font]([ExtResource("6")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xk0on"]
+font = ExtResource("6")
+font_size = 24
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmqlg"]
+atlas = ExtResource("15")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="FontFile" id="84"]
+fallbacks = Array[Font]([ExtResource("6"), ExtResource("7")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_16anr"]
+font = ExtResource("6")
+font_size = 24
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovyr2"]
+atlas = ExtResource("15")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clkhu"]
+atlas = ExtResource("15")
+region = Rect2(0, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldnct"]
+atlas = ExtResource("15")
+region = Rect2(0, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="118"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(0, 384, 128, 128)
+
+[sub_resource type="LabelSettings" id="LabelSettings_x3w21"]
+font = ExtResource("6")
+font_size = 20
+
+[sub_resource type="AtlasTexture" id="122"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(128, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_824bd"]
+atlas = ExtResource("15")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwkw8"]
+atlas = ExtResource("15")
+region = Rect2(448, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3bw6"]
+atlas = ExtResource("15")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m13g0"]
+atlas = ExtResource("15")
+region = Rect2(448, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0h4k"]
+atlas = ExtResource("15")
+region = Rect2(448, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6iq3o"]
+atlas = ExtResource("15")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijbn0"]
+atlas = ExtResource("15")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dplwv"]
+font = ExtResource("6")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fbr7"]
+atlas = ExtResource("13_mvprc")
+region = Rect2(512, 1280, 256, 256)
+
+[sub_resource type="AtlasTexture" id="123"]
+atlas = ExtResource("11_6sqiv")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="124"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(256, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="125"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(384, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="127"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(512, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="120"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(640, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="126"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(768, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oggqk"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(0, 512, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_or1yk"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(128, 512, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1y8t"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(256, 512, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tca12"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(384, 512, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojp4h"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(512, 512, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jye00"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(640, 512, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f54g6"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(768, 512, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksxeu"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(0, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8evck"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(128, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0j5i"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(256, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wq0s8"]
+atlas = ExtResource("7_yfvwy")
+region = Rect2(384, 640, 128, 128)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bb3qu"]
+font = ExtResource("8")
+font_size = 32
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63hrd"]
+atlas = ExtResource("13_mvprc")
+region = Rect2(1024, 1536, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6fee"]
+atlas = ExtResource("13_mvprc")
+region = Rect2(1536, 1536, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrwd7"]
+atlas = ExtResource("13_mvprc")
+region = Rect2(1280, 1536, 256, 256)
+
+[sub_resource type="AtlasTexture" id="151"]
+atlas = ExtResource("13_mvprc")
+region = Rect2(1536, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfv4t"]
+atlas = ExtResource("13_mvprc")
+region = Rect2(1024, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pb17m"]
+atlas = ExtResource("13_mvprc")
+region = Rect2(1280, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="98"]
+atlas = ExtResource("13_mvprc")
+region = Rect2(512, 1280, 256, 256)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6nh55"]
+font = ExtResource("6")
+font_size = 36
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmqj1"]
+atlas = ExtResource("13_mvprc")
+region = Rect2(256, 512, 256, 256)
+
+[node name="GameConfiguration" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(-424, -184)
+script = ExtResource("22")
+
+[node name="A" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_77hok")
+}
+
+[node name="back" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -40.0
+offset_top = -32.0
+offset_right = 1965.0
+offset_bottom = 1115.0
+color = Color(0.623529, 0.623529, 0.623529, 1)
+
+[node name="Background" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = -2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Lines" type="TextureRect" parent="Background"]
+material = SubResource("ShaderMaterial_ghd84")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_o6usn")
+
+[node name="Lines2" type="TextureRect" parent="Background"]
+material = SubResource("ShaderMaterial_0jul4")
+layout_mode = 0
+offset_left = 1920.0
+offset_right = 3840.0
+offset_bottom = 1920.0
+rotation = 1.57079
+texture = ExtResource("2_o6usn")
+
+[node name="LinesAnim" type="AnimationPlayer" parent="Background"]
+libraries = {
+"": SubResource("AnimationLibrary_jrc8w")
+}
+autoplay = "base"
+
+[node name="Optionsback" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 512.0
+offset_top = 72.0
+offset_right = 1920.0
+offset_bottom = 792.0
+scale = Vector2(1, 1e-05)
+pivot_offset = Vector2(0, 360)
+color = Color(0, 0, 0, 0.5)
+
+[node name="BLOCKS" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 528.0
+offset_top = 88.0
+offset_right = -16.0
+offset_bottom = -280.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SCROLL" type="ScrollContainer" parent="BLOCKS"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 1372.0
+offset_bottom = 640.0
+theme = SubResource("92")
+
+[node name="V" type="VBoxContainer" parent="BLOCKS/SCROLL"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label2" type="Label" parent="BLOCKS/SCROLL/V"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_fonts/font = SubResource("135")
+text = "BLOCK COLORS"
+label_settings = SubResource("LabelSettings_xk0on")
+
+[node name="ColorRect" type="ColorRect" parent="BLOCKS/SCROLL/V/Label2"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 1328.0
+offset_bottom = 44.0
+
+[node name="RED" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_kmqlg")
+expand_mode = 1
+
+[node name="Button" parent="BLOCKS/SCROLL/V/RED" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+text = "RED"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Toggle red color blocks."
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "red"
+
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/RED/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -26.0
+offset_right = -16.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = SubResource("84")
+text = "OFF"
+label_settings = SubResource("LabelSettings_16anr")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="WHITE" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_ovyr2")
+expand_mode = 1
+
+[node name="Button" parent="BLOCKS/SCROLL/V/WHITE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 2.0
+offset_right = 1328.0
+offset_bottom = 54.0
+text = "WHITE"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Toggle white color blocks."
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "white"
+
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/WHITE/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -26.0
+offset_right = -16.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = SubResource("84")
+text = "OFF"
+label_settings = SubResource("LabelSettings_16anr")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="GREEN" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_clkhu")
+expand_mode = 1
+
+[node name="Button" parent="BLOCKS/SCROLL/V/GREEN" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 2.0
+offset_right = 1328.0
+offset_bottom = 54.0
+text = "GREEN"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Toggle green color blocks."
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "green"
+
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/GREEN/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -26.0
+offset_right = -16.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = SubResource("84")
+text = "OFF"
+label_settings = SubResource("LabelSettings_16anr")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PURPLE" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_ldnct")
+expand_mode = 1
+
+[node name="Button" parent="BLOCKS/SCROLL/V/PURPLE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 2.0
+offset_right = 1328.0
+offset_bottom = 54.0
+text = "PURPLE"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Toggle purple color blocks."
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "purple"
+
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/PURPLE/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -26.0
+offset_right = -16.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = SubResource("84")
+text = "OFF"
+label_settings = SubResource("LabelSettings_16anr")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="BLOCKS/SCROLL/V"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_fonts/font = SubResource("135")
+text = "SPECIAL BLOCKS"
+label_settings = SubResource("LabelSettings_xk0on")
+
+[node name="ColorRect" type="ColorRect" parent="BLOCKS/SCROLL/V/Label"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 1328.0
+offset_bottom = 44.0
+
+[node name="SPECIALDELAY" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("118")
+expand_mode = 1
+
+[node name="Slider" parent="BLOCKS/SCROLL/V/SPECIALDELAY" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+layout_mode = 0
+offset_left = 560.0
+offset_right = 1040.0
+offset_bottom = 52.0
+min_value = 1.0
+max_value = 200.0
+value = 72.0
+tick_count = 6
+description_node = NodePath("../../../../../Desc/Text")
+description = "Set how much pieces must pass before giving piece with special block."
+call_string = "special_block_delay"
+call_function_name = "_change_option"
+
+[node name="Power" type="Label" parent="BLOCKS/SCROLL/V/SPECIALDELAY/Slider"]
+layout_mode = 0
+offset_left = 480.0
+offset_right = 752.0
+offset_bottom = 52.0
+text = "72"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="BLOCKS/SCROLL/V/SPECIALDELAY"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.24, 0.24, 0.24, 0.5)
+
+[node name="Label" type="Label" parent="BLOCKS/SCROLL/V/SPECIALDELAY"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 4.0
+offset_right = 832.0
+offset_bottom = 48.0
+text = "SPECIAL BLOCK DELAY"
+label_settings = SubResource("LabelSettings_x3w21")
+vertical_alignment = 1
+uppercase = true
+
+[node name="INSTANTSPECIAL" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("122")
+expand_mode = 1
+
+[node name="Button" parent="BLOCKS/SCROLL/V/INSTANTSPECIAL" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+text = "INSTANT SPECIAL BLOCKS"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Makes special blocks work instantly on land like in Lumines Remastered"
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "instant_special"
+
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/INSTANTSPECIAL/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -26.0
+offset_right = -8.0
+offset_bottom = 24.0
+text = "OFF"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CHAIN" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_824bd")
+expand_mode = 1
+
+[node name="Button" parent="BLOCKS/SCROLL/V/CHAIN" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 2.0
+offset_right = 1328.0
+offset_bottom = 54.0
+text = "CHAIN"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Toggle \"chain\" special block. This block chains adjacent same-colored blocks and makes them erasable by timeline."
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "chain"
+
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/CHAIN/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -26.0
+offset_right = -16.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = SubResource("84")
+text = "OFF"
+label_settings = SubResource("LabelSettings_16anr")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Gem" type="TextureRect" parent="BLOCKS/SCROLL/V/CHAIN"]
+layout_mode = 0
+offset_right = 52.0
+offset_bottom = 52.0
+texture = SubResource("AtlasTexture_cwkw8")
+expand_mode = 1
+
+[node name="MERGE" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_824bd")
+expand_mode = 1
+
+[node name="Button" parent="BLOCKS/SCROLL/V/MERGE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 2.0
+offset_right = 1328.0
+offset_bottom = 54.0
+text = "MERGE"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Toggle \"merge\" special block. This block turns all blocks in 3 block radius into same color."
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "merge"
+
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/MERGE/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -26.0
+offset_right = -16.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = SubResource("84")
+text = "OFF"
+label_settings = SubResource("LabelSettings_16anr")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Gem" type="TextureRect" parent="BLOCKS/SCROLL/V/MERGE"]
+layout_mode = 0
+offset_right = 52.0
+offset_bottom = 52.0
+texture = SubResource("AtlasTexture_s3bw6")
+expand_mode = 1
+
+[node name="SEQUENCE6" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_824bd")
+expand_mode = 1
+
+[node name="Button" parent="BLOCKS/SCROLL/V/SEQUENCE6" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 2.0
+offset_right = 1328.0
+offset_bottom = 54.0
+text = "LASER"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Toggle \"laser\" special block. When this block is erased by timeline it removes all blocks in 8 directions lines."
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "laser"
+
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/SEQUENCE6/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -26.0
+offset_right = -16.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = SubResource("84")
+text = "OFF"
+label_settings = SubResource("LabelSettings_16anr")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Gem" type="TextureRect" parent="BLOCKS/SCROLL/V/SEQUENCE6"]
+layout_mode = 0
+offset_right = 52.0
+offset_bottom = 52.0
+texture = SubResource("AtlasTexture_m13g0")
+expand_mode = 1
+
+[node name="SEQUENCE7" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_824bd")
+expand_mode = 1
+
+[node name="Button" parent="BLOCKS/SCROLL/V/SEQUENCE7" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 2.0
+offset_right = 1328.0
+offset_bottom = 54.0
+text = "WIPE"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Toggle \"wipe\" special block. This block makes all blocks in 2 blocks radius erasable be timeline no matter where they are placed."
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "wipe"
+
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/SEQUENCE7/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -26.0
+offset_right = -16.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = SubResource("84")
+text = "OFF"
+label_settings = SubResource("LabelSettings_16anr")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Gem" type="TextureRect" parent="BLOCKS/SCROLL/V/SEQUENCE7"]
+layout_mode = 0
+offset_right = 52.0
+offset_bottom = 52.0
+texture = SubResource("AtlasTexture_s0h4k")
+expand_mode = 1
+
+[node name="SEQUENCE8" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_6iq3o")
+expand_mode = 1
+
+[node name="Button" parent="BLOCKS/SCROLL/V/SEQUENCE8" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 2.0
+offset_right = 1328.0
+offset_bottom = 54.0
+text = "MULTI"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Toggle \"multi\" special block. This block can be formed in square with any other block color. It appears 4 times more than other special blocks."
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "multi"
+
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/SEQUENCE8/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -26.0
+offset_right = -16.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = SubResource("84")
+text = "OFF"
+label_settings = SubResource("LabelSettings_16anr")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SEQUENCE9" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_ijbn0")
+expand_mode = 1
+
+[node name="Button" parent="BLOCKS/SCROLL/V/SEQUENCE9" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 2.0
+offset_right = 1328.0
+offset_bottom = 54.0
+text = "DARK"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Toggle \"dark\" block. This block quite oftenly appears in pieces and cannot be squared. You can destroy it by erasing adjacent block."
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "garbage"
+
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/SEQUENCE9/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -26.0
+offset_right = -16.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = SubResource("84")
+text = "OFF"
+label_settings = SubResource("LabelSettings_16anr")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SEQUENCE10" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("2")
+expand_mode = 1
+
+[node name="Button" parent="BLOCKS/SCROLL/V/SEQUENCE10" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 2.0
+offset_right = 1328.0
+offset_bottom = 54.0
+text = "RANDOM"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Toggle \"random\" block. This block changes its color each timeline pass."
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "joker"
+
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/SEQUENCE10/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -26.0
+offset_right = -16.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = SubResource("84")
+text = "OFF"
+label_settings = SubResource("LabelSettings_16anr")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Detail5" type="Label" parent="BLOCKS"]
+modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
+texture_filter = 1
+layout_mode = 0
+offset_left = 28.0
+offset_top = 676.0
+offset_right = 260.0
+offset_bottom = 695.0
+text = "BLOCKS SELECTION"
+label_settings = SubResource("LabelSettings_dplwv")
+uppercase = true
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Icon" type="TextureRect" parent="BLOCKS/Detail5"]
+texture_filter = 2
+layout_mode = 0
+offset_left = -33.0
+offset_top = -2.0
+offset_right = -11.0
+offset_bottom = 20.0
+texture = SubResource("AtlasTexture_1fbr7")
+expand_mode = 1
+flip_h = true
+flip_v = true
+
+[node name="RULES" type="Control" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 536.0
+offset_top = 96.0
+offset_bottom = -312.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SCROLL" type="ScrollContainer" parent="RULES"]
+layout_mode = 0
+offset_right = 1368.0
+offset_bottom = 672.0
+theme = SubResource("92")
+horizontal_scroll_mode = 0
+
+[node name="V" type="VBoxContainer" parent="RULES/SCROLL"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PIECESWAP" type="TextureRect" parent="RULES/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("123")
+expand_mode = 1
+
+[node name="Button" parent="RULES/SCROLL/V/PIECESWAP" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+text = "PIECE SWAPPING"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Toggle piece swap mechanic, which allows to replace current piece in hand with upcoming piece from queue."
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "piece_swaping"
+
+[node name="IO" type="Label" parent="RULES/SCROLL/V/PIECESWAP/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -26.0
+offset_right = -8.0
+offset_bottom = 24.0
+text = "OFF"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="POSSAVE" type="TextureRect" parent="RULES/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("124")
+expand_mode = 1
+
+[node name="Button" parent="RULES/SCROLL/V/POSSAVE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+text = "POSITION SAVING"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "If enabled piece will appear at current holder position, instead of appearing in the center of game field"
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "save_holder_position"
+
+[node name="IO" type="Label" parent="RULES/SCROLL/V/POSSAVE/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -26.0
+offset_right = -8.0
+offset_bottom = 24.0
+text = "OFF"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="NEOSCORE" type="TextureRect" parent="RULES/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("125")
+expand_mode = 1
+
+[node name="Button" parent="RULES/SCROLL/V/NEOSCORE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 1.0
+offset_right = 1328.0
+offset_bottom = 53.0
+text = "SQUARE EXPLOSION SCORING"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "If enabled, score will also be given per square group explosion"
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "give_score_for_square"
+
+[node name="IO" type="Label" parent="RULES/SCROLL/V/NEOSCORE/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -26.0
+offset_right = -8.0
+offset_bottom = 24.0
+text = "OFF"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="COMBO" type="TextureRect" parent="RULES/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("127")
+expand_mode = 1
+
+[node name="Button" parent="RULES/SCROLL/V/COMBO" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+text = "COMBO SYSTEM"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Enables combo meter, which is filled by doing 4x bonuses and it multiplyes all incoming score"
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "combo_system"
+
+[node name="IO" type="Label" parent="RULES/SCROLL/V/COMBO/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -26.0
+offset_right = -8.0
+offset_bottom = 24.0
+text = "OFF"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MAXCOMBO" type="TextureRect" parent="RULES/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("120")
+expand_mode = 1
+
+[node name="Slider" parent="RULES/SCROLL/V/MAXCOMBO" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+layout_mode = 0
+offset_left = 560.0
+offset_right = 1040.0
+offset_bottom = 52.0
+min_value = 1.0
+max_value = 64.0
+value = 32.0
+tick_count = 9
+description_node = NodePath("../../../../../Desc/Text")
+description = "Defines how much combo will multiply score"
+call_string = "max_combo"
+call_function_name = "_change_option"
+
+[node name="Power" type="Label" parent="RULES/SCROLL/V/MAXCOMBO/Slider"]
+layout_mode = 0
+offset_left = 304.0
+offset_right = 752.0
+offset_bottom = 52.0
+text = "32"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="RULES/SCROLL/V/MAXCOMBO"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.24, 0.24, 0.24, 0.5)
+
+[node name="Label" type="Label" parent="RULES/SCROLL/V/MAXCOMBO"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 4.0
+offset_right = 832.0
+offset_bottom = 48.0
+text = "MAX COMBO"
+label_settings = SubResource("LabelSettings_x3w21")
+vertical_alignment = 1
+uppercase = true
+
+[node name="CLASSICSCORE" type="TextureRect" parent="RULES/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("126")
+expand_mode = 1
+
+[node name="Button" parent="RULES/SCROLL/V/CLASSICSCORE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+text = "CLASSIC SCORING SYSTEM"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Toggle classic scoring system which is much smaller in values and more similar to Lumines scoring system."
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "classic_scoring"
+
+[node name="IO" type="Label" parent="RULES/SCROLL/V/CLASSICSCORE/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -26.0
+offset_right = -8.0
+offset_bottom = 24.0
+text = "OFF"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Detail5" type="Label" parent="RULES"]
+modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
+texture_filter = 1
+layout_mode = 0
+offset_left = 20.0
+offset_top = 668.0
+offset_right = 252.0
+offset_bottom = 687.0
+text = "GAME RULES SETUP"
+label_settings = SubResource("LabelSettings_dplwv")
+uppercase = true
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Icon" type="TextureRect" parent="RULES/Detail5"]
+texture_filter = 2
+layout_mode = 0
+offset_left = -33.0
+offset_top = -2.0
+offset_right = -11.0
+offset_bottom = 20.0
+texture = SubResource("AtlasTexture_1fbr7")
+expand_mode = 1
+
+[node name="PARAMS" type="Control" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 536.0
+offset_top = 96.0
+offset_bottom = -312.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SCROLL" type="ScrollContainer" parent="PARAMS"]
+layout_mode = 0
+offset_right = 1368.0
+offset_bottom = 640.0
+theme = SubResource("92")
+horizontal_scroll_mode = 0
+
+[node name="V" type="VBoxContainer" parent="PARAMS/SCROLL"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="SEED" type="TextureRect" parent="PARAMS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_oggqk")
+expand_mode = 1
+
+[node name="Button" parent="PARAMS/SCROLL/V/SEED" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+text = "SEED"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Enter seed value which determines game random events (ex. pieces patterns)"
+button_layout = 2
+is_setting_button = true
+press_sound_name = "confirm3"
+call_function_name = "_set_seed"
+
+[node name="IO" type="Label" parent="PARAMS/SCROLL/V/SEED/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1008.0
+offset_top = -26.0
+offset_right = -8.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "O00000000"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PIECEFALL" type="TextureRect" parent="PARAMS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_or1yk")
+expand_mode = 1
+
+[node name="Slider" parent="PARAMS/SCROLL/V/PIECEFALL" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+layout_mode = 0
+offset_left = 560.0
+offset_right = 1040.0
+offset_bottom = 52.0
+max_value = 4.0
+step = 0.005
+value = 0.5
+tick_count = 17
+ticks_on_borders = true
+description_node = NodePath("../../../../../Desc/Text")
+description = "Set piece fall speed in seconds. If set to 0 piece will drop instantly."
+input_dash_speed = 8
+call_string = "piece_fall_speed"
+call_function_name = "_change_option"
+
+[node name="Power" type="Label" parent="PARAMS/SCROLL/V/PIECEFALL/Slider"]
+layout_mode = 0
+offset_left = 480.0
+offset_right = 752.0
+offset_bottom = 52.0
+text = "0.5"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="PARAMS/SCROLL/V/PIECEFALL"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.24, 0.24, 0.24, 0.5)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="PARAMS/SCROLL/V/PIECEFALL"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 4.0
+offset_right = 644.0
+offset_bottom = 48.0
+text = "PIECE FALL SPEED"
+label_settings = SubResource("LabelSettings_x3w21")
+vertical_alignment = 1
+uppercase = true
+
+[node name="PIECEDELAY" type="TextureRect" parent="PARAMS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_s1y8t")
+expand_mode = 1
+
+[node name="Slider" parent="PARAMS/SCROLL/V/PIECEDELAY" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+layout_mode = 0
+offset_left = 560.0
+offset_right = 1040.0
+offset_bottom = 52.0
+min_value = 0.01
+max_value = 4.0
+step = 0.005
+value = 1.0
+tick_count = 17
+ticks_on_borders = true
+description_node = NodePath("../../../../../Desc/Text")
+description = "Set delay in seconds before piece starts falling by itself."
+input_dash_speed = 8
+call_string = "piece_fall_delay"
+call_function_name = "_change_option"
+
+[node name="Power" type="Label" parent="PARAMS/SCROLL/V/PIECEDELAY/Slider"]
+layout_mode = 0
+offset_left = 304.0
+offset_right = 752.0
+offset_bottom = 52.0
+text = "1.0"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="PARAMS/SCROLL/V/PIECEDELAY"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.24, 0.24, 0.24, 0.5)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="PARAMS/SCROLL/V/PIECEDELAY"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 4.0
+offset_right = 608.0
+offset_bottom = 48.0
+text = "PIECE FALL DELAY"
+label_settings = SubResource("LabelSettings_x3w21")
+vertical_alignment = 1
+uppercase = true
+
+[node name="QUICKDROP" type="TextureRect" parent="PARAMS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_tca12")
+expand_mode = 1
+
+[node name="Slider" parent="PARAMS/SCROLL/V/QUICKDROP" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+layout_mode = 0
+offset_left = 560.0
+offset_right = 1040.0
+offset_bottom = 52.0
+min_value = 0.1
+max_value = 8.0
+step = 0.1
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+description_node = NodePath("../../../../../Desc/Text")
+description = "Set piece quick drop speed multiplier."
+input_dash_speed = 4
+call_string = "quick_drop_speed"
+call_function_name = "_change_option"
+
+[node name="Power" type="Label" parent="PARAMS/SCROLL/V/QUICKDROP/Slider"]
+layout_mode = 0
+offset_left = 304.0
+offset_right = 752.0
+offset_bottom = 52.0
+text = "1.0
+"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="PARAMS/SCROLL/V/QUICKDROP"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.24, 0.24, 0.24, 0.5)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="PARAMS/SCROLL/V/QUICKDROP"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 4.0
+offset_right = 604.0
+offset_bottom = 48.0
+text = "PIECE QUICK DROP SPEED"
+label_settings = SubResource("LabelSettings_x3w21")
+vertical_alignment = 1
+uppercase = true
+
+[node name="DASHSPEED" type="TextureRect" parent="PARAMS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_ojp4h")
+expand_mode = 1
+
+[node name="Slider" parent="PARAMS/SCROLL/V/DASHSPEED" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+layout_mode = 0
+offset_left = 560.0
+offset_right = 1040.0
+offset_bottom = 52.0
+min_value = 0.1
+max_value = 8.0
+step = 0.1
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+description_node = NodePath("../../../../../Desc/Text")
+description = "Set piece dash speed multiplier."
+input_dash_speed = 4
+call_string = "piece_dash_speed"
+call_function_name = "_change_option"
+
+[node name="Power" type="Label" parent="PARAMS/SCROLL/V/DASHSPEED/Slider"]
+layout_mode = 0
+offset_left = 304.0
+offset_right = 752.0
+offset_bottom = 52.0
+text = "1.0
+"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="PARAMS/SCROLL/V/DASHSPEED"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.24, 0.24, 0.24, 0.5)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="PARAMS/SCROLL/V/DASHSPEED"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 4.0
+offset_right = 576.0
+offset_bottom = 48.0
+text = "PIECE DASH SPEED"
+label_settings = SubResource("LabelSettings_x3w21")
+vertical_alignment = 1
+uppercase = true
+
+[node name="DASHDELAY" type="TextureRect" parent="PARAMS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_jye00")
+expand_mode = 1
+
+[node name="Slider" parent="PARAMS/SCROLL/V/DASHDELAY" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+layout_mode = 0
+offset_left = 560.0
+offset_right = 1040.0
+offset_bottom = 52.0
+max_value = 2.0
+step = 0.005
+value = 0.2
+tick_count = 11
+ticks_on_borders = true
+description_node = NodePath("../../../../../Desc/Text")
+description = "Set delay in seconds before piece starts dashing."
+input_dash_speed = 8
+call_string = "piece_dash_delay"
+call_function_name = "_change_option"
+
+[node name="Power" type="Label" parent="PARAMS/SCROLL/V/DASHDELAY/Slider"]
+layout_mode = 0
+offset_left = 304.0
+offset_right = 752.0
+offset_bottom = 52.0
+text = "0.2
+"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="PARAMS/SCROLL/V/DASHDELAY"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.24, 0.24, 0.24, 0.5)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="PARAMS/SCROLL/V/DASHDELAY"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 4.0
+offset_right = 568.0
+offset_bottom = 48.0
+text = "PIECE DASH DELAY"
+label_settings = SubResource("LabelSettings_x3w21")
+vertical_alignment = 1
+uppercase = true
+
+[node name="BLOCKGRAV" type="TextureRect" parent="PARAMS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_f54g6")
+expand_mode = 1
+
+[node name="Slider" parent="PARAMS/SCROLL/V/BLOCKGRAV" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+layout_mode = 0
+offset_left = 560.0
+offset_right = 1040.0
+offset_bottom = 52.0
+min_value = 0.1
+max_value = 8.0
+step = 0.1
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+description_node = NodePath("../../../../../Desc/Text")
+description = "Set block fall speed multiplier."
+input_dash_speed = 4
+call_string = "block_gravity"
+call_function_name = "_change_option"
+
+[node name="Power" type="Label" parent="PARAMS/SCROLL/V/BLOCKGRAV/Slider"]
+layout_mode = 0
+offset_left = 304.0
+offset_right = 752.0
+offset_bottom = 52.0
+text = "1.0
+"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="PARAMS/SCROLL/V/BLOCKGRAV"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.24, 0.24, 0.24, 0.5)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="PARAMS/SCROLL/V/BLOCKGRAV"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 4.0
+offset_right = 560.0
+offset_bottom = 48.0
+text = "BLOCK GRAVITY"
+label_settings = SubResource("LabelSettings_x3w21")
+vertical_alignment = 1
+uppercase = true
+
+[node name="DIFFICULTY" type="TextureRect" parent="PARAMS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_ksxeu")
+expand_mode = 1
+
+[node name="Slider" parent="PARAMS/SCROLL/V/DIFFICULTY" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+layout_mode = 0
+offset_left = 560.0
+offset_right = 1040.0
+offset_bottom = 52.0
+min_value = 0.1
+max_value = 8.0
+step = 0.1
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+description_node = NodePath("../../../../../Desc/Text")
+description = "Set how much decreases piece delay and increases piece speed per level multiplier."
+input_dash_speed = 4
+call_string = "difficulty_factor"
+call_function_name = "_change_option"
+
+[node name="Power" type="Label" parent="PARAMS/SCROLL/V/DIFFICULTY/Slider"]
+layout_mode = 0
+offset_left = 304.0
+offset_right = 752.0
+offset_bottom = 52.0
+text = "1.0
+"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="PARAMS/SCROLL/V/DIFFICULTY"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.24, 0.24, 0.24, 0.5)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="PARAMS/SCROLL/V/DIFFICULTY"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 4.0
+offset_right = 588.0
+offset_bottom = 48.0
+text = "DIFFICULTY GROW SPEED"
+label_settings = SubResource("LabelSettings_x3w21")
+vertical_alignment = 1
+uppercase = true
+
+[node name="LEVELSPEED" type="TextureRect" parent="PARAMS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_8evck")
+expand_mode = 1
+
+[node name="Slider" parent="PARAMS/SCROLL/V/LEVELSPEED" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+layout_mode = 0
+offset_left = 560.0
+offset_right = 1040.0
+offset_bottom = 52.0
+min_value = 1.0
+max_value = 256.0
+value = 32.0
+tick_count = 18
+ticks_on_borders = true
+description_node = NodePath("../../../../../Desc/Text")
+description = "Set how much squares must be erased before level up."
+input_dash_speed = 8
+call_string = "level_up_speed"
+call_function_name = "_change_option"
+
+[node name="Power" type="Label" parent="PARAMS/SCROLL/V/LEVELSPEED/Slider"]
+layout_mode = 0
+offset_left = 304.0
+offset_right = 752.0
+offset_bottom = 52.0
+text = "32"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="PARAMS/SCROLL/V/LEVELSPEED"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.24, 0.24, 0.24, 0.5)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="PARAMS/SCROLL/V/LEVELSPEED"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 4.0
+offset_right = 580.0
+offset_bottom = 48.0
+text = "LEVEL UP SPEED"
+label_settings = SubResource("LabelSettings_x3w21")
+vertical_alignment = 1
+uppercase = true
+
+[node name="LEVELCOUNT" type="TextureRect" parent="PARAMS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_u0j5i")
+expand_mode = 1
+
+[node name="Slider" parent="PARAMS/SCROLL/V/LEVELCOUNT" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+layout_mode = 0
+offset_left = 560.0
+offset_right = 1040.0
+offset_bottom = 52.0
+min_value = 1.0
+max_value = 64.0
+value = 4.0
+tick_count = 21
+ticks_on_borders = true
+description_node = NodePath("../../../../../Desc/Text")
+description = "Set how much levels you need to beat to move onto next skin."
+input_dash_speed = 2
+call_string = "level_count"
+call_function_name = "_change_option"
+
+[node name="Power" type="Label" parent="PARAMS/SCROLL/V/LEVELCOUNT/Slider"]
+layout_mode = 0
+offset_left = 304.0
+offset_right = 752.0
+offset_bottom = 52.0
+text = "4"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="PARAMS/SCROLL/V/LEVELCOUNT"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.24, 0.24, 0.24, 0.5)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="PARAMS/SCROLL/V/LEVELCOUNT"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 4.0
+offset_right = 572.0
+offset_bottom = 48.0
+text = "LEVEL COUNT"
+label_settings = SubResource("LabelSettings_x3w21")
+vertical_alignment = 1
+uppercase = true
+
+[node name="BPM" type="TextureRect" parent="PARAMS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_wq0s8")
+expand_mode = 1
+
+[node name="Slider" parent="PARAMS/SCROLL/V/BPM" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+layout_mode = 0
+offset_left = 560.0
+offset_right = 1040.0
+offset_bottom = 52.0
+max_value = 999.0
+tick_count = 2
+ticks_on_borders = true
+description_node = NodePath("../../../../../Desc/Text")
+description = "Force BPM which will be used in all skins. Set to 0 to disable this setting. Requires skin restart to take action."
+input_dash_speed = 32
+call_string = "force_bpm"
+call_function_name = "_change_option"
+
+[node name="Power" type="Label" parent="PARAMS/SCROLL/V/BPM/Slider"]
+layout_mode = 0
+offset_left = 304.0
+offset_right = 752.0
+offset_bottom = 52.0
+text = "0
+"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="PARAMS/SCROLL/V/BPM"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.24, 0.24, 0.24, 0.5)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="PARAMS/SCROLL/V/BPM"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 4.0
+offset_right = 552.0
+offset_bottom = 48.0
+text = "FORCE BPM"
+label_settings = SubResource("LabelSettings_x3w21")
+vertical_alignment = 1
+uppercase = true
+
+[node name="Detail5" type="Label" parent="PARAMS"]
+modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
+texture_filter = 1
+layout_mode = 0
+offset_left = 20.0
+offset_top = 668.0
+offset_right = 252.0
+offset_bottom = 687.0
+text = "GAMEPLAY PARAMETERS"
+label_settings = SubResource("LabelSettings_dplwv")
+uppercase = true
+
+[node name="Icon" type="TextureRect" parent="PARAMS/Detail5"]
+texture_filter = 2
+layout_mode = 0
+offset_left = -33.0
+offset_top = -2.0
+offset_right = -11.0
+offset_bottom = 20.0
+texture = SubResource("AtlasTexture_1fbr7")
+expand_mode = 1
+
+[node name="Desc" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.092
+anchor_top = 0.059
+anchor_right = 0.092
+anchor_bottom = 0.059
+offset_left = -176.64
+offset_top = 744.28
+offset_right = 1743.36
+offset_bottom = 952.28
+scale = Vector2(1e-05, 1)
+pivot_offset = Vector2(0, 160)
+mouse_filter = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="Text" type="Label" parent="Desc"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 16.0
+offset_right = -32.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Welcome to the game configuration screen!
+"
+label_settings = SubResource("LabelSettings_bb3qu")
+
+[node name="Detail3" type="Label" parent="Desc"]
+modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
+texture_filter = 1
+layout_mode = 0
+offset_left = 44.0
+offset_top = 180.0
+offset_right = 276.0
+offset_bottom = 199.0
+text = "DESCRIPTION"
+label_settings = SubResource("LabelSettings_dplwv")
+uppercase = true
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Icon" type="TextureRect" parent="Desc/Detail3"]
+texture_filter = 2
+layout_mode = 0
+offset_left = -33.0
+offset_top = -2.0
+offset_right = -11.0
+offset_bottom = 20.0
+texture = SubResource("AtlasTexture_1fbr7")
+expand_mode = 1
+flip_h = true
+flip_v = true
+
+[node name="Menu" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.059
+anchor_bottom = 0.059
+offset_top = 8.28
+offset_right = 496.0
+offset_bottom = 728.28
+scale = Vector2(1, 1e-05)
+mouse_filter = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="BLOCKS" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 100.0
+offset_right = 480.0
+offset_bottom = 156.0
+scale = Vector2(1, 1e-05)
+text = "BLOCKS"
+description_node = NodePath("../../Desc/Text")
+glow_color = Color(0.94902, 0.74902, 0.403922, 1)
+description = "Edit avaiable block variants and colors."
+menu_position = Vector2i(-1, -1)
+press_sound_name = "confirm"
+call_string = "blocks"
+call_function_name = "_change_tab"
+
+[node name="Icon2" type="TextureRect" parent="Menu/BLOCKS"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 400.0
+offset_top = -28.0
+offset_right = 464.0
+offset_bottom = 28.0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_63hrd")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RULES" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 168.0
+offset_right = 480.0
+offset_bottom = 224.0
+scale = Vector2(1, 1e-05)
+text = "GAME RULES"
+description_node = NodePath("../../Desc/Text")
+glow_color = Color(0.666667, 0.443137, 0.835294, 1)
+description = "Edit main gameplay rules."
+menu_position = Vector2i(-1, -1)
+press_sound_name = "confirm"
+call_string = "rules"
+call_function_name = "_change_tab"
+
+[node name="Icon2" type="TextureRect" parent="Menu/RULES"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 400.0
+offset_top = -28.0
+offset_right = 464.0
+offset_bottom = 28.0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_f6fee")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PARAMS" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 236.0
+offset_right = 480.0
+offset_bottom = 292.0
+scale = Vector2(1, 1e-05)
+text = "PARAMETERS"
+description_node = NodePath("../../Desc/Text")
+glow_color = Color(0.172549, 0.741176, 0.368627, 1)
+description = "Edit vairous game parameters like piece behaviour and level system."
+menu_position = Vector2i(-1, -1)
+press_sound_name = "confirm"
+call_string = "params"
+call_function_name = "_change_tab"
+
+[node name="Icon2" type="TextureRect" parent="Menu/PARAMS"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 400.0
+offset_top = -28.0
+offset_right = 464.0
+offset_bottom = 28.0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_wrwd7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Line" type="ColorRect" parent="Menu"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 380.0
+offset_right = 480.0
+offset_bottom = 384.0
+scale = Vector2(1e-05, 1)
+
+[node name="Line2" type="ColorRect" parent="Menu"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 80.0
+offset_right = 480.0
+offset_bottom = 84.0
+scale = Vector2(1e-05, 1)
+
+[node name="APPLY" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 404.0
+offset_right = 480.0
+offset_bottom = 460.0
+scale = Vector2(1, 1e-05)
+text = "APPLY"
+description_node = NodePath("../../Desc/Text")
+glow_color = Color(0.294118, 0.831373, 0.666667, 1)
+description = "Apply all changes and return to previous menu screen."
+menu_position = Vector2i(-1, -1)
+press_sound_name = "confirm4"
+call_function_name = "_exit_with_apply"
+
+[node name="Icon2" type="TextureRect" parent="Menu/APPLY"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 400.0
+offset_top = -28.0
+offset_right = 464.0
+offset_bottom = 28.0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("151")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LOAD" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 472.0
+offset_right = 480.0
+offset_bottom = 528.0
+scale = Vector2(1, 1e-05)
+text = "LOAD PRESET"
+description_node = NodePath("../../Desc/Text")
+glow_color = Color(0.905882, 0.396078, 0.588235, 1)
+description = "Load game configuration preset."
+menu_position = Vector2i(-1, -1)
+work_mode = 2
+press_sound_name = "confirm2"
+call_string = "preset_load"
+
+[node name="Icon2" type="TextureRect" parent="Menu/LOAD"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 400.0
+offset_top = -28.0
+offset_right = 464.0
+offset_bottom = 28.0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_gfv4t")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SAVE" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 540.0
+offset_right = 480.0
+offset_bottom = 596.0
+scale = Vector2(1, 1e-05)
+text = "SAVE PRESET"
+description_node = NodePath("../../Desc/Text")
+glow_color = Color(0.262745, 0.45098, 0.694118, 1)
+description = "Save current game configuration to use later as preset."
+menu_position = Vector2i(-1, -1)
+press_sound_name = "confirm2"
+is_cancel_button = true
+call_function_name = "_save_preset"
+
+[node name="Icon2" type="TextureRect" parent="Menu/SAVE"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 400.0
+offset_top = -28.0
+offset_right = 464.0
+offset_bottom = 28.0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_pb17m")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="EXIT" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 608.0
+offset_right = 480.0
+offset_bottom = 664.0
+scale = Vector2(1, 1e-05)
+text = "CANCEL"
+description_node = NodePath("../../Desc/Text")
+glow_color = Color(0.564706, 0.564706, 0.564706, 1)
+description = "Cancel all changes and return to previous menu screen"
+menu_position = Vector2i(-1, -1)
+press_sound_name = "cancel"
+is_cancel_button = true
+call_function_name = "_exit_with_cancel"
+
+[node name="Icon2" type="TextureRect" parent="Menu/EXIT"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 400.0
+offset_top = -28.0
+offset_right = 464.0
+offset_bottom = 28.0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("98")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Detail4" type="Label" parent="Menu"]
+modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
+texture_filter = 1
+layout_mode = 0
+offset_left = 40.0
+offset_top = 692.0
+offset_right = 272.0
+offset_bottom = 711.0
+text = "OPTIONS SELECT"
+label_settings = SubResource("LabelSettings_dplwv")
+uppercase = true
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Icon" type="TextureRect" parent="Menu/Detail4"]
+texture_filter = 2
+layout_mode = 0
+offset_left = -33.0
+offset_top = -2.0
+offset_right = -11.0
+offset_bottom = 20.0
+texture = SubResource("AtlasTexture_1fbr7")
+expand_mode = 1
+flip_h = true
+flip_v = true
+
+[node name="Top" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="ColorRect" parent="Top"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.092
+anchor_top = 0.059
+anchor_right = 0.092
+anchor_bottom = 0.059
+offset_left = 132.32
+offset_top = -2.36
+offset_right = 1916.32
+offset_bottom = 69.64
+scale = Vector2(1e-05, 1)
+pivot_offset = Vector2(1784, 0)
+mouse_filter = 2
+color = Color(0.22, 0.38, 0.929, 0.75)
+
+[node name="Text" type="Label" parent="Top/Label"]
+layout_mode = 0
+offset_left = 48.0
+offset_right = 696.0
+offset_bottom = 72.0
+text = "GAME CONFIGURATION"
+label_settings = SubResource("LabelSettings_6nh55")
+vertical_alignment = 1
+uppercase = true
+
+[node name="Iconhold" type="ColorRect" parent="Top"]
+layout_mode = 0
+anchor_top = 0.059
+anchor_bottom = 0.059
+offset_top = -2.36
+offset_right = 136.0
+offset_bottom = 133.64
+scale = Vector2(1e-05, 1e-05)
+mouse_filter = 2
+color = Color(0.0431373, 0.145098, 0.254902, 1)
+
+[node name="Icon" type="TextureRect" parent="Top/Iconhold"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -52.0
+offset_right = 120.0
+offset_bottom = 52.0
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(0, 104)
+mouse_filter = 2
+texture = SubResource("AtlasTexture_gmqj1")
+expand_mode = 1
+stretch_mode = 6

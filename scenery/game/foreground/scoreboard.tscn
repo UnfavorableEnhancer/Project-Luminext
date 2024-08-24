@@ -1,0 +1,298 @@
+[gd_scene load_steps=19 format=3 uid="uid://cga8m1ceqm36s"]
+
+[ext_resource type="Texture2D" uid="uid://y0u0140y3ts7" path="res://images/game/foreground/scoreboard/designs/standard/level.png" id="2_wayj7"]
+[ext_resource type="Script" path="res://scripts/game/foreground/scoreboard.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://blvul42mf7ykq" path="res://images/game/foreground/base.png" id="4"]
+[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="4_87auf"]
+[ext_resource type="Texture2D" uid="uid://pgo28m8w5ixs" path="res://images/game/foreground/scoreboard/designs/standard/hi-score.png" id="5_geaak"]
+[ext_resource type="Texture2D" uid="uid://b5x35386g7f77" path="res://images/game/foreground/scoreboard/designs/standard/score.png" id="6_2n3ts"]
+[ext_resource type="Texture2D" uid="uid://xt6emoh1okn0" path="res://images/game/foreground/scoreboard/designs/standard/deleted.png" id="7_ngoxw"]
+[ext_resource type="Texture2D" uid="uid://bcxk0kjhsqt48" path="res://images/game/foreground/scoreboard/designs/standard/time.png" id="8_hu2ud"]
+
+[sub_resource type="Animation" id="11"]
+resource_name = "levelup"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("V/Label1:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("V/Label1/LevelUp:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("V/Label1/LevelUp:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0.25, 2, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1), Vector2(1.5, 1.5)]
+}
+
+[sub_resource type="Animation" id="12"]
+resource_name = "nextskin"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("V/Label1:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("V/Label1/NextSkin:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("V/Label1/NextSkin:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0.25, 2, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1), Vector2(1.5, 1.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jjowq"]
+_data = {
+"levelup": SubResource("11"),
+"nextskin": SubResource("12")
+}
+
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("4")
+region = Rect2(128, 420, 328, 68)
+
+[sub_resource type="AtlasTexture" id="10"]
+atlas = ExtResource("4")
+region = Rect2(518, 420, 328, 68)
+
+[sub_resource type="LabelSettings" id="LabelSettings_toonj"]
+font = ExtResource("4_87auf")
+font_size = 36
+
+[sub_resource type="FontVariation" id="FontVariation_qace7"]
+base_font = ExtResource("4_87auf")
+spacing_bottom = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_ffg50"]
+font = SubResource("FontVariation_qace7")
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_kk5j2"]
+font = ExtResource("4_87auf")
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_6y6mb"]
+font = ExtResource("4_87auf")
+font_size = 36
+
+[node name="Scoreboard" type="Node2D"]
+script = ExtResource("3")
+
+[node name="A" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jjowq")
+}
+
+[node name="V" type="VBoxContainer" parent="."]
+texture_filter = 2
+offset_left = 1400.0
+offset_top = 196.0
+offset_right = 1890.0
+offset_bottom = 928.0
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Label1" type="TextureRect" parent="V"]
+custom_minimum_size = Vector2(276, 46)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("2_wayj7")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="LevelUp" type="TextureRect" parent="V/Label1"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 2.0
+offset_right = 255.0
+offset_bottom = 52.0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(127, 26)
+texture = SubResource("9")
+expand_mode = 1
+
+[node name="NextSkin" type="TextureRect" parent="V/Label1"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 2.0
+offset_right = 255.0
+offset_bottom = 52.0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(127, 26)
+texture = SubResource("10")
+expand_mode = 1
+
+[node name="H2" type="HBoxContainer" parent="V"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+alignment = 2
+
+[node name="stage" type="Label" parent="V/H2"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "20"
+label_settings = SubResource("LabelSettings_toonj")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="level" type="Label" parent="V/H2"]
+layout_mode = 2
+size_flags_vertical = 1
+text = " - 20"
+label_settings = SubResource("LabelSettings_toonj")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="lap" type="Label" parent="V/H2"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "2"
+label_settings = SubResource("LabelSettings_ffg50")
+horizontal_alignment = 2
+
+[node name="sep1" type="Control" parent="V"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Label2" type="TextureRect" parent="V"]
+custom_minimum_size = Vector2(278, 46)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("5_geaak")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="hiscore" type="Label" parent="V"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_kk5j2")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="sep2" type="Control" parent="V"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Label3" type="TextureRect" parent="V"]
+custom_minimum_size = Vector2(278, 46)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("6_2n3ts")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="score" type="Label" parent="V"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_kk5j2")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="sep3" type="Control" parent="V"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Label4" type="TextureRect" parent="V"]
+custom_minimum_size = Vector2(278, 46)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("7_ngoxw")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="H" type="HBoxContainer" parent="V"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+alignment = 2
+
+[node name="deletedsqr" type="Label" parent="V/H"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_toonj")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="deletedblk" type="Label" parent="V/H"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_ffg50")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="icon" type="Label" parent="V/H"]
+layout_mode = 2
+size_flags_vertical = 1
+text = " ™"
+label_settings = SubResource("LabelSettings_6y6mb")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="sep4" type="Control" parent="V"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Label5" type="TextureRect" parent="V"]
+custom_minimum_size = Vector2(278, 46)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("8_hu2ud")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="time" type="Label" parent="V"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "00:00"
+label_settings = SubResource("LabelSettings_kk5j2")
+horizontal_alignment = 2
+vertical_alignment = 2

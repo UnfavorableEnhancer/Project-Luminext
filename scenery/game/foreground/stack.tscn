@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7lvrikjthrcj"]
+
+[ext_resource type="Texture2D" uid="uid://blvul42mf7ykq" path="res://images/game/foreground/base.png" id="1"]
+[ext_resource type="Script" path="res://scripts/game/foreground/stack.gd" id="2"]
+
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("1")
+region = Rect2(712, 23, 511, 239)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_is1ft"]
+atlas = ExtResource("1")
+region = Rect2(264, 224, 48, 64)
+
+[node name="Stack" type="Node2D"]
+script = ExtResource("2")
+
+[node name="Stack" type="Sprite2D" parent="."]
+position = Vector2(182, 402)
+rotation = -1.57079
+texture = SubResource("1")
+
+[node name="Swaps" type="Node2D" parent="."]
+position = Vector2(-124, -144)
+scale = Vector2(1.25, 1.25)
+
+[node name="swap1" type="Sprite2D" parent="Swaps"]
+position = Vector2(175.064, 692)
+scale = Vector2(0.734849, 0.734849)
+texture = SubResource("AtlasTexture_is1ft")
+
+[node name="swap2" type="Sprite2D" parent="Swaps"]
+position = Vector2(215.564, 692)
+scale = Vector2(0.734849, 0.734849)
+texture = SubResource("AtlasTexture_is1ft")
+
+[node name="swap3" type="Sprite2D" parent="Swaps"]
+position = Vector2(255.564, 692)
+scale = Vector2(0.734849, 0.734849)
+texture = SubResource("AtlasTexture_is1ft")
+
+[node name="swap4" type="Sprite2D" parent="Swaps"]
+position = Vector2(175.064, 692)
+scale = Vector2(0.734849, 0.734849)
+texture = SubResource("AtlasTexture_is1ft")
+
+[node name="swap5" type="Sprite2D" parent="Swaps"]
+position = Vector2(215.564, 692)
+scale = Vector2(0.734849, 0.734849)
+texture = SubResource("AtlasTexture_is1ft")
+
+[node name="swap6" type="Sprite2D" parent="Swaps"]
+position = Vector2(255.564, 692)
+scale = Vector2(0.734849, 0.734849)
+texture = SubResource("AtlasTexture_is1ft")

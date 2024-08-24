@@ -1,0 +1,130 @@
+[gd_scene load_steps=15 format=3 uid="uid://benfr3d7rmbbw"]
+
+[ext_resource type="Script" path="res://scripts/game/foreground/grid.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://blvul42mf7ykq" path="res://images/game/foreground/base.png" id="2"]
+[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="3_d2vgh"]
+[ext_resource type="PackedScene" uid="uid://b7wvkrh1dyabj" path="res://scenery/game/foreground/eq_visualizer.tscn" id="5"]
+[ext_resource type="Texture2D" uid="uid://b8rddv2d55ppc" path="res://images/game/foreground/stack/standard.png" id="7_78ir5"]
+[ext_resource type="Texture2D" uid="uid://iepww1uqjlu3" path="res://images/game/foreground/field.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://cj5h16m3vulcr" path="res://images/game/foreground/field_marks.png" id="9"]
+
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("2")
+region = Rect2(128, 219, 114, 33)
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("2")
+region = Rect2(127, 276, 114, 26)
+
+[sub_resource type="LabelSettings" id="LabelSettings_uqu5q"]
+font = ExtResource("3_d2vgh")
+font_size = 28
+font_color = Color(1, 1, 1, 0.501961)
+
+[sub_resource type="Shader" id="Shader_7xitj"]
+code = "shader_type canvas_item;
+
+uniform float offset : hint_range(-2.0, 4.0) = 0.0;
+uniform float width : hint_range(0.0, 10.0) = 0.0;
+uniform float power : hint_range(0.0, 10.0) = 5.0;
+
+void fragment() {
+	COLOR.rgb = vec3(1.0,1.0,1.0);
+	
+	COLOR.a = texture(TEXTURE,UV).a * smoothstep(offset - width, offset + width, UV.x + UV.y) * (1.0 - smoothstep(offset - width, offset + width, UV.x + UV.y)) * power;
+}"
+
+[sub_resource type="ShaderMaterial" id="3"]
+shader = SubResource("Shader_7xitj")
+shader_parameter/offset = 2.765
+shader_parameter/width = 0.8
+shader_parameter/power = 4.0
+
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("2")
+region = Rect2(127, 346, 1098, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wn0dp"]
+atlas = ExtResource("2")
+region = Rect2(264, 224, 19, 64)
+
+[node name="Grid" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Repeat" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1840, 1005)
+texture = SubResource("1")
+
+[node name="Playing" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1840, 1001)
+texture = SubResource("2")
+
+[node name="name" type="Label" parent="."]
+texture_filter = 1
+offset_left = -4.0
+offset_top = 1028.0
+offset_right = 1904.0
+offset_bottom = 1064.0
+pivot_offset = Vector2(1072, 1)
+text = "skin name/artist is written here"
+label_settings = SubResource("LabelSettings_uqu5q")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Field" type="Node2D" parent="."]
+
+[node name="Grid" type="Sprite2D" parent="Field"]
+self_modulate = Color(0.85, 0.85, 0.85, 0.5)
+position = Vector2(936, 570)
+texture = ExtResource("8")
+
+[node name="Marks" type="Sprite2D" parent="Field"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+position = Vector2(936, 522)
+texture = ExtResource("9")
+
+[node name="GridShine" type="Sprite2D" parent="Field"]
+self_modulate = Color(1, 1, 1, 0.737255)
+material = SubResource("3")
+position = Vector2(936, 570)
+texture = ExtResource("8")
+
+[node name="Beatcount" type="TextureRect" parent="Field"]
+self_modulate = Color(1, 1, 1, 0.5)
+clip_contents = true
+offset_left = 391.0
+offset_top = 960.0
+offset_right = 1487.0
+offset_bottom = 1011.0
+mouse_filter = 2
+texture = SubResource("4")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="EQVisualizer" parent="." instance=ExtResource("5")]
+modulate = Color(0.298039, 0.298039, 0.298039, 0.466667)
+z_index = -998
+position = Vector2(400, 232)
+
+[node name="Stack" type="Sprite2D" parent="."]
+position = Vector2(182, 404)
+texture = ExtResource("7_78ir5")
+
+[node name="swap1" type="Sprite2D" parent="Stack"]
+modulate = Color(1, 1, 1, 0)
+z_index = -298
+z_as_relative = false
+position = Vector2(-67.4525, 1.31781)
+scale = Vector2(4.47868, 4.47868)
+texture = SubResource("AtlasTexture_wn0dp")
+
+[node name="swap2" type="Sprite2D" parent="Stack"]
+modulate = Color(1, 1, 1, 0)
+z_index = -298
+z_as_relative = false
+position = Vector2(40.5475, 1.31781)
+rotation = 3.14159
+scale = Vector2(4.43671, 4.43671)
+texture = SubResource("AtlasTexture_wn0dp")

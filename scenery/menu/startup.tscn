@@ -1,0 +1,483 @@
+[gd_scene load_steps=23 format=3 uid="uid://cltu0m5su5emu"]
+
+[ext_resource type="Script" path="res://scripts/menu/screens/startup.gd" id="1_uko8a"]
+[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2_epdba"]
+[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="3_vil0g"]
+[ext_resource type="Texture2D" uid="uid://cnhvvl7npvop0" path="res://images/menu/disclaimer_icon.png" id="4_a603p"]
+[ext_resource type="FontFile" uid="uid://05yb3ehcnjdh" path="res://fonts/notosansjp_regular.otf" id="5_xy4xc"]
+[ext_resource type="Texture2D" uid="uid://bwaxxfoss3b83" path="res://images/menu/epylepsy_warning.png" id="6_vgagi"]
+[ext_resource type="Texture2D" uid="uid://nbb1lk4huo71" path="res://images/menu/headphones_icon.png" id="7_ax6gv"]
+
+[sub_resource type="FontVariation" id="FontVariation_ow1hw"]
+base_font = ExtResource("3_vil0g")
+variation_embolden = -0.5
+spacing_glyph = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_uou4c"]
+font = SubResource("FontVariation_ow1hw")
+font_size = 48
+
+[sub_resource type="FontVariation" id="FontVariation_5xkws"]
+base_font = ExtResource("3_vil0g")
+variation_embolden = -0.5
+spacing_glyph = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_5u6r6"]
+font = SubResource("FontVariation_5xkws")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_mvt77"]
+font = ExtResource("2_epdba")
+font_size = 72
+
+[sub_resource type="LabelSettings" id="LabelSettings_bclqd"]
+line_spacing = 16.0
+font = ExtResource("3_vil0g")
+font_size = 42
+
+[sub_resource type="LabelSettings" id="LabelSettings_s3mvs"]
+font = ExtResource("2_epdba")
+font_size = 72
+
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("3_vil0g"), ExtResource("5_xy4xc")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/glyphs/0/advance = Vector2(0, 0)
+cache/0/16/0/glyphs/0/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/0/size = Vector2(0, 0)
+cache/0/16/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/16/0/glyphs/0/texture_idx = -1
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/42/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/48/0 = Vector2(0, 0)
+cache/0/42/0/ascent = 0.0
+cache/0/42/0/descent = 0.0
+cache/0/42/0/underline_position = 0.0
+cache/0/42/0/underline_thickness = 0.0
+cache/0/42/0/scale = 1.0
+cache/0/42/0/glyphs/0/advance = Vector2(0, 0)
+cache/0/42/0/glyphs/0/offset = Vector2(0, 0)
+cache/0/42/0/glyphs/0/size = Vector2(0, 0)
+cache/0/42/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/42/0/glyphs/0/texture_idx = -1
+cache/0/42/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/42/0/kerning_overrides/42/0 = Vector2(0, 0)
+cache/0/42/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/42/0/kerning_overrides/48/0 = Vector2(0, 0)
+cache/0/64/0/ascent = 0.0
+cache/0/64/0/descent = 0.0
+cache/0/64/0/underline_position = 0.0
+cache/0/64/0/underline_thickness = 0.0
+cache/0/64/0/scale = 1.0
+cache/0/64/0/glyphs/0/advance = Vector2(0, 0)
+cache/0/64/0/glyphs/0/offset = Vector2(0, 0)
+cache/0/64/0/glyphs/0/size = Vector2(0, 0)
+cache/0/64/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/64/0/glyphs/0/texture_idx = -1
+cache/0/64/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/42/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/48/0 = Vector2(0, 0)
+cache/0/48/0/ascent = 0.0
+cache/0/48/0/descent = 0.0
+cache/0/48/0/underline_position = 0.0
+cache/0/48/0/underline_thickness = 0.0
+cache/0/48/0/scale = 1.0
+cache/0/48/0/glyphs/0/advance = Vector2(0, 0)
+cache/0/48/0/glyphs/0/offset = Vector2(0, 0)
+cache/0/48/0/glyphs/0/size = Vector2(0, 0)
+cache/0/48/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/48/0/glyphs/0/texture_idx = -1
+cache/0/48/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/48/0/kerning_overrides/42/0 = Vector2(0, 0)
+cache/0/48/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/48/0/kerning_overrides/48/0 = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ixmc0"]
+font = ExtResource("3_vil0g")
+font_size = 42
+
+[sub_resource type="FontVariation" id="FontVariation_7a1b8"]
+base_font = ExtResource("2_epdba")
+
+[sub_resource type="LabelSettings" id="LabelSettings_n5sj1"]
+font = SubResource("FontVariation_7a1b8")
+font_size = 36
+
+[sub_resource type="Animation" id="Animation_vejhr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hide/Disclaimer/Text:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ffffa"]
+resource_name = "end"
+step = 0.05
+capture_included = true
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hide:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 2,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ffffs"]
+resource_name = "start"
+length = 20.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hide/Author:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2.5, 3),
+"transitions": PackedFloat32Array(0.5, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hide/Disclaimer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.5, 3.5, 10, 11),
+"transitions": PackedFloat32Array(1, 0.5, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hide/Epylepsy:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 10, 11, 15.2, 16.2),
+"transitions": PackedFloat32Array(1, 0.5, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hide/Headphones:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 16.1, 17),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hide:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hide/Disclaimer/Label:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2.5, 3.5, 10, 11),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 5.96046e-08), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Hide/Epylepsy/Label:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(10, 11, 15.2, 16.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Hide/Headphones/Text:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(16.1, 17.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Hide/Disclaimer/Text:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(2.8, 3.8, 10, 11),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Hide/Epylepsy/Text:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(10.5, 11.5, 15.2, 16.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Hide/Disclaimer/Sign:self_modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(2.5, 3.5, 10, 11),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Hide/Epylepsy/Sign:self_modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(10, 11, 15.2, 16.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t132f"]
+_data = {
+"RESET": SubResource("Animation_vejhr"),
+"end": SubResource("Animation_ffffa"),
+"start": SubResource("Animation_ffffs")
+}
+
+[node name="Startup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_uko8a")
+
+[node name="Black" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="Hide" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Author" type="Control" parent="Hide"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="U" type="Label" parent="Hide/Author"]
+layout_mode = 0
+offset_top = 312.0
+offset_right = 1920.0
+offset_bottom = 728.0
+text = "This game is made by 
+"
+label_settings = SubResource("LabelSettings_uou4c")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="E" type="Label" parent="Hide/Author"]
+layout_mode = 0
+offset_top = 328.0
+offset_right = 1920.0
+offset_bottom = 696.0
+text = "
+
+unfavorable_enhancer"
+label_settings = SubResource("LabelSettings_5u6r6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Disclaimer" type="Control" parent="Hide"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Hide/Disclaimer"]
+modulate = Color(1, 1, 1, 5.96046e-08)
+layout_mode = 0
+offset_left = 128.0
+offset_top = 120.0
+offset_right = 1920.0
+offset_bottom = 222.0
+text = "DISCLAIMER"
+label_settings = SubResource("LabelSettings_mvt77")
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="Hide/Disclaimer"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 280.0
+offset_right = 1776.0
+offset_bottom = 968.0
+text = "Project Luminext has no relationship with Lumines™ series and wasn't endorsed 
+by it's respective owners: Enhance, Resonair and BNEI, nor any of their affiliates.
+
+This game is currently in active development stage, so any features present here might be subject to change. Visit our official Discord server or project GitHub page to get more info about bug-reporting and contributing to this project.
+
+This is a free community project available for others to use and contribute to, without charge. Source code is open and licensed under the AGPL v3 license.
+
+You can contact me with : random.likes.apes@gmail.com"
+label_settings = SubResource("LabelSettings_bclqd")
+autowrap_mode = 2
+
+[node name="Sign" type="TextureRect" parent="Hide/Disclaimer"]
+modulate = Color(1, 1, 1, 0.164706)
+self_modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+layout_mode = 0
+offset_left = 944.0
+offset_top = 104.0
+offset_right = 1856.0
+offset_bottom = 1016.0
+texture = ExtResource("4_a603p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Epylepsy" type="Control" parent="Hide"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Hide/Epylepsy"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 128.0
+offset_top = 160.0
+offset_right = 1856.0
+offset_bottom = 239.0
+text = "WARNING"
+label_settings = SubResource("LabelSettings_s3mvs")
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="Hide/Epylepsy"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 128.0
+offset_top = 312.0
+offset_right = 1464.0
+offset_bottom = 704.0
+theme_override_fonts/font = SubResource("1")
+text = "This game features flashing lights and light patterns which may induce dizzy speels or epileptic seizures for small percentage of people, even if they never experienced these problems before.
+
+If you notice any sympoms of dizziness, discomfort and disorientation, stop playing immideately and consult with a doctor before resuming."
+label_settings = SubResource("LabelSettings_ixmc0")
+autowrap_mode = 2
+
+[node name="Sign" type="TextureRect" parent="Hide/Epylepsy"]
+modulate = Color(1, 1, 1, 0.164706)
+self_modulate = Color(1, 1, 1, 0)
+texture_filter = 2
+layout_mode = 0
+offset_left = 944.0
+offset_top = 104.0
+offset_right = 1856.0
+offset_bottom = 1016.0
+texture = ExtResource("6_vgagi")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Headphones" type="Control" parent="Hide"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Text" type="Label" parent="Hide/Headphones"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_top = 352.0
+offset_right = 1920.0
+offset_bottom = 784.0
+text = "HEADPHONES ARE HIGHLY RECOMMENDED
+FOR EXCELLENT EXPERIENCE"
+label_settings = SubResource("LabelSettings_n5sj1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sign" type="TextureRect" parent="Hide/Headphones"]
+modulate = Color(1, 1, 1, 0.164706)
+texture_filter = 2
+layout_mode = 0
+offset_left = 944.0
+offset_top = 104.0
+offset_right = 1856.0
+offset_bottom = 1016.0
+texture = ExtResource("7_ax6gv")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="A" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_t132f")
+}

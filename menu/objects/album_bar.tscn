@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvsoa1631x3le"]
+
+[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dc7gr"]
+font = ExtResource("1")
+
+[node name="Albumbar" type="ColorRect"]
+custom_minimum_size = Vector2(1072, 40)
+offset_right = 816.0
+offset_bottom = 40.0
+mouse_filter = 2
+color = Color(0.271, 0.278, 0.271, 0.5)
+
+[node name="Album" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 1072.0
+offset_bottom = 40.0
+text = "ALBUM NAME"
+label_settings = SubResource("LabelSettings_dc7gr")
+vertical_alignment = 1
+uppercase = true

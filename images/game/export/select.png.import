@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://chagl4c3s1x5s"
+path="res://.godot/imported/select.png-0e510d37fe7cfc844a874f62e2083398.image"
+
+[deps]
+
+source_file="res://images/game/export/select.png"
+dest_files=["res://.godot/imported/select.png-0e510d37fe7cfc844a874f62e2083398.image"]
+
+[params]
+

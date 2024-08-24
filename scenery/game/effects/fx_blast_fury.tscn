@@ -1,0 +1,95 @@
+[gd_scene load_steps=9 format=3 uid="uid://ddotdpgo2e61v"]
+
+[ext_resource type="Texture2D" uid="uid://mf30n2gb1x60" path="res://images/game/effects/mini_star.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://dhihw4f25flo3" path="res://images/game/effects/light_line.png" id="2"]
+
+[sub_resource type="GDScript" id="16"]
+script/source = "extends FX
+
+
+func _ready() -> void:
+	name = \"boom\"
+	anim = \"start\"
+		
+	_start()
+"
+
+[sub_resource type="Curve" id="24"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.744681, 200), 292.344, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="12"]
+_data = [Vector2(0.00851064, 0), 0.0, 2.92761, 0, 0, Vector2(0.995098, 0), -9.18747, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="6"]
+offsets = PackedFloat32Array(0.0141509, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Animation" id="9"]
+resource_name = "start"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("S2:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(1, 1e-05), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("S2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_juc3k"]
+_data = {
+"start": SubResource("9")
+}
+
+[node name="Blast" type="Node2D"]
+script = SubResource("16")
+
+[node name="S2" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(2.5, 0, 0, 1)
+offset_left = -32.0
+offset_right = -10.0
+offset_bottom = 576.0
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="P5" type="CPUParticles2D" parent="S2"]
+self_modulate = Color(2.5, 0, 0, 1)
+position = Vector2(12, 568)
+amount = 16
+lifetime = 2.0
+speed_scale = 6.0
+fixed_fps = 60
+fract_delta = false
+texture = ExtResource("1")
+spread = 180.0
+gravity = Vector2(0, 0)
+linear_accel_curve = SubResource("24")
+scale_amount_curve = SubResource("12")
+color_ramp = SubResource("6")
+
+[node name="ANIM" type="AnimationPlayer" parent="."]
+callback_mode_process = 0
+libraries = {
+"": SubResource("AnimationLibrary_juc3k")
+}

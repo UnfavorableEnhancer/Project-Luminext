@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://bfvy22elfhe0p"
+path="res://.godot/imported/blocks_sheet_image.png-dcfea123f3ab3f3f922125efb6369c01.image"
+
+[deps]
+
+source_file="res://images/game/export/blocks_sheet_image.png"
+dest_files=["res://.godot/imported/blocks_sheet_image.png-dcfea123f3ab3f3f922125efb6369c01.image"]
+
+[params]
+

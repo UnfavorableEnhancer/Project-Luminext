@@ -1,0 +1,4242 @@
+[gd_scene load_steps=206 format=3 uid="uid://cxmo4vjeb76kn"]
+
+[ext_resource type="FontFile" uid="uid://05yb3ehcnjdh" path="res://fonts/notosansjp_regular.otf" id="5"]
+[ext_resource type="FontFile" uid="uid://bncda7ixlpa7b" path="res://fonts/rounded_mgenplus.ttf" id="6"]
+[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="7"]
+[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="8"]
+[ext_resource type="Script" path="res://scripts/editors/skin_editor/skin_editor.gd" id="9"]
+[ext_resource type="Script" path="res://scripts/editors/skin_editor/check_button_se.gd" id="10"]
+[ext_resource type="Texture2D" uid="uid://dk6bk4i2fqinh" path="res://images/game/export/blocks_sheet.png" id="10_q70vq"]
+[ext_resource type="Script" path="res://scripts/editors/skin_editor/texture_button_se.gd" id="11"]
+[ext_resource type="Texture2D" uid="uid://ds3kyjwvb3ns7" path="res://images/game/effects/star_comp.png" id="11_6q6f5"]
+[ext_resource type="Script" path="res://scripts/editors/skin_editor/color_button_se.gd" id="12"]
+[ext_resource type="Texture2D" uid="uid://dad8u48vh1qit" path="res://images/game/effects/big_star_comp.png" id="12_ga2g6"]
+[ext_resource type="Script" path="res://scripts/editors/skin_editor/data_button_se.gd" id="13"]
+[ext_resource type="Script" path="res://scripts/editors/skin_editor/text_edit_se.gd" id="14"]
+[ext_resource type="Texture2D" uid="uid://dmygw8pa831ps" path="res://images/game/effects/arrow_comp.png" id="14_g0yjx"]
+[ext_resource type="Texture2D" uid="uid://bv7iu8q1vutpk" path="res://images/back.png" id="15"]
+[ext_resource type="Texture2D" uid="uid://y4hwgwcgxu1j" path="res://images/game/effects/2_comp.png" id="16_jc26b"]
+[ext_resource type="Texture2D" uid="uid://db4sqc7ib4dkl" path="res://images/game/effects/3_comp.png" id="17_ca2yj"]
+[ext_resource type="Texture2D" uid="uid://dbgqu7bm41f68" path="res://images/game/effects/4_comp.png" id="18_rcb6y"]
+[ext_resource type="Texture2D" uid="uid://ddrnxkwne0nfn" path="res://images/menu/ui_preview/standard.png" id="20_ljbd5"]
+[ext_resource type="Texture2D" uid="uid://b504jaxroea6i" path="res://images/menu/ui_preview/timeline.png" id="21_ue55i"]
+[ext_resource type="Script" path="res://scripts/editors/skin_editor/sound_button_se.gd" id="22"]
+[ext_resource type="Texture2D" uid="uid://dhjhpu8e26lth" path="res://images/menu/ui_preview/EQ.png" id="22_lar5u"]
+[ext_resource type="Texture2D" uid="uid://dk6eo8r6t8tfu" path="res://images/menu/ui_preview/timeline2.png" id="22_wr5px"]
+[ext_resource type="Texture2D" uid="uid://ddmab2kvhjxj0" path="res://images/menu/chess.png" id="24_8qiwp"]
+[ext_resource type="Texture2D" uid="uid://gtlc50r8asoh" path="res://images/menu/ui_icons.png" id="46"]
+
+[sub_resource type="Animation" id="90"]
+resource_name = "back"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeBlack:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hide:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FadeBlack:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(4000, 0)]
+}
+
+[sub_resource type="Animation" id="44"]
+resource_name = "color"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hide/Fade2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hide/Fade2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(8000, 0), Vector2(1464, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hide/Fade2/ColorRect/ColorPicker:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(24, 20)]
+}
+
+[sub_resource type="Animation" id="88"]
+resource_name = "end"
+length = 2.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeBlack:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FadeBlack:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hide:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="33"]
+resource_name = "input"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hide/Fade:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hide/Fade:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(4000, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="2"]
+resource_name = "start"
+length = 1.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeBlack:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hide:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FadeBlack:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.01, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(4000, 0), Vector2(0, 0), Vector2(4000, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4qgax"]
+_data = {
+"back": SubResource("90"),
+"color": SubResource("44"),
+"end": SubResource("88"),
+"input": SubResource("33"),
+"start": SubResource("2")
+}
+
+[sub_resource type="FontFile" id="73"]
+fallbacks = Array[Font]([ExtResource("7"), ExtResource("5")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vd7m7"]
+font = ExtResource("7")
+font_size = 28
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s1ky1"]
+
+[sub_resource type="StyleBoxFlat" id="39"]
+bg_color = Color(0.270588, 0.278431, 0.270588, 1)
+
+[sub_resource type="StyleBoxFlat" id="37"]
+content_margin_left = 12.0
+content_margin_top = 16.0
+content_margin_right = 18.0
+content_margin_bottom = 16.0
+bg_color = Color(0.0431373, 0.627451, 0.639216, 1)
+border_width_right = 8
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygoh5"]
+content_margin_left = 12.0
+content_margin_top = 16.0
+content_margin_right = 18.0
+content_margin_bottom = 16.0
+bg_color = Color(0.384314, 0.898039, 0.572549, 1)
+border_width_right = 8
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="StyleBoxFlat" id="38"]
+content_margin_left = 12.0
+content_margin_top = 16.0
+content_margin_right = 18.0
+content_margin_bottom = 16.0
+bg_color = Color(0.458824, 0.458824, 0.458824, 1)
+border_width_right = 8
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wn5au"]
+font = ExtResource("8")
+font_size = 24
+
+[sub_resource type="FontFile" id="83"]
+fallbacks = Array[Font]([ExtResource("8"), ExtResource("6")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="StyleBoxFlat" id="21"]
+content_margin_left = 16.0
+bg_color = Color(0.227451, 0.235294, 0.227451, 1)
+
+[sub_resource type="StyleBoxFlat" id="22"]
+content_margin_left = 16.0
+bg_color = Color(0.227451, 0.235294, 0.227451, 1)
+
+[sub_resource type="StyleBoxFlat" id="200"]
+bg_color = Color(0.270588, 0.278431, 0.270588, 1)
+
+[sub_resource type="StyleBoxFlat" id="201"]
+bg_color = Color(0.0196078, 0.933333, 0.568627, 1)
+
+[sub_resource type="StyleBoxFlat" id="85"]
+bg_color = Color(0.286275, 0.85098, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="86"]
+bg_color = Color(0.298039, 0.298039, 0.298039, 1)
+border_width_left = 16
+border_color = Color(0.4, 0.4, 0.4, 1)
+anti_aliasing = false
+anti_aliasing_size = 0.01
+
+[sub_resource type="Theme" id="92"]
+VScrollBar/styles/grabber = SubResource("200")
+VScrollBar/styles/grabber_highlight = SubResource("201")
+VScrollBar/styles/grabber_pressed = SubResource("85")
+VScrollBar/styles/scroll = SubResource("86")
+
+[sub_resource type="LabelSettings" id="LabelSettings_l6uw8"]
+font = ExtResource("7")
+font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="64"]
+bg_color = Color(0.270588, 0.278431, 0.270588, 1)
+
+[sub_resource type="StyleBoxFlat" id="65"]
+bg_color = Color(0.0196078, 0.933333, 0.568627, 1)
+
+[sub_resource type="StyleBoxFlat" id="66"]
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
+
+[sub_resource type="ImageTexture" id="ImageTexture_kukct"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_0k1o7"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_xfmgt"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_hxt1b"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_jqh8g"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_fiegx"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_n337m"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_a761n"]
+
+[sub_resource type="FontFile" id="20"]
+fallbacks = Array[Font]([ExtResource("8")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0l4hl"]
+font = ExtResource("8")
+font_size = 24
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8neo"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y14ni"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1166h"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(0, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1uc5u"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(0, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5tpjo"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(64, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_670f5"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(128, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mv18t"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(192, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ai848"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(256, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0w2lu"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(320, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7r6ri"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(384, 256, 64, 64)
+
+[sub_resource type="SpriteFrames" id="113"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5tpjo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_670f5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mv18t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ai848")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0w2lu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7r6ri")
+}],
+"loop": false,
+"name": &"default",
+"speed": 36.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dx3yw"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bjgf"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyq77"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycu3a"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrs5c"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvvc7"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="99"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dx3yw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bjgf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nyq77")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycu3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrs5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvvc7")
+}],
+"loop": false,
+"name": &"default",
+"speed": 36.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltwd7"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(64, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vw7np"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(128, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3o8n"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(192, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6pefh"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(256, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qeijq"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(320, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_joymn"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(384, 384, 64, 64)
+
+[sub_resource type="SpriteFrames" id="100"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ltwd7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vw7np")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e3o8n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6pefh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qeijq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_joymn")
+}],
+"loop": false,
+"name": &"default",
+"speed": 36.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eon4p"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(64, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v12aa"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(128, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dum5o"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(192, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2h42"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(256, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cirle"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(320, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08tl0"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(384, 448, 64, 64)
+
+[sub_resource type="SpriteFrames" id="101"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eon4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v12aa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dum5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2h42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cirle")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08tl0")
+}],
+"loop": false,
+"name": &"default",
+"speed": 36.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8eve"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(448, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grha6"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(512, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1sp6s"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(576, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sp4fc"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(640, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbgje"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(704, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogxit"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(768, 256, 64, 64)
+
+[sub_resource type="SpriteFrames" id="102"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u8eve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grha6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1sp6s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sp4fc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbgje")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogxit")
+}],
+"loop": false,
+"name": &"default",
+"speed": 36.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxn0u"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lcikx"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdmck"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(576, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5po81"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(640, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_autd7"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(704, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_is06d"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(768, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="103"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mxn0u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lcikx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdmck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5po81")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_autd7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_is06d")
+}],
+"loop": false,
+"name": &"default",
+"speed": 36.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isxik"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(448, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgqfc"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(512, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6dwc2"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(576, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2s6c7"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(640, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o654e"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(704, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcqjf"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(768, 384, 64, 64)
+
+[sub_resource type="SpriteFrames" id="105"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_isxik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wgqfc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6dwc2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2s6c7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o654e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wcqjf")
+}],
+"loop": false,
+"name": &"default",
+"speed": 36.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksika"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(448, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1c63c"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(512, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrvuw"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(576, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctycl"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(640, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xl8gk"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(704, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sahb"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(768, 448, 64, 64)
+
+[sub_resource type="SpriteFrames" id="106"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksika")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1c63c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrvuw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctycl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xl8gk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sahb")
+}],
+"loop": false,
+"name": &"default",
+"speed": 36.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uh7ax"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvshx"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iom2u"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxpio"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cj4y8"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udojn"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(384, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmvto"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(448, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqajw"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(512, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hnd33"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(576, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhrtb"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(640, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6d88"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(704, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="175"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lxpio")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cj4y8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udojn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmvto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqajw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hnd33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhrtb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6d88")
+}],
+"loop": false,
+"name": &"default",
+"speed": 36.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fysho"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffxqp"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wilny"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bde8v"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4s25"]
+atlas = ExtResource("10_q70vq")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ixgrn"]
+font = ExtResource("8")
+
+[sub_resource type="FontFile" id="91"]
+fallbacks = Array[Font]([ExtResource("8")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="AtlasTexture" id="202"]
+atlas = ExtResource("46")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="93"]
+atlas = ExtResource("46")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="StyleBoxFlat" id="183"]
+bg_color = Color(0.301961, 0.301961, 0.301961, 1)
+
+[sub_resource type="StyleBoxFlat" id="94"]
+bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.054902, 0.054902, 0.054902, 1)
+
+[sub_resource type="StyleBoxFlat" id="95"]
+border_width_top = 2
+
+[sub_resource type="Theme" id="96"]
+PopupMenu/colors/font_color = Color(0.88, 0.88, 0.88, 1)
+PopupMenu/colors/font_color_accel = Color(0.7, 0.7, 0.7, 0.8)
+PopupMenu/colors/font_color_disabled = Color(0.4, 0.4, 0.4, 0.8)
+PopupMenu/colors/font_color_hover = Color(0.88, 0.88, 0.88, 1)
+PopupMenu/colors/font_color_separator = Color(0.88, 0.88, 0.88, 1)
+PopupMenu/constants/h_separation = 4
+PopupMenu/constants/v_separation = 4
+PopupMenu/fonts/font = SubResource("91")
+PopupMenu/fonts/font_separator = null
+PopupMenu/icons/radio_checked = SubResource("202")
+PopupMenu/icons/radio_unchecked = SubResource("93")
+PopupMenu/styles/hover = SubResource("183")
+PopupMenu/styles/labeled_separator_left = null
+PopupMenu/styles/labeled_separator_right = null
+PopupMenu/styles/panel = SubResource("94")
+PopupMenu/styles/panel_disabled = null
+PopupMenu/styles/separator = SubResource("95")
+
+[sub_resource type="StyleBoxFlat" id="70"]
+bg_color = Color(0.396078, 0.396078, 0.396078, 1)
+
+[sub_resource type="StyleBoxFlat" id="71"]
+bg_color = Color(0.0196078, 0.933333, 0.568627, 1)
+
+[sub_resource type="StyleBoxFlat" id="72"]
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
+
+[sub_resource type="AtlasTexture" id="69"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i17bh"]
+font = ExtResource("8")
+
+[sub_resource type="StyleBoxFlat" id="28"]
+bg_color = Color(0, 0.858824, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="29"]
+bg_color = Color(0.0196078, 0.933333, 0.568627, 1)
+
+[sub_resource type="StyleBoxFlat" id="30"]
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
+
+[sub_resource type="Gradient" id="Gradient_8jojt"]
+colors = PackedColorArray(0.488281, 0.488281, 0.488281, 1, 0.796875, 0.796875, 0.796875, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_e8nvp"]
+gradient = SubResource("Gradient_8jojt")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_djnbx"]
+blend_mode = 1
+
+[sub_resource type="FontFile" id="198"]
+fallbacks = Array[Font]([ExtResource("8")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="StyleBoxFlat" id="199"]
+content_margin_left = 8.0
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
+
+[sub_resource type="Theme" id="203"]
+LineEdit/fonts/font = SubResource("198")
+LineEdit/styles/normal = SubResource("199")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ccv5"]
+atlas = ExtResource("46")
+region = Rect2(256, 32, 16, 32)
+
+[sub_resource type="FontFile" id="97"]
+fallbacks = Array[Font]([ExtResource("8"), ExtResource("6")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="FontFile" id="68"]
+fallbacks = Array[Font]([ExtResource("8"), ExtResource("6")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="FontFile" id="61"]
+fallbacks = Array[Font]([ExtResource("8")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="FontFile" id="31"]
+fallbacks = Array[Font]([ExtResource("8"), ExtResource("6")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vhifn"]
+font = ExtResource("7")
+font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="77"]
+bg_color = Color(0.0431373, 0.627451, 0.639216, 1)
+expand_margin_left = 8.0
+expand_margin_right = 8.0
+
+[sub_resource type="StyleBoxFlat" id="75"]
+bg_color = Color(1, 0.741176, 0, 1)
+expand_margin_left = 8.0
+expand_margin_right = 8.0
+
+[sub_resource type="StyleBoxFlat" id="76"]
+bg_color = Color(0.458824, 0.458824, 0.458824, 1)
+expand_margin_left = 8.0
+expand_margin_right = 8.0
+
+[sub_resource type="StyleBoxFlat" id="74"]
+bg_color = Color(1, 0.47451, 0.47451, 1)
+expand_margin_left = 8.0
+expand_margin_right = 8.0
+
+[sub_resource type="StyleBoxFlat" id="151"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.317647, 0.317647, 0.317647, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="152"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.2, 0.2, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.32549, 0.552941, 0.454902, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="153"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.262745, 0.807843, 0.541176, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.545098, 0.545098, 0.545098, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="154"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.2, 0.2, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.635294, 0.635294, 0.635294, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="155"]
+content_margin_left = 16.0
+content_margin_right = 16.0
+bg_color = Color(0.4, 0.262745, 0.129412, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.519531, 0.519531, 0.519531, 1)
+anti_aliasing = false
+
+[sub_resource type="AtlasTexture" id="187"]
+atlas = ExtResource("46")
+region = Rect2(192, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="188"]
+atlas = ExtResource("46")
+region = Rect2(192, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="197"]
+atlas = ExtResource("46")
+region = Rect2(256, 0, 64, 32)
+
+[sub_resource type="StyleBoxEmpty" id="189"]
+
+[sub_resource type="AtlasTexture" id="190"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kubun"]
+atlas = ExtResource("46")
+region = Rect2(144, 7, 11, 18)
+
+[sub_resource type="AtlasTexture" id="178"]
+atlas = ExtResource("46")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="179"]
+atlas = ExtResource("46")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2e3w"]
+atlas = ExtResource("46")
+region = Rect2(133, 7, 11, 18)
+
+[sub_resource type="AtlasTexture" id="176"]
+atlas = ExtResource("46")
+region = Rect2(0, 33, 32, 31)
+margin = Rect2(0, 1, 0, 0)
+
+[sub_resource type="AtlasTexture" id="177"]
+atlas = ExtResource("46")
+region = Rect2(33, 0, 31, 32)
+margin = Rect2(1, 0, 0, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rs41a"]
+atlas = ExtResource("46")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="191"]
+atlas = ExtResource("46")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="192"]
+atlas = ExtResource("46")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="StyleBoxFlat" id="193"]
+content_margin_top = 0.0
+content_margin_bottom = 16.0
+bg_color = Color(0.462745, 0.462745, 0.462745, 1)
+border_color = Color(1, 1, 1, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="194"]
+content_margin_top = 0.0
+content_margin_bottom = 16.0
+bg_color = Color(0, 0.682353, 0.65098, 1)
+border_color = Color(1, 1, 1, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="195"]
+bg_color = Color(0.184314, 0.184314, 0.184314, 1)
+border_color = Color(1, 1, 1, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id="196"]
+content_margin_left = 16.0
+content_margin_right = 16.0
+
+[sub_resource type="AtlasTexture" id="181"]
+atlas = ExtResource("46")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="StyleBoxFlat" id="156"]
+content_margin_bottom = 52.0
+bg_color = Color(0.172549, 0.172549, 0.172549, 1)
+border_width_bottom = 12
+border_color = Color(0.121569, 0.121569, 0.121569, 1)
+
+[sub_resource type="StyleBoxFlat" id="157"]
+
+[sub_resource type="StyleBoxFlat" id="158"]
+bg_color = Color(0.32549, 0.32549, 0.32549, 1)
+expand_margin_left = 40.0
+
+[sub_resource type="StyleBoxFlat" id="159"]
+bg_color = Color(0.270588, 0.278431, 0.270588, 1)
+
+[sub_resource type="StyleBoxFlat" id="160"]
+bg_color = Color(0.0196078, 0.933333, 0.568627, 1)
+
+[sub_resource type="StyleBoxFlat" id="161"]
+bg_color = Color(0.286275, 0.85098, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="162"]
+bg_color = Color(0.105882, 0.513726, 0.380392, 1)
+border_width_left = 16
+border_color = Color(0.4, 0.4, 0.4, 1)
+anti_aliasing = false
+anti_aliasing_size = 0.01
+
+[sub_resource type="AtlasTexture" id="184"]
+atlas = ExtResource("46")
+region = Rect2(128, 0, 32, 32)
+margin = Rect2(-12, -8, 0, 0)
+
+[sub_resource type="AtlasTexture" id="185"]
+atlas = ExtResource("46")
+region = Rect2(128, 32, 32, 32)
+margin = Rect2(-12, -8, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="164"]
+bg_color = Color(0.121569, 0.121569, 0.121569, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.270588, 0.278431, 0.270588, 1)
+expand_margin_left = 28.0
+expand_margin_top = 255.0
+expand_margin_right = 28.0
+expand_margin_bottom = 16.0
+anti_aliasing = false
+
+[sub_resource type="Theme" id="165"]
+Button/colors/font_color_hover = Color(0.305882, 0.305882, 0.305882, 1)
+Button/font_sizes/font_size = 20
+Button/fonts/font = ExtResource("7")
+Button/styles/disabled = SubResource("151")
+Button/styles/focus = SubResource("152")
+Button/styles/hover = SubResource("153")
+Button/styles/normal = SubResource("154")
+Button/styles/pressed = SubResource("155")
+CheckButton/icons/off = SubResource("187")
+CheckButton/icons/on = SubResource("188")
+CheckButton/icons/unchecked_disabled = SubResource("197")
+CheckButton/styles/focus = SubResource("189")
+ColorPicker/icons/screen_picker = SubResource("190")
+FileDialog/icons/back_folder = SubResource("AtlasTexture_kubun")
+FileDialog/icons/file = SubResource("178")
+FileDialog/icons/folder = SubResource("179")
+FileDialog/icons/forward_folder = SubResource("AtlasTexture_o2e3w")
+FileDialog/icons/parent_folder = SubResource("176")
+FileDialog/icons/reload = SubResource("177")
+FileDialog/icons/toggle_hidden = SubResource("AtlasTexture_rs41a")
+HSlider/icons/grabber = SubResource("191")
+HSlider/icons/grabber_disabled = SubResource("191")
+HSlider/icons/grabber_highlight = SubResource("192")
+HSlider/styles/grabber_area = SubResource("193")
+HSlider/styles/grabber_area_highlight = SubResource("194")
+HSlider/styles/slider = SubResource("195")
+Label/font_sizes/font_size = 20
+Label/fonts/font = ExtResource("7")
+Label/styles/normal = SubResource("196")
+LineEdit/font_sizes/font_size = 20
+LineEdit/fonts/font = ExtResource("7")
+LineEdit/styles/focus = SubResource("152")
+LineEdit/styles/normal = SubResource("154")
+PopupMenu/font_sizes/font_size = 20
+PopupMenu/fonts/font = ExtResource("7")
+PopupMenu/icons/radio_checked = SubResource("202")
+PopupMenu/icons/radio_unchecked = SubResource("181")
+PopupMenu/styles/hover = SubResource("183")
+PopupMenu/styles/panel = SubResource("94")
+PopupMenu/styles/separator = SubResource("95")
+Tree/constants/v_separation = 8
+Tree/font_sizes/font_size = 20
+Tree/fonts/font = ExtResource("7")
+Tree/fonts/title_button_font = ExtResource("7")
+Tree/styles/bg = SubResource("156")
+Tree/styles/button_pressed = SubResource("157")
+Tree/styles/selected = SubResource("158")
+Tree/styles/selected_focus = SubResource("158")
+VScrollBar/styles/grabber = SubResource("159")
+VScrollBar/styles/grabber_highlight = SubResource("160")
+VScrollBar/styles/grabber_pressed = SubResource("161")
+VScrollBar/styles/scroll = SubResource("162")
+Window/colors/title_color = Color(1, 0.972549, 0.972549, 1)
+Window/font_sizes/title_font_size = 20
+Window/fonts/title_font = ExtResource("7")
+Window/icons/close = SubResource("184")
+Window/icons/close_highlight = SubResource("185")
+Window/styles/panel = SubResource("164")
+
+[node name="Skin Editor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9")
+
+[node name="A" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_4qgax")
+}
+
+[node name="Animate" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Hide" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Background" type="ColorRect" parent="Hide"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+color = Color(0.211765, 0.211765, 0.211765, 1)
+
+[node name="Foreground" type="ColorRect" parent="Hide"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 944.0
+offset_right = 1904.0
+offset_bottom = 1064.0
+color = Color(0, 0, 0, 1)
+
+[node name="Description" type="Label" parent="Hide/Foreground"]
+unique_name_in_owner = true
+texture_filter = 5
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.567797
+anchor_top = 5.26667
+anchor_right = 1.32203
+anchor_bottom = 6.775
+offset_left = 1088.0
+offset_top = -624.0
+offset_right = -623.992
+offset_bottom = -701.0
+theme_override_fonts/font = SubResource("73")
+text = "Welcome to the Project Luminext skin editor v1.0
+If you come here by mistake, press cancel button to exit.
+Check \"modding\" folder in order to find manual and assets sources.
+"
+label_settings = SubResource("LabelSettings_vd7m7")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="TabContainer" type="TabContainer" parent="Hide"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 1904.0
+offset_bottom = 928.0
+theme_override_constants/side_margin = 0
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_s1ky1")
+theme_override_styles/panel = SubResource("39")
+theme_override_styles/tab_selected = SubResource("37")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_ygoh5")
+theme_override_styles/tab_unselected = SubResource("38")
+current_tab = 0
+all_tabs_in_front = true
+
+[node name="METADATA" type="Control" parent="Hide/TabContainer"]
+layout_mode = 2
+mouse_filter = 2
+metadata/_tab_index = 0
+
+[node name="Label7" type="Label" parent="Hide/TabContainer/METADATA"]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 21.0
+offset_right = -1266.0
+offset_bottom = -796.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "COVER ART"
+label_settings = SubResource("LabelSettings_wn5au")
+
+[node name="CoverArt" type="TextureButton" parent="Hide/TabContainer/METADATA/Label7"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 48.0
+offset_right = -342.0
+offset_bottom = 268.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 1
+texture_normal = ExtResource("15")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "cover_art"
+description = "Skin cover art. Size : 512x512."
+category = "metadata"
+
+[node name="Label8" type="Label" parent="Hide/TabContainer/METADATA"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 341.0
+offset_right = -1264.0
+offset_bottom = -476.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("83")
+text = "LABEL ART"
+label_settings = SubResource("LabelSettings_wn5au")
+
+[node name="LabelArt" type="TextureButton" parent="Hide/TabContainer/METADATA/Label8"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 40.0
+offset_right = -344.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 1
+texture_normal = ExtResource("15")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "label_art"
+description = "Skin label art. Size: 512x64."
+category = "metadata"
+
+[node name="Label2" type="Label" parent="Hide/TabContainer/METADATA"]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 304.0
+offset_top = 21.0
+offset_right = -1016.0
+offset_bottom = -796.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "NAME"
+label_settings = SubResource("LabelSettings_wn5au")
+
+[node name="Name" type="LineEdit" parent="Hide/TabContainer/METADATA/Label2"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 32.0
+offset_right = 936.0
+offset_bottom = 80.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("7")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("21")
+theme_override_styles/normal = SubResource("22")
+placeholder_text = "..."
+context_menu_enabled = false
+caret_blink = true
+caret_blink_interval = 1.5
+script = ExtResource("14")
+data = "name"
+description = "Skin name. Will be used to create skin file name."
+
+[node name="Label" type="Label" parent="Hide/TabContainer/METADATA"]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.135593
+anchor_top = 0.234467
+anchor_right = 0.864407
+anchor_bottom = 1.40211
+offset_left = 1128.0
+offset_top = 173.0
+offset_right = -624.0
+offset_bottom = -783.0
+text = "BPM :"
+label_settings = SubResource("LabelSettings_wn5au")
+vertical_alignment = 1
+
+[node name="BPM" type="LineEdit" parent="Hide/TabContainer/METADATA/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 112.0
+offset_top = -8.0
+offset_right = 368.0
+offset_bottom = 48.0
+size_flags_horizontal = 0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("21")
+theme_override_styles/normal = SubResource("22")
+text = "120"
+placeholder_text = "..."
+alignment = 1
+caret_blink = true
+caret_blink_interval = 1.5
+script = ExtResource("14")
+data = "BPM"
+description = "Skin/song BPM. Defines timeline and some animations speed. Can be fractional number like: 145.23."
+
+[node name="Label5" type="Label" parent="Hide/TabContainer/METADATA"]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 304.0
+offset_top = 133.0
+offset_right = -1016.0
+offset_bottom = -684.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "ALBUM"
+label_settings = SubResource("LabelSettings_wn5au")
+
+[node name="Album" type="LineEdit" parent="Hide/TabContainer/METADATA/Label5"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 32.0
+offset_right = 936.0
+offset_bottom = 80.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("7")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("21")
+theme_override_styles/normal = SubResource("22")
+placeholder_text = "..."
+context_menu_enabled = false
+caret_blink = true
+caret_blink_interval = 1.5
+script = ExtResource("14")
+data = "album"
+description = "Skin album. Will be used to put this skin in own category (album) inside skin list."
+
+[node name="Label6" type="Label" parent="Hide/TabContainer/METADATA"]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.334746
+anchor_top = 0.0468933
+anchor_right = 0.731992
+anchor_bottom = 1.22157
+offset_left = 936.0
+offset_top = 333.0
+offset_right = -589.0
+offset_bottom = -629.0
+text = "NUMBER IN ALBUM :"
+label_settings = SubResource("LabelSettings_wn5au")
+vertical_alignment = 1
+
+[node name="Number" type="LineEdit" parent="Hide/TabContainer/METADATA/Label6"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 376.0
+offset_top = -8.0
+offset_right = 544.0
+offset_bottom = 48.0
+size_flags_horizontal = 0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("21")
+theme_override_styles/normal = SubResource("22")
+placeholder_text = "..."
+alignment = 1
+caret_blink = true
+caret_blink_interval = 1.5
+script = ExtResource("14")
+data = "number"
+description = "Number in album. Used to sort skin inside album."
+
+[node name="Label3" type="Label" parent="Hide/TabContainer/METADATA"]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 304.0
+offset_top = 245.0
+offset_right = -1175.0
+offset_bottom = -572.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "MUSIC ARTIST"
+label_settings = SubResource("LabelSettings_wn5au")
+
+[node name="Artist" type="LineEdit" parent="Hide/TabContainer/METADATA/Label3"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 32.0
+offset_right = 936.0
+offset_bottom = 80.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("7")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("21")
+theme_override_styles/normal = SubResource("22")
+placeholder_text = "..."
+context_menu_enabled = false
+caret_blink = true
+caret_blink_interval = 1.5
+script = ExtResource("14")
+data = "artist"
+description = "Music artist."
+
+[node name="Label4" type="Label" parent="Hide/TabContainer/METADATA"]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 501.0
+offset_right = -1401.0
+offset_bottom = -316.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "ABOUT INFO"
+label_settings = SubResource("LabelSettings_wn5au")
+
+[node name="Info" type="TextEdit" parent="Hide/TabContainer/METADATA/Label4"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 48.0
+offset_right = 1216.0
+offset_bottom = 328.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("7")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("22")
+theme_override_styles/focus = SubResource("21")
+placeholder_text = "..."
+context_menu_enabled = false
+caret_blink = true
+caret_blink_interval = 1.5
+
+[node name="Label16" type="Label" parent="Hide/TabContainer/METADATA"]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1296.0
+offset_top = 501.0
+offset_right = 4.0
+offset_bottom = -316.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "SKIN EDIT HISTORY"
+label_settings = SubResource("LabelSettings_wn5au")
+
+[node name="ColorRect" type="ColorRect" parent="Hide/TabContainer/METADATA/Label16"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 568.0
+offset_bottom = 328.0
+color = Color(0.137255, 0.137255, 0.137255, 1)
+
+[node name="S" type="ScrollContainer" parent="Hide/TabContainer/METADATA/Label16"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 56.0
+offset_right = 560.0
+offset_bottom = 320.0
+theme = SubResource("92")
+
+[node name="EditHistory" type="Label" parent="Hide/TabContainer/METADATA/Label16/S"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_l6uw8")
+
+[node name="Label12" type="Label" parent="Hide/TabContainer/METADATA"]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1296.0
+offset_top = 21.0
+offset_right = -24.0
+offset_bottom = -796.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "MUSIC LOOPING"
+label_settings = SubResource("LabelSettings_wn5au")
+
+[node name="Loop" type="CheckButton" parent="Hide/TabContainer/METADATA/Label12"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 40.0
+offset_right = 568.0
+offset_bottom = 88.0
+size_flags_horizontal = 4
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/hover = SubResource("64")
+theme_override_styles/pressed = SubResource("65")
+theme_override_styles/normal = SubResource("66")
+theme_override_icons/checked = SubResource("ImageTexture_kukct")
+theme_override_icons/unchecked = SubResource("ImageTexture_0k1o7")
+theme_override_icons/checked_disabled = SubResource("ImageTexture_xfmgt")
+theme_override_icons/unchecked_disabled = SubResource("ImageTexture_hxt1b")
+theme_override_icons/checked_mirrored = SubResource("ImageTexture_jqh8g")
+theme_override_icons/unchecked_mirrored = SubResource("ImageTexture_fiegx")
+theme_override_icons/checked_disabled_mirrored = SubResource("ImageTexture_n337m")
+theme_override_icons/unchecked_disabled_mirrored = SubResource("ImageTexture_a761n")
+action_mode = 0
+shortcut_in_tooltip = false
+text = "OFF"
+alignment = 1
+script = ExtResource("10")
+entry_name = "looping"
+description = "Makes music loop around current music sample (2 bars) when no square is erased yet."
+
+[node name="Label10" type="Label" parent="Hide/TabContainer/METADATA"]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1296.0
+offset_top = 133.0
+offset_right = -24.0
+offset_bottom = -684.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "NO BACKGROUND MOVEMENT"
+label_settings = SubResource("LabelSettings_wn5au")
+
+[node name="Shake" type="CheckButton" parent="Hide/TabContainer/METADATA/Label10"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 40.0
+offset_right = 568.0
+offset_bottom = 88.0
+size_flags_horizontal = 4
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/hover = SubResource("64")
+theme_override_styles/pressed = SubResource("65")
+theme_override_styles/normal = SubResource("66")
+theme_override_icons/checked = SubResource("ImageTexture_kukct")
+theme_override_icons/unchecked = SubResource("ImageTexture_0k1o7")
+theme_override_icons/checked_disabled = SubResource("ImageTexture_xfmgt")
+theme_override_icons/unchecked_disabled = SubResource("ImageTexture_hxt1b")
+theme_override_icons/checked_mirrored = SubResource("ImageTexture_jqh8g")
+theme_override_icons/unchecked_mirrored = SubResource("ImageTexture_fiegx")
+theme_override_icons/checked_disabled_mirrored = SubResource("ImageTexture_n337m")
+theme_override_icons/unchecked_disabled_mirrored = SubResource("ImageTexture_a761n")
+action_mode = 0
+shortcut_in_tooltip = false
+text = "OFF"
+alignment = 1
+script = ExtResource("10")
+entry_name = "no_shaking"
+description = "Disable background movement option for this skin."
+
+[node name="Label13" type="Label" parent="Hide/TabContainer/METADATA"]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1296.0
+offset_top = 245.0
+offset_right = 155.0
+offset_bottom = -572.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "ZOOM BACKGROUND"
+label_settings = SubResource("LabelSettings_wn5au")
+
+[node name="Zoom" type="CheckButton" parent="Hide/TabContainer/METADATA/Label13"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 40.0
+offset_right = 568.0
+offset_bottom = 88.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/hover = SubResource("64")
+theme_override_styles/pressed = SubResource("65")
+theme_override_styles/normal = SubResource("66")
+theme_override_icons/checked = SubResource("ImageTexture_kukct")
+theme_override_icons/unchecked = SubResource("ImageTexture_0k1o7")
+theme_override_icons/checked_disabled = SubResource("ImageTexture_xfmgt")
+theme_override_icons/unchecked_disabled = SubResource("ImageTexture_hxt1b")
+theme_override_icons/checked_mirrored = SubResource("ImageTexture_jqh8g")
+theme_override_icons/unchecked_mirrored = SubResource("ImageTexture_fiegx")
+theme_override_icons/checked_disabled_mirrored = SubResource("ImageTexture_n337m")
+theme_override_icons/unchecked_disabled_mirrored = SubResource("ImageTexture_a761n")
+action_mode = 0
+shortcut_in_tooltip = false
+text = "ON"
+alignment = 1
+script = ExtResource("10")
+entry_name = "zoom_background"
+description = "Increase background scale when background movement option is enabled, so you can hide out of bounds things."
+
+[node name="Label15" type="Label" parent="Hide/TabContainer/METADATA"]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1296.0
+offset_top = 357.0
+offset_right = 50.0
+offset_bottom = -460.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "RANDOM BONUS ANIMATION"
+label_settings = SubResource("LabelSettings_wn5au")
+
+[node name="BonusRand" type="CheckButton" parent="Hide/TabContainer/METADATA/Label15"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 40.0
+offset_right = 568.0
+offset_bottom = 88.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/hover = SubResource("64")
+theme_override_styles/pressed = SubResource("65")
+theme_override_styles/normal = SubResource("66")
+theme_override_icons/checked = SubResource("ImageTexture_kukct")
+theme_override_icons/unchecked = SubResource("ImageTexture_0k1o7")
+theme_override_icons/checked_disabled = SubResource("ImageTexture_xfmgt")
+theme_override_icons/unchecked_disabled = SubResource("ImageTexture_hxt1b")
+theme_override_icons/checked_mirrored = SubResource("ImageTexture_jqh8g")
+theme_override_icons/unchecked_mirrored = SubResource("ImageTexture_fiegx")
+theme_override_icons/checked_disabled_mirrored = SubResource("ImageTexture_n337m")
+theme_override_icons/unchecked_disabled_mirrored = SubResource("ImageTexture_a761n")
+action_mode = 0
+shortcut_in_tooltip = false
+text = "OFF"
+alignment = 1
+script = ExtResource("10")
+entry_name = "random_bonus"
+description = "Do random scenery bonus animations from start instead of sequential."
+
+[node name="Label9" type="Label" parent="Hide/TabContainer/METADATA"]
+visible = false
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1296.0
+offset_top = 397.0
+offset_right = -24.0
+offset_bottom = -381.0
+theme_override_fonts/font = SubResource("83")
+text = "EDITOR_LEVEL_UP_LEFT"
+
+[node name="Level" type="LineEdit" parent="Hide/TabContainer/METADATA/Label9"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 96.0
+offset_right = 568.0
+offset_bottom = 144.0
+size_flags_horizontal = 0
+focus_mode = 1
+theme_override_fonts/font = SubResource("20")
+theme_override_styles/focus = SubResource("21")
+theme_override_styles/normal = SubResource("22")
+text = "20"
+placeholder_text = "..."
+caret_blink = true
+caret_blink_interval = 1.5
+script = ExtResource("14")
+data = "level_up"
+description = "EDITOR_LEVEL_UP_SPEED_DESC"
+
+[node name="Label11" type="Label" parent="Hide/TabContainer/METADATA"]
+visible = false
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1296.0
+offset_top = 565.0
+offset_right = -24.0
+offset_bottom = -213.0
+theme_override_fonts/font = SubResource("83")
+text = "EDITOR_FALL_SPEED"
+
+[node name="Speed" type="LineEdit" parent="Hide/TabContainer/METADATA/Label11"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 72.0
+offset_right = 568.0
+offset_bottom = 120.0
+size_flags_horizontal = 0
+focus_mode = 1
+theme_override_fonts/font = SubResource("20")
+theme_override_styles/focus = SubResource("21")
+theme_override_styles/normal = SubResource("22")
+text = "1.0"
+placeholder_text = "..."
+caret_blink = true
+caret_blink_interval = 1.5
+script = ExtResource("14")
+data = "speed"
+description = "EDITOR_FALL_SPEED_DESC"
+
+[node name="Label14" type="Label" parent="Hide/TabContainer/METADATA"]
+visible = false
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1296.0
+offset_top = 709.0
+offset_right = -24.0
+offset_bottom = -69.0
+theme_override_fonts/font = SubResource("83")
+text = "EDITOR_FALL_DELAY"
+
+[node name="Delay" type="LineEdit" parent="Hide/TabContainer/METADATA/Label14"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 72.0
+offset_right = 568.0
+offset_bottom = 120.0
+size_flags_horizontal = 0
+focus_mode = 1
+theme_override_fonts/font = SubResource("20")
+theme_override_styles/focus = SubResource("21")
+theme_override_styles/normal = SubResource("22")
+text = "0.0"
+placeholder_text = "..."
+caret_blink = true
+caret_blink_interval = 1.5
+script = ExtResource("14")
+data = "delay"
+description = "EDITOR_FALL_DELAY_DESC"
+
+[node name="ColorRect" type="ColorRect" parent="Hide/TabContainer/METADATA"]
+layout_mode = 0
+offset_left = 1264.0
+offset_top = -3.0
+offset_right = 1272.0
+offset_bottom = 853.0
+
+[node name="GRAPHICS" type="Control" parent="Hide/TabContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+metadata/_tab_index = 1
+
+[node name="Line3" type="ColorRect" parent="Hide/TabContainer/GRAPHICS"]
+layout_mode = 0
+offset_left = 888.0
+offset_top = 5.0
+offset_right = 896.0
+offset_bottom = 853.0
+
+[node name="Label" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 21.0
+offset_right = 328.0
+offset_bottom = 55.0
+text = "SPRITES"
+label_settings = SubResource("LabelSettings_0l4hl")
+
+[node name="red" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 40.0
+offset_right = 64.0
+offset_bottom = 104.0
+focus_mode = 1
+texture_normal = SubResource("AtlasTexture_r8neo")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "red"
+description = "Red block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/red"]
+position = Vector2(32, 32)
+
+[node name="white" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 80.0
+offset_top = 40.0
+offset_right = 144.0
+offset_bottom = 104.0
+focus_mode = 1
+texture_normal = SubResource("AtlasTexture_y14ni")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "white"
+description = "White block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/white"]
+position = Vector2(32, 32)
+
+[node name="green" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 160.0
+offset_top = 40.0
+offset_right = 224.0
+offset_bottom = 104.0
+focus_mode = 1
+texture_normal = SubResource("AtlasTexture_1166h")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "green"
+description = "Green block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/green"]
+position = Vector2(32, 32)
+
+[node name="purple" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 240.0
+offset_top = 40.0
+offset_right = 304.0
+offset_bottom = 104.0
+focus_mode = 1
+texture_normal = SubResource("AtlasTexture_1uc5u")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "purple"
+description = "Purple block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/purple"]
+position = Vector2(32, 32)
+
+[node name="rchain" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 120.0
+offset_right = 64.0
+offset_bottom = 184.0
+focus_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "rchain"
+description = "Special red block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/rchain"]
+position = Vector2(32, 32)
+sprite_frames = SubResource("113")
+
+[node name="wchain" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 80.0
+offset_top = 120.0
+offset_right = 144.0
+offset_bottom = 184.0
+focus_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "wchain"
+description = "Special white block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/wchain"]
+position = Vector2(32, 32)
+sprite_frames = SubResource("99")
+
+[node name="gchain" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 160.0
+offset_top = 120.0
+offset_right = 224.0
+offset_bottom = 184.0
+focus_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "gchain"
+description = "Special green block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/gchain"]
+position = Vector2(32, 32)
+sprite_frames = SubResource("100")
+
+[node name="pchain" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 240.0
+offset_top = 120.0
+offset_right = 304.0
+offset_bottom = 184.0
+focus_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "pchain"
+description = "Special purple block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/pchain"]
+position = Vector2(32, 32)
+sprite_frames = SubResource("101")
+
+[node name="chain" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 320.0
+offset_top = 120.0
+offset_right = 384.0
+offset_bottom = 184.0
+focus_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "chain"
+description = "Chain special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/chain"]
+position = Vector2(32, 32)
+sprite_frames = SubResource("102")
+
+[node name="merge" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 400.0
+offset_top = 120.0
+offset_right = 464.0
+offset_bottom = 184.0
+focus_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "merge"
+description = "Merge special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/merge"]
+position = Vector2(32, 32)
+sprite_frames = SubResource("103")
+
+[node name="laser" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 480.0
+offset_top = 120.0
+offset_right = 544.0
+offset_bottom = 184.0
+focus_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "laser"
+description = "Laser special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/laser"]
+position = Vector2(32, 32)
+sprite_frames = SubResource("105")
+
+[node name="wipe" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 560.0
+offset_top = 120.0
+offset_right = 624.0
+offset_bottom = 184.0
+focus_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "wipe"
+description = "Wipe special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/wipe"]
+position = Vector2(32, 32)
+sprite_frames = SubResource("106")
+
+[node name="multi" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 640.0
+offset_top = 120.0
+offset_right = 704.0
+offset_bottom = 184.0
+focus_mode = 1
+texture_normal = SubResource("AtlasTexture_uh7ax")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "multi"
+description = "Multi block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/multi"]
+position = Vector2(32, 32)
+
+[node name="garbage" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 720.0
+offset_top = 120.0
+offset_right = 784.0
+offset_bottom = 184.0
+focus_mode = 1
+texture_normal = SubResource("AtlasTexture_yvshx")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "garbage"
+description = "Dark block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/garbage"]
+position = Vector2(32, 32)
+
+[node name="erase" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 320.0
+offset_top = 40.0
+offset_right = 384.0
+offset_bottom = 104.0
+focus_mode = 1
+texture_normal = SubResource("AtlasTexture_iom2u")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "erase"
+description = "Erased block texture. Size: 64x64"
+
+[node name="die" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 400.0
+offset_top = 40.0
+offset_right = 464.0
+offset_bottom = 104.0
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "die"
+description = "Block explosion animation. Size: 64x64. Can be animated if imported as horisontal sprite sheet."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/die"]
+position = Vector2(32, 32)
+sprite_frames = SubResource("175")
+
+[node name="scan" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 480.0
+offset_top = 40.0
+offset_right = 544.0
+offset_bottom = 104.0
+texture_normal = SubResource("AtlasTexture_fysho")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "select"
+description = "Block highlight texture. Size: 64x64"
+
+[node name="rsquare" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 200.0
+offset_right = 128.0
+offset_bottom = 328.0
+focus_mode = 1
+texture_normal = SubResource("AtlasTexture_ffxqp")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "rsquare"
+description = "Red square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/rsquare"]
+position = Vector2(64, 64)
+
+[node name="wsquare" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 144.0
+offset_top = 200.0
+offset_right = 272.0
+offset_bottom = 328.0
+focus_mode = 1
+texture_normal = SubResource("AtlasTexture_wilny")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "wsquare"
+description = "White square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/wsquare"]
+position = Vector2(64, 64)
+
+[node name="gsquare" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 288.0
+offset_top = 200.0
+offset_right = 416.0
+offset_bottom = 328.0
+focus_mode = 1
+texture_normal = SubResource("AtlasTexture_bde8v")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "gsquare"
+description = "Green square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/gsquare"]
+position = Vector2(64, 64)
+
+[node name="psquare" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 432.0
+offset_top = 200.0
+offset_right = 560.0
+offset_bottom = 328.0
+focus_mode = 1
+texture_normal = SubResource("AtlasTexture_s4s25")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "psquare"
+description = "Purple square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/psquare"]
+position = Vector2(64, 64)
+
+[node name="star" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 576.0
+offset_top = 200.0
+offset_right = 704.0
+offset_bottom = 328.0
+texture_normal = ExtResource("11_6q6f5")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "effect_1"
+description = "Square explosion star texture. Size: 165x165."
+
+[node name="star2" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 712.0
+offset_top = 200.0
+offset_right = 840.0
+offset_bottom = 328.0
+texture_normal = ExtResource("12_ga2g6")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "effect_2"
+description = "Square explosion spark texture. Size: 250x250."
+
+[node name="Label6" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 413.0
+offset_right = 864.0
+offset_bottom = 470.0
+text = "EFFECTS COLORS"
+label_settings = SubResource("LabelSettings_0l4hl")
+
+[node name="redfx" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label6"]
+unique_name_in_owner = true
+modulate = Color(0.92549, 0.490196, 0.141176, 1)
+layout_mode = 0
+offset_top = 40.0
+offset_right = 64.0
+offset_bottom = 104.0
+focus_mode = 1
+texture_normal = ExtResource("15")
+script = ExtResource("12")
+color_name = "red_fx"
+description = "Red blocks effects color."
+
+[node name="whitefx" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label6"]
+unique_name_in_owner = true
+modulate = Color(0.507813, 1, 0.896179, 1)
+layout_mode = 0
+offset_left = 80.0
+offset_top = 40.0
+offset_right = 144.0
+offset_bottom = 104.0
+focus_mode = 1
+texture_normal = ExtResource("15")
+script = ExtResource("12")
+color_name = "white_fx"
+description = "White blocks effects color."
+
+[node name="greenfx" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label6"]
+unique_name_in_owner = true
+modulate = Color(0.2, 1, 0.133333, 1)
+layout_mode = 0
+offset_left = 160.0
+offset_top = 40.0
+offset_right = 224.0
+offset_bottom = 104.0
+focus_mode = 1
+texture_normal = ExtResource("15")
+script = ExtResource("12")
+color_name = "green_fx"
+description = "Green blocks effects color."
+
+[node name="purplefx" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label6"]
+unique_name_in_owner = true
+modulate = Color(0.752941, 0.0509804, 1, 1)
+layout_mode = 0
+offset_left = 240.0
+offset_top = 40.0
+offset_right = 304.0
+offset_bottom = 104.0
+focus_mode = 1
+texture_normal = ExtResource("15")
+script = ExtResource("12")
+color_name = "purple_fx"
+description = "Purple blocks effects color."
+
+[node name="Label19" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 373.0
+offset_right = 488.0
+offset_bottom = 430.0
+pivot_offset = Vector2(2, -4)
+text = "BONUS ARROW"
+label_settings = SubResource("LabelSettings_0l4hl")
+
+[node name="Label23" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+texture_filter = 1
+layout_mode = 0
+offset_top = 40.0
+offset_right = 160.0
+offset_bottom = 67.0
+pivot_offset = Vector2(2, -4)
+text = "1x"
+label_settings = SubResource("LabelSettings_ixgrn")
+uppercase = true
+
+[node name="Label24" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 208.0
+offset_top = 40.0
+offset_right = 368.0
+offset_bottom = 67.0
+pivot_offset = Vector2(2, -4)
+text = "2x"
+label_settings = SubResource("LabelSettings_ixgrn")
+uppercase = true
+
+[node name="Label25" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+texture_filter = 1
+layout_mode = 0
+offset_top = 200.0
+offset_right = 40.0
+offset_bottom = 227.0
+pivot_offset = Vector2(2, -4)
+text = "3x"
+label_settings = SubResource("LabelSettings_ixgrn")
+uppercase = true
+
+[node name="Label27" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 52.0
+offset_top = 200.0
+offset_right = 164.0
+offset_bottom = 227.0
+pivot_offset = Vector2(2, -4)
+text = "COMBO"
+label_settings = SubResource("LabelSettings_ixgrn")
+uppercase = true
+
+[node name="Label28" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 52.0
+offset_top = 40.0
+offset_right = 164.0
+offset_bottom = 67.0
+pivot_offset = Vector2(2, -4)
+text = "COMBO"
+label_settings = SubResource("LabelSettings_ixgrn")
+uppercase = true
+
+[node name="Label29" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 260.0
+offset_top = 40.0
+offset_right = 372.0
+offset_bottom = 67.0
+pivot_offset = Vector2(2, -4)
+text = "COMBO"
+label_settings = SubResource("LabelSettings_ixgrn")
+uppercase = true
+
+[node name="Label30" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 200.0
+offset_right = 372.0
+offset_bottom = 227.0
+pivot_offset = Vector2(2, -4)
+text = "COMBO"
+label_settings = SubResource("LabelSettings_ixgrn")
+uppercase = true
+
+[node name="Label26" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 208.0
+offset_top = 200.0
+offset_right = 368.0
+offset_bottom = 227.0
+pivot_offset = Vector2(2, -4)
+text = "4x"
+label_settings = SubResource("LabelSettings_ixgrn")
+uppercase = true
+
+[node name="Arrow" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label19"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 64.0
+offset_right = 170.0
+offset_bottom = 184.0
+focus_mode = 1
+texture_normal = ExtResource("14_g0yjx")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "arrow_1"
+description = "Bonus arrow texture. Size: 775x549."
+
+[node name="Arrow2" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label19"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 208.0
+offset_top = 64.0
+offset_right = 376.0
+offset_bottom = 184.0
+focus_mode = 1
+texture_normal = ExtResource("14_g0yjx")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "arrow_2"
+description = "Bonus arrow texture when combo is 2x. Size: 775x549."
+
+[node name="Arrow3" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label19"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 224.0
+offset_right = 160.0
+offset_bottom = 344.0
+focus_mode = 1
+texture_normal = ExtResource("14_g0yjx")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "arrow_3"
+description = "Bonus arrow texture when combo is 3x. Size: 775x549."
+
+[node name="Arrow4" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label19"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 208.0
+offset_top = 224.0
+offset_right = 376.0
+offset_bottom = 344.0
+focus_mode = 1
+texture_normal = ExtResource("14_g0yjx")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "arrow_4"
+description = "Bonus arrow texture when combo is 4x. Size: 775x549."
+
+[node name="Two" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label19"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -4.0
+offset_top = 376.0
+offset_right = 116.0
+offset_bottom = 440.0
+focus_mode = 1
+texture_normal = ExtResource("16_jc26b")
+ignore_texture_size = true
+stretch_mode = 4
+script = ExtResource("11")
+texture_name = "2_tex"
+description = "2x combo number texture appearing in bonus animation. Size: 350x190."
+
+[node name="Three" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label19"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 132.0
+offset_top = 376.0
+offset_right = 252.0
+offset_bottom = 440.0
+focus_mode = 1
+texture_normal = ExtResource("17_ca2yj")
+ignore_texture_size = true
+stretch_mode = 4
+script = ExtResource("11")
+texture_name = "3_tex"
+description = "3x combo number texture appearing in bonus animation. Size: 350x190."
+
+[node name="Four" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label19"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 260.0
+offset_top = 376.0
+offset_right = 380.0
+offset_bottom = 440.0
+focus_mode = 1
+texture_normal = ExtResource("18_rcb6y")
+ignore_texture_size = true
+stretch_mode = 4
+script = ExtResource("11")
+texture_name = "4_tex"
+description = "4x combo number texture appearing in bonus animation. Size: 350x190."
+
+[node name="Label3" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 565.0
+offset_right = 840.0
+offset_bottom = 605.0
+text = "BLOCKS ANIMATION"
+label_settings = SubResource("LabelSettings_0l4hl")
+
+[node name="AnimStyle" type="OptionButton" parent="Hide/TabContainer/GRAPHICS/Label3"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 40.0
+offset_right = 432.0
+offset_bottom = 80.0
+size_flags_horizontal = 2
+theme = SubResource("96")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("70")
+theme_override_styles/pressed = SubResource("71")
+theme_override_styles/normal = SubResource("72")
+theme_override_icons/arrow = SubResource("69")
+alignment = 1
+selected = 0
+item_count = 7
+popup/item_0/text = "EACH BEAT"
+popup/item_1/text = "EACH 2 BEATS"
+popup/item_1/id = 1
+popup/item_2/text = "EACH BAR"
+popup/item_2/id = 2
+popup/item_3/text = "EACH HALF BEAT"
+popup/item_3/id = 3
+popup/item_4/id = 4
+popup/item_4/separator = true
+popup/item_5/text = "COLOR_ORDER"
+popup/item_5/id = 5
+popup/item_6/text = "LOOPING"
+popup/item_6/id = 6
+
+[node name="RedAnim" type="Label" parent="Hide/TabContainer/GRAPHICS/Label3"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 104.0
+offset_right = -150.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/line_spacing = 6
+text = "RED ANIMATION FPS"
+label_settings = SubResource("LabelSettings_i17bh")
+uppercase = true
+
+[node name="Speed" type="LineEdit" parent="Hide/TabContainer/GRAPHICS/Label3/RedAnim"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = -8.0
+offset_right = 507.0
+offset_bottom = 45.0
+scale = Vector2(0.6, 0.6)
+size_flags_horizontal = 0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("21")
+theme_override_styles/normal = SubResource("22")
+text = "36"
+placeholder_text = "..."
+alignment = 1
+caret_blink = true
+caret_blink_interval = 1.5
+script = ExtResource("14")
+data = "red_anim_speed"
+description = "Set red block color animation FPS.
+**Will be applyed only on texture import!**"
+
+[node name="WhiteAnim" type="Label" parent="Hide/TabContainer/GRAPHICS/Label3"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 152.0
+offset_right = -126.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/line_spacing = 6
+text = "WHITE ANIMATION FPS"
+label_settings = SubResource("LabelSettings_i17bh")
+uppercase = true
+
+[node name="Speed" type="LineEdit" parent="Hide/TabContainer/GRAPHICS/Label3/WhiteAnim"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = -8.0
+offset_right = 507.0
+offset_bottom = 45.0
+scale = Vector2(0.6, 0.6)
+size_flags_horizontal = 0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("21")
+theme_override_styles/normal = SubResource("22")
+text = "36"
+placeholder_text = "..."
+alignment = 1
+caret_blink = true
+caret_blink_interval = 1.5
+script = ExtResource("14")
+data = "white_anim_speed"
+description = "Set white block color animation FPS.
+**Will be applyed only on texture import!**"
+
+[node name="GreenAnim" type="Label" parent="Hide/TabContainer/GRAPHICS/Label3"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 200.0
+offset_right = -115.0
+offset_bottom = 178.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/line_spacing = 6
+text = "GREEN ANIMATION FPS"
+label_settings = SubResource("LabelSettings_i17bh")
+uppercase = true
+
+[node name="Speed" type="LineEdit" parent="Hide/TabContainer/GRAPHICS/Label3/GreenAnim"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = -8.0
+offset_right = 507.0
+offset_bottom = 45.0
+scale = Vector2(0.6, 0.6)
+size_flags_horizontal = 0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("21")
+theme_override_styles/normal = SubResource("22")
+text = "36"
+placeholder_text = "..."
+alignment = 1
+caret_blink = true
+caret_blink_interval = 1.5
+script = ExtResource("14")
+data = "green_anim_speed"
+description = "Set green block color animation FPS.
+**Will be applyed only on texture import!**"
+
+[node name="PurpleAnim" type="Label" parent="Hide/TabContainer/GRAPHICS/Label3"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 248.0
+offset_right = -97.0
+offset_bottom = 226.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/line_spacing = 6
+text = "PURPLE ANIMATION FPS"
+label_settings = SubResource("LabelSettings_i17bh")
+uppercase = true
+
+[node name="Speed" type="LineEdit" parent="Hide/TabContainer/GRAPHICS/Label3/PurpleAnim"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = -8.0
+offset_right = 507.0
+offset_bottom = 45.0
+scale = Vector2(0.6, 0.6)
+size_flags_horizontal = 0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("21")
+theme_override_styles/normal = SubResource("22")
+text = "36"
+placeholder_text = "..."
+alignment = 1
+caret_blink = true
+caret_blink_interval = 1.5
+script = ExtResource("14")
+data = "purple_anim_speed"
+description = "Set purple block color animation FPS.
+**Will be applyed only on texture import!**"
+
+[node name="Label14" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+layout_mode = 0
+offset_left = 1216.0
+offset_top = 21.0
+offset_right = 1864.0
+offset_bottom = 70.0
+text = "BACKGROUND"
+label_settings = SubResource("LabelSettings_0l4hl")
+horizontal_alignment = 2
+
+[node name="Video" type="Button" parent="Hide/TabContainer/GRAPHICS/Label14"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 240.0
+offset_top = 640.0
+offset_right = 648.0
+offset_bottom = 680.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/pressed = SubResource("29")
+theme_override_styles/normal = SubResource("30")
+text = "INSERT VIDEO"
+clip_text = true
+script = ExtResource("13")
+data_name = "video"
+file_dialog_to_open = "video"
+description = "Insert video to use it as skin background. Supported formats: .webm; .mp4; .ogv."
+
+[node name="Scene" type="Button" parent="Hide/TabContainer/GRAPHICS/Label14"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 240.0
+offset_top = 696.0
+offset_right = 648.0
+offset_bottom = 736.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/pressed = SubResource("29")
+theme_override_styles/normal = SubResource("30")
+text = "INSERT SCENE"
+clip_text = true
+script = ExtResource("13")
+data_name = "scene"
+file_dialog_to_open = "scene"
+description = "Insert packed godot scenery to use it as skin background. Please read modding instructions for more info!"
+
+[node name="Background" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label14"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -296.0
+offset_top = 32.0
+offset_right = 648.0
+offset_bottom = 560.0
+focus_mode = 1
+texture_normal = SubResource("GradientTexture1D_e8nvp")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11")
+texture_name = "back"
+description = "Static background image. Size : 1920x1080."
+
+[node name="UIPreview" type="TextureRect" parent="Hide/TabContainer/GRAPHICS/Label14"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -296.0
+offset_top = 32.0
+offset_right = 648.0
+offset_bottom = 560.0
+mouse_filter = 2
+texture = ExtResource("20_ljbd5")
+expand_mode = 1
+
+[node name="TimelinePreview" type="TextureRect" parent="Hide/TabContainer/GRAPHICS/Label14"]
+unique_name_in_owner = true
+modulate = Color(1, 0.74902, 0, 1)
+layout_mode = 0
+offset_left = -296.0
+offset_top = 32.0
+offset_right = 648.0
+offset_bottom = 560.0
+mouse_filter = 2
+texture = ExtResource("21_ue55i")
+expand_mode = 1
+
+[node name="TimelinePreview2" type="TextureRect" parent="Hide/TabContainer/GRAPHICS/Label14/TimelinePreview"]
+material = SubResource("CanvasItemMaterial_djnbx")
+layout_mode = 0
+offset_right = 944.0
+offset_bottom = 528.0
+mouse_filter = 2
+texture = ExtResource("22_wr5px")
+expand_mode = 1
+
+[node name="EQPreview" type="TextureRect" parent="Hide/TabContainer/GRAPHICS/Label14"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = -296.0
+offset_top = 32.0
+offset_right = 648.0
+offset_bottom = 560.0
+mouse_filter = 2
+texture = ExtResource("22_lar5u")
+expand_mode = 1
+
+[node name="Label15" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 920.0
+offset_top = 613.0
+offset_right = 1248.0
+offset_bottom = 637.0
+text = "UI COLOR"
+label_settings = SubResource("LabelSettings_0l4hl")
+
+[node name="Back" type="TextureRect" parent="Hide/TabContainer/GRAPHICS/Label15"]
+modulate = Color(0.5, 0.5, 0.5, 1)
+layout_mode = 0
+offset_left = 400.0
+offset_top = -8.0
+offset_right = 512.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource("24_8qiwp")
+expand_mode = 1
+
+[node name="UIColor" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label15"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 400.0
+offset_top = -8.0
+offset_right = 512.0
+offset_bottom = 32.0
+texture_normal = ExtResource("15")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("12")
+color_name = "ui_color"
+description = "Change game UI color."
+
+[node name="Label16" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 920.0
+offset_top = 669.0
+offset_right = 1376.0
+offset_bottom = 693.0
+text = "TIMELINE COLOR"
+label_settings = SubResource("LabelSettings_0l4hl")
+
+[node name="Back" type="TextureRect" parent="Hide/TabContainer/GRAPHICS/Label16"]
+modulate = Color(0.5, 0.5, 0.5, 1)
+layout_mode = 0
+offset_left = 400.0
+offset_top = -8.0
+offset_right = 512.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource("24_8qiwp")
+expand_mode = 1
+
+[node name="TimelineColor" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label16"]
+unique_name_in_owner = true
+modulate = Color(1, 0.75, 0, 1)
+layout_mode = 0
+offset_left = 400.0
+offset_top = -8.0
+offset_right = 512.0
+offset_bottom = 32.0
+texture_normal = ExtResource("15")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("12")
+color_name = "timeline_color"
+description = "Change timeline color."
+
+[node name="Label13" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 920.0
+offset_top = 725.0
+offset_right = 1264.0
+offset_bottom = 776.0
+text = "VISUALIZER COLOR"
+label_settings = SubResource("LabelSettings_0l4hl")
+
+[node name="Back" type="TextureRect" parent="Hide/TabContainer/GRAPHICS/Label13"]
+modulate = Color(0.5, 0.5, 0.5, 1)
+layout_mode = 0
+offset_left = 400.0
+offset_top = -8.0
+offset_right = 512.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource("24_8qiwp")
+expand_mode = 1
+
+[node name="EQColor" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label13"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 400.0
+offset_top = -8.0
+offset_right = 512.0
+offset_bottom = 32.0
+texture_normal = ExtResource("15")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("12")
+color_name = "eq_visualizer_color"
+description = "Cahnge background audio visualizer color"
+
+[node name="Label12" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 920.0
+offset_top = 789.0
+offset_right = 1328.0
+offset_bottom = 837.0
+text = "SCENE PATH"
+label_settings = SubResource("LabelSettings_0l4hl")
+
+[node name="UIDesign" type="OptionButton" parent="Hide/TabContainer/GRAPHICS/Label12"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 536.0
+offset_top = -184.0
+offset_right = 944.0
+offset_bottom = -144.0
+size_flags_horizontal = 2
+focus_mode = 1
+theme = SubResource("96")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("70")
+theme_override_styles/pressed = SubResource("71")
+theme_override_styles/normal = SubResource("72")
+theme_override_icons/arrow = SubResource("69")
+alignment = 1
+selected = 0
+item_count = 11
+popup/item_0/text = "STANDARD"
+popup/item_1/text = "SHININ"
+popup/item_1/id = 1
+popup/item_2/text = "CLASSIC"
+popup/item_2/id = 2
+popup/item_3/text = "MODERN"
+popup/item_3/id = 3
+popup/item_4/text = "LIVE"
+popup/item_4/id = 4
+popup/item_5/text = "PIXEL"
+popup/item_5/id = 5
+popup/item_6/text = "BLACK"
+popup/item_6/id = 6
+popup/item_7/text = "COMIC"
+popup/item_7/id = 7
+popup/item_8/text = "CLEAN"
+popup/item_8/id = 8
+popup/item_9/text = "VECTOR"
+popup/item_9/id = 9
+popup/item_10/text = "TECHNO"
+popup/item_10/id = 10
+
+[node name="ScenePath" type="LineEdit" parent="Hide/TabContainer/GRAPHICS"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1192.0
+offset_top = 781.0
+offset_right = 1864.0
+offset_bottom = 829.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("7")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("21")
+theme_override_styles/normal = SubResource("22")
+placeholder_text = "..."
+context_menu_enabled = false
+caret_blink = true
+caret_blink_interval = 1.5
+script = ExtResource("14")
+data = "scene_path"
+description = "Scene path in project folder. Must be entered in order for scene to be loaded."
+
+[node name="AUDIO" type="Control" parent="Hide/TabContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+metadata/_tab_index = 2
+
+[node name="Music" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 1040.0
+offset_top = 21.0
+offset_right = 1864.0
+offset_bottom = 69.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "INPUT MUSIC"
+clip_text = true
+script = ExtResource("13")
+data_name = "music"
+file_dialog_to_open = "audio"
+description = "Main skin music. Supported formats: .ogg; .mp3; .wav"
+
+[node name="Announce" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 1040.0
+offset_top = 93.0
+offset_right = 1696.0
+offset_bottom = 141.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "INPUT ANNOUNCE"
+clip_text = true
+script = ExtResource("22")
+sound_name = "announce"
+description = "Played when this skin is loaded and  is ready to start"
+category = "metadata"
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/Announce"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 672.0
+offset_right = 824.0
+offset_bottom = 48.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="Preview" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 1040.0
+offset_top = 165.0
+offset_right = 1696.0
+offset_bottom = 213.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "INPUT PREVIEW"
+clip_text = true
+script = ExtResource("22")
+sound_name = "preview"
+description = "Played when skin is selected in playlist mode menu"
+category = "metadata"
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/Preview"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 672.0
+offset_right = 824.0
+offset_bottom = 48.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="Ending" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 1040.0
+offset_top = 237.0
+offset_right = 1696.0
+offset_bottom = 285.0
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "INPUT ENDING"
+clip_text = true
+script = ExtResource("22")
+sound_name = "ending"
+description = "Played when skin transition starts, so this would be last skin sample"
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/Ending"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 672.0
+offset_right = 824.0
+offset_bottom = 48.0
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="SquareSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 21.0
+offset_right = 608.0
+offset_bottom = 62.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "SQUARE CREATION"
+clip_text = true
+script = ExtResource("22")
+sound_name = "square"
+description = "Played when square is created."
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/SquareSound"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 600.0
+offset_right = 792.0
+offset_bottom = 40.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="N" type="SpinBox" parent="Hide/TabContainer/AUDIO/SquareSound"]
+texture_filter = 1
+layout_mode = 0
+anchor_right = 0.13
+offset_left = 808.0
+offset_right = 832.08
+offset_bottom = 27.0
+scale = Vector2(1.5, 1.5)
+focus_mode = 1
+theme = SubResource("203")
+theme_override_icons/updown = SubResource("AtlasTexture_6ccv5")
+max_value = 0.0
+rounded = true
+
+[node name="BlastSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 77.0
+offset_right = 608.0
+offset_bottom = 118.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "SQUARE BLAST"
+clip_text = true
+script = ExtResource("22")
+sound_name = "blast"
+description = "Played when square erased by timeline."
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/BlastSound"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 600.0
+offset_right = 792.0
+offset_bottom = 40.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="N" type="SpinBox" parent="Hide/TabContainer/AUDIO/BlastSound"]
+texture_filter = 1
+layout_mode = 0
+anchor_right = 0.13
+offset_left = 808.0
+offset_right = 832.08
+offset_bottom = 27.0
+scale = Vector2(1.5, 1.5)
+focus_mode = 1
+theme = SubResource("203")
+theme_override_icons/updown = SubResource("AtlasTexture_6ccv5")
+max_value = 0.0
+rounded = true
+
+[node name="SpecialSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 133.0
+offset_right = 608.0
+offset_bottom = 174.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "SPECIAL BLOCK BLAST"
+clip_text = true
+script = ExtResource("22")
+sound_name = "special"
+description = "Played when special block is erased."
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/SpecialSound"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 600.0
+offset_right = 792.0
+offset_bottom = 40.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="N" type="SpinBox" parent="Hide/TabContainer/AUDIO/SpecialSound"]
+texture_filter = 1
+layout_mode = 0
+anchor_right = 0.13
+offset_left = 808.0
+offset_right = 832.08
+offset_bottom = 27.0
+scale = Vector2(1.5, 1.5)
+focus_mode = 1
+theme = SubResource("203")
+theme_override_icons/updown = SubResource("AtlasTexture_6ccv5")
+max_value = 0.0
+rounded = true
+
+[node name="TimelineSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 189.0
+offset_right = 608.0
+offset_bottom = 230.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "TIMELINE ERASING BLOCKS"
+clip_text = true
+script = ExtResource("22")
+sound_name = "timeline"
+description = "Played when timeline starts deleting blocks and squares."
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/TimelineSound"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 600.0
+offset_right = 792.0
+offset_bottom = 40.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="N" type="SpinBox" parent="Hide/TabContainer/AUDIO/TimelineSound"]
+texture_filter = 1
+layout_mode = 0
+anchor_right = 0.13
+offset_left = 808.0
+offset_right = 832.08
+offset_bottom = 27.0
+scale = Vector2(1.5, 1.5)
+focus_mode = 1
+theme = SubResource("203")
+theme_override_icons/updown = SubResource("AtlasTexture_6ccv5")
+max_value = 0.0
+rounded = true
+
+[node name="BonusSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 245.0
+offset_right = 608.0
+offset_bottom = 286.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "4X BONUS SOUND"
+clip_text = true
+script = ExtResource("22")
+sound_name = "bonus"
+description = "Played when 4 and more squares were erased in current timeline sweep. (4x bonus)"
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/BonusSound"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 600.0
+offset_right = 792.0
+offset_bottom = 40.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="N" type="SpinBox" parent="Hide/TabContainer/AUDIO/BonusSound"]
+texture_filter = 1
+layout_mode = 0
+anchor_right = 0.13
+offset_left = 808.0
+offset_right = 832.08
+offset_bottom = 27.0
+scale = Vector2(1.5, 1.5)
+focus_mode = 1
+theme = SubResource("203")
+theme_override_icons/updown = SubResource("AtlasTexture_6ccv5")
+max_value = 0.0
+rounded = true
+
+[node name="MoveSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 341.0
+offset_right = 768.0
+offset_bottom = 381.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PIECE MOVE"
+clip_text = true
+script = ExtResource("22")
+sound_name = "move"
+description = "Played when piece is moved"
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/MoveSound"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 760.0
+offset_right = 960.0
+offset_bottom = 40.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="RotLeftSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 397.0
+offset_right = 768.0
+offset_bottom = 437.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "ROTATE LEFT"
+clip_text = true
+script = ExtResource("22")
+sound_name = "rotate_left"
+description = "Played when piece is rotated left"
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/RotLeftSound"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 760.0
+offset_right = 960.0
+offset_bottom = 40.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="RotRightSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 453.0
+offset_right = 768.0
+offset_bottom = 493.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "ROTATE RIGHT"
+clip_text = true
+script = ExtResource("22")
+sound_name = "rotate_right"
+description = "Played when piece is rotated right"
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/RotRightSound"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 760.0
+offset_right = 960.0
+offset_bottom = 40.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="LeftDashSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 509.0
+offset_right = 768.0
+offset_bottom = 549.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PIECE DASH LEFT"
+clip_text = true
+script = ExtResource("22")
+sound_name = "left_dash"
+description = "Played when piece dashes left"
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/LeftDashSound"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 760.0
+offset_right = 960.0
+offset_bottom = 40.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="RightDashSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 565.0
+offset_right = 768.0
+offset_bottom = 605.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PIECE DASH RIGHT"
+clip_text = true
+script = ExtResource("22")
+sound_name = "right_dash"
+description = "Played when piece dashes right"
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/RightDashSound"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 760.0
+offset_right = 960.0
+offset_bottom = 40.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="DropSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 621.0
+offset_right = 768.0
+offset_bottom = 661.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PIECE DROP"
+clip_text = true
+script = ExtResource("22")
+sound_name = "drop"
+description = "Played when piece is dropped"
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/DropSound"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 760.0
+offset_right = 960.0
+offset_bottom = 40.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="QueueShiftSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 677.0
+offset_right = 768.0
+offset_bottom = 717.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "QUEUE SHIFT"
+clip_text = true
+script = ExtResource("22")
+sound_name = "queue_shift"
+description = "Played when piece is swapped"
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/QueueShiftSound"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 760.0
+offset_right = 960.0
+offset_bottom = 40.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="LevelSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 733.0
+offset_right = 768.0
+offset_bottom = 773.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "LEVEL UP!"
+clip_text = true
+script = ExtResource("22")
+sound_name = "level_up"
+description = "Played when level up occurs"
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/LevelSound"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 760.0
+offset_right = 960.0
+offset_bottom = 40.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="SpecialBonusSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 789.0
+offset_right = 768.0
+offset_bottom = 829.0
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "SPECIAL BONUS"
+clip_text = true
+script = ExtResource("22")
+sound_name = "special_bonus"
+description = "Played when special bonus (single color/all clear) occured"
+
+[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/SpecialBonusSound"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 760.0
+offset_right = 960.0
+offset_bottom = 40.0
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/normal = SubResource("30")
+button_mask = 3
+text = "PLAY"
+clip_text = true
+
+[node name="Label4" type="Label" parent="Hide/TabContainer/AUDIO"]
+visible = false
+layout_mode = 0
+offset_left = 1048.0
+offset_top = 213.0
+offset_right = 1639.0
+offset_bottom = 267.0
+pivot_offset = Vector2(-312, -48)
+theme_override_fonts/font = SubResource("97")
+text = "EDITOR_WAV_IMPORT"
+
+[node name="WavHZ" type="OptionButton" parent="Hide/TabContainer/AUDIO/Label4"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 136.0
+offset_top = 48.0
+offset_right = 464.0
+offset_bottom = 86.0
+size_flags_horizontal = 2
+theme = SubResource("96")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("68")
+theme_override_styles/hover = SubResource("70")
+theme_override_styles/pressed = SubResource("71")
+theme_override_styles/normal = SubResource("72")
+theme_override_icons/arrow = SubResource("69")
+
+[node name="WavType" type="OptionButton" parent="Hide/TabContainer/AUDIO/Label4"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 136.0
+offset_top = 96.0
+offset_right = 464.0
+offset_bottom = 134.0
+size_flags_horizontal = 2
+theme = SubResource("96")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("68")
+theme_override_styles/hover = SubResource("70")
+theme_override_styles/pressed = SubResource("71")
+theme_override_styles/normal = SubResource("72")
+theme_override_icons/arrow = SubResource("69")
+
+[node name="WavStereo" type="CheckButton" parent="Hide/TabContainer/AUDIO/Label4"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 488.0
+offset_top = 94.0
+offset_right = 816.0
+offset_bottom = 136.0
+size_flags_horizontal = 4
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("61")
+theme_override_styles/hover = SubResource("64")
+theme_override_styles/pressed = SubResource("65")
+theme_override_styles/normal = SubResource("66")
+action_mode = 0
+shortcut_in_tooltip = false
+text = "OFF"
+script = ExtResource("10")
+
+[node name="Label10" type="Label" parent="Hide/TabContainer/AUDIO"]
+visible = false
+layout_mode = 0
+offset_left = 1536.0
+offset_top = 277.0
+offset_right = 1848.0
+offset_bottom = 313.0
+theme_override_fonts/font = SubResource("31")
+text = "EDITOR_WAV_STEREO"
+uppercase = true
+
+[node name="Label11" type="Label" parent="Hide/TabContainer/AUDIO"]
+visible = false
+layout_mode = 0
+offset_left = 1048.0
+offset_top = 269.0
+offset_right = 1176.0
+offset_bottom = 313.0
+theme_override_fonts/font = SubResource("31")
+text = "EDITOR_WAV_MIX_RATE"
+uppercase = true
+
+[node name="Label12" type="Label" parent="Hide/TabContainer/AUDIO"]
+visible = false
+layout_mode = 0
+offset_left = 1048.0
+offset_top = 317.0
+offset_right = 1168.0
+offset_bottom = 361.0
+theme_override_fonts/font = SubResource("31")
+text = "EDITOR_WAV_FORMAT"
+uppercase = true
+
+[node name="V" type="VBoxContainer" parent="Hide/TabContainer/AUDIO"]
+layout_mode = 0
+offset_left = 1040.0
+offset_top = 341.0
+offset_right = 1872.0
+offset_bottom = 829.0
+theme_override_constants/separation = 8
+
+[node name="Label5" type="Label" parent="Hide/TabContainer/AUDIO/V"]
+texture_filter = 1
+custom_minimum_size = Vector2(832, 0)
+layout_mode = 2
+text = "More than one sound may be assigned per action, indicated by a number next to an sound play button. 
+If more than one sound is assigned to an action, a random assigned sound will play. 
+You also can remove sounds by right clicking, rest of the sounds will shift to the left. 
+To move between sounds you can use the arrow buttons or type the number and press enter"
+label_settings = SubResource("LabelSettings_vhifn")
+autowrap_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Hide/TabContainer/AUDIO"]
+layout_mode = 0
+offset_top = 309.0
+offset_right = 1888.0
+offset_bottom = 317.0
+
+[node name="ColorRect2" type="ColorRect" parent="Hide/TabContainer/AUDIO"]
+layout_mode = 0
+offset_left = 1008.0
+offset_top = 1.0
+offset_right = 1016.0
+offset_bottom = 853.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Hide"]
+layout_mode = 0
+offset_left = 1145.0
+offset_top = 16.0
+offset_right = 1896.0
+offset_bottom = 75.0
+mouse_filter = 2
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="Reset" type="Button" parent="Hide/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/hover = SubResource("77")
+theme_override_styles/pressed = SubResource("75")
+theme_override_styles/normal = SubResource("76")
+text = "RESET"
+
+[node name="ColorRect5" type="ColorRect" parent="Hide/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+color = Color(0.458824, 0.458824, 0.458824, 0)
+
+[node name="Test" type="Button" parent="Hide/HBoxContainer"]
+layout_mode = 2
+focus_mode = 1
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/hover = SubResource("77")
+theme_override_styles/pressed = SubResource("75")
+theme_override_styles/normal = SubResource("76")
+text = "PLAYTEST"
+
+[node name="ColorRect4" type="ColorRect" parent="Hide/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+color = Color(0.458824, 0.458824, 0.458824, 0)
+
+[node name="Load" type="Button" parent="Hide/HBoxContainer"]
+layout_mode = 2
+focus_mode = 1
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/hover = SubResource("77")
+theme_override_styles/pressed = SubResource("75")
+theme_override_styles/normal = SubResource("76")
+text = "LOAD"
+
+[node name="ColorRect3" type="ColorRect" parent="Hide/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+color = Color(0.458824, 0.458824, 0.458824, 0)
+
+[node name="Save" type="Button" parent="Hide/HBoxContainer"]
+layout_mode = 2
+focus_mode = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/hover = SubResource("77")
+theme_override_styles/pressed = SubResource("75")
+theme_override_styles/normal = SubResource("76")
+shortcut_in_tooltip = false
+text = "SAVE"
+
+[node name="ColorRect2" type="ColorRect" parent="Hide/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+color = Color(0.458824, 0.458824, 0.458824, 0)
+
+[node name="Exit" type="Button" parent="Hide/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+focus_mode = 1
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/hover = SubResource("74")
+theme_override_styles/pressed = SubResource("75")
+theme_override_styles/normal = SubResource("76")
+text = "X"
+
+[node name="Cheat" type="ColorRect" parent="Hide"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 68.0
+offset_right = 1904.0
+offset_bottom = 76.0
+mouse_filter = 2
+color = Color(0.458824, 0.458824, 0.458824, 1)
+
+[node name="Fade" type="ColorRect" parent="Hide"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = 4000.0
+offset_right = 5920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+
+[node name="FileExplorer" type="FileDialog" parent="Hide/Fade"]
+unique_name_in_owner = true
+title = "Open a File"
+position = Vector2i(10, 36)
+size = Vector2i(1280, 720)
+theme = SubResource("165")
+ok_button_text = "Open"
+dialog_hide_on_ok = true
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png ; PNG Image File")
+
+[node name="Fade2" type="ColorRect" parent="Hide"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = 8000.0
+offset_right = 8716.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Hide/Fade2"]
+self_modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = -1464.0
+offset_right = -656.0
+offset_bottom = 480.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="Hide/Fade2"]
+self_modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = -656.0
+offset_bottom = 672.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect8" type="ColorRect" parent="Hide/Fade2"]
+self_modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = -536.0
+offset_top = 840.0
+offset_bottom = 928.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Hide/Fade2"]
+self_modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = -1464.0
+offset_top = 928.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="Hide/Fade2"]
+self_modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = -1464.0
+offset_top = 480.0
+offset_right = -1032.0
+offset_bottom = 928.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect7" type="ColorRect" parent="Hide/Fade2"]
+self_modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = -1032.0
+offset_top = 672.0
+offset_right = -536.0
+offset_bottom = 928.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect9" type="ColorRect" parent="Hide/Fade2"]
+self_modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = -1032.0
+offset_top = 608.0
+offset_right = -656.0
+offset_bottom = 672.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="Hide/Fade2"]
+layout_mode = 0
+offset_left = -632.0
+offset_top = 80.0
+offset_right = -168.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect8" type="ColorRect" parent="Hide/Fade2/ColorRect"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 0
+anchor_bottom = 1.0
+
+[node name="ColorRect9" type="ColorRect" parent="Hide/Fade2/ColorRect"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 0
+anchor_right = 1.0
+
+[node name="ColorRect10" type="ColorRect" parent="Hide/Fade2/ColorRect"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.005
+offset_right = 4.0
+offset_bottom = 0.0800171
+
+[node name="ColorRect11" type="ColorRect" parent="Hide/Fade2/ColorRect"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorPicker" type="ColorPicker" parent="Hide/Fade2/ColorRect"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 456.0
+offset_bottom = 495.0
+theme = SubResource("165")
+theme_override_constants/margin = 0
+theme_override_constants/sv_height = 256
+theme_override_constants/h_width = 32
+color_mode = 1
+deferred_mode = true
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+presets_visible = false
+
+[node name="Done" type="Button" parent="Hide/Fade2/ColorRect"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 504.0
+offset_right = 444.0
+offset_bottom = 552.0
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/hover = SubResource("28")
+theme_override_styles/pressed = SubResource("29")
+theme_override_styles/normal = SubResource("30")
+text = "DONE"
+
+[node name="FadeBlack" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 4000.0
+offset_right = 5920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0)
+metadata/_edit_lock_ = true
+
+[connection signal="mouse_entered" from="Hide/TabContainer/METADATA/Label4/Info" to="." method="_on_Info_mouse_entered"]
+[connection signal="text_changed" from="Hide/TabContainer/METADATA/Label4/Info" to="." method="_on_Info_text_changed"]
+[connection signal="mouse_entered" from="Hide/TabContainer/METADATA/Label16/S/EditHistory" to="." method="_on_edit_history_mouse_entered"]
+[connection signal="item_selected" from="Hide/TabContainer/GRAPHICS/Label3/AnimStyle" to="." method="_change_block_animation_preset"]
+[connection signal="mouse_entered" from="Hide/TabContainer/GRAPHICS/Label3/AnimStyle" to="." method="_on_AnimStyle_mouse_entered"]
+[connection signal="item_selected" from="Hide/TabContainer/GRAPHICS/Label12/UIDesign" to="." method="_on_UIDesign_item_selected"]
+[connection signal="mouse_entered" from="Hide/TabContainer/GRAPHICS/Label12/UIDesign" to="." method="_on_UIDesign_mouse_entered"]
+[connection signal="mouse_entered" from="Hide/HBoxContainer/Reset" to="." method="_on_Reset_mouse_entered"]
+[connection signal="pressed" from="Hide/HBoxContainer/Reset" to="." method="_reset"]
+[connection signal="mouse_entered" from="Hide/HBoxContainer/Test" to="." method="_on_Test_mouse_entered"]
+[connection signal="pressed" from="Hide/HBoxContainer/Test" to="." method="_start_playtest_skn"]
+[connection signal="mouse_entered" from="Hide/HBoxContainer/Load" to="." method="_on_Load_mouse_entered"]
+[connection signal="pressed" from="Hide/HBoxContainer/Load" to="." method="_import_skin"]
+[connection signal="mouse_entered" from="Hide/HBoxContainer/Save" to="." method="_on_Save_mouse_entered"]
+[connection signal="pressed" from="Hide/HBoxContainer/Save" to="." method="_save_skin"]
+[connection signal="pressed" from="Hide/HBoxContainer/Exit" to="." method="_exit"]

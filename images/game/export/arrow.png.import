@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://cxsaa5q7tyl2e"
+path="res://.godot/imported/arrow.png-863ecd6cce2fe2780b8c16740481f77c.image"
+
+[deps]
+
+source_file="res://images/game/export/arrow.png"
+dest_files=["res://.godot/imported/arrow.png-863ecd6cce2fe2780b8c16740481f77c.image"]
+
+[params]
+

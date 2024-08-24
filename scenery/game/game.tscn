@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds15gbp8yt020"]
+
+[ext_resource type="Script" path="res://scripts/game/piece_queue.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/game/game.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/game/foreground.gd" id="3"]
+
+[node name="Game" type="Node2D"]
+z_index = -703
+z_as_relative = false
+script = ExtResource("2")
+
+[node name="Gameplay" type="Node2D" parent="."]
+
+[node name="Field" type="Node2D" parent="Gameplay"]
+z_index = -702
+z_as_relative = false
+position = Vector2(392, 232)
+
+[node name="Effects" type="Node2D" parent="Gameplay"]
+z_index = -700
+z_as_relative = false
+position = Vector2(392, 232)
+
+[node name="PieceQueue" type="ScrollContainer" parent="Gameplay"]
+offset_left = 112.0
+offset_top = 172.0
+offset_right = 256.0
+offset_bottom = 648.0
+script = ExtResource("1")
+
+[node name="Queue" type="Control" parent="Gameplay/PieceQueue"]
+layout_mode = 2
+
+[node name="Foreground" type="Node2D" parent="."]
+script = ExtResource("3")
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="PauseBack" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = -1
+z_as_relative = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="Announce" type="Timer" parent="."]
+one_shot = true

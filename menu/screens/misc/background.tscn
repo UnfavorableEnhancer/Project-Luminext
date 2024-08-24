@@ -1,0 +1,309 @@
+[gd_scene load_steps=19 format=3 uid="uid://deqgt6g6snogi"]
+
+[ext_resource type="Texture2D" uid="uid://c1w2u887taqyk" path="res://images/menu/vignette.png" id="2_v63oy"]
+[ext_resource type="Texture2D" uid="uid://b4r6tm3v5swvf" path="res://menu/images/new_grid.png" id="2_yitv3"]
+
+[sub_resource type="GDScript" id="47"]
+script/source = "extends MenuScreen
+
+@onready var blob1 : TextureRect = $Shiny/Blob
+@onready var blob2 : TextureRect = $Shiny/Blob2
+@onready var blob3 : TextureRect = $Shiny/Blob3
+@onready var blob4 : TextureRect = $Shiny/Blob4
+@onready var background : ColorRect = $Back
+
+
+func _change_gradient_colors(color_1 : Color, color_2 : Color, color_3 : Color, color_4 : Color, back_color : Color) -> void:
+	var begin_color_1 : Color = blob1.texture.gradient.get_color(0)
+	var begin_color_2 : Color = blob2.texture.gradient.get_color(0)
+	var begin_color_3 : Color = blob3.texture.gradient.get_color(0)
+	var begin_color_4 : Color = blob4.texture.gradient.get_color(0)
+	
+	var tween : Tween = create_tween().set_parallel(true)
+	
+	tween.tween_method(func(color : Color) -> void: blob1.texture.gradient.set_color(0,color), begin_color_1, color_1, 1.0)
+	tween.tween_method(func(color : Color) -> void: blob3.texture.gradient.set_color(0,color), begin_color_3, color_3, 1.0)
+	tween.tween_method(func(color : Color) -> void: blob4.texture.gradient.set_color(0,color), begin_color_4, color_4, 1.0)
+	tween.tween_method(func(color : Color) -> void: blob2.texture.gradient.set_color(0,color), begin_color_2, color_2, 1.0)
+	tween.tween_property(background, \"color\", back_color, 1.0)
+"
+
+[sub_resource type="Animation" id="1"]
+resource_name = "start"
+length = 18.0
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shiny/Blob:texture:gradient:colors")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 1, 1.5, 2, 2.5, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [PackedColorArray(0.0392157, 0.168627, 0.266667, 1, 0, 0, 0, 0), PackedColorArray(0.211765, 0.0470588, 0.0862745, 1, 0, 0, 0, 0), PackedColorArray(0.254902, 0, 0.258824, 1, 0, 0, 0, 0), PackedColorArray(0, 0.258824, 0.192157, 1, 0, 0, 0, 0), PackedColorArray(0.0431373, 0.192157, 0.333333, 1, 0, 0, 0, 0), PackedColorArray(0.27451, 0.0313726, 0.243137, 1, 0, 0, 0, 0), PackedColorArray(0.203922, 0.0313726, 0.27451, 1, 0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shiny/Blob2:texture:gradient:colors")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 1, 1.5, 2, 2.5, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [PackedColorArray(0.121569, 0.152941, 0.188235, 1, 0, 0, 0, 0), PackedColorArray(0.0980392, 0, 0.117647, 1, 0, 0, 0, 0), PackedColorArray(0.0941176, 0.0823529, 0.0980392, 1, 0, 0, 0, 0), PackedColorArray(0.203922, 0.203922, 0.203922, 1, 0, 0, 0, 0), PackedColorArray(0.0666667, 0.262745, 0.247059, 1, 0, 0, 0, 0), PackedColorArray(0.160784, 0.0705882, 0.223529, 1, 0, 0, 0, 0), PackedColorArray(0.219608, 0.188235, 0.243137, 1, 0, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Shiny/Blob3:texture:gradient:colors")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5, 1, 1.5, 2, 2.5, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [PackedColorArray(0.0196078, 0.0235294, 0.105882, 1, 0, 0, 0, 0), PackedColorArray(0.290196, 0.0392157, 0.168627, 1, 0, 0, 0, 0), PackedColorArray(0.0666667, 0.00784314, 0.164706, 1, 0, 0, 0, 0), PackedColorArray(0, 0.0705882, 0.0470588, 1, 0, 0, 0, 0), PackedColorArray(0.0784314, 0.00392157, 0.247059, 1, 0, 0, 0, 0), PackedColorArray(0.109804, 0.0235294, 0.0627451, 1, 0, 0, 0, 0), PackedColorArray(0.0980392, 0.00392157, 0.247059, 1, 0, 0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Shiny/Blob4:texture:gradient:colors")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5, 1, 1.5, 2, 2.5, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [PackedColorArray(0.0431373, 0.207843, 0.184314, 1, 0, 0, 0, 0), PackedColorArray(0.109804, 0.0117647, 0.0117647, 1, 0, 0, 0, 0), PackedColorArray(0.152941, 0.0156863, 0.0509804, 1, 0, 0, 0, 0), PackedColorArray(0.00784314, 0.109804, 0.12549, 1, 0, 0, 0, 0), PackedColorArray(0.121569, 0.121569, 0.121569, 1, 0, 0, 0, 0), PackedColorArray(0.105882, 0.105882, 0.105882, 1, 0, 0, 0, 0), PackedColorArray(0.0627451, 0.0627451, 0.0627451, 1, 0, 0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Back:color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.5, 1, 1.5, 2, 2.5, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.00392157, 0.0431373, 0.0470588, 1), Color(0.0313726, 0, 0.00784314, 1), Color(0, 0.0196078, 0.0352941, 1), Color(0, 0.0313726, 0.027451, 1), Color(0.00392157, 0.0196078, 0.0352941, 1), Color(0.0431373, 0.00784314, 0.0196078, 1), Color(0.00784314, 0.00392157, 0.0235294, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5iew8"]
+_data = {
+"start": SubResource("1")
+}
+
+[sub_resource type="CanvasItemMaterial" id="48"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="42"]
+colors = PackedColorArray(0, 0.258824, 0.192157, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="49"]
+gradient = SubResource("42")
+fill = 1
+fill_from = Vector2(0.333911, 0.397886)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="43"]
+colors = PackedColorArray(0.203922, 0.203922, 0.203922, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="50"]
+gradient = SubResource("43")
+fill = 1
+fill_from = Vector2(0.730577, 0.67414)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="44"]
+colors = PackedColorArray(0, 0.0705882, 0.0470588, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="51"]
+gradient = SubResource("44")
+fill = 1
+fill_from = Vector2(0.516995, 0.909174)
+
+[sub_resource type="Gradient" id="45"]
+colors = PackedColorArray(0.00784314, 0.109804, 0.12549, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="52"]
+gradient = SubResource("45")
+fill = 1
+fill_from = Vector2(0.540634, 0.417034)
+
+[sub_resource type="Animation" id="54"]
+resource_name = "loop"
+length = 12.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Blob:texture:fill_from")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 6, 8, 9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.270833, 0.779167), Vector2(0.341667, 0.370833), Vector2(0.541667, 0.7875), Vector2(0.3625, 0.395833), Vector2(0.116667, 0.195833)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Blob2:texture:fill_from")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6, 9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.795833, 0.170833), Vector2(0.704167, 0.7125), Vector2(0.225, 0.808333), Vector2(0.6125, 0.583333), Vector2(0.2875, 0.295833)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Blob3:texture:fill_from")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 4, 6, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.870833, 0.766667), Vector2(0.208333, 0.85), Vector2(0.529167, 0.3125), Vector2(0.929167, 0.404167)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Blob4:texture:fill_from")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 3, 6, 8, 10.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.0666667), Vector2(0.779167, 0.766667), Vector2(0.0833333, 0.604167), Vector2(0.5625, 0.3), Vector2(0.275, 0.745833)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4g6s1"]
+_data = {
+"loop": SubResource("54")
+}
+
+[sub_resource type="Animation" id="Animation_2o7vt"]
+resource_name = "anim"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Grid:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-80, -200), Vector2(-120, -160)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ddh28"]
+_data = {
+"anim": SubResource("Animation_2o7vt")
+}
+
+[node name="Background" type="Control"]
+z_index = -5
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(-992, -216)
+mouse_filter = 2
+script = SubResource("47")
+
+[node name="Back" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.00405229, 0.0418301, 0.0462745, 1)
+
+[node name="SplashAnim" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_5iew8")
+}
+
+[node name="Shiny" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Blob" type="TextureRect" parent="Shiny"]
+material = SubResource("48")
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = SubResource("49")
+expand_mode = 1
+
+[node name="Blob2" type="TextureRect" parent="Shiny"]
+material = SubResource("48")
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = SubResource("50")
+expand_mode = 1
+
+[node name="Blob3" type="TextureRect" parent="Shiny"]
+material = SubResource("48")
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = SubResource("51")
+expand_mode = 1
+
+[node name="Blob4" type="TextureRect" parent="Shiny"]
+material = SubResource("48")
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = SubResource("52")
+expand_mode = 1
+
+[node name="BackAnim" type="AnimationPlayer" parent="Shiny"]
+libraries = {
+"": SubResource("AnimationLibrary_4g6s1")
+}
+autoplay = "loop"
+
+[node name="Grid" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.156863)
+layout_mode = 0
+offset_left = -103.383
+offset_top = -176.617
+offset_right = 1816.62
+offset_bottom = 903.383
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("2_yitv3")
+
+[node name="Vignette" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.25)
+layout_mode = 0
+offset_right = 1536.0
+offset_bottom = 864.0
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("2_v63oy")
+expand_mode = 1
+
+[node name="GridAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ddh28")
+}
+autoplay = "anim"

@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://w62kdlnct8s0"
+path="res://.godot/imported/big_star.png-55179a8232544f0980f235bdfb6a0a92.image"
+
+[deps]
+
+source_file="res://images/game/export/big_star.png"
+dest_files=["res://.godot/imported/big_star.png-55179a8232544f0980f235bdfb6a0a92.image"]
+
+[params]
+

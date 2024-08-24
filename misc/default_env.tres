@@ -1,0 +1,9 @@
+[gd_resource type="Environment" load_steps=2 format=3 uid="uid://dfu7rkk0m2d47"]
+
+[sub_resource type="Sky" id="1"]
+
+[resource]
+background_mode = 1
+background_color = Color(0.45098, 0.45098, 0.45098, 1)
+sky = SubResource("1")
+glow_hdr_threshold = 1.5

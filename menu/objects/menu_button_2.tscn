@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0f04oiutqk2g"]
+
+[ext_resource type="Script" path="res://menu/scripts/objects/menu_button_2.gd" id="1"]
+
+[node name="Button" type="Button"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(96, 96)
+offset_right = 96.0
+offset_bottom = 96.0
+focus_mode = 0
+script = ExtResource("1")
+label_color = Color(1, 1, 1, 1)
+
+[node name="Back" type="ColorRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.5)
+
+[node name="Glow" type="ColorRect" parent="Back"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0.75)
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+anchor_top = 0.421
+anchor_bottom = 0.421
+offset_left = 24.0
+offset_top = -16.416
+offset_right = 88.0
+offset_bottom = 47.584
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6

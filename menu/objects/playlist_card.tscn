@@ -1,0 +1,96 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqn64i22gj71e"]
+
+[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="3"]
+[ext_resource type="Script" path="res://menu/scripts/objects/playlist_card.gd" id="4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xujtt"]
+font = ExtResource("3")
+
+[node name="PlaylistCard" type="Button"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(1104, 128)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -816.0
+offset_bottom = -952.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4")
+menu_position = Vector2i(-1, -1)
+work_mode = 8
+press_sound_name = "confirm"
+
+[node name="Box" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.271, 0.278, 0.271, 0.5)
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 888.0
+offset_bottom = 43.0
+text = "SOME REALLY DUMB PLAYLIST NAME IS HERE"
+label_settings = SubResource("LabelSettings_xujtt")
+uppercase = true
+
+[node name="Skins" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 48.0
+offset_right = 1096.0
+offset_bottom = 112.0
+theme_override_constants/separation = 16
+
+[node name="Box2" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1100.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Box3" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.941
+offset_left = 1100.0
+offset_bottom = 3.55199
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Box4" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_right = -4.0
+offset_bottom = -124.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Box5" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 120.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2

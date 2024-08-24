@@ -1,0 +1,59 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://v671yukmooja"]
+
+[ext_resource type="Texture2D" uid="uid://dk6bk4i2fqinh" path="res://images/game/export/blocks_sheet.png" id="1_mehsa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q80ru"]
+atlas = ExtResource("1_mehsa")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glips"]
+atlas = ExtResource("1_mehsa")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xx3dn"]
+atlas = ExtResource("1_mehsa")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwp4m"]
+atlas = ExtResource("1_mehsa")
+region = Rect2(128, 0, 128, 128)
+
+[resource]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q80ru")
+}],
+"loop": false,
+"name": &"gsquare",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glips")
+}],
+"loop": false,
+"name": &"psquare",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xx3dn")
+}],
+"loop": false,
+"name": &"rsquare",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jwp4m")
+}],
+"loop": false,
+"name": &"wsquare",
+"speed": 5.0
+}]

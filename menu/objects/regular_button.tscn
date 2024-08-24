@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://de6suo666kuir"]
+
+[ext_resource type="Script" path="res://menu/scripts/objects/regular_button.gd" id="1"]
+[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0epxn"]
+blend_mode = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_5paec"]
+font = ExtResource("2")
+font_size = 20
+
+[node name="Button" type="Button"]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 768.0
+offset_bottom = 64.0
+focus_mode = 0
+script = ExtResource("1")
+glow_color = Color(0.12549, 0.623529, 0.701961, 1)
+
+[node name="Back" type="ColorRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.235, 0.235, 0.235, 0.75)
+
+[node name="Glow" type="ColorRect" parent="Back"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0.501961)
+material = SubResource("CanvasItemMaterial_0epxn")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_right = -88.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+label_settings = SubResource("LabelSettings_5paec")
+vertical_alignment = 1
+uppercase = true

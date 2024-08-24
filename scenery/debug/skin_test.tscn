@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=3 uid="uid://b04c14kfkc1ks"]
+
+[ext_resource type="PackedScene" uid="uid://c64vgjpw7518t" path="res://scenery/game/skin.tscn" id="1"]
+[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2_8s87f"]
+
+[sub_resource type="GDScript" id="1"]
+script/source = "extends Node2D
+
+@export var skin_path : String = \"\"
+
+var is_ending : bool = false
+var skin_data : SkinData = null
+
+func _ready() -> void:
+	if skin_data == null and not skin_path.is_empty():
+		skin_data = Data.blank_skin._clone()
+		skin_data._load_from_path(Data.SKINS_PATH + skin_path + \".skn\")
+	
+	skin_data.metadata.settings[\"looping\"] = false
+	
+	$Skin.skin_data = skin_data
+	$Skin._start()
+	
+	var tween : Tween = create_tween().set_loops(5)
+	tween.tween_property($Label, \"modulate\", Color(0.0,0.0,0.0,0.5), 1.0)
+	tween.tween_property($Label, \"modulate\", Color.WHITE, 1.0)
+	
+	await get_tree().create_timer(10.1).timeout
+	tween = create_tween()
+	tween.tween_property($Label, \"modulate\", Color(1.0,0.0,0.0,0.0), 0.25)
+	tween.tween_callback($Label.queue_free)
+
+
+func _input(event : InputEvent) -> void:
+	if event.is_action_pressed(\"ui_cancel\"): _end()
+
+
+func _end() -> void:
+	if is_ending : return
+	is_ending = true
+	
+	# Blackout animation
+	var tween : Tween = create_tween().set_parallel(true)
+	tween.tween_property($Skin.music_player,\"volume_db\", -40.0, 1.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
+	tween.tween_property(Data.main.black,\"color\",Color(0,0,0,1),1.0)
+	await get_tree().create_timer(1.0).timeout
+	
+	# Called when we are in skin editor playtest mode
+	Data.menu._return_from_game(\"main_menu\")
+	queue_free()
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_4obf5"]
+font = ExtResource("2_8s87f")
+font_size = 32
+
+[node name="SkinTest" type="Node2D"]
+script = SubResource("1")
+skin_path = "test_skin"
+
+[node name="Skin" parent="." instance=ExtResource("1")]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 632.0
+offset_top = 1016.0
+offset_right = 1296.0
+offset_bottom = 1052.0
+text = "PRESS ESC TO EXIT DEMO"
+label_settings = SubResource("LabelSettings_4obf5")

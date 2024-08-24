@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://mdo21yw7ohx5"]
+
+[ext_resource type="Texture2D" uid="uid://tw4qjkdfu8iu" path="res://images/menu/jk.png" id="1"]
+
+[sub_resource type="Gradient" id="1"]
+offsets = PackedFloat32Array(0, 0.139344, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.235294, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dvec3"]
+gradient = SubResource("1")
+width = 512
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t0ess"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_dvec3")
+
+[node name="Trail" type="GPUParticles2D"]
+z_index = -1
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_t0ess")
+texture = ExtResource("1")
+lifetime = 0.2
+fixed_fps = 0

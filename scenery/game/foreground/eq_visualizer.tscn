@@ -1,0 +1,194 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7wvkrh1dyabj"]
+
+[ext_resource type="Texture2D" uid="uid://blvul42mf7ykq" path="res://images/game/foreground/base.png" id="1"]
+[ext_resource type="Script" path="res://scripts/menu/objects/eq_visualizer.gd" id="2"]
+
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1")
+region = Rect2(36, 11, 58, 680)
+
+[node name="EQ" type="Node2D"]
+position = Vector2(8, 0)
+script = ExtResource("2")
+
+[node name="stik1" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 55.9999
+offset_top = 680.0
+offset_right = 112.0
+offset_bottom = 1360.0
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="stik2" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 124.0
+offset_top = 680.0
+offset_right = 180.0
+offset_bottom = 1360.0
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="stik3" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 192.0
+offset_top = 680.0
+offset_right = 248.0
+offset_bottom = 1358.53
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="stik4" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 260.0
+offset_top = 680.0
+offset_right = 316.0
+offset_bottom = 1360.0
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="stik5" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 328.0
+offset_top = 680.0
+offset_right = 384.0
+offset_bottom = 1360.0
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="stik6" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 396.0
+offset_top = 680.0
+offset_right = 452.0
+offset_bottom = 1360.0
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="stik7" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 464.0
+offset_top = 680.0
+offset_right = 520.0
+offset_bottom = 1360.0
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="stik8" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 532.0
+offset_top = 680.0
+offset_right = 588.0
+offset_bottom = 1360.0
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="stik9" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 600.0
+offset_top = 680.0
+offset_right = 656.0
+offset_bottom = 1360.0
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="stik10" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 668.0
+offset_top = 680.0
+offset_right = 724.0
+offset_bottom = 1360.0
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="stik11" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 736.0
+offset_top = 680.0
+offset_right = 792.0
+offset_bottom = 1360.0
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="stik12" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 804.0
+offset_top = 680.0
+offset_right = 860.0
+offset_bottom = 1360.0
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="stik13" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 872.0
+offset_top = 680.0
+offset_right = 928.0
+offset_bottom = 1360.0
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="stik14" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 940.0
+offset_top = 680.0
+offset_right = 996.0
+offset_bottom = 1360.0
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="stik15" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 1008.0
+offset_top = 680.0
+offset_right = 1064.0
+offset_bottom = 1360.0
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="stik16" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = 1076.0
+offset_top = 680.0
+offset_right = 1132.0
+offset_bottom = 1360.0
+rotation = 3.14159
+texture = SubResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

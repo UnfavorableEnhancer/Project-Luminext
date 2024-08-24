@@ -1,0 +1,238 @@
+[gd_scene load_steps=7 format=3 uid="uid://dgfimp6u5qbmq"]
+
+[ext_resource type="Texture2D" uid="uid://dpye7ca61vj6i" path="res://images/game/effects/square.png" id="1"]
+
+[sub_resource type="GDScript" id="22"]
+script/source = "extends FX
+
+func _ready() -> void:
+	# Set special name
+	name = \"m\" + str(position.x + 10) + str(position.y + 10)
+	
+	var color : Color
+	
+	if Data.profile.config[\"video\"][\"force_standard_blocks\"] :
+		match parameter:
+			BlockBase.BLOCK_COLOR.RED : color = Color(\"ec7d24\")
+			BlockBase.BLOCK_COLOR.WHITE : color = Color.WHITE
+			BlockBase.BLOCK_COLOR.GREEN : color = Color.GREEN
+			BlockBase.BLOCK_COLOR.PURPLE : color = Color.PURPLE
+	else:
+		var skin_data : SkinData = Data.game.skin.skin_data
+		match parameter:
+			BlockBase.BLOCK_COLOR.RED: color = skin_data.textures[\"red_fx\"]
+			BlockBase.BLOCK_COLOR.WHITE : color = skin_data.textures[\"white_fx\"]
+			BlockBase.BLOCK_COLOR.GREEN : color = skin_data.textures[\"green_fx\"]
+			BlockBase.BLOCK_COLOR.PURPLE : color = skin_data.textures[\"purple_fx\"]
+	
+	if Data.profile.config[\"video\"][\"fx_quality\"] == Profile.EFFECTS_QUALITY.MINIMUM:
+		$S4.free()
+		$S5.free()
+		$ANIM.get_animation_library(\"\").remove_animation(\"start\")
+		$ANIM.get_animation_library(\"\").remove_animation(\"med\")
+		anim = \"min\"
+	elif Data.profile.config[\"video\"][\"fx_quality\"] == Profile.EFFECTS_QUALITY.LOW or Data.profile.config[\"video\"][\"fx_quality\"] == Profile.EFFECTS_QUALITY.MEDIUM:
+		$S5.free()
+		$ANIM.get_animation_library(\"\").remove_animation(\"start\")
+		anim = \"med\"
+	else:
+		anim = \"start\"
+	
+	
+	# Color merge effect
+	modulate = color
+	
+	_start()
+
+"
+
+[sub_resource type="Animation" id="20"]
+resource_name = "med"
+length = 1.75
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("S3:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0.5, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("S3:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(5.5, 5.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("S4:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.75, 1.3),
+"transitions": PackedFloat32Array(1, 0.5, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("S4:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2, 0.75),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(5.5, 5.5)]
+}
+
+[sub_resource type="Animation" id="21"]
+resource_name = "min"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("S3:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0.5, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("S3:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(5.5, 5.5)]
+}
+
+[sub_resource type="Animation" id="18"]
+resource_name = "start"
+length = 1.75
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("S3:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0.5, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("S3:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(5.5, 5.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("S4:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.7, 1.2),
+"transitions": PackedFloat32Array(1, 0.5, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("S4:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2, 0.7),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(5.5, 5.5)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("S5:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.45, 0.95, 1.45),
+"transitions": PackedFloat32Array(1, 0.5, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("S5:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.45, 0.95),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(5.5, 5.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t8obg"]
+_data = {
+"med": SubResource("20"),
+"min": SubResource("21"),
+"start": SubResource("18")
+}
+
+[node name="Merge" type="Node2D"]
+script = SubResource("22")
+
+[node name="S3" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(-34, -34)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("1")
+
+[node name="S4" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(-34, -34)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("1")
+
+[node name="S5" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(-34, -34)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("1")
+
+[node name="ANIM" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_t8obg")
+}

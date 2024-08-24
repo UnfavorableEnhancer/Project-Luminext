@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://fonts/lumifont.ttf" type="FontFile" id=1]
+
+[sub_resource type="FontFile" id=31]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=28]
+bg_color = Color( 0, 0.858824, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=29]
+bg_color = Color( 0.0196078, 0.933333, 0.568627, 1 )
+
+[sub_resource type="StyleBoxFlat" id=30]
+bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+
+[node name="Button" type="Button"]
+offset_right = 528.0
+offset_bottom = 36.0
+mouse_filter = 1
+theme_override_fonts/font = SubResource( 31 )
+theme_override_styles/hover = SubResource( 28 )
+theme_override_styles/pressed = SubResource( 29 )
+theme_override_styles/normal = SubResource( 30 )
+text = "YES!"

@@ -1,0 +1,16 @@
+Helper table of z indexes between all game objects
+
+0 - Menu, Everything else
+-299 - Numbers effects
+-300 - Erase effect, blast sparks
+-502 - Block erase animation
+-501 - Multi block mark
+-500 - Block erase sprite 
+-700 - Effects layer
+-701 - Special block gems
+-702 - Blocks, Piece (Game field)
+-703 - Game, Foreground
+-704 - EQ Visualizer
+-1000 - Skin
+-1200 - Bonus arrow
+-1999 - Skin background

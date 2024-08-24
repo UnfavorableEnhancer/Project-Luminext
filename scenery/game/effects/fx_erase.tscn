@@ -1,0 +1,259 @@
+[gd_scene load_steps=11 format=3 uid="uid://cgunwh5rs71mb"]
+
+[ext_resource type="Texture2D" uid="uid://b2blb4yd3clah" path="res://images/game/effects/blink.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://bqeucyjcr3rbl" path="res://images/game/effects/droplet.png" id="3"]
+[ext_resource type="Shader" path="res://shaders/outline_color.gdshader" id="5"]
+
+[sub_resource type="GDScript" id="11"]
+script/source = "extends FX
+
+func _ready() -> void:
+	name = \"e\" + str(position.x + 10) + str(position.y + 10)
+	
+	var color : Color
+	
+	if Data.profile.config[\"video\"][\"force_standard_blocks\"] :
+		match parameter:
+			BlockBase.BLOCK_COLOR.RED : color = Color(\"ec7d24\")
+			BlockBase.BLOCK_COLOR.WHITE : color = Color.WHITE
+			BlockBase.BLOCK_COLOR.GREEN : color = Color.GREEN
+			BlockBase.BLOCK_COLOR.PURPLE : color = Color.PURPLE
+	else:
+		var skin_data : SkinData = Data.game.skin.skin_data
+		match parameter:
+			BlockBase.BLOCK_COLOR.RED: color = skin_data.textures[\"red_fx\"]
+			BlockBase.BLOCK_COLOR.WHITE : color = skin_data.textures[\"white_fx\"]
+			BlockBase.BLOCK_COLOR.GREEN : color = skin_data.textures[\"green_fx\"]
+			BlockBase.BLOCK_COLOR.PURPLE : color = skin_data.textures[\"purple_fx\"]
+	
+	anim = \"max\"
+	
+	$Line2D.self_modulate = color
+	$Line2D/S4.material.set_shader_parameter(\"tint_color\", color)
+	
+	$ANIM.speed_scale = 2.5 * (Data.game.skin.bpm / 120.0)
+	
+	_start()
+	
+"
+
+[sub_resource type="ShaderMaterial" id="24"]
+shader = ExtResource("5")
+shader_parameter/tint_color = Color(1, 0.705882, 0.00392157, 1)
+shader_parameter/tint_effect_factor = 1.0
+shader_parameter/test = 0.0
+shader_parameter/test2 = 0.0
+
+[sub_resource type="Curve" id="27"]
+_data = [Vector2(0, 0), 0.0, 7.13187, 0, 0, Vector2(0.54661, 0), -4.53633, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="25"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.807692, 1)
+colors = PackedColorArray(1, 1, 1, 0.951515, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Animation" id="23"]
+resource_name = "max"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Line2D/S4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(7.62939e-06, 8), Vector2(7.62939e-06, -147), Vector2(155.999, -147), Vector2(155.999, 8), Vector2(6, 8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Line2D:points")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(-1.52588e-05, 14, 0, 14, 0, 14, 0, 14, 0, 14), PackedVector2Array(-1.52588e-05, 14, 0, -142, 0, -142, 0, -142, 0, -142), PackedVector2Array(-1.52588e-05, 14, 0, -142, 156, -142, 156, -142, 156, -142), PackedVector2Array(-1.52588e-05, 14, 0, -142, 156, -142, 156, 14, 156, 14), PackedVector2Array(-1.52588e-05, 14, 0, -142, 156, -142, 156, 14, -3, 14)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Line2D/S4:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(0.5, 1, 1.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Line2D/S4:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 360.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Line2D/S4/P3:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Line2D:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 1, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Line2D/S4:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.3, 1, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="10"]
+resource_name = "start"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Line2D/S4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(7.62939e-06, 8), Vector2(7.62939e-06, -147), Vector2(155.999, -147), Vector2(155.999, 8), Vector2(6, 8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Line2D:points")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(-1.52588e-05, 14, 0, 14, 0, 14, 0, 14, 0, 14), PackedVector2Array(-1.52588e-05, 14, 0, -142, 0, -142, 0, -142, 0, -142), PackedVector2Array(-1.52588e-05, 14, 0, -142, 156, -142, 156, -142, 156, -142), PackedVector2Array(-1.52588e-05, 14, 0, -142, 156, -142, 156, 14, 156, 14), PackedVector2Array(-1.52588e-05, 14, 0, -142, 156, -142, 156, 14, 0, 14)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Line2D/S4:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(0.5, 1, 1.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.8, 1.4),
+"transitions": PackedFloat32Array(0.5, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.972549, 0.545098, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0.498039, 0.498039, 0.498039, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Line2D/S4:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 360.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7cpif"]
+_data = {
+"max": SubResource("23"),
+"start": SubResource("10")
+}
+
+[node name="Erase" type="Node2D"]
+z_index = 400
+scale = Vector2(0.9, 0.9)
+script = SubResource("11")
+
+[node name="Line2D" type="Line2D" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(-78, 64)
+points = PackedVector2Array(-1.52588e-05, 14, 0, -142, 156, -142, 156, 14, -3, 14)
+width = 8.0
+
+[node name="S4" type="Sprite2D" parent="Line2D"]
+self_modulate = Color(1, 1, 1, 0)
+material = SubResource("24")
+position = Vector2(6, 8)
+rotation = 6.28319
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("1")
+offset = Vector2(-7.34865, -6.15324)
+
+[node name="P3" type="CPUParticles2D" parent="Line2D/S4"]
+modulate = Color(2, 2, 2, 1)
+position = Vector2(2.06946, -10.5733)
+rotation = 2.82274
+scale = Vector2(2.49844, 2.53072)
+emitting = false
+amount = 48
+lifetime = 20.0
+speed_scale = 15.0
+fract_delta = false
+texture = ExtResource("3")
+particle_flag_align_y = true
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 20)
+initial_velocity_min = 25.0
+initial_velocity_max = 40.0
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("27")
+color_ramp = SubResource("25")
+
+[node name="ANIM" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7cpif")
+}
+speed_scale = 2.0

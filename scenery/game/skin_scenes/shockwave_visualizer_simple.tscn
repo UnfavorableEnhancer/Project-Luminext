@@ -1,0 +1,275 @@
+[gd_scene load_steps=8 format=3 uid="uid://bdtnxb6611d36"]
+
+[ext_resource type="Shader" path="res://shaders/ghost.gdshader" id="1_2rjs2"]
+
+[sub_resource type="GDScript" id="GDScript_qo78n"]
+script/source = "extends Node2D
+
+const DELIMETER : int = 50 # Devides converted to db amplitude which makes result energy to display
+const MULTIPLYER : int = 5000 # Multiplyes raw amplitude before converting to db
+const UPDATE_FREQ : float = 0.01 # Update frequency
+const ANIMATION_SPEED : float = 0.075 # Sticks animation speed
+
+@onready var pulse : Line2D = $Pulses/Pulse
+@onready var pulse2 : Line2D = $Pulses/Pulse2
+@onready var pulse3 : Line2D = $Pulses/Pulse3
+@onready var pulse4 : Line2D = $Pulses/Pulse4
+@onready var pulse5 : Line2D = $Pulses/Pulse5
+@onready var pulse6 : Line2D = $Pulses/Pulse6
+@onready var pulse7 : Line2D = $Pulses/Pulse7
+@onready var pulse8 : Line2D = $Pulses/Pulse8
+
+@onready var pulse11 : Line2D = $Sub/Viewport/Pulses2/Pulse
+@onready var pulse13 : Line2D = $Sub/Viewport/Pulses2/Pulse3
+@onready var pulse15 : Line2D = $Sub/Viewport/Pulses2/Pulse5
+@onready var pulse17 : Line2D = $Sub/Viewport/Pulses2/Pulse7
+
+var spectrum : AudioEffectSpectrumAnalyzerInstance
+var freq : Array[int] = []
+
+func _ready() -> void:
+	freq.append_array(range(200,12000,196))
+	freq.append(12000)
+	spectrum = AudioServer.get_bus_effect_instance(0,0)
+	$Timer.start(UPDATE_FREQ)
+
+
+func _on_timer_timeout() -> void:
+	#$CPUParticles2D.texture = $Sub/Viewport.get_texture()
+	
+	if AudioServer.is_bus_effect_enabled(0,0): 
+		visible = true
+	else: 
+		visible = false
+		return
+	
+	var tween : Tween = create_tween().set_parallel(true)
+	var new_points : PackedVector2Array = []
+	var new_points2 : PackedVector2Array = []
+	
+	for num in 61:
+		var point : Vector2 = pulse.points[num]
+		var magnitude : float = snappedf(spectrum.get_magnitude_for_frequency_range(freq[num], freq[num+1], AudioEffectSpectrumAnalyzerInstance.MAGNITUDE_MAX).length_squared(),0.00001)
+		var energy : float = -1 * (linear_to_db(clampf(1.0 - magnitude * MULTIPLYER,0.01,1.0)) / DELIMETER)
+		new_points.append(Vector2(point.x, clamp(512 - 512 * energy,0,512)))
+		new_points2.append(Vector2(point.x, clamp(512 + 512 * energy,512,1024)))
+	
+	tween.tween_property(pulse,\"points\",new_points,ANIMATION_SPEED)
+	tween.tween_property(pulse2,\"points\",new_points,ANIMATION_SPEED * 2)
+	tween.tween_property(pulse3,\"points\",new_points2,ANIMATION_SPEED)
+	tween.tween_property(pulse4,\"points\",new_points2,ANIMATION_SPEED * 2)
+	tween.tween_property(pulse5,\"points\",new_points,ANIMATION_SPEED)
+	tween.tween_property(pulse6,\"points\",new_points,ANIMATION_SPEED * 2)
+	tween.tween_property(pulse7,\"points\",new_points2,ANIMATION_SPEED)
+	tween.tween_property(pulse8,\"points\",new_points2,ANIMATION_SPEED * 2)
+	
+	tween.tween_property(pulse11,\"points\",new_points,ANIMATION_SPEED * 2)
+	tween.tween_property(pulse13,\"points\",new_points2,ANIMATION_SPEED * 2)
+	tween.tween_property(pulse15,\"points\",new_points,ANIMATION_SPEED * 2)
+	tween.tween_property(pulse17,\"points\",new_points2,ANIMATION_SPEED * 2)
+"
+
+[sub_resource type="Gradient" id="Gradient_qejev"]
+offsets = PackedFloat32Array(0, 0.231132, 0.504717, 0.773585, 1)
+colors = PackedColorArray(0.113725, 0.109804, 0.0431373, 1, 0.572549, 0.32549, 0.2, 1, 0.972549, 0.156863, 0.309804, 1, 0.572549, 0.32549, 0.2, 1, 0.113725, 0.109804, 0.0431373, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_27seu"]
+gradient = SubResource("Gradient_qejev")
+
+[sub_resource type="Animation" id="Animation_l6jsq"]
+resource_name = "main"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gradient:texture:gradient:colors")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 6, 7, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedColorArray(0.113725, 0.109804, 0.0431373, 1, 0.572549, 0.32549, 0.2, 1, 0.972549, 0.156863, 0.309804, 1, 0.572549, 0.32549, 0.2, 1, 0.113725, 0.109804, 0.0431373, 1), PackedColorArray(0.2, 0.12549, 0.0862745, 1, 0.611765, 0.2, 0.278431, 1, 0.894118, 0.329412, 0.619608, 1, 0.611765, 0.2, 0.278431, 1, 0.2, 0.12549, 0.0862745, 1), PackedColorArray(0.203922, 0.0784314, 0.101961, 1, 0.592157, 0.215686, 0.411765, 1, 0.376471, 0.0941176, 0.752941, 1, 0.592157, 0.215686, 0.411765, 1, 0.203922, 0.0784314, 0.101961, 1), PackedColorArray(0.160784, 0.0627451, 0.113725, 1, 0.290196, 0.184314, 0.431373, 1, 0.117647, 0.0862745, 1, 1, 0.290196, 0.184314, 0.431373, 1, 0.160784, 0.0627451, 0.113725, 1), PackedColorArray(0.0666667, 0.0666667, 0.137255, 1, 0.196078, 0.329412, 0.501961, 1, 0.121569, 0.917647, 0.917647, 1, 0.196078, 0.329412, 0.501961, 1, 0.0666667, 0.0666667, 0.137255, 1), PackedColorArray(0.054902, 0.0862745, 0.129412, 1, 0.215686, 0.556863, 0.556863, 1, 0.239216, 0.945098, 0.435294, 1, 0.215686, 0.556863, 0.556863, 1, 0.054902, 0.0862745, 0.129412, 1), PackedColorArray(0.0470588, 0.105882, 0.105882, 1, 0.207843, 0.498039, 0.286275, 1, 0.913725, 0.941176, 0.0705882, 1, 0.207843, 0.498039, 0.286275, 1, 0.0470588, 0.105882, 0.105882, 1), PackedColorArray(0.0431373, 0.113725, 0.0627451, 1, 0.541176, 0.552941, 0.113725, 1, 0.941176, 0.498039, 0.0705882, 1, 0.541176, 0.552941, 0.113725, 1, 0.0431373, 0.113725, 0.0627451, 1), PackedColorArray(0.113725, 0.109804, 0.0431373, 1, 0.572549, 0.32549, 0.2, 1, 0.972549, 0.156863, 0.309804, 1, 0.572549, 0.32549, 0.2, 1, 0.113725, 0.109804, 0.0431373, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pulses:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 6, 7, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.0823529, 0.611765, 1, 1), Color(0.0823529, 0.227451, 1, 1), Color(0.937255, 0.752941, 0.129412, 1), Color(0.913725, 0.25098, 0.0470588, 1), Color(0.294118, 0.717647, 0.282353, 1), Color(0.529412, 0.266667, 0.788235, 1), Color(0.913725, 0.172549, 0.831373, 1), Color(0.156863, 1, 0.643137, 1), Color(0.0823529, 0.611765, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sub/Viewport/Pulses2:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 6, 7, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.0823529, 0.611765, 1, 1), Color(0.0823529, 0.227451, 1, 1), Color(0.937255, 0.752941, 0.129412, 1), Color(0.913725, 0.25098, 0.0470588, 1), Color(0.294118, 0.717647, 0.282353, 1), Color(0.529412, 0.266667, 0.788235, 1), Color(0.913725, 0.172549, 0.831373, 1), Color(0.156863, 1, 0.643137, 1), Color(0.0823529, 0.611765, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hxpbi"]
+_data = {
+"main": SubResource("Animation_l6jsq")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_817y6"]
+shader = ExtResource("1_2rjs2")
+shader_parameter/ghost = 0.7
+
+[node name="Scene" type="Node2D"]
+script = SubResource("GDScript_qo78n")
+
+[node name="Gradient" type="TextureRect" parent="."]
+visible = false
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+offset_left = 1918.0
+offset_right = 3003.0
+offset_bottom = 1924.0
+rotation = 1.5708
+texture = SubResource("GradientTexture1D_27seu")
+
+[node name="Sub" type="SubViewportContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Viewport" type="SubViewport" parent="Sub"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_clear_mode = 2
+render_target_update_mode = 4
+
+[node name="Pulses2" type="Node2D" parent="Sub/Viewport"]
+modulate = Color(0.0823529, 0.611765, 1, 1)
+position = Vector2(-8, 0)
+
+[node name="Pulse" type="Line2D" parent="Sub/Viewport/Pulses2"]
+position = Vector2(958.5, 29)
+scale = Vector2(0.5, 1)
+points = PackedVector2Array(0, 512, 32, 512, 64, 512, 96, 512, 128, 512, 160, 512, 192, 512, 224, 512, 256, 512, 288, 512, 320, 512, 352, 512, 384, 512, 416, 512, 448, 512, 480, 512, 512, 512, 544, 512, 576, 512, 608, 512, 640, 512, 672, 512, 704, 512, 736, 512, 768, 512, 800, 512, 832, 512, 864, 512, 896, 512, 928, 512, 960, 512, 992, 512, 1024, 512, 1056.66, 512, 1088, 512, 1120, 512, 1152, 512, 1184, 512, 1216, 512, 1248, 512, 1280, 512, 1312, 512, 1344, 512, 1376, 512, 1407.54, 512, 1440, 512, 1472, 512, 1504, 512, 1537.68, 512, 1568, 512, 1600, 512, 1632, 512, 1664, 512, 1696, 512, 1728, 512, 1760, 512, 1792, 512, 1824, 512, 1856, 512, 1888, 512, 1920, 512)
+width = 15.0
+sharp_limit = 8.0
+
+[node name="Pulse3" type="Line2D" parent="Sub/Viewport/Pulses2"]
+position = Vector2(958.5, 29)
+scale = Vector2(0.5, 1)
+points = PackedVector2Array(0, 512, 32, 512, 64, 512, 96, 512, 128, 512, 160, 512, 192, 512, 224, 512, 256, 512, 288, 512, 320, 512, 352, 512, 384, 512, 416, 512, 448, 512, 480, 512, 512, 512, 544, 512, 576, 512, 608, 512, 640, 512, 672, 512, 704, 512, 736, 512, 768, 512, 800, 512, 832, 512, 864, 512, 896, 512, 928, 512, 960, 512, 992, 512, 1024, 512, 1056.66, 512, 1088, 512, 1120, 512, 1152, 512, 1184, 512, 1216, 512, 1248, 512, 1280, 512, 1312, 512, 1344, 512, 1376, 512, 1407.54, 512, 1440, 512, 1472, 512, 1504, 512, 1537.68, 512, 1568, 512, 1600, 512, 1632, 512, 1664, 512, 1696, 512, 1728, 512, 1760, 512, 1792, 512, 1824, 512, 1856, 512, 1888, 512, 1920, 512)
+width = 15.0
+sharp_limit = 8.0
+
+[node name="Pulse5" type="Line2D" parent="Sub/Viewport/Pulses2"]
+position = Vector2(958.5, 1053)
+rotation = 3.14159
+scale = Vector2(0.5, 1)
+points = PackedVector2Array(0, 512, 32, 512, 64, 512, 96, 512, 128, 512, 160, 512, 192, 512, 224, 512, 256, 512, 288, 512, 320, 512, 352, 512, 384, 512, 416, 512, 448, 512, 480, 512, 512, 512, 544, 512, 576, 512, 608, 512, 640, 512, 672, 512, 704, 512, 736, 512, 768, 512, 800, 512, 832, 512, 864, 512, 896, 512, 928, 512, 960, 512, 992, 512, 1024, 512, 1056.66, 512, 1088, 512, 1120, 512, 1152, 512, 1184, 512, 1216, 512, 1248, 512, 1280, 512, 1312, 512, 1344, 512, 1376, 512, 1407.54, 512, 1440, 512, 1472, 512, 1504, 512, 1537.68, 512, 1568, 512, 1600, 512, 1632, 512, 1664, 512, 1696, 512, 1728, 512, 1760, 512, 1792, 512, 1824, 512, 1856, 512, 1888, 512, 1920, 512)
+width = 15.0
+sharp_limit = 8.0
+
+[node name="Pulse7" type="Line2D" parent="Sub/Viewport/Pulses2"]
+position = Vector2(958.5, 1053)
+rotation = 3.14159
+scale = Vector2(0.5, 1)
+points = PackedVector2Array(0, 512, 32, 512, 64, 512, 96, 512, 128, 512, 160, 512, 192, 512, 224, 512, 256, 512, 288, 512, 320, 512, 352, 512, 384, 512, 416, 512, 448, 512, 480, 512, 512, 512, 544, 512, 576, 512, 608, 512, 640, 512, 672, 512, 704, 512, 736, 512, 768, 512, 800, 512, 832, 512, 864, 512, 896, 512, 928, 512, 960, 512, 992, 512, 1024, 512, 1056.66, 512, 1088, 512, 1120, 512, 1152, 512, 1184, 512, 1216, 512, 1248, 512, 1280, 512, 1312, 512, 1344, 512, 1376, 512, 1407.54, 512, 1440, 512, 1472, 512, 1504, 512, 1537.68, 512, 1568, 512, 1600, 512, 1632, 512, 1664, 512, 1696, 512, 1728, 512, 1760, 512, 1792, 512, 1824, 512, 1856, 512, 1888, 512, 1920, 512)
+width = 15.0
+sharp_limit = 8.0
+
+[node name="Gradient2" type="TextureRect" parent="Sub/Viewport"]
+modulate = Color(0.298039, 0.298039, 0.298039, 0.117647)
+offset_left = 1918.0
+offset_right = 3003.0
+offset_bottom = 1924.0
+rotation = 1.5708
+texture = SubResource("GradientTexture1D_27seu")
+
+[node name="Pulses" type="Node2D" parent="."]
+modulate = Color(0.0823529, 0.611765, 1, 1)
+
+[node name="Pulse" type="Line2D" parent="Pulses"]
+position = Vector2(958.5, 29)
+scale = Vector2(0.5, 1)
+points = PackedVector2Array(0, 512, 32, 512, 64, 512, 96, 512, 128, 512, 160, 512, 192, 512, 224, 512, 256, 512, 288, 512, 320, 512, 352, 512, 384, 512, 416, 512, 448, 512, 480, 512, 512, 512, 544, 512, 576, 512, 608, 512, 640, 512, 672, 512, 704, 512, 736, 512, 768, 512, 800, 512, 832, 512, 864, 512, 896, 512, 928, 512, 960, 512, 992, 512, 1024, 512, 1056.66, 512, 1088, 512, 1120, 512, 1152, 512, 1184, 512, 1216, 512, 1248, 512, 1280, 512, 1312, 512, 1344, 512, 1376, 512, 1407.54, 512, 1440, 512, 1472, 512, 1504, 512, 1537.68, 512, 1568, 512, 1600, 512, 1632, 512, 1664, 512, 1696, 512, 1728, 512, 1760, 512, 1792, 512, 1824, 512, 1856, 512, 1888, 512, 1920, 512)
+width = 15.0
+sharp_limit = 8.0
+
+[node name="Pulse2" type="Line2D" parent="Pulses"]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(958.5, 29)
+scale = Vector2(0.5, 1)
+points = PackedVector2Array(0, 512, 32, 512, 64, 512, 96, 512, 128, 512, 160, 512, 192, 512, 224, 512, 256, 512, 288, 512, 320, 512, 352, 512, 384, 512, 416, 512, 448, 512, 480, 512, 512, 512, 544, 512, 576, 512, 608, 512, 640, 512, 672, 512, 704, 512, 736, 512, 768, 512, 800, 512, 832, 512, 864, 512, 896, 512, 928, 512, 960, 512, 992, 512, 1024, 512, 1056.66, 512, 1088, 512, 1120, 512, 1152, 512, 1184, 512, 1216, 512, 1248, 512, 1280, 512, 1312, 512, 1344, 512, 1376, 512, 1407.54, 512, 1440, 512, 1472, 512, 1504, 512, 1537.68, 512, 1568, 512, 1600, 512, 1632, 512, 1664, 512, 1696, 512, 1728, 512, 1760, 512, 1792, 512, 1824, 512, 1856, 512, 1888, 512, 1920, 512)
+width = 45.0
+sharp_limit = 8.0
+
+[node name="Pulse3" type="Line2D" parent="Pulses"]
+position = Vector2(958.5, 29)
+scale = Vector2(0.5, 1)
+points = PackedVector2Array(0, 512, 32, 512, 64, 512, 96, 512, 128, 512, 160, 512, 192, 512, 224, 512, 256, 512, 288, 512, 320, 512, 352, 512, 384, 512, 416, 512, 448, 512, 480, 512, 512, 512, 544, 512, 576, 512, 608, 512, 640, 512, 672, 512, 704, 512, 736, 512, 768, 512, 800, 512, 832, 512, 864, 512, 896, 512, 928, 512, 960, 512, 992, 512, 1024, 512, 1056.66, 512, 1088, 512, 1120, 512, 1152, 512, 1184, 512, 1216, 512, 1248, 512, 1280, 512, 1312, 512, 1344, 512, 1376, 512, 1407.54, 512, 1440, 512, 1472, 512, 1504, 512, 1537.68, 512, 1568, 512, 1600, 512, 1632, 512, 1664, 512, 1696, 512, 1728, 512, 1760, 512, 1792, 512, 1824, 512, 1856, 512, 1888, 512, 1920, 512)
+width = 15.0
+sharp_limit = 8.0
+
+[node name="Pulse4" type="Line2D" parent="Pulses"]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(958.5, 29)
+scale = Vector2(0.5, 1)
+points = PackedVector2Array(0, 512, 32, 512, 64, 512, 96, 512, 128, 512, 160, 512, 192, 512, 224, 512, 256, 512, 288, 512, 320, 512, 352, 512, 384, 512, 416, 512, 448, 512, 480, 512, 512, 512, 544, 512, 576, 512, 608, 512, 640, 512, 672, 512, 704, 512, 736, 512, 768, 512, 800, 512, 832, 512, 864, 512, 896, 512, 928, 512, 960, 512, 992, 512, 1024, 512, 1056.66, 512, 1088, 512, 1120, 512, 1152, 512, 1184, 512, 1216, 512, 1248, 512, 1280, 512, 1312, 512, 1344, 512, 1376, 512, 1407.54, 512, 1440, 512, 1472, 512, 1504, 512, 1537.68, 512, 1568, 512, 1600, 512, 1632, 512, 1664, 512, 1696, 512, 1728, 512, 1760, 512, 1792, 512, 1824, 512, 1856, 512, 1888, 512, 1920, 512)
+width = 45.0
+sharp_limit = 8.0
+
+[node name="Pulse5" type="Line2D" parent="Pulses"]
+position = Vector2(958.5, 1053)
+rotation = 3.14159
+scale = Vector2(0.5, 1)
+points = PackedVector2Array(0, 512, 32, 512, 64, 512, 96, 512, 128, 512, 160, 512, 192, 512, 224, 512, 256, 512, 288, 512, 320, 512, 352, 512, 384, 512, 416, 512, 448, 512, 480, 512, 512, 512, 544, 512, 576, 512, 608, 512, 640, 512, 672, 512, 704, 512, 736, 512, 768, 512, 800, 512, 832, 512, 864, 512, 896, 512, 928, 512, 960, 512, 992, 512, 1024, 512, 1056.66, 512, 1088, 512, 1120, 512, 1152, 512, 1184, 512, 1216, 512, 1248, 512, 1280, 512, 1312, 512, 1344, 512, 1376, 512, 1407.54, 512, 1440, 512, 1472, 512, 1504, 512, 1537.68, 512, 1568, 512, 1600, 512, 1632, 512, 1664, 512, 1696, 512, 1728, 512, 1760, 512, 1792, 512, 1824, 512, 1856, 512, 1888, 512, 1920, 512)
+width = 15.0
+sharp_limit = 8.0
+
+[node name="Pulse6" type="Line2D" parent="Pulses"]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(958.5, 1053)
+rotation = 3.14159
+scale = Vector2(0.5, 1)
+points = PackedVector2Array(0, 512, 32, 512, 64, 512, 96, 512, 128, 512, 160, 512, 192, 512, 224, 512, 256, 512, 288, 512, 320, 512, 352, 512, 384, 512, 416, 512, 448, 512, 480, 512, 512, 512, 544, 512, 576, 512, 608, 512, 640, 512, 672, 512, 704, 512, 736, 512, 768, 512, 800, 512, 832, 512, 864, 512, 896, 512, 928, 512, 960, 512, 992, 512, 1024, 512, 1056.66, 512, 1088, 512, 1120, 512, 1152, 512, 1184, 512, 1216, 512, 1248, 512, 1280, 512, 1312, 512, 1344, 512, 1376, 512, 1407.54, 512, 1440, 512, 1472, 512, 1504, 512, 1537.68, 512, 1568, 512, 1600, 512, 1632, 512, 1664, 512, 1696, 512, 1728, 512, 1760, 512, 1792, 512, 1824, 512, 1856, 512, 1888, 512, 1920, 512)
+width = 45.0
+sharp_limit = 8.0
+
+[node name="Pulse7" type="Line2D" parent="Pulses"]
+position = Vector2(958.5, 1053)
+rotation = 3.14159
+scale = Vector2(0.5, 1)
+points = PackedVector2Array(0, 512, 32, 512, 64, 512, 96, 512, 128, 512, 160, 512, 192, 512, 224, 512, 256, 512, 288, 512, 320, 512, 352, 512, 384, 512, 416, 512, 448, 512, 480, 512, 512, 512, 544, 512, 576, 512, 608, 512, 640, 512, 672, 512, 704, 512, 736, 512, 768, 512, 800, 512, 832, 512, 864, 512, 896, 512, 928, 512, 960, 512, 992, 512, 1024, 512, 1056.66, 512, 1088, 512, 1120, 512, 1152, 512, 1184, 512, 1216, 512, 1248, 512, 1280, 512, 1312, 512, 1344, 512, 1376, 512, 1407.54, 512, 1440, 512, 1472, 512, 1504, 512, 1537.68, 512, 1568, 512, 1600, 512, 1632, 512, 1664, 512, 1696, 512, 1728, 512, 1760, 512, 1792, 512, 1824, 512, 1856, 512, 1888, 512, 1920, 512)
+width = 15.0
+sharp_limit = 8.0
+
+[node name="Pulse8" type="Line2D" parent="Pulses"]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(958.5, 1053)
+rotation = 3.14159
+scale = Vector2(0.5, 1)
+points = PackedVector2Array(0, 512, 32, 512, 64, 512, 96, 512, 128, 512, 160, 512, 192, 512, 224, 512, 256, 512, 288, 512, 320, 512, 352, 512, 384, 512, 416, 512, 448, 512, 480, 512, 512, 512, 544, 512, 576, 512, 608, 512, 640, 512, 672, 512, 704, 512, 736, 512, 768, 512, 800, 512, 832, 512, 864, 512, 896, 512, 928, 512, 960, 512, 992, 512, 1024, 512, 1056.66, 512, 1088, 512, 1120, 512, 1152, 512, 1184, 512, 1216, 512, 1248, 512, 1280, 512, 1312, 512, 1344, 512, 1376, 512, 1407.54, 512, 1440, 512, 1472, 512, 1504, 512, 1537.68, 512, 1568, 512, 1600, 512, 1632, 512, 1664, 512, 1696, 512, 1728, 512, 1760, 512, 1792, 512, 1824, 512, 1856, 512, 1888, 512, 1920, 512)
+width = 45.0
+sharp_limit = 8.0
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="A" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hxpbi")
+}
+autoplay = "main"
+
+[node name="Ghost" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_817y6")
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

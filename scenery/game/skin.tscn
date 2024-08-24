@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://c64vgjpw7518t"]
+
+[ext_resource type="Script" path="res://scripts/game/skin.gd" id="8"]
+
+[node name="Skin" type="Node2D"]
+z_index = -1000
+z_as_relative = false
+script = ExtResource("8")
+
+[node name="Back" type="Node2D" parent="."]
+z_index = -999
+position = Vector2(960, 540)
+
+[node name="Background" type="TextureRect" parent="Back"]
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+mouse_filter = 2
+expand_mode = 1
+
+[node name="Video" type="VideoStreamPlayer" parent="Back"]
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+mouse_filter = 2
+volume_db = -80.0
+expand = true
+loop = true
+bus = &"Music"

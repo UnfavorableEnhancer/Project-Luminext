@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://cm440y3x0kagy"
+path="res://.godot/imported/multi_mark.png-6304ceedd01787ab1ef82907c14d0c2f.image"
+
+[deps]
+
+source_file="res://images/game/export/multi_mark.png"
+dest_files=["res://.godot/imported/multi_mark.png-6304ceedd01787ab1ef82907c14d0c2f.image"]
+
+[params]
+
