@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bg7kjf8dq11xu"]
+[gd_scene load_steps=16 format=3 uid="uid://bg7kjf8dq11xu"]
 
 [ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://menu/objects/regular_button.tscn" id="1"]
 [ext_resource type="FontFile" uid="uid://bncda7ixlpa7b" path="res://fonts/rounded_mgenplus.ttf" id="2"]
@@ -19,7 +19,12 @@ func _ready() -> void:
 
 
 func _accept_invite() -> void:
-	OS.shell_open(\"https://discord.gg/uUugrsCDcb\")
+	OS.shell_open(\"https://discord.gg/XwsQcEUCKR\")
+	_remove()
+
+
+func _accept_invite2() -> void:
+	OS.shell_open(\"https://github.com/UnfavorableEnhancer/Project-Luminext\")
 	_remove()
 "
 
@@ -379,24 +384,8 @@ tracks/14/keys = {
 "values": [0.0, 0.0, 1.0]
 }
 
-[sub_resource type="Animation" id="Animation_qsrav"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Accept3:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v1pit"]
 _data = {
-"RESET": SubResource("Animation_qsrav"),
 "end": SubResource("Animation_8yeh8"),
 "start": SubResource("5")
 }
@@ -623,12 +612,13 @@ offset_left = 656.0
 offset_top = 808.0
 offset_right = 1896.0
 offset_bottom = 856.0
+scale = Vector2(1, 1e-05)
 pivot_offset = Vector2(1240, 0)
 text = "VISIT GITHUB REPO"
 glow_color = Color(0.4, 0.952941, 0.964706, 1)
 menu_position = Vector2i(0, 1)
 press_sound_name = "confirm4"
-call_function_name = "_accept_invite"
+call_function_name = "_accept_invite2"
 
 [node name="Cancel" parent="." instance=ExtResource("1")]
 layout_mode = 2

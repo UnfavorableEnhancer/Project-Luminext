@@ -1,5 +1,6 @@
 .import/*
 .vscode/*
+.godot/*
 /Luminext.code-workspace
 bin/*
 skins/*

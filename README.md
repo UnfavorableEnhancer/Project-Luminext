@@ -54,8 +54,6 @@ All source code contributors, would get an special discord role and get credited
 ## Building
 To run the project you only need to download standard [Godot Engine 4.3 (without C# support)](https://godotengine.org/download)
 
-
-When cloning repo you also must accept sub-module integration since official menu assets are destributed in different repo.
 Then you can just drag & drop cloned project folder to godot project manager and you're ready to go!
 
 Currently those platfroms are supported:
@@ -71,6 +69,6 @@ Luminext is GNU AGPL V3.0 licensed project. You can read license in "COPYING.txt
 
 Fonts, addons and third party applications are covered by different licenses. You can check them in respective folders.
 
-All original images and sound effects are under CC BY 4.0 license.
+All original images and sound effects are under [CC BY 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.txt) license.
 
 Project Luminext © 2024 by unvaforable_enhancer
