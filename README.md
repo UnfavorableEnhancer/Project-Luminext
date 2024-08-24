@@ -1,8 +1,8 @@
+# Project Luminext
+
 <p align="center">
   <img width="1600" alt="wha" src="assets/main_art.png">
 </p>
-
-# Project Luminext
 
 An advanced open-source spiritual successor of iconic block-stacking puzzle game Lumines:tm:.
 
@@ -26,14 +26,13 @@ In future there's gonna be a lot more skins/gamemodes and features added, so any
 
 ### DISCLAIMER
 *Project Luminext has no relationship with Lumines™ series and wasn't endorsed by it's respective owners: Enhance, Resonair and BNEI, nor any of their affiliates.
-We're not intending to replace original series and please, if you want real Lumines:tm: remake, check out Lumines Remastered instead: https://luminesremastered.com*
+We're not intending to replace original series and please, if you want real Lumines™ remake, check out Lumines Remastered instead: https://luminesremastered.com*
 
 ## Contribution
 There are several ways to contribute to the Luminext project:
 
 ### Bug reporting and suggestions
 You can make bug reports or suggestions by pulling an issue.
-Please follow provided issue guidelines to make easier for devs to read and understand it.
 
 If you don't have a GitHub account, but have a Discord account, you can do an bug report or suggestion in appropriate channels in our **official Discord server.**
 
@@ -43,16 +42,16 @@ By using two methods above you not just definetely get listened but help us more
 ### Making custom content
 Currently the following types of mods are possible to create: *custom skins* and *core mods*
 
-You can find info about making both in our wiki here:
+You can find info about making both in our wiki here: *under_construction*
 
-Your finished work should be uploaded to our **official Discord server** mod releases forum and follow mod publication rules which are also described there.
+Your finished work should be uploaded to our (https://discord.gg/XwsQcEUCKR)[official Discord server] "mod-release" forum and follow mod publication rules which are also described there.
 *Other ways are highly not recommended and we're not taking any responsibility for them.*
 
 ### Contribution to source code, assets
 You could help us fixing bugs/issues or do more complex stuff via pull-requests.
-Design doc and development plan is currently under construction but soon would be avaiable for anyone to look.
+Design doc and development plan are currently *under construction* but soon would be avaiable for anyone to look.
 
-All source code contributors, would get an special discord role and get credited in in-game credits screen.
+All source code contributors, would get an special discord role and get credited in repo "CREDITS.txt" file and in-game credits screen.
 
 ## Building
 To run the project you only need to download standard Godot Engine 4.3 (without C# support), which you can find here: https://godotengine.org/download
@@ -68,12 +67,10 @@ There are also some things which may require additional software to work with:
 - Aseprite or LibreSprite - Used to access some graphical assets sources (with .ase extension, LibreSprite could throw some errors on file open, but it mostly loads completely fine).
 
 ## License
-Luminext is GNU AGPL V 3.0 licensed project. You can check license here: *(license file link)*
+Luminext is GNU AGPL V3.0 licensed project. You can read license in "COPYING.txt".
 
-Basically that license means that you can do anything you want as long as you:
-a. Include original copyright and license notice in any copy of software/source.
-b. Write changes you made to the sources.
-c. Use same license for any copy of software/source.
-d. When publishing updated software anywhere in internet, you must make sources open and publically avaiable.
+Fonts, addons and third party applications are covered by different licenses. You can check them in respective folders.
 
-Fonts, images and etc. are covered by different licenses. You can check them in respective folders.w
+All original images and sound effects are under CC BY 4.0 license.
+
+Project Luminext © 2024 by unvaforable_enhancer

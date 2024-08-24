@@ -1,3 +1,21 @@
+# Project Luminext - an advanced open-source Lumines spiritual successor
+# Copyright (C) <2024> <unfavorable_enhancer>
+# Contact : <random.likes.apes@gmail.com>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
 extends Control
 
 #-----------------------------------------------------------------------
@@ -9,12 +27,9 @@ extends Control
 # 'A' must contain "start" and "end" titled animations in order to work, but can have more animations if needed
 # Then you can do and code anything you want inside menu screen.
 #
-# API also handles cursor movement. Cursor selects any object which inherit from **MenuSelectable** class.
-# Each MenuSelectable has position variable which must be set in order to be selected by menu cursor.
-#
 # This API kinda ignores most of the standard Godot Control API cause I didn't really liked how it approached
 # connecting signals and buttons selection. You can try building menu other way but there's no guarantee that
-# something woudn't break, so I recommend using methods and signals present here and in realted classes only.
+# something woudn't break, so I recommend using methods and signals present here and related classes only.
 #-----------------------------------------------------------------------
 
 signal screen_remove_started # Called when screen remove started

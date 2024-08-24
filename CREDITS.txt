@@ -1,0 +1,58 @@
+Project Luminext
+===========================================================================
+
+Project Lead, Programming, Visual/Game Design - unfavorable_enhancer
+
+Some programming help  - Hydrogen
+Some visual design help - GeolyteGM
+
+Menu theme original MIDI composition - Barrels
+Menu theme remix - unfavorable_enhancer
+
+Pre-release versions testing & feedback :
+michaels, Cublex, KurosanLOVE, Kibi Byte, Halexo, GeolyteGM, W3Rn1ckz, RezaTIM, Coffee Hunter, CNS, Barrels, nassau-tk, pj_dnb, Cube3, ShadowFox, Hati Lover, W rythm, henzou13, Tseng Fayt, bintobox, Shotgun_Revolved, INVOKER, ILC, Aspeck, hardcaz, OneZenDarius, OgTheEnigma, RIAT(Rita), Aleph Zero, Xoib, Vivv, macos trash bin, Note, DrThuderous, Skinda, Starcat.
+
+----------------------------------------------------------------------------------------------
+"VOLUME A" Skin Pack
+----------------------------------------------------------------------------------------------
+
+Visual design - unfavorable_enhancer, W3Rn1ckz
+Music - W3Rn1ckz, KurosanLOVE
+SFX design - W3Rn1ckz, KurosanLOVE
+Scenery/Animation - unfavorable_enhancer
+Skin mastering - unfavorable_enhancer
+
+===========================================================================
+This project was heavely inspired by Lumines Puzzle Fusion
+Created by those wonderful people
+===========================================================================
+
+Concept - Ryuichi Hattori, Osamu Kodera, Katsumi Yokota
+Art Director - Katsumi Yokota
+Lead Programmer - Osamu Kodera
+Graphic Designers - Noboru Hotta, Kazunori Morisaki, Kimihiro Morishita
+Sound Design & Engineer - Takayuki Nakamura, Katsumi Yokota
+Director - Ryuichi Hattori
+Producer - Tetsuya Mizuguchi
+
+----------------------------------------------------------------------------------------------
+Special thanks to
+----------------------------------------------------------------------------------------------
+
+KurosanLOVE
+W3Rn1ckz
+Starcat
+Enhance inc.
+Godot Engine developers, contributors and community
+Aseprite
+PPSSPP
+Krita
+godot_video_decoder developers and contributors
+EIRTeam
+CNS
+itch.io
+All creators and contributors of awesome Lumines series
+
+And thank you for playing this game
+
+Have a nice day!
