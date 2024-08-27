@@ -75,7 +75,11 @@ func _preprocess() -> int:
 	
 	# Put our stripped music file into Essentia rhythm extractor CLI application (it was the easiest and fastest way to get it done)
 	var shell_output : Array = []
-	OS.execute("third_party/essentia_streaming_rhythmextractor_multifeature.exe", [process_file_path], shell_output)
+	if OS.has_feature("linux") : OS.execute("third_party/essentia/streaming_rhythmextractor_multifeature", [process_file_path], shell_output)
+	elif OS.has_feature("windows") : OS.execute("third_party/essentia/essentia_streaming_rhythmextractor_multifeature.exe", [process_file_path], shell_output)
+	else:
+		preprocess_finished.emit()
+		return ERR_CANT_OPEN
 
 	# Parse this shitload of text we got
 	var shell_text : String = shell_output[0]

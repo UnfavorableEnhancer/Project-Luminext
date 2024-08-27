@@ -143,6 +143,8 @@ func _add_to_playlist() -> void:
 
 
 func _remove_from_playlist() -> void:
+	if parent_screen.currently_swapping_skin_pos > -1 : return
+
 	Data.menu._sound("cancel")
 	if not is_in_playlist : return
 	

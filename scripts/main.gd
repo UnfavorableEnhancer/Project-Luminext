@@ -373,6 +373,7 @@ func _test_skin(skin_metadata : SkinMetadata) -> void:
 	await get_tree().create_timer(0.25).timeout
 	
 	var skin_test : Node2D = load("res://scenery/debug/skin_test.tscn").instantiate()
+	skin_data.metadata.settings["no_shaking"] = true
 	skin_test.skin_data = skin_data
 	
 	add_child(skin_test)

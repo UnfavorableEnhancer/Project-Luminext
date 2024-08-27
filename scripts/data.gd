@@ -145,6 +145,7 @@ func _ready() -> void:
 	if profile.status == Profile.STATUS.PROGRESS_FAIL:
 		print("WARNING! LAST PROFILE PROGRESS DATA IS MISSING!")
 	
+	skin_list._check_parse()
 	skin_list._parse_threaded()
 
 	blank_skin = SkinData.new()

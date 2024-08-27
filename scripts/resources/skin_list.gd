@@ -33,7 +33,6 @@ extends Resource
 # }
 #-----------------------------------------------------------------------
 
-# warning-ignore-all:return_value_discarded
 
 class_name SkinList
 
@@ -75,14 +74,18 @@ enum SKIN_LIST_PARSE_ERROR {
 }
 
 
-# Runs a thread to parse skin list via "_parse" function and returns parse error
-func _parse_threaded() -> int:
-	# Count all avaiable files to see if new content was added
+# Checks if new parse is needed to update skin list
+func _check_parse() -> bool:
 	var test_count : int = _count_skin_files_amount()
 	if test_count != files_amount:
 		files_amount = test_count
 		was_parsed = false
+		return true
+	return false
 
+
+# Runs a thread to parse skin list via "_parse" function and returns parse error
+func _parse_threaded() -> int:
 	if was_parsed : 
 		parsed.emit()
 		return SKIN_LIST_PARSE_ERROR.WAS_PARSED
@@ -110,7 +113,6 @@ func _parse() -> int:
 	skins.clear()
 	hash_links.clear()
 	path_links.clear()
-	files_amount = 0
 	skins_amount = 0
 	
 	print()
@@ -174,14 +176,12 @@ func _parse() -> int:
 					
 					while sub_file_name != "":
 						if sub_file_name.ends_with(".skn"): 
-							files_amount += 1
 							_process_file_skin(Data.SKINS_PATH + file_name + "/" + sub_file_name, file_name)
 						sub_file_name = sub_dir.get_next()
 					
 					sub_dir.list_dir_end()
 			
 			elif file_name.ends_with(".skn"): 
-				files_amount += 1
 				_process_file_skin(Data.SKINS_PATH + file_name)
 			
 			file_name = dir.get_next()

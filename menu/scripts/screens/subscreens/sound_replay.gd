@@ -48,17 +48,20 @@ func _ready() -> void:
 func _load_skin_list() -> void:
 	if Data.skin_list.currently_parsing:
 		Data.main._toggle_loading(true)
-		await Data.skin_list.parsed
-		await get_tree().create_timer(0.01).timeout
-		Data.main._toggle_loading(false)
 
-	elif not Data.skin_list.was_parsed:
-		Data.main._toggle_loading(true)
-		Data.skin_list._parse_threaded()
-		
 		await Data.skin_list.parsed
 		await get_tree().create_timer(0.01).timeout
+
 		Data.main._toggle_loading(false)
+	else:
+		if Data.skin_list._check_parse():
+			Data.main._toggle_loading(true)
+
+			Data.skin_list._parse_threaded()
+			await Data.skin_list.parsed
+			await get_tree().create_timer(0.01).timeout
+
+			Data.main._toggle_loading(false)
 	
 	_display_skins_list()
 	

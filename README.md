@@ -58,7 +58,7 @@ Then you can just drag & drop cloned project folder to godot project manager and
 
 Currently those platfroms are supported:
 - Windows - To change exported game exe icon and metadata you'll need to use WindowsSDK rcedit.exe or Resource Hacker.
-- Linux - Nothing special. (Linux build wasn't tested yet so all bugs and crashes could be very common)
+- Linux - Nothing special, but currently only x86_64 builds are made.
 
 There are also some things which may require additional software to work with:
 - Krita 5.1.5+ - Used to access some graphical assets sources (with .kra extension)
@@ -69,6 +69,7 @@ Luminext is GNU AGPL V3.0 licensed project. You can read license in "COPYING.txt
 
 Fonts, addons and third party applications are covered by different licenses. You can check them in respective folders.
 
-All original images and sound effects are under [CC BY 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.txt) license.
+All original images, sound effects and their avaiable assets are under [CC BY 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.txt) license.
+All included skins assets rights belongs to their respective authors.
 
 Project Luminext © 2024 by unvaforable_enhancer
