@@ -57,6 +57,8 @@ const ADDONS_PATH : String = "addons/" # Path to the addons folder (currently un
 const PROFILES_PATH : String = "profiles/" # Path to the profiles folder
 const PRESETS_PATH : String = "presets/" # Path to the game presets folder
 const MODS_PATH : String = "mods/" # Path to the .pck mods folder
+const SCREENSHOTS_PATH : String = "screenshots/" # Path to the game screenshots folder
+const LOGS_PATH : String = "logs/" # Path to the game logs folder
 
 const BUILD_IN_PATH : String = "res://internal/" # Path to the build-in game content (which is exported with entiere project)
 const GLOBAL_DATA_PATH : String = "user://global.json" # Path to the global data json
@@ -116,11 +118,11 @@ var current_input_mode : int = INPUT_MODE.KEYBOARD
 
 
 # Called by main on game boot
-func _initialize() -> void:
+func _ready() -> void:
 	PortableCompressedTexture2D.set_keep_all_compressed_buffers(true)
 	_load_global_settings()
 
-	for path : String in [SKINS_PATH, PLAYLISTS_PATH, PROFILES_PATH, PRESETS_PATH, CACHE_PATH]:
+	for path : String in [SKINS_PATH, PLAYLISTS_PATH, PROFILES_PATH, PRESETS_PATH, CACHE_PATH, SCREENSHOTS_PATH, LOGS_PATH]:
 		if not DirAccess.dir_exists_absolute(path):
 			DirAccess.make_dir_absolute(path)
 
@@ -193,12 +195,36 @@ func _input(event : InputEvent) -> void:
 		else:
 			get_window().mode = Window.MODE_WINDOWED
 			profile.config["video"]["fullscreen"] = false
+	
+	# Take screenshot
+	if event.is_action_pressed("screenshot"):
+		_take_screenshot()
 
 
 # Helper function which centers game window
 func _center_window() -> void:
 	await get_tree().create_timer(0.01).timeout
 	get_window().move_to_center()
+
+
+# Takes screenshot and saves it as .png in SCREENSHOTS_PATH
+func _take_screenshot() -> void:
+	var prefix : String = "LUMINEXT"
+	if game == null:
+		if menu != null:
+			prefix = menu.current_screen_name.to_upper().replace(" ","_")
+	else:
+		if game.gamemode != null:
+			prefix = game.gamemode.gamemode_name.to_upper()
+
+	var date : String = Time.get_date_string_from_system().replace(".","_") 
+	var time : String = Time.get_time_string_from_system().replace(":","-")
+
+	var screenshot_path : String = SCREENSHOTS_PATH + prefix + "_" + date + "_" + time + ".png"
+	var image : Image = get_viewport().get_texture().get_image() # We get what our player sees
+	image.save_png(screenshot_path)
+
+	print("SAVED SCREENSHOT AT PATH : " + screenshot_path)
 
 
 # Loads global settings, which are shared between all profiles

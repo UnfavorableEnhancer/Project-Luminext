@@ -586,7 +586,6 @@ func _apply_setting(setting_name : String = "all") -> void:
 		"stereo_enhance":
 			var value : float = config["audio"][setting_name]
 			AudioServer.set_bus_effect_enabled(0,2,value)
-
 		"resolution":
 			Data.get_window().size = Vector2(config["video"]["resolution_x"],config["video"]["resolution_y"])
 		"max_fps":

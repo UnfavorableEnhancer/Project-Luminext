@@ -43,8 +43,6 @@ func _ready() -> void:
 	get_window().move_to_center()
 	await get_tree().create_timer(0.5).timeout
 
-	Data._initialize()
-
 	# Store node references into Data singletone, to allow acessing them in any script file
 	Data.main = self
 	Data.menu = $Menu
@@ -448,19 +446,44 @@ func _clean_skn_cache() -> void:
 	print("CACHE CLEANED!")
 
 
-func _exit_tree() -> void:
-	_exit()
+# Copies logs from "user://logs" to Data.LOGS_PATH
+func _copy_logs() -> void:
+	print("COPYING LOGS")
+	var log_names : PackedStringArray = DirAccess.get_files_at("user://logs/")
+
+	for log_name : String in log_names:
+		print(log_name)
+		var file : FileAccess = FileAccess.open("user://logs/" + log_name, FileAccess.READ)
+		var log_text : String = file.get_as_text()
+		file.close()
+		file = FileAccess.open(Data.LOGS_PATH + log_name, FileAccess.WRITE)
+		file.store_string(log_text)
+		file.close()
+
+	print("LOGS SAVED")
+
+
+
+func _notification(what : int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		_exit(true)
 
 
 # This function ends this programm properly.
-func _exit() -> void:
-	Data.menu.is_locked = true
-	if Data.menu.is_music_playing:
-		create_tween().tween_property(Data.menu.music_player,"volume_db",-40.0,1.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
-	
-	# Game will call cache clean function when closed
+func _exit(quick : bool = false) -> void:
+	print("")
+	print("EXITING...")
+
 	_clean_skn_cache()
-	create_tween().tween_property(black,"color",Color(0,0,0,1),1.0)
-	await get_tree().create_timer(1.25).timeout
-	get_tree().quit()
+	_copy_logs()
+	
+	if not quick:
+		create_tween().tween_property(black,"color",Color(0,0,0,1),1.0)
+
+		Data.menu.is_locked = true
+		if Data.menu.is_music_playing:
+			create_tween().tween_property(Data.menu.music_player,"volume_db",-40.0,1.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
+
+		await get_tree().create_timer(1.25).timeout
+		get_tree().quit()
 	
