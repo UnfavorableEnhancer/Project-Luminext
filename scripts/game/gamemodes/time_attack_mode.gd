@@ -124,6 +124,8 @@ func _input(event : InputEvent) -> void:
 
 
 func _reset() -> void:
+	game.piece.can_be_dashed = false
+	
 	time_attack_ui._stop()
 	time_attack_ui._set_time(float(time_limit))
 	
@@ -209,6 +211,8 @@ func _reset() -> void:
 	stat_disable_timer.start(time_limit - 1.0)
 	is_counting_time = true
 	
+	game.piece.can_be_dashed = true
+
 	reset_complete.emit()
 	time_attack_ui._start()
 
@@ -417,7 +421,7 @@ func _game_over() -> void:
 	var ruleset_string : String = ""
 	match ruleset:
 		TIME_ATTACK_RULESET.STANDARD: ruleset_string = "STANDARD" 
-		TIME_ATTACK_RULESET.CLASSIC: ruleset_string = "ACCELERANT" 
+		TIME_ATTACK_RULESET.CLASSIC: ruleset_string = "CLASSIC" 
 		TIME_ATTACK_RULESET.ARCADE: ruleset_string = "ARCADE" 
 		TIME_ATTACK_RULESET.COLOR_3: ruleset_string = "3 COLOR" 
 		TIME_ATTACK_RULESET.HARDCORE: ruleset_string = "HARDCORE" 

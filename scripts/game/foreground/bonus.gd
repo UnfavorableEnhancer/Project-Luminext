@@ -66,7 +66,9 @@ func _bonus(combo : int, deleted_squares_count : int, result_score : int) -> voi
 	$Bonus/squares.text = str(deleted_squares_count) + "x"
 	$Bonus/score.text = "+" + str(result_score)
 
-	if classic_animation: $Classic/ANIM.play("start")
+	if classic_animation: 
+		$Classic/ANIM.stop()
+		$Classic/ANIM.play("start")
 	else: 
 		if combo % 4 == 1 : 
 			$BigArrow/number/two.visible = false
@@ -93,4 +95,5 @@ func _bonus(combo : int, deleted_squares_count : int, result_score : int) -> voi
 			$BigArrow/arrow.texture = arrow_4_tex
 			$BigArrow/arrow2.texture = arrow_4_tex
 		
+		$BigArrow/ANIM.stop()
 		$BigArrow/ANIM.play("start")

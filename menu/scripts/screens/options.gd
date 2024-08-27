@@ -127,7 +127,7 @@ func _assign_control(action_name : String) -> void:
 	await get_tree().create_timer(0.25).timeout
 	await input_received
 
-	Data.profile._update_input_config(action_name, input_to_assign, false)
+	Data.profile._update_input_config(action_name, input_to_assign, true)
 	_load_icon_for_action(action_name)
 
 	$A.play("unsign")

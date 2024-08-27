@@ -948,12 +948,11 @@ layout_mode = 0
 offset_left = 32.0
 offset_right = 1040.0
 offset_bottom = 56.0
-text = "Welcome to the Luminext!"
 label_settings = SubResource("LabelSettings_loy7m")
 vertical_alignment = 1
 
 [node name="Option" type="ColorRect" parent="."]
-modulate = Color(0.239216, 0.945098, 0.929412, 1)
+modulate = Color(0.539063, 0.539063, 0.539063, 1)
 self_modulate = Color(1, 1, 1, 0.75)
 layout_mode = 0
 offset_left = 632.0
@@ -969,7 +968,6 @@ offset_left = 32.0
 offset_right = 680.0
 offset_bottom = 56.0
 pivot_offset = Vector2(8, 0)
-text = "1P MODE"
 label_settings = SubResource("LabelSettings_bjjo2")
 vertical_alignment = 1
 uppercase = true

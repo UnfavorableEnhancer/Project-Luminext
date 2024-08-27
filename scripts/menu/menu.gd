@@ -41,6 +41,7 @@ signal screen_added(name : String) # Called when screen is added, and returns ad
 signal all_screens_added # Called when all screens in queue were added
 
 const BUTTONS_ICONS_TEX : Texture = preload("res://images/menu/key_graphics.png") # Build-in buttons icons atlas texture
+const BUTTON_KEY_SCENE : PackedScene = preload("res://scenery/menu/button_key.tscn") # Used when key is not in BUTTONS_ICONS_TEX
 
 var is_locked : bool = false # If menu is locked, nothing could be done
 
@@ -339,7 +340,7 @@ func _create_button_icon(action : String, button_size : Vector2 = Vector2(42,42)
 		# Any else action
 		_:
 			if Data.current_input_mode == Data.INPUT_MODE.GAMEPAD : 
-				var gamepad_action_name : String = Data.profile.config[action + "_pad"]
+				var gamepad_action_name : String = Data.profile.config["controls"][action + "_pad"]
 				action_index = int(gamepad_action_name.substr(4))
 			else:
 				action_index = OS.find_keycode_from_string(Data.profile.config["controls"][action])
@@ -387,7 +388,7 @@ func _create_button_icon(action : String, button_size : Vector2 = Vector2(42,42)
 		# If no button in atlas found, this button is threated as keyboard button and special object is created and used
 		_: 
 			atlas_region = Rect2(128,384,128,128)
-			icon = load("res://scenery/menu/objects/button_key.tscn").instantiate()
+			icon = load("res://scenery/menu/button_key.tscn").instantiate()
 			icon.get_node("Label").text = OS.get_keycode_string(action_index)
 			return icon
 	

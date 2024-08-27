@@ -1,31 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dw0iu31f3tl2y"]
+[gd_scene load_steps=4 format=3 uid="uid://dw0iu31f3tl2y"]
 
 [ext_resource type="Script" path="res://scripts/debuger.gd" id="1"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2"]
 
-[sub_resource type="FontFile" id="1"]
-fallbacks = Array[Font]([ExtResource("2"), ExtResource("2")])
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
-
-[sub_resource type="FontFile" id="2"]
-fallbacks = Array[Font]([ExtResource("2"), ExtResource("2")])
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+[sub_resource type="LabelSettings" id="LabelSettings_04nb1"]
+font = ExtResource("2")
+font_size = 20
 
 [node name="Debug" type="Control"]
 layout_mode = 3
@@ -43,165 +23,11 @@ offset_right = 208.0
 offset_bottom = 40.0
 color = Color(0, 0, 0, 0.75)
 
-[node name="ColorRect2" type="ColorRect" parent="."]
-layout_mode = 0
-offset_top = 559.0
-offset_right = 768.0
-offset_bottom = 1080.0
-color = Color(0, 0, 0, 0.75)
-
 [node name="FPS" type="Label" parent="."]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 8.0
-offset_right = 168.0
-offset_bottom = 26.0
-theme_override_fonts/font = SubResource("1")
+offset_right = 208.0
+offset_bottom = 40.0
 text = "FPS : ???"
-
-[node name="V" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 40.0
-offset_right = 1432.0
-offset_bottom = 1068.0
-mouse_filter = 2
-alignment = 2
-
-[node name="MenuScr" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "CURRENT MENU SCREEN : ???"
-
-[node name="PrevScr" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "PREVIOUS MENU SCREEN : ???"
-
-[node name="MenuLock" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "MENU LOCKED : ???"
-
-[node name="Cursor" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "MENU CURSOR CORDS = X : ??? Y : ???"
-
-[node name="CurrentSelect" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "MENU CURSOR CORDS = X : ??? Y : ???"
-
-[node name="PrevSelect" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "MENU CURSOR CORDS = X : ??? Y : ???"
-
-[node name="CursorDash" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "CURSOR DASH TIMER : ???"
-
-[node name="CursorLock" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "CURSOR LOCK [LEFT,RIGHT,UP,DOWN] : ??? "
-
-[node name="ScreenAdd" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "SCREENS CREATE QUEUE SIZE : ???"
-
-[node name="ScreenRem" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "SCREENS REMOVE QUEUE SIZE : ???"
-
-[node name="PiecePos" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "PIECE POSITION = X : ??? Y : ???"
-
-[node name="Speed" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "PIECE SPEED : ???"
-
-[node name="Delay" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "PIECE DELAY : ???"
-
-[node name="FallTime" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "PIECE FALL TIMER : ???"
-
-[node name="DelayTime" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "PIECE DELAY TIMER : ???"
-
-[node name="Dash" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "DASH TIMER : ???"
-
-[node name="Blocks" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "BLOCKS COUNT : ???"
-
-[node name="Squares" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "SQUARES COUNT : ???"
-
-[node name="Erase" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "ERASE BLOCKS COUNT : ???"
-
-[node name="Special" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "NEXT SPECIAL : ???"
-
-[node name="BlastSpecial" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "NEXT BLAST BLOCK : ???"
-
-[node name="LevelUp" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "LEVEL UP LEFT : ???"
-
-[node name="SkinChange" type="Label" parent="V"]
-use_parent_material = true
-layout_mode = 2
-theme_override_fonts/font = SubResource("2")
-text = "CHANGING SKINS : ???"
+label_settings = SubResource("LabelSettings_04nb1")
+horizontal_alignment = 1
+vertical_alignment = 1

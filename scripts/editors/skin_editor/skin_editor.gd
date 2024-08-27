@@ -254,6 +254,7 @@ func _import_skin(data : SkinData = null) -> void:
 	# Setup anything else
 	get_tree().call_group("data_buttons","_load_data")
 	
+	
 	print("SKN_IMPORT_SUCCESS!!")
 	Data.profile.progress["stats"]["total_skin_load_times"] += 1
 	skin_loaded.emit()
@@ -395,8 +396,13 @@ func _open_file_dialog(reason : String) -> void:
 	%FileExplorer.popup_centered()
 	# Wait until popup_closes
 	await %FileExplorer.visibility_changed
+	
+	# Godot must be burned to ashes for not being able to do such a simple dimple thing as a goddamn drive letter output
+	var stupid_file_dialog_option_button : OptionButton = %FileExplorer.get_vbox().get_child(0).get_child(4).get_child(0)
+	var drive_letter : String = stupid_file_dialog_option_button.get_item_text(stupid_file_dialog_option_button.selected)
+	
 	if selected_path == "cancel" : selected_path = ""
-	else: selected_path = %FileExplorer.current_path
+	else: selected_path = drive_letter + %FileExplorer.current_path
 	
 	$A.play("input",-1,-1.5,true)
 	file_selected.emit()
