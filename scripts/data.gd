@@ -51,6 +51,9 @@ enum LOADING_STATUS {
 
 enum PARSE {PROFILES, PLAYLISTS, PRESETS, ADDONS, MODS}
 
+const VERSION : String = "0.1.0.1" # Current game version
+const BUILD : String = "27.08.2024" # Latest build date
+
 const SKINS_PATH : String = "skins/" # Path to the skins folder
 const PLAYLISTS_PATH : String = "playlists/" # Path to the saved playlists folder
 const ADDONS_PATH : String = "addons/" # Path to the addons folder (currently unused)

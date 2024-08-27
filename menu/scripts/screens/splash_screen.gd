@@ -22,12 +22,14 @@ var is_exiting : bool = true
 
 func _ready() -> void:
 	Data.menu.screens["foreground"].visible = false
+	$Info/VER.text = "VER " + Data.VERSION
+	$Info/BUILD.text = "BUILD " + Data.BUILD
 	
 	Data.input_method_changed.connect(_label)
 	_label()
 	
 	await get_tree().create_timer(2.0).timeout
-	#$GlassAnim.play("start")
+	
 	$LogoAnim.play("start")
 	$StarAnim.play("start")
 	is_exiting = false
@@ -50,8 +52,6 @@ func _input(event : InputEvent) -> void:
 				Data.menu._change_screen("login")
 			else:
 				Data.menu._change_screen("main_menu")
-			
-			#create_tween().tween_property(Data.main.black,"color",Color(0,0,0,1),1.0)
 	
 	# Exit the game
 	if event.is_action_pressed("ui_exit"):
