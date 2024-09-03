@@ -653,4 +653,3 @@ func _add_sounds_from_queue() -> void:
 		var sound : AudioStreamPlayer2D = sound_queue.pop_back()
 		sounds.add_child(sound)
 		sound.play()
-

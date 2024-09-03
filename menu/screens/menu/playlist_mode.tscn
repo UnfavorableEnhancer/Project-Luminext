@@ -1740,7 +1740,7 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
-text = "120"
+text = "???"
 label_settings = SubResource("LabelSettings_3xuaf")
 horizontal_alignment = 1
 
@@ -1783,7 +1783,7 @@ unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(1100, 0)
 layout_mode = 2
-text = "NO SKINS FOUND"
+text = "???????"
 label_settings = SubResource("LabelSettings_p41gs")
 autowrap_mode = 3
 uppercase = true
@@ -1815,8 +1815,7 @@ modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(1100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-text = "PLEASE CHECK IF ANY SKIN IS PLACED INSIDE SKINS FOLDER
-"
+text = "???????"
 label_settings = SubResource("LabelSettings_jh4wm")
 autowrap_mode = 3
 uppercase = true

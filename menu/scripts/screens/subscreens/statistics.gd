@@ -57,7 +57,7 @@ func _ready() -> void:
 			# Time attack mode
 			"ta_total_retry_count" : label.text = "Total time attack mode attempts count : " + str(value)
 			"ta_top_retry_count" : label.text = "Top time attack mode attempts streak : " + str(value)
-			"ta_total_time" : label.text = "Total time spent in time attack mode: " + Data._to_time(value)
+			"ta_total_time" : label.text = "Total time spent in time attack mode : " + Data._to_time(value)
 			
 			# Editors data
 			"total_skin_editor_time" : label.text = "Total time spent in skin editor : " + Data._to_time(value)

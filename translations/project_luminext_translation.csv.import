@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://xpdlog3a1ocw"
+
+[deps]
+
+files=["res://translations/project_luminext_translation.en.translation", "res://translations/project_luminext_translation.fr.translation", "res://translations/project_luminext_translation.pt.translation", "res://translations/project_luminext_translation.ru.translation", "res://translations/project_luminext_translation.ja.translation", "res://translations/project_luminext_translation.it.translation", "res://translations/project_luminext_translation.COLOR TAGS.translation"]
+
+source_file="res://translations/project_luminext_translation.csv"
+dest_files=["res://translations/project_luminext_translation.en.translation", "res://translations/project_luminext_translation.fr.translation", "res://translations/project_luminext_translation.pt.translation", "res://translations/project_luminext_translation.ru.translation", "res://translations/project_luminext_translation.ja.translation", "res://translations/project_luminext_translation.it.translation", "res://translations/project_luminext_translation.COLOR TAGS.translation"]
+
+[params]
+
+compress=true
+delimiter=0

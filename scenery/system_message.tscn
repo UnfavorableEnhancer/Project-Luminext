@@ -26,8 +26,9 @@ mouse_filter = 2
 [node name="Text" type="Label" parent="Center"]
 custom_minimum_size = Vector2(1500, 0)
 layout_mode = 2
-text = "welcome to the luminext
-SOURCE CODE!"
+text = "welcome to the project luminext
+SOURCE CODE!
+"
 label_settings = SubResource("LabelSettings_qcnb0")
 horizontal_alignment = 1
 uppercase = true
@@ -45,7 +46,6 @@ offset_right = 210.0
 offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(1210, 53)
 size_flags_horizontal = 0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.75)

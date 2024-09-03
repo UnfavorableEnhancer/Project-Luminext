@@ -2175,7 +2175,6 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 864.0
 offset_bottom = 128.0
-text = "Select 60 sec time limit."
 label_settings = SubResource("LabelSettings_16csx")
 autowrap_mode = 3
 

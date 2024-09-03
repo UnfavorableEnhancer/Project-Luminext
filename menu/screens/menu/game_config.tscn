@@ -2637,8 +2637,6 @@ offset_right = -32.0
 offset_bottom = -36.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Welcome to the game configuration screen!
-"
 label_settings = SubResource("LabelSettings_bb3qu")
 
 [node name="Detail3" type="Label" parent="Desc"]
