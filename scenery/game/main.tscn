@@ -7,6 +7,7 @@
 
 [node name="Main" type="Node"]
 script = ExtResource("1")
+playtest_skin_path = "script_test_scene"
 
 [node name="Menu" parent="." instance=ExtResource("2")]
 layout_mode = 3

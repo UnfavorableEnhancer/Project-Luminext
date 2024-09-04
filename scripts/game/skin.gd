@@ -40,6 +40,23 @@ const LOOP_COMPENSATE_SECS : float = 0.001
 const COMPENSATE_FRAMES : int = 2
 const COMPENSATE_HZ : float = 60.0
 
+# List of words which are banned in custom scene scripts. If such words were found on scene check, scene wont be loaded.
+const BANNED_WORDS : PackedStringArray = ["FileAccess","DirAccess","IP","JavaClassWrapper","JavaScriptBridge","JavaScriptObject","JavaClass",
+"GDExtensionManager","GDExtension","OS","ProjectSettings","ResourceLoader","ResourceSaver","Engine","bytes_to_var","bytes_to_var_with_objects",
+"var_to_str","str_to_var","var_to_bytes","var_to_bytes_with_objects","dict_to_inst","inst_to_dict","JSONRPC","JSON","change_scene_to_file",
+"change_scene_to_packed","get_multiplayer","MultiplayerAPI","MultiplayerAPIExtension","MultiplayerPeer","MultiplayerPeerExtension","MultiplayerSpawner",
+"MultiplayerSynchronizer","ENetMultiplayerPeer","SceneMultiplayer","quit","reload_current_scene","unload_current_scene","Window","get_last_exclusive_window",
+"get_viewport","get_window","propagate_call","propagate_notification","rpc","rpc_config","rpc_id","multiplayer","HTTPRequest","ResourcePreloader","FileDialog",
+"HTTPClient","Crypto","DTLSServer","ENetConnection","PacketPeer","ENetPacketPeer","OfflineMultiplayerPeer","WebRTCMutliplayerPeer","WebSocketMultiplayerPeer",
+"PacketPeerDTLS","PacketPeerUDP","WebRTCDataChannel","WebRTCDataChannelExtension","WebSocketPeer","PCKPacker","CryptoKey","PackedScene","SceneReplicationConfig",
+"X509Certificate","ResourceFormatLoader","ResourceFormatSaver","StreamPeer","StreamPeerBuffer","StreamPeerExtension","StreamPeerGZIP","StreamPeerTCP","StreamPeerTLS",
+"TCPServer","TLSOptions","UDPServer","UPNP","UPNPDevice","WebRTCPeerConnection","WebRTCPeerConnectionExtension","WebRTCDataChannel","WebRTCDataChannelExtension",
+"XMLParser","ZIPPacker","ZIPReader","AcceptDialog","ConfirmationDialog","Popup","PopupMenu","PopupPanel"]
+
+# List of nodes which are banned in custom scene. If such nodes were found on scene check, scene wont be loaded.
+const BANNED_NODES : PackedStringArray = ["HTTPRequest","Window","AcceptDialog","ConfirmationDialog","Popup","PopupMenu","PopupPanel","FileDialog",
+"MultiplayerSpawner","MultiplayerSynchronizer","ResourcePreloader",""]
+
 var skin_data : SkinData = null
 
 var color_animation : Dictionary = {} # Stores times when to animate specific colored blocks and squares
@@ -58,6 +75,7 @@ var beater : Timer = null # "Beater" emulates music playback if skin has no musi
 
 var video_player : VideoStreamPlayer = null # Loaded video player
 var scene_player : AnimationPlayer = null # Loaded scenery animation player
+var is_bad_scene : bool = false # Did custom scene failed script check?
 
 var music_sample_start_position : float = 0 # Used for looping, last music sample playback position
 var scene_sample_start_position : float = 0 # Used for looping, last scenery part playback position
@@ -121,12 +139,13 @@ func _load_video() -> void:
 # Loads packed Godot scenery stored in skin data
 func _load_godot_scene() -> void:
 	if not skin_data.scenery_is_cached: return
+	is_bad_scene = false
 	
 	var cached_scene_name : String
 	if Data.use_second_cache: cached_scene_name = "scene2." + skin_data.stream["scene_format"]
 	else: cached_scene_name = "scene." + skin_data.stream["scene_format"]
 	
-	var success : bool = ProjectSettings.load_resource_pack(Data.CACHE_PATH + cached_scene_name)
+	var success : bool = ProjectSettings.load_resource_pack(Data.CACHE_PATH + cached_scene_name, false)
 
 	if not success: 
 		print("SCENE PACK LOAD ERROR!")
@@ -134,6 +153,10 @@ func _load_godot_scene() -> void:
 
 	if not ResourceLoader.exists("res://" + skin_data.stream["scene_path"]): 
 		print("SCENE LOAD FAILED! MISSING PATH! ", skin_data.stream["scene_path"])
+		return
+
+	if not _check_godot_scene():
+		print("SCENE CHECK FAILED! THIS SCENE CONTAINS SCRIPTS OR NODES WITH MALICIOUS CODE!!")
 		return
 
 	var scene : Node = load("res://" + skin_data.stream["scene_path"]).instantiate()
@@ -145,6 +168,38 @@ func _load_godot_scene() -> void:
 	scene_player.current_animation = "main"
 
 	print("SCENE LOADED!")
+
+
+# Checks loaded godot scenery for malicious code
+func _check_godot_scene() -> bool:
+	print("CHECKING SCENE SCRIPTS...")
+	var scene_state : SceneState = load("res://" + skin_data.stream["scene_path"]).get_state()
+
+	for node_id : int in scene_state.get_node_count():
+		for prop_id : int in scene_state.get_node_property_count(node_id):
+			if scene_state.get_node_property_name(node_id, prop_id) == "script":
+				print("SCRIPT FOUND! NODE : ", scene_state.get_node_name(node_id), ", id = ", node_id)
+
+				var type : StringName = scene_state.get_node_type(node_id)
+				if type in BANNED_NODES:
+					print("BANNED NODE: ", type, " DETECTED!")
+					is_bad_scene = true
+					return false
+
+				var script : Script = scene_state.get_node_property_value(node_id, prop_id)
+				if not script.has_source_code():
+					print("EMPTY SCRIPT SOURCE CODE! PLEASE DISABLE BINARY TOKENIZATION ON SCENE EXPORT!")
+					is_bad_scene = true
+					return false
+				
+				var source_code : String = script.source_code
+				for bad_word : String in BANNED_WORDS:
+					if source_code.contains(bad_word):
+						print("BANNED WORD: ", bad_word, " DETECTED!")
+						is_bad_scene = true
+						return false
+	print("OK!")
+	return true
 
 
 # Resets skin back to beginning
@@ -164,7 +219,7 @@ func _reset() -> void:
 	if Data.profile.config["video"]["disable_scenery"] and scene_player != null:
 		scene_player.get_parent().queue_free()
 		scene_player = null
-	elif scene_player == null:
+	elif scene_player == null and not is_bad_scene:
 		_load_godot_scene()
 	
 	if Data.profile.config["video"]["disable_video"] and video_player.stream != null:

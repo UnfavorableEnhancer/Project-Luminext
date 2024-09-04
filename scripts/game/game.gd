@@ -290,12 +290,12 @@ func _change_skin(skin_path : String = "", quick : bool = false) -> void:
 		skin_change_ended.emit()
 		return
 
-	print("SKIN CHANGE SUCCESS!")
 	await skin.sample_ended
 	skin._play_ending()
 
 	# Turn music volume down
-	create_tween().tween_property(skin.music_player, "volume_db", -40.0, 60.0 / skin.bpm * 8.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
+	if skin.music_player != null:
+		create_tween().tween_property(skin.music_player, "volume_db", -40.0, 60.0 / skin.bpm * 8.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
 
 	# New skin announce starts after half of the sample passed, and uses Timer node, so we can pause the game while doing transition 
 	$Announce.start(60.0 / skin.bpm * 6.0)
@@ -309,12 +309,13 @@ func _change_skin(skin_path : String = "", quick : bool = false) -> void:
 
 	_replace_skin(skin_data)
 	# Raise music volume up
-	#create_tween().tween_method(func(db : float) -> void : AudioServer.set_bus_volume_db(1,db), -40.0, 0.0, 60.0 / skin.bpm * 4.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
-	create_tween().tween_property(skin.music_player, "volume_db", 0.0, 60.0 / skin.bpm * 8.0).from(-40.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	if skin.music_player != null:
+		create_tween().tween_property(skin.music_player, "volume_db", 0.0, 60.0 / skin.bpm * 8.0).from(-40.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
 	
 	is_changing_skins_now = false
 	skin_change_status = SKIN_CHANGE_STATUS.SUCCESS
 	skin_change_ended.emit()
+	print("SKIN CHANGE SUCCESS!")
 
 
 # Replaces current skin with new one defined by passed SkinData
