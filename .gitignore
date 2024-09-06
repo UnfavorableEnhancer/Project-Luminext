@@ -3,6 +3,8 @@
 .godot/*
 /Luminext.code-workspace
 bin/*
+win_bin/*
+linux_bin/*
 skins/*
 playlists/*
 profiles/*
