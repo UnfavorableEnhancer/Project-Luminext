@@ -51,8 +51,8 @@ enum LOADING_STATUS {
 
 enum PARSE {PROFILES, PLAYLISTS, PRESETS, ADDONS, MODS}
 
-const VERSION : String = "0.1.0.1" # Current game version
-const BUILD : String = "27.08.2024" # Latest build date
+const VERSION : String = "0.1.0.2" # Current game version
+const BUILD : String = "06.09.2024" # Latest build date
 
 const SKINS_PATH : String = "skins/" # Path to the skins folder
 const PLAYLISTS_PATH : String = "playlists/" # Path to the saved playlists folder
@@ -237,7 +237,7 @@ func _load_global_settings() -> int:
 	
 	var file : FileAccess = FileAccess.open(Data.GLOBAL_DATA_PATH, FileAccess.READ)
 	if not file:
-		print("GLOBAL DATA LOAD ERROR : ", FileAccess.get_open_error())
+		print("GLOBAL DATA LOAD ERROR : ", error_string(FileAccess.get_open_error()))
 		return FileAccess.get_open_error()
 
 	var parse_result : Variant = JSON.parse_string(file.get_as_text())
@@ -258,7 +258,7 @@ func _save_global_settings() -> int:
 	
 	var file : FileAccess = FileAccess.open(Data.GLOBAL_DATA_PATH, FileAccess.WRITE)
 	if not file:
-		print("GLOBAL DATA SAVE ERROR : ", FileAccess.get_open_error())
+		print("GLOBAL DATA SAVE ERROR : ", error_string(FileAccess.get_open_error()))
 		return FileAccess.get_open_error()
 	
 	file.store_string(JSON.stringify(global_settings, "\t"))
@@ -320,7 +320,7 @@ func _parse(what : int, output_names : bool = false) -> Array:
 	var dir : DirAccess = DirAccess.open(parse_directory)
 	if not dir:
 		dir.make_dir(parse_directory)
-		print("DIRECTORY ACCESS ERROR : ", DirAccess.get_open_error())
+		print("DIRECTORY ACCESS ERROR : ", error_string(DirAccess.get_open_error()))
 		return []
 	
 	dir.list_dir_begin()
@@ -336,7 +336,7 @@ func _parse(what : int, output_names : bool = false) -> Array:
 	if has_build_in :
 		dir = DirAccess.open(Data.BUILD_IN_PATH + parse_directory)
 		if not dir:
-			print("BUILD-IN DIRECTORY ACCESS ERROR : ", DirAccess.get_open_error())
+			print("BUILD-IN DIRECTORY ACCESS ERROR : ", error_string(DirAccess.get_open_error()))
 			return output
 		
 		dir.list_dir_begin()

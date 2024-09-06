@@ -45,7 +45,7 @@ func _save(save_name : String = name) -> int:
 	var file : FileAccess = FileAccess.open(Data.PRESETS_PATH + name + ".json", FileAccess.WRITE)
 	if not file:
 		file.close()
-		print("PRESET SAVE ERROR! : ", FileAccess.get_open_error())
+		print("PRESET SAVE ERROR! : ", error_string(FileAccess.get_open_error()))
 		return FileAccess.get_open_error()
 	
 	file.store_string(json)

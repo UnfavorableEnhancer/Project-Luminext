@@ -261,7 +261,7 @@ func _change_skin(skin_path : String = "", quick : bool = false) -> void:
 	var load_thread : Thread = Thread.new()
 	var err : int = load_thread.start(skin_data._load_from_path.bind(skin_path))
 	if err != OK:
-		print("SKIN LOAD THREAD ERROR : ", err)
+		print("SKIN LOAD THREAD ERROR : ", error_string(err))
 		print("SKIN CHANGE FAILED!")
 		is_changing_skins_now = false
 		
@@ -421,7 +421,8 @@ func _add_block(to_position : Vector2i, color : int, special : StringName) -> vo
 
 
 # Turns on all placed blocks gravity
-func _move_blocks() -> void:
+func _move_blocks(delay : float = 0.0) -> void:
+	await get_tree().create_timer(delay).timeout
 	# Call blocks from down-right corner, and go up-left, so they would fall in right order and won't clip thru each other
 	for x : int in range(16,0,-1):
 		for y : int in range(9,-1,-1):

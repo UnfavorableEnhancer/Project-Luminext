@@ -283,7 +283,7 @@ func _save(path : String = "") -> int:
 	
 	var file : FileAccess = FileAccess.open_compressed(path,FileAccess.WRITE,FileAccess.COMPRESSION_DEFLATE)
 	if not file: 
-		print("FILE ERROR! CODE : ", FileAccess.get_open_error())
+		print("FILE ERROR! : ", error_string(FileAccess.get_open_error()))
 		file.close()
 		return FileAccess.get_open_error()
 	
@@ -308,7 +308,7 @@ func _save(path : String = "") -> int:
 		elif stream["music"].ends_with(".mp3"): 
 			var music_file : FileAccess = FileAccess.open(stream["music"], FileAccess.READ)
 			if not music_file:
-				print("MUSIC FILE ERROR : ", FileAccess.get_open_error())
+				print("MUSIC FILE ERROR : ", error_string(FileAccess.get_open_error()))
 			
 			sample = AudioStreamMP3.new()
 			sample.data = music_file.get_buffer(music_file.get_length())
@@ -333,7 +333,7 @@ func _save(path : String = "") -> int:
 		if stream["video_format"] in ["ogv","webm","mp4"]:
 			stream["video"] = FileAccess.get_file_as_bytes(stream["video"])
 			if stream["video"].is_empty():
-				print("VIDEO FILE ERROR : ", FileAccess.get_open_error())
+				print("VIDEO FILE ERROR : ", error_string(FileAccess.get_open_error()))
 			else:
 				print("DONE")
 		else:
@@ -348,7 +348,7 @@ func _save(path : String = "") -> int:
 		if stream["scene_format"] in ["pck","zip"]:
 			stream["scene"] = FileAccess.get_file_as_bytes(stream["scene"])
 			if stream["scene"].is_empty():
-				print("SCENE FILE ERROR : ", FileAccess.get_open_error())
+				print("SCENE FILE ERROR : ", error_string(FileAccess.get_open_error()))
 			else:
 				print("DONE")
 		else:
@@ -445,7 +445,7 @@ func _load_from_path(path : String, file : FileAccess = null) -> int:
 	if file == null:
 		file = FileAccess.open_compressed(path,FileAccess.READ,FileAccess.COMPRESSION_DEFLATE)
 		if not file: 
-			print("SKIN FILE ERROR! CODE : " + str(FileAccess.get_open_error()))
+			print("SKIN FILE ERROR! : " + error_string(FileAccess.get_open_error()))
 			skin_loaded.emit()
 			return FileAccess.get_open_error()
 	
@@ -502,7 +502,7 @@ func _cache_video() -> void:
 	
 	var file : FileAccess = FileAccess.open(Data.CACHE_PATH + cached_video_name,FileAccess.WRITE)
 	if not file : 
-		print("VIDEO CACHE FAILED! FILE ERROR : ", FileAccess.get_open_error())
+		print("VIDEO CACHE FAILED! FILE ERROR : ", error_string(FileAccess.get_open_error()))
 		return
 	file.store_buffer(stream["video"])
 	file.close()
@@ -530,12 +530,14 @@ func _cache_godot_scene() -> void:
 	
 	var file : FileAccess = FileAccess.open(Data.CACHE_PATH + cached_scene_name, FileAccess.WRITE)
 	if not file : 
-		print("SCENE CACHE FAILED! FILE ERROR : ", FileAccess.get_open_error())
+		print("SCENE CACHE FAILED! FILE ERROR : ", error_string(FileAccess.get_open_error()))
 		return
 	file.store_buffer(stream["scene"])
 	file.close()
 	
-	var success : bool = ProjectSettings.load_resource_pack(Data.CACHE_PATH + cached_scene_name, false)
+	print(DirAccess.get_directories_at("res://"))
+	var success : bool = ProjectSettings.load_resource_pack(Data.CACHE_PATH + cached_scene_name, true)
+	print(DirAccess.get_directories_at("res://"))
 	if not success: 
 		print("SCENE PACK LOAD ERROR!")
 		return

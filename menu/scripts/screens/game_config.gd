@@ -149,6 +149,7 @@ func _exit_with_apply() -> void:
 		Data.main._display_system_message("WARNING! NO BLOCK COLORS ENABLED!\nPLEASE TOGGLE ON SOME BLOCK COLORS")
 		return
 
+	Data.profile._apply_setting("all_gameplay")
 	Data.profile._save_config()
 	
 	menu._change_screen(previous_screen_name)

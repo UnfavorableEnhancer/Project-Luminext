@@ -340,7 +340,7 @@ func _slide_piece(check_y : int, down_left_block_collision : bool, down_right_bl
 		return
 	
 	if down_left_block_collision and not down_right_block_collision: 
-		if grid_position.x == BORDER.LEFT:
+		if grid_position.x == BORDER.RIGHT:
 			Data.game._game_over()
 			return
 
@@ -352,7 +352,7 @@ func _slide_piece(check_y : int, down_left_block_collision : bool, down_right_bl
 			return
 	
 	elif down_right_block_collision and not down_left_block_collision: 
-		if grid_position.x == BORDER.RIGHT:
+		if grid_position.x == BORDER.LEFT:
 			Data.game._game_over()
 			return
 

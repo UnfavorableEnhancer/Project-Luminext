@@ -142,9 +142,12 @@ func _parse() -> int:
 				#_unlock_addon_skin(skin_metadata.name)
 	
 	print("LOOKING INTO INTERNAL SKIN DIR")
+	print(DirAccess.dir_exists_absolute(Data.BUILD_IN_PATH + Data.SKINS_PATH))
+	print(DirAccess.get_directories_at("res://"))
+	print(DirAccess.get_directories_at("res://internal"))
 	var dir : DirAccess = DirAccess.open(Data.BUILD_IN_PATH + Data.SKINS_PATH)
 	if not dir:
-		print("SKIN DIRECTORY LOADING ERROR! ", DirAccess.get_open_error())
+		print("INTERNAL SKIN DIRECTORY LOADING ERROR! ", error_string(DirAccess.get_open_error()))
 	
 	else:
 		dir.list_dir_begin()
@@ -165,7 +168,7 @@ func _parse() -> int:
 	print("LOOKING INTO SKIN DIR")
 	dir = DirAccess.open(Data.SKINS_PATH)
 	if not dir:
-		print("SKIN DIRECTORY LOADING ERROR! ", DirAccess.get_open_error())
+		print("SKIN DIRECTORY LOADING ERROR! ", error_string(DirAccess.get_open_error()))
 	
 	else:
 		dir.list_dir_begin()
@@ -279,7 +282,7 @@ func _process_file_skin(path : String, force_album : String = "") -> void:
 	
 	var file : FileAccess = FileAccess.open_compressed(path, FileAccess.READ, FileAccess.COMPRESSION_ZSTD)
 	if not file:
-		print("SKIN LOADING FAILED! FILE ERROR : ", FileAccess.get_open_error())
+		print("SKIN LOADING FAILED! FILE ERROR : ", error_string(FileAccess.get_open_error()))
 		return
 	
 	var skn_version : int = file.get_8()

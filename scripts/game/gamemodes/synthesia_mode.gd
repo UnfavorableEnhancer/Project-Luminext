@@ -121,8 +121,8 @@ func _ready() -> void:
 	game.timeline_started.connect(_connect_timeline)
 	_load_ui()
 
-	Data.profile.settings_changed.connect(_sync_settings)
-	_sync_settings()
+	Data.profile.gameplay_config_changed.connect(_sync_settings)
+	
 
 	time_timer = Timer.new()
 	time_timer.timeout.connect(_update_time)
@@ -209,12 +209,18 @@ func _reset() -> void:
 	time = 0
 	time_timer.start(1.0)
 
+	_sync_settings()
+
 	current_lap = -1
 	
 	scoreboard._set_value(0,"time")
 	scoreboard._set_value([1,1,current_lap],"level")
 	scoreboard._set_value(0,"score")
-	scoreboard._set_value(0,"deleted")
+	scoreboard._set_value(0,"deleted_squares")
+	scoreboard._set_value(0,"deleted_blocks")
+
+	game.foreground.ui_elements["combo"]._set_combo(0)
+	game.foreground.ui_elements["bonus"]._reset()
 	
 	await get_tree().create_timer(0.01).timeout
 	reset_complete.emit()
