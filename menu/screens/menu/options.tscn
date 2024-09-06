@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://6uirnlwcpt7s"]
+[gd_scene load_steps=85 format=3 uid="uid://6uirnlwcpt7s"]
 
 [ext_resource type="Texture2D" uid="uid://clbyjed38caju" path="res://menu/images/controls.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://bruo4pkdqcre4" path="res://menu/images/flags.png" id="2"]
@@ -1088,10 +1088,6 @@ region = Rect2(640, 128, 128, 128)
 atlas = ExtResource("3_6ju14")
 region = Rect2(768, 128, 128, 128)
 
-[sub_resource type="AtlasTexture" id="125"]
-atlas = ExtResource("3_6ju14")
-region = Rect2(0, 256, 128, 128)
-
 [sub_resource type="AtlasTexture" id="126"]
 atlas = ExtResource("3_6ju14")
 region = Rect2(128, 256, 128, 128)
@@ -1103,6 +1099,14 @@ region = Rect2(256, 256, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_wuusd"]
 atlas = ExtResource("3_6ju14")
 region = Rect2(384, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3b5h"]
+atlas = ExtResource("3_6ju14")
+region = Rect2(512, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="125"]
+atlas = ExtResource("3_6ju14")
+region = Rect2(0, 256, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2kglr"]
 atlas = ExtResource("3_6ju14")
@@ -2036,45 +2040,6 @@ label_settings = SubResource("LabelSettings_x3w21")
 vertical_alignment = 1
 uppercase = true
 
-[node name="BACKEFFECT" type="TextureRect" parent="VIDEO/SCROLL/V"]
-custom_minimum_size = Vector2(52, 52)
-layout_mode = 2
-size_flags_horizontal = 0
-texture = SubResource("125")
-expand_mode = 1
-
-[node name="Button" parent="VIDEO/SCROLL/V/BACKEFFECT" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
-layout_mode = 0
-offset_left = 72.0
-offset_top = 1.0
-offset_right = 1328.0
-offset_bottom = 53.0
-text = "BACKGROUND EFFECTS"
-description_node = NodePath("../../../../../Desc/Text")
-glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Makes all in-game special effects play on background layer instead of foreground. Enabling this improves game field visibility."
-button_layout = 9
-is_setting_button = true
-work_mode = 4
-press_sound_name = "confirm3"
-call_string = "background_effects"
-
-[node name="IO" type="Label" parent="VIDEO/SCROLL/V/BACKEFFECT/Button"]
-modulate = Color(0.537255, 0.537255, 0.537255, 1)
-layout_mode = 0
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -224.0
-offset_top = -26.0
-offset_right = -8.0
-offset_bottom = 24.0
-text = "OFF"
-label_settings = SubResource("LabelSettings_x3w21")
-horizontal_alignment = 2
-vertical_alignment = 1
-
 [node name="EQVISUAL" type="TextureRect" parent="VIDEO/SCROLL/V"]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
@@ -2200,6 +2165,83 @@ layout_mode = 0
 offset_top = 40.0
 offset_right = 1344.0
 offset_bottom = 44.0
+
+[node name="DARKENING" type="TextureRect" parent="VIDEO/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_s3b5h")
+expand_mode = 1
+
+[node name="Button" parent="VIDEO/SCROLL/V/DARKENING" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+text = "BACKGROUND DARKENING"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Makes background much darker, improving game field visibility."
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "background_darkening"
+
+[node name="IO" type="Label" parent="VIDEO/SCROLL/V/DARKENING/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -26.0
+offset_right = -8.0
+offset_bottom = 24.0
+text = "OFF"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="BACKEFFECT" type="TextureRect" parent="VIDEO/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("125")
+expand_mode = 1
+
+[node name="Button" parent="VIDEO/SCROLL/V/BACKEFFECT" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 1.0
+offset_right = 1328.0
+offset_bottom = 53.0
+text = "BACKGROUND EFFECTS"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "Makes all in-game special effects play on background layer instead of foreground. Enabling this improves game field visibility."
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "background_effects"
+
+[node name="IO" type="Label" parent="VIDEO/SCROLL/V/BACKEFFECT/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -26.0
+offset_right = -8.0
+offset_bottom = 24.0
+text = "OFF"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="FORCEBLOCKS" type="TextureRect" parent="VIDEO/SCROLL/V"]
 custom_minimum_size = Vector2(52, 52)

@@ -92,6 +92,7 @@ var config : Dictionary = {
 		"force_standard_blocks" : false, # Forces standard blocks, regardless of current skin
 		"disable_video" : false, # Disables skin video
 		"disable_scenery" : false, # Disables skin scenery
+		"background_darkening" : false # Makes skin background darker
 	},
 	"controls" : {
 		# Keyboard controls

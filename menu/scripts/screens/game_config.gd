@@ -141,6 +141,14 @@ func _load_settings() -> void:
 
 
 func _exit_with_apply() -> void:
+	var color_check : bool = false
+	for i : String in ["red","white","green","purple"]:
+		if Data.profile.config["gameplay"][i]: color_check = true
+	if not color_check:
+		print("NO COLORS AVAIABLE!")
+		Data.main._display_system_message("WARNING! NO BLOCK COLORS ENABLED!\nPLEASE TOGGLE ON SOME BLOCK COLORS")
+		return
+
 	Data.profile._save_config()
 	
 	menu._change_screen(previous_screen_name)
