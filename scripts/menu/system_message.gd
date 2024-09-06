@@ -29,8 +29,8 @@ func _show_message(text : String) -> void:
 	
 	# Animate appearance
 	tween.tween_property($Center/Text,"modulate:a",1.0,1.0).from(0.0)
-	tween.tween_property($Center/Text,"scale:y",1.0,0.5).from(0.0)
+	tween.tween_property($Center/Text/Cover,"scale:x",1.0,0.5).from(0.0)
 	tween.tween_interval(5.0)
 	tween.chain().tween_property($Center/Text,"modulate:a",0.0,0.5)
-	tween.tween_property($Center/Text,"scale:y",0.0,1.0).from(0.5)
+	tween.tween_property($Center/Text/Cover,"scale:x",0.0,1.0).from(0.5)
 	

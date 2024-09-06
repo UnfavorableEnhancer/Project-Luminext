@@ -31,6 +31,7 @@ class_name Profile
 
 signal setting_changed(setting_name : String)
 signal settings_changed
+signal gameplay_config_changed
 signal progress_changed
 
 signal profile_loaded
@@ -92,6 +93,7 @@ var config : Dictionary = {
 		"force_standard_blocks" : false, # Forces standard blocks, regardless of current skin
 		"disable_video" : false, # Disables skin video
 		"disable_scenery" : false, # Disables skin scenery
+		"background_darkening" : false # Makes skin background darker
 	},
 	"controls" : {
 		# Keyboard controls
@@ -317,7 +319,7 @@ func _load_progress() -> int:
 	var file : FileAccess = FileAccess.open_encrypted_with_pass(Data.PROFILES_PATH + name + ".dat", FileAccess.READ, "0451")
 	if not file:
 		file.close()
-		print("PROGRESS FILE LOAD ERROR! : ", FileAccess.get_open_error())
+		print("PROGRESS FILE LOAD ERROR! : ", error_string(FileAccess.get_open_error()))
 		status = STATUS.PROGRESS_FAIL
 		return STATUS.PROGRESS_FAIL
 	
@@ -352,7 +354,7 @@ func _save_progress() -> int:
 	var file : FileAccess = FileAccess.open_encrypted_with_pass(Data.PROFILES_PATH + name + ".dat", FileAccess.WRITE, "0451")
 	if not file:
 		file.close()
-		print("PROGRESS FILE SAVE ERROR! : ", FileAccess.get_open_error())
+		print("PROGRESS FILE SAVE ERROR! : ", error_string(FileAccess.get_open_error()))
 		return FileAccess.get_open_error()
 
 	file.store_var(progress)
@@ -375,7 +377,7 @@ func _load_config() -> int:
 		
 	var file : FileAccess = FileAccess.open(Data.PROFILES_PATH + name + ".json", FileAccess.READ)
 	if not file:
-		print("CONFIG FILE LOAD ERROR! : ", FileAccess.get_open_error())
+		print("CONFIG FILE LOAD ERROR! : ", error_string(FileAccess.get_open_error()))
 		status = STATUS.CONFIG_FAIL
 		return STATUS.CONFIG_FAIL
 	
@@ -395,7 +397,6 @@ func _load_config() -> int:
 	file.close()
 	
 	_apply_setting("all")
-	settings_changed.emit()
 	print("OK")
 
 	return OK
@@ -404,14 +405,13 @@ func _load_config() -> int:
 # Saves config to an .json file
 func _save_config() -> int:
 	if is_guest_profile : return ERR_DOES_NOT_EXIST
-	settings_changed.emit()
 
 	print("SAVING CONFIG")
 	
 	var file : FileAccess = FileAccess.open(Data.PROFILES_PATH + name + ".json", FileAccess.WRITE)
 	if not file:
 		file.close()
-		print("CONFIG SAVE ERROR! : ", FileAccess.get_open_error())
+		print("CONFIG SAVE ERROR! : ", error_string(FileAccess.get_open_error()))
 		return FileAccess.get_open_error()
 	
 	file.store_string(JSON.stringify(config, "\t"))
@@ -553,6 +553,7 @@ func _apply_setting(setting_name : String = "all") -> void:
 			_apply_setting("all_video")
 			_apply_setting("all_controls")
 			_apply_setting("all_misc")
+			settings_changed.emit()
 		"all_audio":
 			for i : String in ["music_volume","sound_volume","stereo_enhance"] : 
 				_apply_setting(i)
@@ -562,6 +563,8 @@ func _apply_setting(setting_name : String = "all") -> void:
 		"all_controls":
 			for i : String in ["rotate_right","rotate_left","move_right","move_left","quick_drop","side_ability","ui_accept","ui_cancel","ui_extra"] : 
 				_update_input_config(i)
+		"all_gameplay":
+			gameplay_config_changed.emit()
 		"all_misc":
 			for i : String in ["language"] : 
 				_apply_setting(i)

@@ -1429,14 +1429,14 @@ offset_bottom = 52.0
 texture = SubResource("AtlasTexture_s3bw6")
 expand_mode = 1
 
-[node name="SEQUENCE6" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+[node name="LASER" type="TextureRect" parent="BLOCKS/SCROLL/V"]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_824bd")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/SEQUENCE6" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/LASER" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1452,7 +1452,7 @@ work_mode = 4
 press_sound_name = "confirm3"
 call_string = "laser"
 
-[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/SEQUENCE6/Button"]
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/LASER/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
 layout_mode = 1
 anchors_preset = 6
@@ -1472,21 +1472,21 @@ label_settings = SubResource("LabelSettings_16anr")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Gem" type="TextureRect" parent="BLOCKS/SCROLL/V/SEQUENCE6"]
+[node name="Gem" type="TextureRect" parent="BLOCKS/SCROLL/V/LASER"]
 layout_mode = 0
 offset_right = 52.0
 offset_bottom = 52.0
 texture = SubResource("AtlasTexture_m13g0")
 expand_mode = 1
 
-[node name="SEQUENCE7" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+[node name="WIPE" type="TextureRect" parent="BLOCKS/SCROLL/V"]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_824bd")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/SEQUENCE7" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/WIPE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1502,7 +1502,7 @@ work_mode = 4
 press_sound_name = "confirm3"
 call_string = "wipe"
 
-[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/SEQUENCE7/Button"]
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/WIPE/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
 layout_mode = 1
 anchors_preset = 6
@@ -1522,21 +1522,21 @@ label_settings = SubResource("LabelSettings_16anr")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Gem" type="TextureRect" parent="BLOCKS/SCROLL/V/SEQUENCE7"]
+[node name="Gem" type="TextureRect" parent="BLOCKS/SCROLL/V/WIPE"]
 layout_mode = 0
 offset_right = 52.0
 offset_bottom = 52.0
 texture = SubResource("AtlasTexture_s0h4k")
 expand_mode = 1
 
-[node name="SEQUENCE8" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+[node name="MULTI" type="TextureRect" parent="BLOCKS/SCROLL/V"]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_6iq3o")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/SEQUENCE8" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/MULTI" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1552,7 +1552,7 @@ work_mode = 4
 press_sound_name = "confirm3"
 call_string = "multi"
 
-[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/SEQUENCE8/Button"]
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/MULTI/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
 layout_mode = 1
 anchors_preset = 6
@@ -1572,14 +1572,14 @@ label_settings = SubResource("LabelSettings_16anr")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="SEQUENCE9" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+[node name="DARK" type="TextureRect" parent="BLOCKS/SCROLL/V"]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_ijbn0")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/SEQUENCE9" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/DARK" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1595,7 +1595,7 @@ work_mode = 4
 press_sound_name = "confirm3"
 call_string = "garbage"
 
-[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/SEQUENCE9/Button"]
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/DARK/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
 layout_mode = 1
 anchors_preset = 6
@@ -1615,14 +1615,14 @@ label_settings = SubResource("LabelSettings_16anr")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="SEQUENCE10" type="TextureRect" parent="BLOCKS/SCROLL/V"]
+[node name="CHAOS" type="TextureRect" parent="BLOCKS/SCROLL/V"]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("2")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/SEQUENCE10" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/CHAOS" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1638,7 +1638,7 @@ work_mode = 4
 press_sound_name = "confirm3"
 call_string = "joker"
 
-[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/SEQUENCE10/Button"]
+[node name="IO" type="Label" parent="BLOCKS/SCROLL/V/CHAOS/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
 layout_mode = 1
 anchors_preset = 6
@@ -2056,7 +2056,7 @@ value = 0.5
 tick_count = 17
 ticks_on_borders = true
 description_node = NodePath("../../../../../Desc/Text")
-description = "Set piece fall speed in seconds. If set to 0 piece will drop instantly."
+description = "Set piece fall speed in seconds. If set to 0 piece will drop instantly. Will be applyed only on game restart!"
 input_dash_speed = 8
 call_string = "piece_fall_speed"
 call_function_name = "_change_option"
@@ -2111,7 +2111,7 @@ value = 1.0
 tick_count = 17
 ticks_on_borders = true
 description_node = NodePath("../../../../../Desc/Text")
-description = "Set delay in seconds before piece starts falling by itself."
+description = "Set delay in seconds before piece starts falling by itself. Will be applyed only on game restart!"
 input_dash_speed = 8
 call_string = "piece_fall_delay"
 call_function_name = "_change_option"
@@ -2637,8 +2637,6 @@ offset_right = -32.0
 offset_bottom = -36.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Welcome to the game configuration screen!
-"
 label_settings = SubResource("LabelSettings_bb3qu")
 
 [node name="Detail3" type="Label" parent="Desc"]

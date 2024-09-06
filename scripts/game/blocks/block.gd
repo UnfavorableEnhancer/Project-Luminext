@@ -50,10 +50,13 @@ var is_scanned : bool = false # True if is scanned by timeline
 var has_moved : bool = true # True if block has moved at least one cell down
 
 var squared_by : Array = [] # Array of squares in which this block is inside
+var gravity_multiplier : float = 1.0
+var blocks : Dictionary
 
 
 func _init() -> void:
 	super()
+	gravity_multiplier = Data.profile.config["gameplay"]["block_gravity"]
 	
 	is_trail_enabled = Data.profile.config["video"]["block_trail"]
 	match Data.profile.config["video"]["fx_quality"]:
@@ -86,11 +89,14 @@ func _ready() -> void:
 func _fall() -> void:
 	if is_dying: return
 	if is_tweening: return
-
-	var blocks : Dictionary = Data.game.blocks
 	
 	# Check if there's another block at bottom or we are at field floor
-	if blocks.has(grid_position + Vector2i(0,1)) or grid_position.y == 9:
+	blocks = Data.game.blocks
+	var bottom_block : Block = blocks.get(grid_position + Vector2i(0,1), null)
+	if is_instance_valid(bottom_block) or grid_position.y == 9:
+		if grid_position.y != 9 and bottom_block.is_falling:
+			Data.game._move_blocks(lerpf(1.0,0.1,gravity_multiplier))
+
 		is_falling = false
 		falled_down.emit()
 
@@ -107,7 +113,7 @@ func _fall() -> void:
 		
 		position = Vector2(grid_position.x * 68 - 34, grid_position.y * 68 + 32)
 		return
-	
+
 	if not is_falling:
 		is_falling = true
 		_reset(true)
@@ -123,7 +129,7 @@ func _fall() -> void:
 	
 	# Animate motion
 	is_tweening = true
-	var fall_time : float = FALL_SPEED * (1.0 / Data.profile.config["gameplay"]["block_gravity"])
+	var fall_time : float = FALL_SPEED * (1.0 / gravity_multiplier)
 	var fall_tween : Tween = create_tween()
 	fall_tween.tween_property(self,"position",Vector2(position.x,position.y + 68),fall_time)
 	await fall_tween.step_finished

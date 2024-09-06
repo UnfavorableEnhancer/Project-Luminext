@@ -261,7 +261,7 @@ func _change_skin(skin_path : String = "", quick : bool = false) -> void:
 	var load_thread : Thread = Thread.new()
 	var err : int = load_thread.start(skin_data._load_from_path.bind(skin_path))
 	if err != OK:
-		print("SKIN LOAD THREAD ERROR : ", err)
+		print("SKIN LOAD THREAD ERROR : ", error_string(err))
 		print("SKIN CHANGE FAILED!")
 		is_changing_skins_now = false
 		
@@ -290,12 +290,12 @@ func _change_skin(skin_path : String = "", quick : bool = false) -> void:
 		skin_change_ended.emit()
 		return
 
-	print("SKIN CHANGE SUCCESS!")
 	await skin.sample_ended
 	skin._play_ending()
 
 	# Turn music volume down
-	create_tween().tween_property(skin.music_player, "volume_db", -40.0, 60.0 / skin.bpm * 8.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
+	if skin.music_player != null:
+		create_tween().tween_property(skin.music_player, "volume_db", -40.0, 60.0 / skin.bpm * 8.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
 
 	# New skin announce starts after half of the sample passed, and uses Timer node, so we can pause the game while doing transition 
 	$Announce.start(60.0 / skin.bpm * 6.0)
@@ -309,12 +309,13 @@ func _change_skin(skin_path : String = "", quick : bool = false) -> void:
 
 	_replace_skin(skin_data)
 	# Raise music volume up
-	#create_tween().tween_method(func(db : float) -> void : AudioServer.set_bus_volume_db(1,db), -40.0, 0.0, 60.0 / skin.bpm * 4.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
-	create_tween().tween_property(skin.music_player, "volume_db", 0.0, 60.0 / skin.bpm * 8.0).from(-40.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	if skin.music_player != null:
+		create_tween().tween_property(skin.music_player, "volume_db", 0.0, 60.0 / skin.bpm * 8.0).from(-40.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
 	
 	is_changing_skins_now = false
 	skin_change_status = SKIN_CHANGE_STATUS.SUCCESS
 	skin_change_ended.emit()
+	print("SKIN CHANGE SUCCESS!")
 
 
 # Replaces current skin with new one defined by passed SkinData
@@ -420,7 +421,8 @@ func _add_block(to_position : Vector2i, color : int, special : StringName) -> vo
 
 
 # Turns on all placed blocks gravity
-func _move_blocks() -> void:
+func _move_blocks(delay : float = 0.0) -> void:
+	await get_tree().create_timer(delay).timeout
 	# Call blocks from down-right corner, and go up-left, so they would fall in right order and won't clip thru each other
 	for x : int in range(16,0,-1):
 		for y : int in range(9,-1,-1):
@@ -653,4 +655,3 @@ func _add_sounds_from_queue() -> void:
 		var sound : AudioStreamPlayer2D = sound_queue.pop_back()
 		sounds.add_child(sound)
 		sound.play()
-

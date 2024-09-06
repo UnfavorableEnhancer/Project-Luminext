@@ -110,7 +110,7 @@ func _load_menu(boot_sequence : bool = true, start_screen_name : String = "") ->
 		if dir.current_is_dir():
 			var dir2 : DirAccess = DirAccess.open("res://menu/screens/" + file_name)
 			if not dir2:
-				print("DIR OPEN ERROR")
+				print("DIR OPEN ERROR : ", error_string(DirAccess.get_open_error()))
 				continue
 			
 			dir2.list_dir_begin()
@@ -258,9 +258,9 @@ func _start_game(first_skin_metadata : SkinMetadata, gamemode : Gamemode, first_
 		var result : int = thread.wait_to_finish()
 		
 		if result != OK or err != OK:
-			print("THREAD ERROR CODE : " + str(err))
-			print("SKIN LOADING ERROR CODE : " + str(result))
-			_display_system_message("SKIN LOADING ERROR!\n" + str(result) + "\n" + first_skin_metadata.path)
+			print("THREAD ERROR : " + error_string(err))
+			print("SKIN LOADING ERROR : " + error_string(result))
+			_display_system_message("SKIN LOADING ERROR!\n" + error_string(result) + "\n" + first_skin_metadata.path)
 			
 			await get_tree().create_timer(2).timeout
 			
@@ -355,9 +355,9 @@ func _test_skin(skin_metadata : SkinMetadata) -> void:
 	var result : int = thread.wait_to_finish()
 	
 	if result != OK or err != OK:
-		print("THREAD ERROR CODE : " + str(err))
-		print("SKIN LOADING ERROR CODE : " + str(result))
-		_display_system_message("SKIN LOADING ERROR!\n" + str(result) + "\n" + skin_metadata.path)
+		print("THREAD ERROR : " + error_string(err))
+		print("SKIN LOADING ERROR : " + error_string(result))
+		_display_system_message("SKIN LOADING ERROR!\n" + error_string(result) + "\n" + skin_metadata.path)
 		
 		await get_tree().create_timer(2).timeout
 		

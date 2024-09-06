@@ -124,8 +124,6 @@ func _input(event : InputEvent) -> void:
 
 
 func _reset() -> void:
-	game.piece.can_be_dashed = false
-	
 	time_attack_ui._stop()
 	time_attack_ui._set_time(float(time_limit))
 	
@@ -210,8 +208,6 @@ func _reset() -> void:
 	stat_timer.start(4.0)
 	stat_disable_timer.start(time_limit - 1.0)
 	is_counting_time = true
-	
-	game.piece.can_be_dashed = true
 
 	reset_complete.emit()
 	time_attack_ui._start()

@@ -3,6 +3,8 @@
 .godot/*
 /Luminext.code-workspace
 bin/*
+win_bin/*
+linux_bin/*
 skins/*
 playlists/*
 profiles/*
@@ -15,6 +17,6 @@ screenshots/*
 logs/*
 TODO
 Project Luminext.code-workspace
-
+addons/ffmpeg/win64/~libgdffmpeg.windows.template_debug.x86_64.dll
 
 addons/ffmpeg/win64/~libgdffmpeg.windows.template_debug.x86_64.dll

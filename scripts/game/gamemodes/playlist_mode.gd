@@ -70,8 +70,7 @@ func _ready() -> void:
 	game.timeline_started.connect(_connect_timeline)
 	_load_ui()
 
-	Data.profile.settings_changed.connect(_sync_settings)
-	_sync_settings()
+	Data.profile.gameplay_config_changed.connect(_sync_settings)
 
 	time_timer = Timer.new()
 	time_timer.timeout.connect(_update_time)
@@ -88,13 +87,12 @@ func _ready() -> void:
 
 # Updates gamemode settings and variables to match current profile config
 func _sync_settings() -> void:
-	game.piece_fall_speed = Data.profile.config["gameplay"]["piece_fall_speed"]
-	game.piece_fall_delay = Data.profile.config["gameplay"]["piece_fall_delay"]
 	max_combo = Data.profile.config["gameplay"]["max_combo"]
 	max_level_count = int(Data.profile.config["gameplay"]["level_count"])
 	
 	next_level_req = Data.profile.config["gameplay"]["level_up_speed"]
 	left_before_level_up = next_level_req
+	game.foreground.ui_elements["progress"]._change_progress(0.0)
 
 	if Data.profile.config["gameplay"]["classic_scoring"]:
 		bpm_multiplyer = 1.0
@@ -129,8 +127,7 @@ func _reset() -> void:
 	time = 0
 	time_timer.start(1.0)
 
-	left_before_level_up = next_level_req
-	game.foreground.ui_elements["progress"]._change_progress(0.0)
+	_sync_settings()
 
 	if is_single_skin_mode : current_lap = -1
 	elif is_single_run : current_lap = 0
@@ -139,7 +136,8 @@ func _reset() -> void:
 	scoreboard._set_value(0,"time")
 	scoreboard._set_value([1,1,current_lap],"level")
 	scoreboard._set_value(0,"score")
-	scoreboard._set_value(0,"deleted")
+	scoreboard._set_value(0,"deleted_squares")
+	scoreboard._set_value(0,"deleted_blocks")
 
 	game.foreground.ui_elements["combo"]._set_combo(0)
 	game.foreground.ui_elements["bonus"]._reset()

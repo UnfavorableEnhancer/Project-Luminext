@@ -97,6 +97,11 @@ func _sync_settings() -> void:
 	else:
 		$Back.scale = Vector2(1.0,1.0)
 		$Back.position = Vector2(960,540)
+	
+	if Data.profile.config["video"]["background_darkening"]:
+		$Darken.visible = true
+	else:
+		$Darken.visible = false
 
 
 # Loads video from skin data
@@ -121,16 +126,6 @@ func _load_video() -> void:
 # Loads packed Godot scenery stored in skin data
 func _load_godot_scene() -> void:
 	if not skin_data.scenery_is_cached: return
-	
-	var cached_scene_name : String
-	if Data.use_second_cache: cached_scene_name = "scene2." + skin_data.stream["scene_format"]
-	else: cached_scene_name = "scene." + skin_data.stream["scene_format"]
-	
-	var success : bool = ProjectSettings.load_resource_pack(Data.CACHE_PATH + cached_scene_name)
-
-	if not success: 
-		print("SCENE PACK LOAD ERROR!")
-		return
 
 	if not ResourceLoader.exists("res://" + skin_data.stream["scene_path"]): 
 		print("SCENE LOAD FAILED! MISSING PATH! ", skin_data.stream["scene_path"])

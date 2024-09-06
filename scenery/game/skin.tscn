@@ -29,3 +29,9 @@ volume_db = -80.0
 expand = true
 loop = true
 bus = &"Music"
+
+[node name="Darken" type="ColorRect" parent="."]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0.5)

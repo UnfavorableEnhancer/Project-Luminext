@@ -43,7 +43,7 @@ func _ready() -> void:
 	_load_skin_list()
 	_display_current_playlist()
 	
-	$Skins/Info.text = str(Data.skin_list.files_amount) + " SKINS TOTAL"
+	$Skins/Info.text = str(Data.skin_list.skins_amount) + " SKINS TOTAL"
 
 	await menu.all_screens_added
 	cursor = Vector2i(0,0)

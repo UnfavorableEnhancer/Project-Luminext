@@ -3067,7 +3067,7 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("12")
 color_name = "eq_visualizer_color"
-description = "Cahnge background audio visualizer color"
+description = "Change background audio visualizer color"
 
 [node name="Label12" type="Label" parent="Hide/TabContainer/GRAPHICS"]
 texture_filter = 1

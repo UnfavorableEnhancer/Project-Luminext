@@ -76,8 +76,12 @@ enum SKIN_LIST_PARSE_ERROR {
 
 # Checks if new parse is needed to update skin list
 func _check_parse() -> bool:
+	print("COUNTING SKINS")
 	var test_count : int = _count_skin_files_amount()
+	print("RESULT COUNT : ", test_count)
+	print("CURRENT COUNT : ", files_amount)
 	if test_count != files_amount:
+		print("SKINS AMOUNT CHANGED RELOADING SKIN LIST")
 		files_amount = test_count
 		was_parsed = false
 		return true
@@ -138,16 +142,19 @@ func _parse() -> int:
 				#_unlock_addon_skin(skin_metadata.name)
 	
 	print("LOOKING INTO INTERNAL SKIN DIR")
+	print(DirAccess.dir_exists_absolute(Data.BUILD_IN_PATH + Data.SKINS_PATH))
+	print(DirAccess.get_directories_at("res://"))
+	print(DirAccess.get_directories_at("res://internal"))
 	var dir : DirAccess = DirAccess.open(Data.BUILD_IN_PATH + Data.SKINS_PATH)
 	if not dir:
-		print("SKIN DIRECTORY LOADING ERROR! ", DirAccess.get_open_error())
+		print("INTERNAL SKIN DIRECTORY LOADING ERROR! ", error_string(DirAccess.get_open_error()))
 	
 	else:
 		dir.list_dir_begin()
 		var file_name : String = dir.get_next()
 		
 		while file_name != "":
-			if not dir.current_is_dir() and file_name.ends_with(".skn"): 
+			if not dir.current_is_dir() and file_name.ends_with(".skn"):
 				# Skip some internal skins here
 				if file_name in ["blank.skn", "synthesia.skn"]: 
 					file_name = dir.get_next()
@@ -161,7 +168,7 @@ func _parse() -> int:
 	print("LOOKING INTO SKIN DIR")
 	dir = DirAccess.open(Data.SKINS_PATH)
 	if not dir:
-		print("SKIN DIRECTORY LOADING ERROR! ", DirAccess.get_open_error())
+		print("SKIN DIRECTORY LOADING ERROR! ", error_string(DirAccess.get_open_error()))
 	
 	else:
 		dir.list_dir_begin()
@@ -271,12 +278,11 @@ func _get_skin_metadata_by_file_path(skin_file_path : String) -> SkinMetadata:
 # Adds skin metadata from given file 'path' into skin list. File must be .SKN formatted in order to be loaded.
 # If 'force_album' is specified, skin metadata would be assigned to that album inside 'skins' list
 func _process_file_skin(path : String, force_album : String = "") -> void:
-	print("NEW SKIN FILE DETECTED!")
-	print(path)
+	print("NEW SKIN FILE DETECTED: ", path)
 	
 	var file : FileAccess = FileAccess.open_compressed(path, FileAccess.READ, FileAccess.COMPRESSION_ZSTD)
 	if not file:
-		print("SKIN LOADING FAILED! FILE ERROR : ", FileAccess.get_open_error())
+		print("SKIN LOADING FAILED! FILE ERROR : ", error_string(FileAccess.get_open_error()))
 		return
 	
 	var skn_version : int = file.get_8()
@@ -318,8 +324,7 @@ func _process_file_skin(path : String, force_album : String = "") -> void:
 
 
 func _process_addon_skin(addon_path : String, skin_metadata : SkinMetadata) -> void:
-	print("NEW ADDON SKIN DETECTED!")
-	print(skin_metadata.name)
+	print("NEW ADDON SKIN DETECTED : ", skin_metadata.name)
 	
 	var skin_metadata_hash : StringName = StringName(skin_metadata._get_md5_hash_string())
 	if hash_links.has(skin_metadata_hash):
@@ -366,53 +371,31 @@ func _process_addon_skin(addon_path : String, skin_metadata : SkinMetadata) -> v
 # Counts skin files and addon files amount. Used to determine if skin list needs an update.
 func _count_skin_files_amount() -> int:
 	var count : int = 0
-	var dir : DirAccess = DirAccess.open(Data.BUILD_IN_PATH + Data.SKINS_PATH)
-	if dir:
-		dir.list_dir_begin()
-		var file_name : String = dir.get_next()
-		
-		while file_name != "":
-			if file_name.ends_with(".skn"): count += 1
+
+	for path : String in [Data.BUILD_IN_PATH + Data.SKINS_PATH, Data.SKINS_PATH]:
+		var dir : DirAccess = DirAccess.open(path)
+		if dir:
+			dir.list_dir_begin()
+			var file_name : String = dir.get_next()
 			
-			elif dir.current_is_dir(): 
-				var sub_dir : DirAccess = DirAccess.open(Data.BUILD_IN_PATH + Data.SKINS_PATH + file_name + "/")
-				if sub_dir:
-					sub_dir.list_dir_begin()
-					var sub_file_name : String = sub_dir.get_next()
-					
-					while sub_file_name != "":
-						if sub_file_name.ends_with(".skn"): count += 1
-						sub_file_name = sub_dir.get_next()
-					
-					sub_dir.list_dir_end()
-					
-			file_name = dir.get_next()
-		
-		dir.list_dir_end()
-	
-	dir = DirAccess.open(Data.SKINS_PATH)
-	if dir:
-		dir.list_dir_begin()
-		var file_name : String = dir.get_next()
-		
-		while file_name != "":
-			if file_name.ends_with(".skn"): count += 1
+			while file_name != "":
+				if file_name.ends_with(".skn"): count += 1
+				
+				elif dir.current_is_dir(): 
+					var sub_dir : DirAccess = DirAccess.open(path + file_name + "/")
+					if sub_dir:
+						sub_dir.list_dir_begin()
+						var sub_file_name : String = sub_dir.get_next()
+						
+						while sub_file_name != "":
+							if sub_file_name.ends_with(".skn"): count += 1
+							sub_file_name = sub_dir.get_next()
+						
+						sub_dir.list_dir_end()
+						
+				file_name = dir.get_next()
 			
-			elif dir.current_is_dir(): 
-				var sub_dir : DirAccess = DirAccess.open(Data.SKINS_PATH + file_name + "/")
-				if sub_dir:
-					sub_dir.list_dir_begin()
-					var sub_file_name : String = sub_dir.get_next()
-					
-					while sub_file_name != "":
-						if sub_file_name.ends_with(".skn"): count += 1
-						sub_file_name = sub_dir.get_next()
-					
-					sub_dir.list_dir_end()
-					
-			file_name = dir.get_next()
-		
-		dir.list_dir_end()
+			dir.list_dir_end()
 	
 	#count += Data._parse(Data.PARSE.ADDONS).size()
 	

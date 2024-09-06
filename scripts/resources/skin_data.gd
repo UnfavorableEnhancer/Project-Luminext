@@ -63,6 +63,23 @@ var metadata : SkinMetadata = SkinMetadata.new()
 var video_is_cached : bool = false
 var scenery_is_cached : bool = false
 
+# List of words which are banned in custom scene scripts. If such words were found on scene check, scene wont be loaded.
+const BANNED_WORDS : PackedStringArray = ["FileAccess","DirAccess","IP","JavaClassWrapper","JavaScriptBridge","JavaScriptObject","JavaClass",
+"GDExtensionManager","GDExtension","OS","ProjectSettings","ResourceLoader","ResourceSaver","Engine","bytes_to_var","bytes_to_var_with_objects",
+"var_to_str","str_to_var","var_to_bytes","var_to_bytes_with_objects","dict_to_inst","inst_to_dict","JSONRPC","JSON","change_scene_to_file",
+"change_scene_to_packed","get_multiplayer","MultiplayerAPI","MultiplayerAPIExtension","MultiplayerPeer","MultiplayerPeerExtension","MultiplayerSpawner",
+"MultiplayerSynchronizer","ENetMultiplayerPeer","SceneMultiplayer","quit","reload_current_scene","unload_current_scene","Window","get_last_exclusive_window",
+"get_viewport","get_window","propagate_call","propagate_notification","rpc","rpc_config","rpc_id","multiplayer","HTTPRequest","ResourcePreloader","FileDialog",
+"HTTPClient","Crypto","DTLSServer","ENetConnection","PacketPeer","ENetPacketPeer","OfflineMultiplayerPeer","WebRTCMutliplayerPeer","WebSocketMultiplayerPeer",
+"PacketPeerDTLS","PacketPeerUDP","WebRTCDataChannel","WebRTCDataChannelExtension","WebSocketPeer","PCKPacker","CryptoKey","PackedScene","SceneReplicationConfig",
+"X509Certificate","ResourceFormatLoader","ResourceFormatSaver","StreamPeer","StreamPeerBuffer","StreamPeerExtension","StreamPeerGZIP","StreamPeerTCP","StreamPeerTLS",
+"TCPServer","TLSOptions","UDPServer","UPNP","UPNPDevice","WebRTCPeerConnection","WebRTCPeerConnectionExtension","WebRTCDataChannel","WebRTCDataChannelExtension",
+"XMLParser","ZIPPacker","ZIPReader","AcceptDialog","ConfirmationDialog","Popup","PopupMenu","PopupPanel"]
+
+# List of nodes which are banned in custom scene. If such nodes were found on scene check, scene wont be loaded.
+const BANNED_NODES : PackedStringArray = ["HTTPRequest","Window","AcceptDialog","ConfirmationDialog","Popup","PopupMenu","PopupPanel","FileDialog",
+"MultiplayerSpawner","MultiplayerSynchronizer","ResourcePreloader",""]
+
 var sounds : Dictionary = {
 	# Multi-sounds, stored as Arrays which contain multiple AudioStreams, all Arrays must end with 'null' entry
 	"bonus" : [null], # 4X Bonus
@@ -266,7 +283,7 @@ func _save(path : String = "") -> int:
 	
 	var file : FileAccess = FileAccess.open_compressed(path,FileAccess.WRITE,FileAccess.COMPRESSION_DEFLATE)
 	if not file: 
-		print("FILE ERROR! CODE : ", FileAccess.get_open_error())
+		print("FILE ERROR! : ", error_string(FileAccess.get_open_error()))
 		file.close()
 		return FileAccess.get_open_error()
 	
@@ -291,7 +308,7 @@ func _save(path : String = "") -> int:
 		elif stream["music"].ends_with(".mp3"): 
 			var music_file : FileAccess = FileAccess.open(stream["music"], FileAccess.READ)
 			if not music_file:
-				print("MUSIC FILE ERROR : ", FileAccess.get_open_error())
+				print("MUSIC FILE ERROR : ", error_string(FileAccess.get_open_error()))
 			
 			sample = AudioStreamMP3.new()
 			sample.data = music_file.get_buffer(music_file.get_length())
@@ -316,7 +333,7 @@ func _save(path : String = "") -> int:
 		if stream["video_format"] in ["ogv","webm","mp4"]:
 			stream["video"] = FileAccess.get_file_as_bytes(stream["video"])
 			if stream["video"].is_empty():
-				print("VIDEO FILE ERROR : ", FileAccess.get_open_error())
+				print("VIDEO FILE ERROR : ", error_string(FileAccess.get_open_error()))
 			else:
 				print("DONE")
 		else:
@@ -331,7 +348,7 @@ func _save(path : String = "") -> int:
 		if stream["scene_format"] in ["pck","zip"]:
 			stream["scene"] = FileAccess.get_file_as_bytes(stream["scene"])
 			if stream["scene"].is_empty():
-				print("SCENE FILE ERROR : ", FileAccess.get_open_error())
+				print("SCENE FILE ERROR : ", error_string(FileAccess.get_open_error()))
 			else:
 				print("DONE")
 		else:
@@ -428,7 +445,7 @@ func _load_from_path(path : String, file : FileAccess = null) -> int:
 	if file == null:
 		file = FileAccess.open_compressed(path,FileAccess.READ,FileAccess.COMPRESSION_DEFLATE)
 		if not file: 
-			print("SKIN FILE ERROR! CODE : " + str(FileAccess.get_open_error()))
+			print("SKIN FILE ERROR! : " + error_string(FileAccess.get_open_error()))
 			skin_loaded.emit()
 			return FileAccess.get_open_error()
 	
@@ -485,7 +502,7 @@ func _cache_video() -> void:
 	
 	var file : FileAccess = FileAccess.open(Data.CACHE_PATH + cached_video_name,FileAccess.WRITE)
 	if not file : 
-		print("VIDEO CACHE FAILED! FILE ERROR : ", FileAccess.get_open_error())
+		print("VIDEO CACHE FAILED! FILE ERROR : ", error_string(FileAccess.get_open_error()))
 		return
 	file.store_buffer(stream["video"])
 	file.close()
@@ -508,15 +525,58 @@ func _cache_godot_scene() -> void:
 		print("SCENE CACHE FAILED! INVALID FORMAT")
 		return
 	
-	var cached_scene_name : String = "scene." +stream["scene_format"]
+	var cached_scene_name : String = "scene." + stream["scene_format"]
 	if Data.use_second_cache: cached_scene_name = "scene2." + stream["scene_format"]
 	
 	var file : FileAccess = FileAccess.open(Data.CACHE_PATH + cached_scene_name, FileAccess.WRITE)
 	if not file : 
-		print("SCENE CACHE FAILED! FILE ERROR : ", FileAccess.get_open_error())
+		print("SCENE CACHE FAILED! FILE ERROR : ", error_string(FileAccess.get_open_error()))
 		return
 	file.store_buffer(stream["scene"])
 	file.close()
 	
+	var success : bool = ProjectSettings.load_resource_pack(Data.CACHE_PATH + cached_scene_name, false)
+	if not success: 
+		print("SCENE PACK LOAD ERROR!")
+		return
+	
+	if not _check_godot_scene():
+		print("SCENE CHECK FAILED! THIS SCENE CONTAINS SCRIPTS OR NODES WITH MALICIOUS CODE!!")
+		return
+
 	scenery_is_cached = true
 	print("SCENE IS CACHED!")
+
+
+# Checks loaded godot scenery for malicious code
+func _check_godot_scene() -> bool:
+	print("CHECKING SCENE SCRIPTS...")
+
+	if not ResourceLoader.exists("res://" + stream["scene_path"]): 
+		print("SCENE CHECK FAILED! MISSING PATH! ", stream["scene_path"])
+		return false
+
+	var scene_state : SceneState = load("res://" + stream["scene_path"]).get_state()
+
+	for node_id : int in scene_state.get_node_count():
+		for prop_id : int in scene_state.get_node_property_count(node_id):
+			if scene_state.get_node_property_name(node_id, prop_id) == "script":
+				print("SCRIPT FOUND! NODE : ", scene_state.get_node_name(node_id), ", id = ", node_id)
+
+				var type : StringName = scene_state.get_node_type(node_id)
+				if type in BANNED_NODES:
+					print("BANNED NODE: ", type, " DETECTED!")
+					return false
+
+				var script : Script = scene_state.get_node_property_value(node_id, prop_id)
+				if not script.has_source_code():
+					print("EMPTY SCRIPT SOURCE CODE! PLEASE DISABLE BINARY TOKENIZATION ON SCENE EXPORT!")
+					return false
+				
+				var source_code : String = script.source_code
+				for bad_word : String in BANNED_WORDS:
+					if source_code.contains(bad_word):
+						print("BANNED WORD: ", bad_word, " DETECTED!")
+						return false
+	print("OK!")
+	return true

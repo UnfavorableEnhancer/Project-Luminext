@@ -165,10 +165,6 @@ _data = {
 "start": SubResource("131")
 }
 
-[sub_resource type="StyleBoxFlat" id="129"]
-content_margin_left = 16.0
-bg_color = Color(0.227451, 0.235294, 0.227451, 1)
-
 [sub_resource type="StyleBoxFlat" id="128"]
 content_margin_left = 16.0
 bg_color = Color(0.227451, 0.235294, 0.227451, 1)
@@ -177,6 +173,10 @@ border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0.458824, 0.976471, 0.647059, 1)
+
+[sub_resource type="StyleBoxFlat" id="129"]
+content_margin_left = 16.0
+bg_color = Color(0.227451, 0.235294, 0.227451, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_4akam"]
 font = ExtResource("2")
@@ -211,6 +211,7 @@ offset_bottom = 1120.0
 color = Color(0.337255, 0.337255, 0.337255, 1)
 
 [node name="Block" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -221,6 +222,7 @@ layout_mode = 0
 offset_top = 440.0
 offset_right = 952.0
 offset_bottom = 640.0
+scale = Vector2(1, 1e-05)
 pivot_offset = Vector2(0, 116)
 color = Color(0, 0, 0, 1)
 
@@ -231,10 +233,11 @@ offset_left = 16.0
 offset_top = 88.0
 offset_right = 936.0
 offset_bottom = 136.0
+scale = Vector2(1, 1e-05)
 theme_override_fonts/font = ExtResource("2_1p0e6")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/normal = SubResource("129")
 theme_override_styles/focus = SubResource("128")
+theme_override_styles/normal = SubResource("129")
 placeholder_text = "..."
 context_menu_enabled = false
 caret_blink = true
@@ -257,6 +260,7 @@ layout_mode = 0
 offset_top = 40.0
 offset_right = 920.0
 offset_bottom = 44.0
+scale = Vector2(1e-05, 1)
 
 [node name="Detail2" type="Label" parent="ColorRect"]
 modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
@@ -270,6 +274,8 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "TEXT INPUT"
 label_settings = SubResource("LabelSettings_n3qfk")
 uppercase = true
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="ColorRect/Detail2"]
 texture_filter = 2
@@ -285,6 +291,7 @@ flip_v = true
 
 [node name="Detail3" type="Label" parent="ColorRect"]
 modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
+self_modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 layout_mode = 0
 offset_left = 32.0
