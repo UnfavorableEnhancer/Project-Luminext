@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://dwerdfbjp04f6"]
+[gd_scene load_steps=50 format=3 uid="uid://dwerdfbjp04f6"]
 
 [ext_resource type="Script" path="res://menu/scripts/screens/main_menu.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://b4r6tm3v5swvf" path="res://menu/images/new_grid.png" id="2_cadar"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://b2wfw86u3bxb2" path="res://menu/images/flash_3.png" id="7_5g3bg"]
 [ext_resource type="Texture2D" uid="uid://b6m8j1567royh" path="res://menu/images/flash_4.png" id="8_sbwpg"]
 [ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="9_a02og"]
+[ext_resource type="Texture2D" uid="uid://gjjagndo43q2" path="res://images/menu/star.png" id="10_1kht2"]
 
 [sub_resource type="Animation" id="Animation_st2o3"]
 resource_name = "RESET"
@@ -669,10 +670,6 @@ font = ExtResource("3")
 font_size = 36
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="AtlasTexture" id="66"]
-atlas = ExtResource("9_a02og")
-region = Rect2(512, 0, 256, 256)
-
 [sub_resource type="LabelSettings" id="LabelSettings_loy7m"]
 font = ExtResource("5")
 font_size = 24
@@ -742,6 +739,10 @@ region = Rect2(768, 512, 256, 256)
 [sub_resource type="AtlasTexture" id="AtlasTexture_8sg4i"]
 atlas = ExtResource("9_a02og")
 region = Rect2(512, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uytjy"]
+atlas = ExtResource("9_a02og")
+region = Rect2(1536, 512, 256, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_06rd6"]
 atlas = ExtResource("9_a02og")
@@ -913,15 +914,15 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 16.0
-offset_top = -52.0
-offset_right = 120.0
-offset_bottom = 52.0
+offset_left = 32.0
+offset_top = -36.0
+offset_right = 104.0
+offset_bottom = 36.0
 grow_vertical = 2
 scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(0, 104)
 mouse_filter = 2
-texture = SubResource("66")
+texture = ExtResource("10_1kht2")
 expand_mode = 1
 stretch_mode = 5
 flip_v = true
@@ -1194,7 +1195,7 @@ call_string = "addon_editor"
 
 [node name="SOUNDREPLAY" parent="TabBar/CONTENT/Buttons" instance=ExtResource("6")]
 layout_mode = 2
-text = "SOUND REPLAY"
+text = "SKIN PLAYER"
 icon = SubResource("AtlasTexture_dum7t")
 expand_icon = true
 description = "Load and watch any skin without gameplay. 
@@ -1203,7 +1204,7 @@ button_layout = 7
 button_color = Color(0.854902, 0.431373, 0.858824, 1)
 menu_position = Vector2i(1, 1)
 work_mode = 2
-press_sound_name = "announce_sound_replay"
+press_sound_name = "announce_skin_player"
 call_string = "sound_replay"
 
 [node name="PROFILE" type="Control" parent="TabBar"]
@@ -1248,18 +1249,30 @@ press_sound_name = "announce_statistics"
 call_string = "statistics"
 
 [node name="RANKING" parent="TabBar/PROFILE/Buttons" instance=ExtResource("6")]
-visible = false
 layout_mode = 2
-text = "SCORE RANIKING"
+text = "SCORE RANKING"
 icon = SubResource("AtlasTexture_8sg4i")
 expand_icon = true
-description = "STATISTICS_DESC"
+description = "SCORE_RANKING_DESC"
 button_layout = 7
-button_color = Color(1, 0.501961, 0.654902, 1)
+button_color = Color(0.828125, 0.300842, 0.449141, 1)
 menu_position = Vector2i(2, 3)
 work_mode = 2
-press_sound_name = "confirm"
-call_string = "statistics"
+press_sound_name = "announce_score_ranking"
+call_string = "score_ranking"
+
+[node name="REPLAY" parent="TabBar/PROFILE/Buttons" instance=ExtResource("6")]
+layout_mode = 2
+text = "REPLAY PLAYER"
+icon = SubResource("AtlasTexture_uytjy")
+expand_icon = true
+description = "REPLAY_PLAYER_DESC"
+button_layout = 7
+button_color = Color(1, 0.992218, 0.501961, 1)
+menu_position = Vector2i(2, 3)
+work_mode = 2
+press_sound_name = "announce_replay_player"
+call_string = "replay_player"
 
 [node name="EDITPROFILE" parent="TabBar/PROFILE/Buttons" instance=ExtResource("6")]
 layout_mode = 2

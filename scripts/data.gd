@@ -46,10 +46,11 @@ enum LOADING_STATUS {
 	TEXTURES_LOAD,
 	STREAM_LOAD,
 	CALCULATING_BPM,
+	SAVING_REPLAY,
 	FINISH
 }
 
-enum PARSE {PROFILES, PLAYLISTS, PRESETS, ADDONS, MODS}
+enum PARSE {PROFILES, PLAYLISTS, PRESETS, ADDONS, MODS, REPLAYS}
 
 const VERSION : String = "0.1.0.2" # Current game version
 const BUILD : String = "06.09.2024" # Latest build date
@@ -62,6 +63,7 @@ const PRESETS_PATH : String = "presets/" # Path to the game presets folder
 const MODS_PATH : String = "mods/" # Path to the .pck mods folder
 const SCREENSHOTS_PATH : String = "screenshots/" # Path to the game screenshots folder
 const LOGS_PATH : String = "logs/" # Path to the game logs folder
+const REPLAYS_PATH : String = "replays/" # Path to the game logs folder
 
 const BUILD_IN_PATH : String = "res://internal/" # Path to the build-in game content (which is exported with entiere project)
 const GLOBAL_DATA_PATH : String = "user://global.json" # Path to the global data json
@@ -125,7 +127,7 @@ func _ready() -> void:
 	PortableCompressedTexture2D.set_keep_all_compressed_buffers(true)
 	_load_global_settings()
 
-	for path : String in [SKINS_PATH, PLAYLISTS_PATH, PROFILES_PATH, PRESETS_PATH, CACHE_PATH, SCREENSHOTS_PATH, LOGS_PATH]:
+	for path : String in [SKINS_PATH, PLAYLISTS_PATH, PROFILES_PATH, PRESETS_PATH, CACHE_PATH, SCREENSHOTS_PATH, LOGS_PATH, REPLAYS_PATH]:
 		if not DirAccess.dir_exists_absolute(path):
 			DirAccess.make_dir_absolute(path)
 
@@ -308,6 +310,11 @@ func _parse(what : int, output_names : bool = false) -> Array:
 			parse_directory = MODS_PATH
 			has_build_in = false
 			file_extension = "pck"
+		PARSE.REPLAYS:
+			print("PARSING REPLAYS DIRECTORY...")
+			parse_directory = REPLAYS_PATH
+			has_build_in = false
+			file_extension = "rec"
 		_:
 			print("UNKNOWN CONTENT TYPE SPECIFIED. PARSE DENIED")
 			return []

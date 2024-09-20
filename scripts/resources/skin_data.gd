@@ -284,7 +284,6 @@ func _save(path : String = "") -> int:
 	var file : FileAccess = FileAccess.open_compressed(path,FileAccess.WRITE,FileAccess.COMPRESSION_DEFLATE)
 	if not file: 
 		print("FILE ERROR! : ", error_string(FileAccess.get_open_error()))
-		file.close()
 		return FileAccess.get_open_error()
 	
 	var save_start_time : float = Time.get_unix_time_from_system()

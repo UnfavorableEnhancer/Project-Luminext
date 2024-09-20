@@ -35,4 +35,3 @@ func _level_up() -> void:
 
 func _change_progress(value : float) -> void:
 	create_tween().tween_property($Charge, "scale:x", value, 1.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
-

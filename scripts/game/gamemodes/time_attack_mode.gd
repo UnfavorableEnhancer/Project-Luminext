@@ -32,7 +32,7 @@ enum TIME_ATTACK_RULESET {STANDARD, CLASSIC, ARCADE, COLOR_3, HARDCORE}
 var time_limit : int = 0
 var ruleset : int = TIME_ATTACK_RULESET.STANDARD
 var random_mixes : bool = false # Allows this gamemode to change skin animation and music mix on each retry
-var current_mix : int = 0
+var current_mix : int = -1
 
 var time_attack_timer : Timer
 var stat_timer : Timer
@@ -50,6 +50,10 @@ var statistics : Dictionary = {
 
 var current_attempt : int = 0
 var current_seed : int = 451
+var rng_start_state : int = 0
+
+var replay : Replay = null
+var replay_mode : bool = false
 
 var hiscore_entry_string : String
 
@@ -116,6 +120,13 @@ func _ready() -> void:
 	game.piece_fall_speed = Data.profile.config["gameplay"]["piece_fall_speed"]
 	game.piece_fall_delay = Data.profile.config["gameplay"]["piece_fall_delay"]
 
+	if replay != null : replay_mode = true
+	else : 
+		print("RANDOM")
+		current_seed = randi()
+	
+	game.rng.seed = current_seed
+
 	_load_ui()
 
 
@@ -127,6 +138,10 @@ func _reset() -> void:
 	time_attack_ui._stop()
 	time_attack_ui._set_time(float(time_limit))
 	
+	if not replay_mode:
+		replay = Replay.new()
+	add_child(replay)
+
 	score = 0
 	time_attack_ui._set_hiscore(hiscore)
 	time_attack_ui._set_score(score)
@@ -161,30 +176,16 @@ func _reset() -> void:
 			if time_limit > 300 : i.pop_back()
 			# Exclude previously played mix
 			if current_mix > 0 : i.remove_at(current_mix - 1)
-			var rand : int = i.pick_random()
-			
-			current_mix = rand
-			game.skin.skin_data.stream["music"] = load("res://internal/music/" + str(time_limit) + "sec_ta_mix" + str(rand) + ".ogg")
-			game.skin.scene_player.assigned_animation = str(time_limit) + "sec" + str(rand)
-			game.skin.scene_player.play(str(time_limit) + "sec" + str(rand))
-			await get_tree().create_timer(0.01).timeout
-			game.skin.scene_player.pause()
+			current_mix = i.pick_random()
 		else:
-			current_mix = 1
-			game.skin.skin_data.stream["music"] = load("res://internal/music/" + str(time_limit) + "sec_ta_mix1.ogg")
-			game.skin.scene_player.assigned_animation = str(time_limit) + "sec1"
-			game.skin.scene_player.play(str(time_limit) + "sec1")
-			await get_tree().create_timer(0.01).timeout
-			game.skin.scene_player.pause()
+			if current_mix == -1 : current_mix = 1
 	
-	time_attack_ui.get_node("Start/StartAnim").stop()
-	if is_first_run:
-		time_attack_ui.get_node("Start/StartAnim").play("start")
-		await get_tree().create_timer(3.0).timeout
-	else:
-		time_attack_ui.get_node("Start/StartAnim").play("startfast")
-		await get_tree().create_timer(1.0).timeout
-		
+	game.skin.skin_data.stream["music"] = load("res://internal/music/" + str(time_limit) + "sec_ta_mix" + str(current_mix) + ".ogg")
+	game.skin.scene_player.assigned_animation = str(time_limit) + "sec" + str(current_mix)
+	game.skin.scene_player.play(str(time_limit) + "sec" + str(current_mix))
+	await get_tree().create_timer(0.01).timeout
+	game.skin.scene_player.pause()
+
 	game.foreground.ui_elements["grid"].process_mode = Node.PROCESS_MODE_INHERIT
 	
 	if not is_game_over:
@@ -200,10 +201,17 @@ func _reset() -> void:
 	current_sqr_count = 0
 	
 	current_attempt += 1
+
+	time_attack_ui.get_node("Start/StartAnim").stop()
+	if is_first_run:
+		time_attack_ui.get_node("Start/StartAnim").play("start")
+		await get_tree().create_timer(3.0).timeout
+	else:
+		time_attack_ui.get_node("Start/StartAnim").play("startfast")
+		await get_tree().create_timer(1.0).timeout
+
 	Data.profile.progress["stats"]["ta_total_retry_count"] += 1
-	current_seed = randi()
-	game.rng.seed = hash(str(current_seed)+str(current_seed / 2.0))
-	
+
 	time_attack_timer.start(time_limit)
 	stat_timer.start(4.0)
 	stat_disable_timer.start(time_limit - 1.0)
@@ -211,6 +219,9 @@ func _reset() -> void:
 
 	reset_complete.emit()
 	time_attack_ui._start()
+
+	if replay_mode : replay._start_playback()
+	else : replay._start_recording()
 
 
 # Connects new timeline to this gamemode signals
@@ -257,6 +268,8 @@ func _load_ui() -> void:
 	time_attack_ui = foreground._add_ui_element("time_attack")
 	time_attack_ui._set_hiscore(hiscore)
 
+	if replay_mode : foreground._add_ui_element("replay_ui")
+
 	# Load holder arrow textures
 	foreground.ui_elements["holder"]._change_style()
 
@@ -266,6 +279,7 @@ func _process(_delta : float) -> void:
 
 
 func _pause(on : bool) -> void:
+	if replay != null: replay._pause(on)
 	time_attack_timer.paused = on
 	stat_disable_timer.paused = on
 	stat_timer.paused = on
@@ -274,6 +288,10 @@ func _pause(on : bool) -> void:
 
 func _game_over() -> void:
 	is_game_over = true
+	
+	if replay_mode : replay._stop_playback()
+	else : replay._stop_recording()
+
 	var gameover_screen : MenuScreen = Data.menu.screens["timeattack_mode_gameover"]
 	
 	var square_cumulative : Array = statistics["square_cumulative"]
@@ -439,6 +457,11 @@ func _game_over() -> void:
 	gameover_screen.get_node("Results/Attempts").text = str(current_attempt)
 	gameover_screen.get_node("Results/Seed").text = "CURRENT ATTEMPT SEED: " + str(current_seed)
 
+	if not replay_mode : 
+		print("RANDOM")
+		current_seed = randi()
+	game.rng.seed = current_seed
+
 
 # graph line Y from -16 to 216
 # graph line X from 0 to 392
@@ -465,6 +488,11 @@ func _end() -> void:
 
 
 func _retry() -> void:
+	if not replay_mode : 
+		print("RANDOM")
+		current_seed = randi()
+	game.rng.seed = current_seed
+
 	await get_tree().create_timer(0.01).timeout
 	retry_complete.emit()
 

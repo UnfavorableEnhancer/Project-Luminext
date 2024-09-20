@@ -203,6 +203,42 @@ func _load_menu(boot_sequence : bool = true, start_screen_name : String = "") ->
 	if boot_sequence: Data.menu._boot(start_screen_name)
 
 
+func _start_replay(replay : Replay) -> void:
+	var gamemode : Gamemode = null
+	var first_skin_metadata : SkinMetadata = SkinMetadata.new()
+	var gamemode_settings : Dictionary = replay.gamemode_settings
+
+	if not gamemode_settings.has("name"):
+		print("INVALID REPLAY LOADING")
+		_display_system_message("REPLAY LOADING FAILED!")
+		return
+	
+	match gamemode_settings["name"]:
+		"time_attack_mode":
+			gamemode = TimeAttackMode.new()
+
+			var selected_time : int = gamemode_settings["time_limit"]
+			if selected_time < 300:
+				first_skin_metadata.path = Data.BUILD_IN_PATH + Data.SKINS_PATH + "grandmother_clock.skn"
+			if selected_time >= 300:
+				first_skin_metadata.path = Data.BUILD_IN_PATH + Data.SKINS_PATH + "the_years_will_pass.skn"
+			
+			gamemode.time_limit = selected_time
+			gamemode.ruleset = gamemode_settings["ruleset"]
+			gamemode.current_mix = gamemode_settings["mix"]
+			gamemode.random_mixes = false
+			gamemode.current_seed = gamemode_settings["seed"]
+			gamemode.rng_start_state = gamemode_settings["state"]
+			gamemode.replay = replay
+
+		_: 
+			print("INVALID REPLAY GAMEMODE")
+			_display_system_message("INVALID REPLAY!")
+			return
+	
+	_start_game(first_skin_metadata, gamemode)
+
+
 # Starts the game of LUMINEXT
 # - 'first_skin_metadata' - Metadata of the skin which would be loaded first
 # - 'gamemode' - Gamemode which would be used in game
@@ -418,6 +454,7 @@ func _change_loading_message(message : int) -> void:
 		Data.LOADING_STATUS.VIDEO_PREPARE: message_text = "PREPARING VIDEO..."
 		Data.LOADING_STATUS.SCENE_PREPARE: message_text = "PREPARING SCENERY..."
 		Data.LOADING_STATUS.CALCULATING_BPM: message_text = "CALCULATING SONG BPM..."
+		Data.LOADING_STATUS.SAVING_REPLAY: message_text = "SAVING REPLAY..."
 		Data.LOADING_STATUS.FINISH: message_text = "PLEASE WAIT"
 
 	loading_screen._set_text(message_text)

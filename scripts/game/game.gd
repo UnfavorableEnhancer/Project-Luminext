@@ -45,7 +45,7 @@ var is_paused : bool = false
 var is_game_over : bool = false
 var is_changing_skins_now : bool = false
 
-var is_input_locked : bool = false # If true, none of the inputs works with game
+var is_input_locked : bool = false # If true, none of the inputs works with current piece
 
 var blocks : Dictionary = {} # All blocks on the game field | [position : Vector2i] = Block
 var delete : Dictionary = {} # Ready to be deleted by timeline blocks | [position : Vector2i] = Block
@@ -131,8 +131,11 @@ func _reset() -> void:
 
 
 func _sync_settings() -> void:
+	return
+
+	print("SYNC")
 	var current_seed : int = randi()
-	rng.seed = hash(str(current_seed)+str(current_seed / 2.0)) if Data.profile.config["gameplay"]["seed"] < 1 else Data.profile.config["gameplay"]["seed"]
+	rng.seed = current_seed if Data.profile.config["gameplay"]["seed"] < 1 else Data.profile.config["gameplay"]["seed"]
 	if Data.profile.config["gameplay"]["seed"] > 1:
 		if rng.state == -1: rng_start_state = rng.state
 		else: rng.state = rng_start_state
@@ -376,8 +379,10 @@ func _give_new_piece(piece_start_pos : Vector2i = Vector2i(8,-1), piece_data : P
 		piece.piece_moved.connect(skin._shake_background)
 		piece.piece_quick_drop.connect(skin._shake_background)
 	
-	field.add_child(piece)
+	piece.position = Vector2(piece_start_pos.x * 68, piece_start_pos.y * 68 - 2)
 	new_piece_is_given.emit()
+	field.add_child(piece)
+	
 	piece_data.free()
 
 

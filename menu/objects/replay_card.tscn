@@ -1,0 +1,102 @@
+[gd_scene load_steps=9 format=3 uid="uid://b1ohy887abyro"]
+
+[ext_resource type="Script" path="res://menu/scripts/objects/replay_card.gd" id="1_yrsld"]
+[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2_dhtd1"]
+[ext_resource type="Texture2D" uid="uid://c1w2u887taqyk" path="res://images/menu/vignette.png" id="3_h7ytn"]
+[ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="4_ovy4u"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xujtt"]
+font = ExtResource("2_dhtd1")
+
+[sub_resource type="LabelSettings" id="LabelSettings_dkejg"]
+font = ExtResource("2_dhtd1")
+font_size = 14
+font_color = Color(0.542969, 0.542969, 0.542969, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_yw16d"]
+font = ExtResource("2_dhtd1")
+font_size = 12
+font_color = Color(0.542969, 0.542969, 0.542969, 1)
+
+[sub_resource type="AtlasTexture" id="53"]
+atlas = ExtResource("4_ovy4u")
+region = Rect2(0, 256, 256, 256)
+
+[node name="ReplayCard" type="Button"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(928, 112)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -992.0
+offset_bottom = -968.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yrsld")
+
+[node name="Box" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.271, 0.278, 0.271, 0.5)
+
+[node name="V" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 8.0
+offset_right = 920.0
+offset_bottom = 104.0
+
+[node name="Name" type="Label" parent="V"]
+layout_mode = 2
+text = "SOME REALLY DUMB REPLAY NAME IS HERE"
+label_settings = SubResource("LabelSettings_xujtt")
+autowrap_mode = 3
+uppercase = true
+
+[node name="Gamemode" type="Label" parent="V"]
+layout_mode = 2
+text = "TIME ATTACK MODE | 9999 SEC | STANDARD"
+label_settings = SubResource("LabelSettings_dkejg")
+uppercase = true
+
+[node name="Sep" type="VSeparator" parent="V"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Author" type="Label" parent="V"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "+REVENANT+"
+label_settings = SubResource("LabelSettings_yw16d")
+uppercase = true
+
+[node name="Date" type="Label" parent="V"]
+layout_mode = 2
+text = "2022.12.12 20:20:20"
+label_settings = SubResource("LabelSettings_yw16d")
+uppercase = true
+
+[node name="Screenshot" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 176.0
+offset_bottom = 104.0
+texture = ExtResource("3_h7ytn")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Icon" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.1)
+layout_mode = 0
+offset_left = 808.0
+offset_right = 920.0
+offset_bottom = 112.0
+texture = SubResource("53")
+expand_mode = 1
+stretch_mode = 4

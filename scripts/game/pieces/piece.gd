@@ -60,6 +60,13 @@ var is_droping : bool = false # Is piece quick dropping now?
 
 var current_dash_side : int = 0 # Which side piece is dashing right now
 
+# Used by replays to emulate player inputs
+var emulated_inputs : Dictionary = {
+	"move_left" : false,
+	"move_right" : false,
+	"quick_drop" : false
+}
+
 # Piece position transposed to game field coordinates
 var grid_position : Vector2i = Vector2i(0,0)
 var is_trail_enabled : bool = true
@@ -106,15 +113,15 @@ func _ready() -> void:
 		if fall_speed > 0: fall_timer.start()
 		else: fall_timer.start(1.0)
 	
-	if Input.is_action_pressed("move_right"): 
+	if Input.is_action_pressed("move_right") or emulated_inputs["move_right"]: 
 		current_dash_side = MOVE.RIGHT
 		dash_timer.start(dash_delay)
-	elif Input.is_action_pressed("move_left"): 
+	elif Input.is_action_pressed("move_left") or emulated_inputs["move_left"]: 
 		current_dash_side = MOVE.LEFT
 		dash_timer.start(dash_delay)
 
 	# Prevent from instant quick droping on piece spawn
-	if Input.is_action_pressed("quick_drop"):
+	if Input.is_action_pressed("quick_drop") or emulated_inputs["quick_drop"]:
 		is_staying_up = true
 
 		var stay_timer : Timer = Timer.new()
@@ -233,7 +240,7 @@ func _process(delta : float) -> void:
 	if is_dashing: _dash(current_dash_side, delta)
 	
 	if can_be_quick_dropped and not is_staying_up:
-		if Input.is_action_pressed("quick_drop"):
+		if Input.is_action_pressed("quick_drop") or emulated_inputs["quick_drop"]:
 			if fall_timer != null : fall_timer.paused = true
 			_quick_drop(delta)
 		
@@ -241,6 +248,57 @@ func _process(delta : float) -> void:
 			if fall_timer != null : fall_timer.paused = false
 			is_droping = false
 			position.y = grid_position.y * 68 - 2
+
+
+func _emulate_press(action_name : String) -> void:
+	if Data.game.is_paused or is_dying: return
+	
+	match action_name:
+		"move_right":
+			emulated_inputs["move_right"] = true
+			_move_piece(MOVE.RIGHT)
+			if is_dashing : _reset_dash() 
+			dash_timer.start(dash_delay)
+			current_dash_side = MOVE.RIGHT
+		"move_left": 
+			emulated_inputs["move_left"] = true
+			_move_piece(MOVE.LEFT)
+			if is_dashing : _reset_dash() 
+			dash_timer.start(dash_delay)
+			current_dash_side = MOVE.LEFT
+		"rotate_right" : 
+			_rotate_piece(MOVE.RIGHT)
+		"rotate_left" : 
+			_rotate_piece(MOVE.LEFT)
+		"side_ability" :
+			Data.game.piece_queue._shift_queue()
+		"quick_drop" : 
+			emulated_inputs["quick_drop"] = true
+			is_staying_up = false
+			is_droping = false
+			if is_trail_enabled:
+				is_trailing = false
+				for block : BlockBase in blocks.values() : block.trail.emitting = false
+
+
+func _emulate_release(action_name : String) -> void:
+	if Data.game.is_paused or is_dying: return
+
+	match action_name:
+		"move_right", "move_left":
+			emulated_inputs[action_name] = false
+			_reset_dash()
+		
+			if is_trail_enabled:
+				is_trailing = false
+				for block : BlockBase in blocks.values() : block.trail.emitting = false
+		"quick_drop" : 
+			emulated_inputs["quick_drop"] = false
+			is_staying_up = false
+			is_droping = false
+			if is_trail_enabled:
+				is_trailing = false
+				for block : BlockBase in blocks.values() : block.trail.emitting = false
 
 
 # Moves piece sideways given direction (side) and distance (move_amount)
