@@ -40,6 +40,8 @@ var loading_screen : MenuScreen = null # Active loading screen reference
 
 # Called on game boot. This is where game starts...
 func _ready() -> void:
+	print(OS.get_cmdline_args())
+
 	get_window().move_to_center()
 	await get_tree().create_timer(0.5).timeout
 

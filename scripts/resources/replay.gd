@@ -27,30 +27,31 @@ signal replay_loaded
 signal playback_finished
 
 const SCREENSHOT_TIME : float = 10.0
-const TIMER_BUFFER_COUNT : int = 400
+const TIMER_BUFFER_COUNT : int = 40
 
 var replay_name : String = "Record"
 var author : String = "MISSING_NO"
-var date : float = 0.0
+var date : String = "??:??:??"
 var preview_image : Texture = null
 
-var gamemode_settings : Dictionary = {}
+var gamemode_settings : Dictionary = {} # Contains all gamemode info which is required to play replay back
 
 var inputs : PackedStringArray = PackedStringArray() # All recorded action names
-var input_lengths : PackedInt64Array = PackedInt64Array() #
-var input_starts : PackedInt64Array = PackedInt64Array() #
+var input_lengths : PackedInt64Array = PackedInt64Array() # All recorded pressed input lenghts before release
+var input_starts : PackedInt64Array = PackedInt64Array() # All recorded input press time stamps
 
-var record_buffer : Dictionary = {} # Key = Action name : Time stamp
-var replay_start_time : int = 0
+var record_buffer : Dictionary = {} # Key = Action name : Press time stamp
+var replay_start_time : int = 0 # When replay recording/playback started
 var current_playback_position : int = 0
-var latest_start_stamp : float = 0.0
+
+var pause_time : int = 0
 
 var piece : Piece = null
 
 var current_inputs : Dictionary = {
-	"move_left" : false,
-	"move_right" : false,
-	"quick_drop" : false
+	&"move_left" : false,
+	&"move_right" : false,
+	&"quick_drop" : false
 }
 
 var is_playing : bool = false
@@ -75,6 +76,7 @@ func _add_timer(time : float, function : Callable) -> Timer:
 
 	timer.timeout.connect(function)
 	timer.timeout.connect(timer.queue_free)
+	Data.game.paused.connect(timer.set_paused)
 	
 	timer.one_shot = true
 	add_child(timer)
@@ -92,6 +94,16 @@ func _clear_timers() -> void:
 func _start_recording() -> void:
 	record_buffer.clear()
 	gamemode_settings.clear()
+
+	inputs.clear()
+	input_lengths.clear()
+	input_starts.clear()
+
+	current_playback_position = 0
+	replay_start_time = 0
+	
+	_clear_timers()
+
 	print("STARTED REPLAY RECORDING")
 
 	if Data.game.gamemode != null:
@@ -109,25 +121,24 @@ func _start_recording() -> void:
 				return;
 
 	author = Data.profile.name
-	date = Time.get_unix_time_from_system()
+	date = Time.get_datetime_string_from_system().replace("-",".")
+	date = date.split("T")[1] + "  " + date.split("T")[0]
+
 	preview_image = null
 	
-	_clear_timers()
+	_add_timer(SCREENSHOT_TIME + randf_range(-5.0,5.0), _take_screenshot)
 
-	inputs.clear()
-	input_lengths.clear()
-	input_starts.clear()
-
-	_add_timer(SCREENSHOT_TIME , _take_screenshot) #+ randf_range(-5.0,5.0)
-
-	replay_start_time = Time.get_ticks_msec()
+	replay_start_time = Time.get_ticks_usec()
 	is_recording = true
 
 
 func _pause(on : bool) -> void:
+	if on : pause_time = Time.get_ticks_usec()
+	else : replay_start_time += Time.get_ticks_usec() - pause_time
 	is_paused = on
-	for timer : Variant in timers : 
-		if is_instance_valid(timer) : timer.paused = on
+
+	#for timer : Variant in timers : 
+		#if is_instance_valid(timer) : timer.paused = on
   
 
 func _stop_recording() -> void:
@@ -138,10 +149,10 @@ func _stop_recording() -> void:
 	_clear_timers()
 
 
-func _process(_delta : float) -> void:
+func _physics_process(_delta : float) -> void:
 	if not is_recording or is_paused : return
 
-	var current_tick : int = Time.get_ticks_msec()
+	var current_tick : int = Time.get_ticks_usec()
 
 	for action_name : StringName in [&"move_left",&"move_right",&"rotate_left",&"rotate_right",&"quick_drop",&"side_ability"]:
 		if Input.is_action_just_pressed(action_name):
@@ -187,28 +198,23 @@ func _start_playback() -> void:
 	_clear_timers()
 
 	current_playback_position = 0
-	replay_start_time = Time.get_ticks_msec()
+	replay_start_time = Time.get_ticks_usec()
 
-	_playback()
+	for i : int in TIMER_BUFFER_COUNT:
+		_playback()
 
 
 func _playback() -> void:
-	var action_start : float
+	if current_playback_position > inputs.size() - 1:
+		return
 
-	for i : int in TIMER_BUFFER_COUNT:
-		if current_playback_position > inputs.size() - 1:
-			return
-
-		var action_name : String = inputs[current_playback_position]
-		var action_length : float = input_lengths[current_playback_position] / 1000.0
-		action_start = input_starts[current_playback_position] / 1000.0 - latest_start_stamp
-		
-		_add_timer(action_start, func x() -> void: _press_action(action_name); _add_timer(action_length, _release_action.bind(action_name)))
-		current_playback_position += 1
-
-	latest_start_stamp = input_starts[current_playback_position] / 1000.0 
-	await get_tree().create_timer(action_start).timeout
-	_playback()
+	var current_time : float = (Time.get_ticks_usec() - replay_start_time) / 1000000.0
+	var action_name : String = inputs[current_playback_position]
+	var action_length : float = input_lengths[current_playback_position] / 1000000.0
+	var action_start : float = input_starts[current_playback_position] / 1000000.0 - current_time
+	
+	_add_timer(action_start, func x() -> void: _press_action(action_name); _add_timer(action_length, _release_action.bind(action_name)); _playback())
+	current_playback_position += 1
 	
 
 func _stop_playback() -> void:
@@ -236,7 +242,7 @@ func _save(save_name : String = "") -> int:
 	
 	file.store_pascal_string(replay_name)
 	file.store_pascal_string(author)
-	file.store_float(date)
+	file.store_pascal_string(date)
 	file.store_var(preview_image,true)
 	file.store_var(gamemode_settings,true)
 
@@ -261,7 +267,7 @@ func _load(path : String = "") -> int:
 	
 	replay_name = file.get_pascal_string()
 	author = file.get_pascal_string()
-	date = file.get_float()
+	date = file.get_pascal_string()
 	preview_image = file.get_var(true)
 	gamemode_settings = file.get_var(true)
 

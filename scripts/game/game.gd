@@ -67,7 +67,6 @@ var piece_fall_speed : float = 1.0 # Piece falling speed in seconds
 var piece_fall_delay : float = 1.0 # Piece fall start delay in seconds
 
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
-var rng_start_state : int = -1 # Stores start state of rng, if custom seed is loaded, to bring rng back after reset
 
 var menu_screen_to_return : String = "main_menu" # Menu screen name to which game will try to return when its ends
 var pause_screen_name : String = "playlist_mode_pause" # Menu screen name which would be created on game pause
@@ -92,8 +91,6 @@ func _ready() -> void:
 	_add_fx("blast", Vector2(0,0), "rsquare")
 	_add_fx("square", Vector2(0,0), "rsquare")
 
-	Data.profile.settings_changed.connect(_sync_settings)
-
 
 # Resets game back to initial state and starts it again
 func _reset() -> void:
@@ -106,8 +103,6 @@ func _reset() -> void:
 	foreground.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	
-	_sync_settings()
 	
 	blocks.clear()
 	squares.clear()
@@ -128,17 +123,6 @@ func _reset() -> void:
 	is_game_over = false
 	_pause(false)
 	skin._start()
-
-
-func _sync_settings() -> void:
-	return
-
-	print("SYNC")
-	var current_seed : int = randi()
-	rng.seed = current_seed if Data.profile.config["gameplay"]["seed"] < 1 else Data.profile.config["gameplay"]["seed"]
-	if Data.profile.config["gameplay"]["seed"] > 1:
-		if rng.state == -1: rng_start_state = rng.state
-		else: rng.state = rng_start_state
 
 
 # Removes the game and makes return to specified main menu screen
@@ -170,8 +154,6 @@ func _input(event : InputEvent) -> void:
 func _game_over() -> void:
 	is_game_over = true
 	_pause(true,false,false)
-
-	#skin._play_ending()
 
 	while not sound_queue.is_empty() : sound_queue.pop_back().free()
 

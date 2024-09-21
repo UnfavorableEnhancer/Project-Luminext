@@ -38,8 +38,7 @@ func _load() -> void:
 	
 	$V/Name.text = file.get_pascal_string()
 	$V/Author.text = file.get_pascal_string()
-	var date : int = roundi(file.get_float())
-	$V/Date.text = Time.get_datetime_string_from_unix_time(date)
+	$V/Date.text = file.get_pascal_string()
 
 	$Screenshot.texture = file.get_var(true)
 	var gamemode_settings : Dictionary = file.get_var(true)
@@ -62,8 +61,8 @@ func _load() -> void:
 				TimeAttackMode.TIME_ATTACK_RULESET.ARCADE: ruleset_string = "ARCADE"
 				TimeAttackMode.TIME_ATTACK_RULESET.COLOR_3: ruleset_string = "3 COLOR"
 				TimeAttackMode.TIME_ATTACK_RULESET.HARDCORE: ruleset_string = "HARDCORE"
-
-			$V/Gamemode.text = "TIME ATTACK MODE | " + str(gamemode_settings["time_limit"]) + " SEC | " + ruleset_string
+			
+			$V/Gamemode.text = "TIME ATTACK MODE | " + str(gamemode_settings["time_limit"]) + " SEC | " + ruleset_string + " | SCORE : " + str(gamemode_settings["score"])
 			$Icon.texture.region = Rect2(0,256,256,256)
 		_:
 			$V/Name.text = "INVALID REPLAY"

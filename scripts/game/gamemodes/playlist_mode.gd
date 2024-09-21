@@ -49,6 +49,7 @@ var combo : int = 0 # Counts how many 4X bonuses were in row
 var max_combo : int = 32 # Max combo which can multiply incoming score
 
 var bpm_multiplyer : float = 1.0 # Multiplyer used to balance score gain with defferent BPMs (Formula : (BPM/120)^2) (For now unused)
+var rng_start_state : int = -1 # Stores start state of rng, if custom seed is loaded, to bring rng back after reset
 
 var level_count : int = 1 
 var max_level_count : int = 4
@@ -63,7 +64,7 @@ func _ready() -> void:
 	name = "PlaylistMode"
 	gamemode_name = "playlist_mode"
 
-	game.pause_screen_name = "playlist_mode_pause"
+	game.pause_screen_name = "sandbox_pause"
 	game.game_over_screen_name = "playlist_mode_gameover"
 	game.menu_screen_to_return = menu_screen_to_return
 
@@ -104,6 +105,14 @@ func _sync_settings() -> void:
 		foreground._add_ui_element("combo")
 	elif not Data.profile.config["gameplay"]["combo_system"] and foreground.ui_elements.has("combo") : 
 		foreground.ui_elements["combo"].queue_free()
+	
+	var current_seed : int = randi()
+	game.rng.seed = current_seed if Data.profile.config["gameplay"]["seed"] < 1 else Data.profile.config["gameplay"]["seed"]
+	if Data.profile.config["gameplay"]["seed"] > 0:
+		if game.rng.state == -1: rng_start_state = game.rng.state
+		else: game.rng.state = rng_start_state
+	else:
+		rng_start_state = 0
 
 
 # Adds score for piece falling

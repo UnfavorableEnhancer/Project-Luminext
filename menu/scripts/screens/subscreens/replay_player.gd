@@ -42,6 +42,7 @@ func _load() -> void:
 	$V/Replays.custom_minimum_size.y = clamp(count * 120, 120, 600)
 	_assign_selectable($V/Menu/Exit, Vector2i(0, count))
 	
+	await get_tree().create_timer(0.1).timeout
 	cursor = Vector2i(0,0)
 	_move_cursor()
 

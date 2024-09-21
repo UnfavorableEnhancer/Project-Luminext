@@ -114,7 +114,7 @@ func _ready() -> void:
 	name = "SynthesiaMode"
 	gamemode_name = "synthesia_mode"
 	
-	game.pause_screen_name = "playlist_mode_pause"
+	game.pause_screen_name = "sandbox_pause"
 	game.game_over_screen_name = "playlist_mode_gameover"
 	game.menu_screen_to_return = "synthesia_mode"
 

@@ -71,7 +71,7 @@ func _ready() -> void:
 	name = "TimeAttackMode"
 	gamemode_name = "time_attack_mode"
 	
-	game.pause_screen_name = "timeattack_mode_pause"
+	game.pause_screen_name = "general_pause"
 	game.game_over_screen_name = "timeattack_mode_gameover"
 	game.menu_screen_to_return = "time_attack_mode"
 
@@ -120,9 +120,11 @@ func _ready() -> void:
 	game.piece_fall_speed = Data.profile.config["gameplay"]["piece_fall_speed"]
 	game.piece_fall_delay = Data.profile.config["gameplay"]["piece_fall_delay"]
 
-	if replay != null : replay_mode = true
+	if replay != null : 
+		game.game_over_screen_name = "demo_gameover"
+		game.menu_screen_to_return = "main_menu"
+		replay_mode = true
 	else : 
-		print("RANDOM")
 		current_seed = randi()
 	
 	game.rng.seed = current_seed
@@ -289,8 +291,11 @@ func _pause(on : bool) -> void:
 func _game_over() -> void:
 	is_game_over = true
 	
-	if replay_mode : replay._stop_playback()
-	else : replay._stop_recording()
+	if replay_mode : 
+		replay._stop_playback()
+		return
+	else : 
+		replay._stop_recording()
 
 	var gameover_screen : MenuScreen = Data.menu.screens["timeattack_mode_gameover"]
 	
@@ -457,10 +462,10 @@ func _game_over() -> void:
 	gameover_screen.get_node("Results/Attempts").text = str(current_attempt)
 	gameover_screen.get_node("Results/Seed").text = "CURRENT ATTEMPT SEED: " + str(current_seed)
 
-	if not replay_mode : 
-		print("RANDOM")
-		current_seed = randi()
+	if not replay_mode : current_seed = randi()
 	game.rng.seed = current_seed
+
+	replay.gamemode_settings["score"] = score
 
 
 # graph line Y from -16 to 216

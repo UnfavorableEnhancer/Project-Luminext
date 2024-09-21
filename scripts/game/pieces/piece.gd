@@ -62,9 +62,9 @@ var current_dash_side : int = 0 # Which side piece is dashing right now
 
 # Used by replays to emulate player inputs
 var emulated_inputs : Dictionary = {
-	"move_left" : false,
-	"move_right" : false,
-	"quick_drop" : false
+	&"move_left" : false,
+	&"move_right" : false,
+	&"quick_drop" : false
 }
 
 # Piece position transposed to game field coordinates
@@ -240,7 +240,7 @@ func _process(delta : float) -> void:
 	if is_dashing: _dash(current_dash_side, delta)
 	
 	if can_be_quick_dropped and not is_staying_up:
-		if Input.is_action_pressed("quick_drop") or emulated_inputs["quick_drop"]:
+		if emulated_inputs["quick_drop"] or (Input.is_action_pressed("quick_drop") and not Data.game.is_input_locked):
 			if fall_timer != null : fall_timer.paused = true
 			_quick_drop(delta)
 		
@@ -254,25 +254,25 @@ func _emulate_press(action_name : String) -> void:
 	if Data.game.is_paused or is_dying: return
 	
 	match action_name:
-		"move_right":
+		&"move_right":
 			emulated_inputs["move_right"] = true
 			_move_piece(MOVE.RIGHT)
 			if is_dashing : _reset_dash() 
 			dash_timer.start(dash_delay)
 			current_dash_side = MOVE.RIGHT
-		"move_left": 
+		&"move_left": 
 			emulated_inputs["move_left"] = true
 			_move_piece(MOVE.LEFT)
 			if is_dashing : _reset_dash() 
 			dash_timer.start(dash_delay)
 			current_dash_side = MOVE.LEFT
-		"rotate_right" : 
+		&"rotate_right" : 
 			_rotate_piece(MOVE.RIGHT)
-		"rotate_left" : 
+		&"rotate_left" : 
 			_rotate_piece(MOVE.LEFT)
-		"side_ability" :
+		&"side_ability" :
 			Data.game.piece_queue._shift_queue()
-		"quick_drop" : 
+		&"quick_drop" : 
 			emulated_inputs["quick_drop"] = true
 			is_staying_up = false
 			is_droping = false
@@ -285,14 +285,14 @@ func _emulate_release(action_name : String) -> void:
 	if Data.game.is_paused or is_dying: return
 
 	match action_name:
-		"move_right", "move_left":
+		&"move_right", &"move_left":
 			emulated_inputs[action_name] = false
 			_reset_dash()
 		
 			if is_trail_enabled:
 				is_trailing = false
 				for block : BlockBase in blocks.values() : block.trail.emitting = false
-		"quick_drop" : 
+		&"quick_drop" : 
 			emulated_inputs["quick_drop"] = false
 			is_staying_up = false
 			is_droping = false
