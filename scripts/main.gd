@@ -338,6 +338,7 @@ func _start_game(first_skin_metadata : SkinMetadata, gamemode : Gamemode, first_
 	var game : Node2D = load("res://scenery/game/game.tscn").instantiate()
 	Data.game = game
 	game.gamemode = gamemode
+	game.replay = gamemode.replay
 	game._add_skin(skin_data)
 	
 	add_child(game)

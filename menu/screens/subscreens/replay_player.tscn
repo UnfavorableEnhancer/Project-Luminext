@@ -600,3 +600,5 @@ button_layout = 14
 work_mode = 7
 press_sound_name = "cancel"
 is_cancel_button = true
+
+[node name="Timer" type="Timer" parent="."]

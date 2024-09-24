@@ -52,8 +52,8 @@ var current_attempt : int = 0
 var current_seed : int = 451
 var rng_start_state : int = 0
 
-var replay : Replay = null
 var replay_mode : bool = false
+var replay : Replay = null
 
 var hiscore_entry_string : String
 
@@ -139,10 +139,6 @@ func _input(event : InputEvent) -> void:
 func _reset() -> void:
 	time_attack_ui._stop()
 	time_attack_ui._set_time(float(time_limit))
-	
-	if not replay_mode:
-		replay = Replay.new()
-	add_child(replay)
 
 	score = 0
 	time_attack_ui._set_hiscore(hiscore)
@@ -222,9 +218,6 @@ func _reset() -> void:
 	reset_complete.emit()
 	time_attack_ui._start()
 
-	if replay_mode : replay._start_playback()
-	else : replay._start_recording()
-
 
 # Connects new timeline to this gamemode signals
 func _connect_timeline() -> void:
@@ -281,7 +274,6 @@ func _process(_delta : float) -> void:
 
 
 func _pause(on : bool) -> void:
-	if replay != null: replay._pause(on)
 	time_attack_timer.paused = on
 	stat_disable_timer.paused = on
 	stat_timer.paused = on
@@ -290,12 +282,7 @@ func _pause(on : bool) -> void:
 
 func _game_over() -> void:
 	is_game_over = true
-	
-	if replay_mode : 
-		replay._stop_playback()
-		return
-	else : 
-		replay._stop_recording()
+	if replay_mode : return
 
 	var gameover_screen : MenuScreen = Data.menu.screens["timeattack_mode_gameover"]
 	
@@ -465,7 +452,7 @@ func _game_over() -> void:
 	if not replay_mode : current_seed = randi()
 	game.rng.seed = current_seed
 
-	replay.gamemode_settings["score"] = score
+	game.replay.gamemode_settings["score"] = score
 
 
 # graph line Y from -16 to 216
@@ -493,9 +480,7 @@ func _end() -> void:
 
 
 func _retry() -> void:
-	if not replay_mode : 
-		print("RANDOM")
-		current_seed = randi()
+	if not replay_mode : current_seed = randi()
 	game.rng.seed = current_seed
 
 	await get_tree().create_timer(0.01).timeout

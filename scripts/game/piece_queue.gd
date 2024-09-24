@@ -68,7 +68,10 @@ func _get_piece() -> PieceData:
 
 func _input(event : InputEvent) -> void:
 	if event.is_action_pressed("side_ability") and not Data.game.is_paused:
+		Data.game.replay._record_action_press(&"side_ability")
 		_shift_queue()
+	elif event.is_action_released("side_ability"):
+		Data.game.replay._record_action_release(&"side_ability")
 
 
 # Shifts queue and replaces current piece in hand

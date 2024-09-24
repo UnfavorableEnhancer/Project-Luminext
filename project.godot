@@ -297,6 +297,7 @@ limits/debugger/max_queued_messages=10000
 
 [physics]
 
+common/physics_ticks_per_second=120
 common/enable_object_picking=false
 
 [rendering]

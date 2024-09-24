@@ -25,9 +25,10 @@ signal io_progress(progress : int)
 signal replay_saved
 signal replay_loaded
 signal playback_finished
+signal start_timers
 
 const SCREENSHOT_TIME : float = 10.0
-const TIMER_BUFFER_COUNT : int = 40
+const TIMER_BUFFER_COUNT : int = 999
 
 var replay_name : String = "Record"
 var author : String = "MISSING_NO"
@@ -65,22 +66,20 @@ func _ready() -> void:
 	name = "Replay"
 
 
-func _connect_piece() -> void:
-	piece = Data.game.piece
-	piece.emulated_inputs = current_inputs
-
-
 func _add_timer(time : float, function : Callable) -> Timer:
+	if time < 0 : return
+
 	var timer : Timer = Timer.new()
 	timers.append(timer)
 
 	timer.timeout.connect(function)
 	timer.timeout.connect(timer.queue_free)
+	timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
 	Data.game.paused.connect(timer.set_paused)
 	
 	timer.one_shot = true
 	add_child(timer)
-	timer.start(time)
+	start_timers.connect(timer.start.bind(time))
 
 	return timer
 
@@ -127,6 +126,7 @@ func _start_recording() -> void:
 	preview_image = null
 	
 	_add_timer(SCREENSHOT_TIME + randf_range(-5.0,5.0), _take_screenshot)
+	start_timers.emit()
 
 	replay_start_time = Time.get_ticks_usec()
 	is_recording = true
@@ -137,8 +137,8 @@ func _pause(on : bool) -> void:
 	else : replay_start_time += Time.get_ticks_usec() - pause_time
 	is_paused = on
 
-	#for timer : Variant in timers : 
-		#if is_instance_valid(timer) : timer.paused = on
+	for timer : Variant in timers : 
+		if is_instance_valid(timer) : timer.paused = on
   
 
 func _stop_recording() -> void:
@@ -149,25 +149,30 @@ func _stop_recording() -> void:
 	_clear_timers()
 
 
-func _physics_process(_delta : float) -> void:
-	if not is_recording or is_paused : return
+func _record_action_press(action_name : StringName) -> void:
+	if not is_recording or is_paused: return
+	record_buffer[action_name] = Time.get_ticks_usec()
 
-	var current_tick : int = Time.get_ticks_usec()
 
-	for action_name : StringName in [&"move_left",&"move_right",&"rotate_left",&"rotate_right",&"quick_drop",&"side_ability"]:
-		if Input.is_action_just_pressed(action_name):
-			record_buffer[action_name] = current_tick
-		
-		if Input.is_action_just_released(action_name):
-			var time_stamp : int = record_buffer.get(action_name, 0)
-			if time_stamp == 0 : continue
+func _record_action_release(action_name : StringName) -> void:
+	if not is_recording or is_paused: return
+	
+	var time_stamp : int = record_buffer.get(action_name, -1)
+	if time_stamp == -1 : return
 
-			inputs.append(action_name)
-			input_starts.append(time_stamp - replay_start_time)
-			input_lengths.append(current_tick - time_stamp)
+	inputs.append(action_name)
+	input_starts.append(time_stamp - replay_start_time)
+	input_lengths.append(Time.get_ticks_usec() - time_stamp)
 
-			record_buffer.erase(action_name)
-			current_playback_position += 1
+	record_buffer.erase(action_name)
+	current_playback_position += 1
+
+
+func _record_timeline_start() -> void:
+	if not is_recording or is_paused: return
+	inputs.append("timeline")
+	input_starts.append(Time.get_ticks_usec() - replay_start_time)
+	input_lengths.append(-1)
 
 
 func _take_screenshot() -> void:
@@ -178,6 +183,10 @@ func _take_screenshot() -> void:
 
 
 func _press_action(action_name : StringName) -> void:
+	if action_name == "timeline" :
+		Data.game._start_timeline()
+		return
+
 	piece._emulate_press(action_name)
 	current_inputs[action_name] = true
 
@@ -191,31 +200,20 @@ func _start_playback() -> void:
 	print("STARTED REPLAY PLAYBACK")
 	is_playing = true
 
-	Data.game.is_input_locked = true
-	Data.game.new_piece_is_given.connect(_connect_piece)
-	piece = Data.game.piece
-
 	_clear_timers()
 
 	current_playback_position = 0
 	replay_start_time = Time.get_ticks_usec()
 
-	for i : int in TIMER_BUFFER_COUNT:
-		_playback()
-
-
-func _playback() -> void:
-	if current_playback_position > inputs.size() - 1:
-		return
-
-	var current_time : float = (Time.get_ticks_usec() - replay_start_time) / 1000000.0
-	var action_name : String = inputs[current_playback_position]
-	var action_length : float = input_lengths[current_playback_position] / 1000000.0
-	var action_start : float = input_starts[current_playback_position] / 1000000.0 - current_time
+	for i : int in inputs.size():
+		var action_name : String = inputs[i]
+		var action_start : float = input_starts[i]  / 1000000.0
+		var action_length : float = input_lengths[i] / 1000000.0
+		_add_timer(action_start, _press_action.bind(action_name))
+		_add_timer(action_start + action_length, _release_action.bind(action_name))
 	
-	_add_timer(action_start, func x() -> void: _press_action(action_name); _add_timer(action_length, _release_action.bind(action_name)); _playback())
-	current_playback_position += 1
-	
+	start_timers.emit()
+
 
 func _stop_playback() -> void:
 	print("FINISHED REPLAY PLAYBACK")

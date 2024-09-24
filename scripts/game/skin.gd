@@ -267,7 +267,7 @@ func _start_music() -> void:
 	if Data.game != null and Data.game.is_game_over : return
 	
 	# If skin has no music, emulate music syncing by creating special timer called "Beater"
-	if (skin_data.stream["music"] == null or force_beater) and beater == null: 
+	if force_beater and beater == null: 
 		beater = Timer.new()
 		beater.name = "Beater"
 		beater.wait_time = 30.0 / bpm
@@ -275,7 +275,7 @@ func _start_music() -> void:
 		add_child(beater)
 		beater.start()
 	
-	else:
+	if (skin_data.stream["music"] != null):
 		music_player = AudioStreamPlayer.new()
 		music_player.stream = skin_data.stream["music"]
 		music_player.bus = "Music"
@@ -283,9 +283,10 @@ func _start_music() -> void:
 		
 		add_child(music_player)
 		music_player.play()
-		
 		music_player.finished.connect(_start_music)
 		is_music_playing = true
+	
+	if beater == null:
 		set_physics_process(true)
 	
 	sample_ended.emit()

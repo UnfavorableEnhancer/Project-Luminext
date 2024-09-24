@@ -60,6 +60,7 @@ var is_droping : bool = false # Is piece quick dropping now?
 
 var current_dash_side : int = 0 # Which side piece is dashing right now
 
+var replay : Replay = null
 # Used by replays to emulate player inputs
 var emulated_inputs : Dictionary = {
 	&"move_left" : false,
@@ -156,6 +157,7 @@ func _input(event : InputEvent) -> void:
 	if Data.game.is_paused or Data.game.is_input_locked or is_dying: return
 	
 	if event.is_action_pressed("move_right"):
+		replay._record_action_press(&"move_right")
 		_move_piece(MOVE.RIGHT)
 
 		if is_dashing : _reset_dash() 
@@ -163,25 +165,52 @@ func _input(event : InputEvent) -> void:
 		current_dash_side = MOVE.RIGHT
 
 	elif event.is_action_pressed("move_left"): 
+		replay._record_action_press(&"move_left")
 		_move_piece(MOVE.LEFT)
 
 		if is_dashing : _reset_dash() 
 		dash_timer.start(dash_delay)
 		current_dash_side = MOVE.LEFT
 	
-	elif event.is_action_pressed("rotate_right"): _rotate_piece(MOVE.RIGHT)
-	elif event.is_action_pressed("rotate_left"): _rotate_piece(MOVE.LEFT)
+	elif event.is_action_pressed("rotate_right"): 
+		replay._record_action_press(&"rotate_right")
+		_rotate_piece(MOVE.RIGHT)
+	elif event.is_action_pressed("rotate_left"): 
+		replay._record_action_press(&"rotate_left")
+		_rotate_piece(MOVE.LEFT)
+	elif event.is_action_released("rotate_right"): 
+		replay._record_action_release(&"rotate_right")
+	elif event.is_action_released("rotate_left"): 
+		replay._record_action_release(&"rotate_left")
 
 	# TODO : Test if this shit is needed
 	#if (event.is_action_released("move_right") and current_dash_side == MOVE.RIGHT) or (event.is_action_released("move_left") and current_dash_side == MOVE.LEFT):
-	elif event.is_action_released("move_right") or event.is_action_released("move_left"):
-		_reset_dash()
+	elif event.is_action_released("move_right"):
+		replay._record_action_release(&"move_right")
+
+		if current_dash_side == MOVE.RIGHT:
+			_reset_dash()
 		
 		if is_trail_enabled:
 			is_trailing = false
 			for block : BlockBase in blocks.values() : block.trail.emitting = false
 	
+	elif event.is_action_released("move_left"):
+		replay._record_action_release(&"move_left")
+
+		if current_dash_side == MOVE.LEFT:
+			_reset_dash()
+		
+		if is_trail_enabled:
+			is_trailing = false
+			for block : BlockBase in blocks.values() : block.trail.emitting = false
+	
+	elif event.is_action_pressed("quick_drop"):
+		replay._record_action_press(&"quick_drop")
+
 	elif event.is_action_released("quick_drop"):
+		replay._record_action_release(&"quick_drop")
+
 		is_staying_up = false
 		is_droping = false
 		
@@ -234,7 +263,7 @@ func _reset_dash() -> void:
 
 
 # Continous input handler
-func _process(delta : float) -> void:
+func _physics_process(delta: float) -> void:
 	if Data.game.is_paused or is_dying: return
 
 	if is_dashing: _dash(current_dash_side, delta)

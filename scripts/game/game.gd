@@ -46,6 +46,7 @@ var is_game_over : bool = false
 var is_changing_skins_now : bool = false
 
 var is_input_locked : bool = false # If true, none of the inputs works with current piece
+var is_manual_timeline : bool = false # Is timeline spawned manually (Used in replays playback)
 
 var blocks : Dictionary = {} # All blocks on the game field | [position : Vector2i] = Block
 var delete : Dictionary = {} # Ready to be deleted by timeline blocks | [position : Vector2i] = Block
@@ -67,6 +68,9 @@ var piece_fall_speed : float = 1.0 # Piece falling speed in seconds
 var piece_fall_delay : float = 1.0 # Piece fall start delay in seconds
 
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+
+var replay : Replay = null
+var is_recording_replay : bool = false
 
 var menu_screen_to_return : String = "main_menu" # Menu screen name to which game will try to return when its ends
 var pause_screen_name : String = "playlist_mode_pause" # Menu screen name which would be created on game pause
@@ -113,6 +117,16 @@ func _reset() -> void:
 	for effect : FX in effects.get_children(): effect.queue_free()
 	for object : Node2D in field.get_children(): object.queue_free()
 	
+	if replay == null:
+		replay = Replay.new()
+		add_child(replay)
+		is_recording_replay = true
+	else:
+		is_manual_timeline = true
+		is_input_locked = true
+		add_child(replay)
+		is_recording_replay = false
+
 	piece = null
 	piece_queue._reset()
 	_give_new_piece()
@@ -120,9 +134,18 @@ func _reset() -> void:
 	gamemode._reset()
 	await gamemode.reset_complete
 	
+	if is_manual_timeline: skin.sample_ended.disconnect(_start_timeline)
+		
+
 	is_game_over = false
 	_pause(false)
 	skin._start()
+
+	if is_recording_replay: 
+		replay._start_recording()
+	else: 
+		replay._start_playback()
+		_start_timeline()
 
 
 # Removes the game and makes return to specified main menu screen
@@ -152,6 +175,9 @@ func _input(event : InputEvent) -> void:
 
 # Ends game and starts game over sequence
 func _game_over() -> void:
+	if is_recording_replay : replay._stop_recording()
+	else : replay._stop_playback()
+
 	is_game_over = true
 	_pause(true,false,false)
 
@@ -168,6 +194,7 @@ func _game_over() -> void:
 
 # This function toggles pause state
 func _pause(on : bool = true, wait_for_screen_end : bool = false, add_pause_screen : bool = true) -> void:
+	replay._pause(on)
 	if wait_for_screen_end : await Data.menu.all_screens_removed
 	paused.emit(on)
 	
@@ -270,7 +297,7 @@ func _change_skin(skin_path : String = "", quick : bool = false) -> void:
 		print("SKIN CHANGE SUCCESS!")
 		is_changing_skins_now = false
 		skin_change_status = SKIN_CHANGE_STATUS.SUCCESS
-		skin.sample_ended.disconnect(_start_timeline)
+		if not is_manual_timeline : skin.sample_ended.disconnect(_start_timeline)
 		_replace_skin(skin_data, true)
 		skin_change_ended.emit()
 		return
@@ -288,7 +315,7 @@ func _change_skin(skin_path : String = "", quick : bool = false) -> void:
 	_play_announce(skin_data)
 	
 	# Disconnect timeline so it won't spawn twice when new skin appear
-	skin.sample_ended.disconnect(_start_timeline)
+	if not is_manual_timeline : skin.sample_ended.disconnect(_start_timeline)
 
 	await skin.sample_ended
 
@@ -333,7 +360,7 @@ func _add_skin(skin_data : SkinData) -> void:
 	skin = new_skin
 	
 	skin.half_beat.connect(_add_sounds_from_queue)
-	skin.sample_ended.connect(_start_timeline)
+	if not is_manual_timeline : skin.sample_ended.connect(_start_timeline)
 	
 	add_child(new_skin)
 	new_skin._initiate()
@@ -364,6 +391,8 @@ func _give_new_piece(piece_start_pos : Vector2i = Vector2i(8,-1), piece_data : P
 	piece.position = Vector2(piece_start_pos.x * 68, piece_start_pos.y * 68 - 2)
 	new_piece_is_given.emit()
 	field.add_child(piece)
+	replay.piece = piece
+	piece.replay = replay
 	
 	piece_data.free()
 
@@ -529,13 +558,12 @@ func _create_square(in_position : Vector2i, squared_blocks : Array) -> bool:
 
 # This function starts new timeline from begining, and removes current one
 func _start_timeline() -> void:
+	replay._record_timeline_start()
 	if timeline != null : timeline._end()
 	
 	if is_game_over: return
 	
 	timeline = TIMELINE_SCENE.instantiate()
-	
-	if is_paused : timeline._pause(true)
 	
 	timeline.squares_deleted.connect(func(_pass : int) -> void : skin.is_music_looping = false)
 	game_over.connect(timeline.queue_free)
@@ -544,6 +572,7 @@ func _start_timeline() -> void:
 	timeline.get_node("Color").modulate = skin.skin_data.textures["timeline_color"]
 	
 	gameplay.add_child(timeline)
+	if is_paused : timeline._pause(true)
 	timeline_started.emit()
 
 
