@@ -53,7 +53,6 @@ var current_seed : int = 451
 var rng_start_state : int = 0
 
 var replay_mode : bool = false
-var replay : Replay = null
 
 var hiscore_entry_string : String
 
@@ -120,7 +119,7 @@ func _ready() -> void:
 	game.piece_fall_speed = Data.profile.config["gameplay"]["piece_fall_speed"]
 	game.piece_fall_delay = Data.profile.config["gameplay"]["piece_fall_delay"]
 
-	if replay != null : 
+	if game.replay.inputs_anim != null: 
 		game.game_over_screen_name = "demo_gameover"
 		game.menu_screen_to_return = "main_menu"
 		replay_mode = true

@@ -41,6 +41,8 @@ font = ExtResource("1")
 font_size = 64
 
 [node name="Timeline" type="Node2D"]
+process_priority = -333
+process_physics_priority = -333
 z_index = 200
 scale = Vector2(0.43, 0.43)
 script = ExtResource("3")
@@ -112,9 +114,3 @@ text = "22"
 label_settings = SubResource("LabelSettings_cas2q")
 vertical_alignment = 1
 clip_text = true
-
-[node name="Check" type="Timer" parent="."]
-
-[node name="Clip" type="Sprite2D" parent="."]
-
-[connection signal="timeout" from="Check" to="." method="_check_next_line"]

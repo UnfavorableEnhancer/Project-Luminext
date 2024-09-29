@@ -33,8 +33,6 @@ func _continue() -> void:
 	_remove()
 
 func _save_replay() -> void:
-	var replay : Replay = Data.game.gamemode.replay
-	
 	var input : MenuScreen = Data.menu._add_screen("text_input")
 	input.desc_text = "ENTER REPLAY NAME"
 	input.object_to_call = Data.game.replay

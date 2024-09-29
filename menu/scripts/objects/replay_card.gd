@@ -37,6 +37,7 @@ func _load() -> void:
 		return FileAccess.get_open_error()
 	
 	$V/Name.text = file.get_pascal_string()
+	$V/Name.text = file.get_pascal_string()
 	$V/Author.text = file.get_pascal_string()
 	$V/Date.text = file.get_pascal_string()
 

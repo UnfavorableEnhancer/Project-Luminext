@@ -1,10 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://ds15gbp8yt020"]
+[gd_scene load_steps=7 format=3 uid="uid://ds15gbp8yt020"]
 
 [ext_resource type="Script" path="res://scripts/game/piece_queue.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/game/game.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/game/foreground.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/resources/replay.gd" id="4_lj3px"]
+
+[sub_resource type="Animation" id="Animation_v4ws0"]
+resource_name = "blank"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Replay")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dcbbs"]
+_data = {
+"blank": SubResource("Animation_v4ws0")
+}
 
 [node name="Game" type="Node2D"]
+process_priority = -100
+process_physics_priority = -100
 z_index = -703
 z_as_relative = false
 script = ExtResource("2")
@@ -12,6 +34,8 @@ script = ExtResource("2")
 [node name="Gameplay" type="Node2D" parent="."]
 
 [node name="Field" type="Node2D" parent="Gameplay"]
+process_priority = -100
+process_physics_priority = -100
 z_index = -702
 z_as_relative = false
 position = Vector2(392, 232)
@@ -22,6 +46,8 @@ z_as_relative = false
 position = Vector2(392, 232)
 
 [node name="PieceQueue" type="ScrollContainer" parent="Gameplay"]
+process_priority = -101
+process_physics_priority = -101
 offset_left = 112.0
 offset_top = 172.0
 offset_right = 256.0
@@ -46,3 +72,14 @@ mouse_filter = 2
 
 [node name="Announce" type="Timer" parent="."]
 one_shot = true
+
+[node name="Replay" type="AnimationPlayer" parent="."]
+process_priority = -999
+process_physics_priority = -999
+callback_mode_process = 2
+callback_mode_method = 1
+callback_mode_discrete = 0
+libraries = {
+"": SubResource("AnimationLibrary_dcbbs")
+}
+script = ExtResource("4_lj3px")

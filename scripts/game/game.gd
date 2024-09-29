@@ -48,6 +48,7 @@ var is_changing_skins_now : bool = false
 var is_input_locked : bool = false # If true, none of the inputs works with current piece
 var is_manual_timeline : bool = false # Is timeline spawned manually (Used in replays playback)
 
+var all_blocks : Dictionary = {} # All blocks on the game field | [position : Vector2i] = Block
 var blocks : Dictionary = {} # All blocks on the game field | [position : Vector2i] = Block
 var delete : Dictionary = {} # Ready to be deleted by timeline blocks | [position : Vector2i] = Block
 var squares : Dictionary = {} # All squares on the game field | [position : Vector2i] = FX
@@ -69,7 +70,6 @@ var piece_fall_delay : float = 1.0 # Piece fall start delay in seconds
 
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
-var replay : Replay = null
 var is_recording_replay : bool = false
 
 var menu_screen_to_return : String = "main_menu" # Menu screen name to which game will try to return when its ends
@@ -78,6 +78,7 @@ var game_over_screen_name : String = "playlist_mode_gameover" # Menu screen name
 
 var custom_var : Dictionary = {} # Custom variables which might be used by mods
 
+@onready var replay : Replay = $Replay
 @onready var foreground : Node2D = $Foreground # Foreground is used to display UI (score, time, combo, etc.)
 @onready var gameplay : Node2D = $Gameplay # Gameplay is where all gameplay things takes place
 @onready var field : Node2D = $Gameplay/Field # Field is the place where all placed blocks exists
@@ -117,15 +118,12 @@ func _reset() -> void:
 	for effect : FX in effects.get_children(): effect.queue_free()
 	for object : Node2D in field.get_children(): object.queue_free()
 	
-	if replay == null:
-		replay = Replay.new()
-		add_child(replay)
+	if replay.inputs_anim == null and not is_recording_replay:
 		is_recording_replay = true
-	else:
+	elif replay.inputs_anim != null:
 		is_manual_timeline = true
 		is_input_locked = true
-		add_child(replay)
-		is_recording_replay = false
+		#set_physics_process(false)
 
 	piece = null
 	piece_queue._reset()
@@ -136,9 +134,7 @@ func _reset() -> void:
 	
 	if is_manual_timeline: skin.sample_ended.disconnect(_start_timeline)
 		
-
 	is_game_over = false
-	_pause(false)
 	skin._start()
 
 	if is_recording_replay: 
@@ -146,6 +142,8 @@ func _reset() -> void:
 	else: 
 		replay._start_playback()
 		_start_timeline()
+	
+	_pause(false)
 
 
 # Removes the game and makes return to specified main menu screen
@@ -171,6 +169,9 @@ func _end() -> void:
 func _input(event : InputEvent) -> void:
 	if event.is_action_pressed("pause") : 
 		if not is_paused: _pause(true)
+	
+	if event.is_action_pressed("debug_game_tick"):
+		_tick()
 
 
 # Ends game and starts game over sequence
@@ -194,11 +195,11 @@ func _game_over() -> void:
 
 # This function toggles pause state
 func _pause(on : bool = true, wait_for_screen_end : bool = false, add_pause_screen : bool = true) -> void:
-	replay._pause(on)
 	if wait_for_screen_end : await Data.menu.all_screens_removed
 	paused.emit(on)
 	
 	if on:
+		replay._pause(on)
 		if add_pause_screen:
 			Data.menu._add_screen("foreground")
 			Data.menu._add_screen(pause_screen_name)
@@ -219,7 +220,6 @@ func _pause(on : bool = true, wait_for_screen_end : bool = false, add_pause_scre
 	
 	else:
 		is_paused = false
-
 		gameplay.process_mode = Node.PROCESS_MODE_INHERIT
 		foreground.process_mode = Node.PROCESS_MODE_INHERIT
 
@@ -230,6 +230,7 @@ func _pause(on : bool = true, wait_for_screen_end : bool = false, add_pause_scre
 		gamemode._pause(false)
 		
 		$Announce.paused = false
+		replay._pause(on)
 
 
 # Restarts game
@@ -383,16 +384,17 @@ func _give_new_piece(piece_start_pos : Vector2i = Vector2i(8,-1), piece_data : P
 	piece.fall_speed = piece_fall_speed
 	piece.blocks = piece_data.blocks
 
-	paused.connect(piece._pause)
 	if Data.profile.config["video"]["background_shaking"] and not skin.skin_data.metadata.settings["no_shaking"]:
 		piece.piece_moved.connect(skin._shake_background)
 		piece.piece_quick_drop.connect(skin._shake_background)
 	
 	piece.position = Vector2(piece_start_pos.x * 68, piece_start_pos.y * 68 - 2)
 	new_piece_is_given.emit()
+	piece.replay = replay
+	piece.emulated_inputs = replay.emulated_inputs
 	field.add_child(piece)
 	replay.piece = piece
-	piece.replay = replay
+	
 	
 	piece_data.free()
 
@@ -412,6 +414,7 @@ func _replace_current_piece(piece_data : PieceData) -> void:
 
 # Adds block to the game field
 func _add_block(to_position : Vector2i, color : int, special : StringName) -> void:
+	if to_position.y < 0 or to_position.y > 9: return
 	var block : Block = null
 	
 	match special:
@@ -426,8 +429,6 @@ func _add_block(to_position : Vector2i, color : int, special : StringName) -> vo
 		elif color == Block.BLOCK_COLOR.NULL: return
 		else: block = Block.new()
 	
-	if block == null: return
-	
 	block.grid_position = to_position
 	block.color = color
 	block.special = special
@@ -438,7 +439,7 @@ func _add_block(to_position : Vector2i, color : int, special : StringName) -> vo
 
 # Turns on all placed blocks gravity
 func _move_blocks(delay : float = 0.0) -> void:
-	await get_tree().create_timer(delay).timeout
+	await get_tree().create_timer(delay, true, true).timeout
 	# Call blocks from down-right corner, and go up-left, so they would fall in right order and won't clip thru each other
 	for x : int in range(16,0,-1):
 		for y : int in range(9,-1,-1):
@@ -449,6 +450,36 @@ func _move_blocks(delay : float = 0.0) -> void:
 #================================================================================================
 
 func ___GAME_LOGIC___() -> void: return
+
+
+func _tick() -> void:
+	if is_paused : return
+
+	if piece : piece._physics()
+	
+	for x : int in range(16,0,-1):
+		for y : int in range(9,-1,-1):
+			var block : Variant = all_blocks.get(Vector2i(x,y), null)
+			if block != null : block._physics()
+	
+	if timeline : timeline._physics()
+
+
+func _physics_process(delta: float) -> void:
+	if is_paused : return
+	
+	if replay.is_recording : replay.current_tick += 1
+	if replay.is_playback : replay.advance(delta)
+
+	if piece : piece._physics()
+	
+	for x : int in range(16,0,-1):
+		for y : int in range(9,-1,-1):
+			var block : Variant = all_blocks.get(Vector2i(x,y), null)
+			if block != null : block._physics()
+	
+	if timeline : timeline._physics()
+
 
 # Scans whole field for possible squares and creates them
 func _square_check(x_pos : int = 0) -> void:
@@ -482,7 +513,6 @@ func _square_check(x_pos : int = 0) -> void:
 			number_of_squares = 0
 	
 	square_checker_x_pos = -1
-	#await get_tree().create_timer(0.001).timeout
 	square_checkers_count -= 1
 
 

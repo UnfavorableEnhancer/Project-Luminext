@@ -52,8 +52,8 @@ enum LOADING_STATUS {
 
 enum PARSE {PROFILES, PLAYLISTS, PRESETS, ADDONS, MODS, REPLAYS}
 
-const VERSION : String = "0.1.0.2" # Current game version
-const BUILD : String = "06.09.2024" # Latest build date
+const VERSION : String = "0.1.1" # Current game version
+const BUILD : String = "28.09.2024" # Latest build date
 
 const SKINS_PATH : String = "skins/" # Path to the skins folder
 const PLAYLISTS_PATH : String = "playlists/" # Path to the saved playlists folder
@@ -314,7 +314,7 @@ func _parse(what : int, output_names : bool = false) -> Array:
 			print("PARSING REPLAYS DIRECTORY...")
 			parse_directory = REPLAYS_PATH
 			has_build_in = false
-			file_extension = "rec"
+			file_extension = "rpl"
 		_:
 			print("UNKNOWN CONTENT TYPE SPECIFIED. PARSE DENIED")
 			return []

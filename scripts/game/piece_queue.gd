@@ -67,34 +67,31 @@ func _get_piece() -> PieceData:
 
 
 func _input(event : InputEvent) -> void:
-	if event.is_action_pressed("side_ability") and not Data.game.is_paused:
-		Data.game.replay._record_action_press(&"side_ability")
+	if event.is_action_pressed(&"side_ability") and not Data.game.is_paused:
+		Data.game.replay._record_side_ability()
 		_shift_queue()
-	elif event.is_action_released("side_ability"):
-		Data.game.replay._record_action_release(&"side_ability")
 
 
 # Shifts queue and replaces current piece in hand
 func _shift_queue() -> void:
 	if not Data.profile.config["gameplay"]["piece_swaping"]: return
 
-	if not is_shifting:
-		var game_piece : Piece = Data.game.piece
-		if game_piece == null or game_piece.is_droping: return
-		
-		Data.profile.progress["stats"]["total_piece_swaps"] += 1
-		piece_swap.emit()
-		
-		var clone_piece : PieceData = PieceData.new()
-		for block_pos : Vector2i in game_piece.blocks:
-			clone_piece.blocks[block_pos] = [game_piece.blocks[block_pos].color, game_piece.blocks[block_pos].special]
-		_append_piece(clone_piece)
-		
-		Data.game._add_sound(&"queue_shift", Vector2(200,300),false,false)
-		
-		var come_in_piece : PieceData = queue.pop_front()
-		Data.game._replace_current_piece(_clone_piece(come_in_piece))
-		_remove_end_piece(come_in_piece, QUEUE_SPEED)
+	var game_piece : Piece = Data.game.piece
+	if game_piece == null or game_piece.is_quick_dropping: return
+	
+	Data.profile.progress["stats"]["total_piece_swaps"] += 1
+	piece_swap.emit()
+	
+	var clone_piece : PieceData = PieceData.new()
+	for block_pos : Vector2i in game_piece.blocks:
+		clone_piece.blocks[block_pos] = [game_piece.blocks[block_pos].color, game_piece.blocks[block_pos].special]
+	_append_piece(clone_piece)
+	
+	Data.game._add_sound(&"queue_shift", Vector2(200,300),false,false)
+	
+	var come_in_piece : PieceData = queue.pop_front()
+	Data.game._replace_current_piece(_clone_piece(come_in_piece))
+	_remove_end_piece(come_in_piece, QUEUE_SPEED)
 
 
 # Moves all pieces up and removes last piece
@@ -102,12 +99,13 @@ func _remove_end_piece(piece_data : PieceData, delay : float) -> void:
 	is_shifting = true
 
 	var tween : Tween = create_tween().set_parallel(true)
+	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	tween.tween_property(piece_data, 'position:y', -90.0, QUEUE_SPEED)
 	# Move all pieces up
 	for piece_pos : int in queue.size():
 		tween.tween_property(queue[piece_pos], 'position:y', float(74 + piece_pos * 164), QUEUE_SPEED)
 	
-	await get_tree().create_timer(delay).timeout
+	await get_tree().create_timer(delay,true,true).timeout
 	piece_data.queue_free()
 
 	is_shifting = false

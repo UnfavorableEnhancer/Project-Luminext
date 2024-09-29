@@ -39,23 +39,22 @@ enum OVERLAY_MARK {
 	MULTI # Used when multi block is being squared
 }
 
-const FALL_SPEED : float = 0.065 # Base gravity speed
+const FALL_SPEED : float = 68.0 / 120.0 / 0.05 # Base gravity speed
 
 var marks : Array = []
 
-var is_tweening : bool = false # True if this block fall animation is currently playing
 var is_falling : bool = false
 var is_dying : bool = false
 var is_scanned : bool = false # True if is scanned by timeline
-var has_moved : bool = true # True if block has moved at least one cell down
 
 var squared_by : Array = [] # Array of squares in which this block is inside
 var gravity_multiplier : float = 1.0
-var blocks : Dictionary
 
 
 func _init() -> void:
 	super()
+	process_priority = -555
+	process_physics_priority = -555
 	gravity_multiplier = Data.profile.config["gameplay"]["block_gravity"]
 	
 	is_trail_enabled = Data.profile.config["video"]["block_trail"]
@@ -73,14 +72,11 @@ func _ready() -> void:
 	name = str(grid_position + Vector2i(10,10)) 
 	color_changed.connect(_reset.bind(true))
 	
-	if grid_position.y <= -1:
-		queue_free()
-		return
-	
+	Data.game.all_blocks[grid_position] = self
 	_fall()
 	
 	# If move was suddenly blocked by something, try moving again
-	await get_tree().create_timer(FALL_SPEED + 0.01).timeout
+	await get_tree().create_timer(FALL_SPEED + 0.01, true, true).timeout
 	if not is_falling: _fall()
 
 
@@ -88,54 +84,51 @@ func _ready() -> void:
 # Called recursevly and calls square check function when lands
 func _fall() -> void:
 	if is_dying: return
-	if is_tweening: return
-	
-	# Check if there's another block at bottom or we are at field floor
-	blocks = Data.game.blocks
+
+	var blocks : Dictionary = Data.game.blocks
 	var bottom_block : Block = blocks.get(grid_position + Vector2i(0,1), null)
+
 	if is_instance_valid(bottom_block) or grid_position.y == 9:
-		if grid_position.y != 9 and bottom_block.is_falling:
-			Data.game._move_blocks(lerpf(1.0,0.1,gravity_multiplier))
-
-		is_falling = false
-		falled_down.emit()
-
 		blocks[grid_position] = self
-
-		if is_trail_enabled and is_instance_valid(trail):
-			trail.emitting = false
-		
-		# This delay is needed for proper square check work
-		await get_tree().create_timer(0.001).timeout
-		# If block never moved, square check wouldn't be called
-		if has_moved: Data.game._square_check(grid_position.x)
-		has_moved = false
-		
-		position = Vector2(grid_position.x * 68 - 34, grid_position.y * 68 + 32)
+		await get_tree().create_timer(0.01, true, true).timeout
+		Data.game._square_check(grid_position.x)
 		return
 
 	if not is_falling:
 		is_falling = true
 		_reset(true)
+		blocks.erase(grid_position)
 		started_moving.emit()
-	
-	has_moved = true
 
-	# Update block position
-	blocks.erase(grid_position)
-	blocks[grid_position + Vector2i(0,1)] = self
-	grid_position.y += 1
-	name = str(grid_position + Vector2i(10,10)) 
-	
-	# Animate motion
-	is_tweening = true
-	var fall_time : float = FALL_SPEED * (1.0 / gravity_multiplier)
-	var fall_tween : Tween = create_tween()
-	fall_tween.tween_property(self,"position",Vector2(position.x,position.y + 68),fall_time)
-	await fall_tween.step_finished
-	is_tweening = false
 
-	_fall()
+func _physics() -> void:
+	if not is_falling: return
+
+	position.y += FALL_SPEED * (1.0 / gravity_multiplier)
+
+	if position.y >= grid_position.y * 68 + 68:
+		Data.game.all_blocks.erase(grid_position)
+		grid_position.y += 1
+		Data.game.all_blocks[grid_position] = self
+
+		var blocks : Dictionary = Data.game.blocks
+		var standing_bottom_block : Variant = blocks.get(grid_position + Vector2i(0,1), null)
+		var falling_bottom_block : Variant = Data.game.all_blocks.get(grid_position + Vector2i(0,1), null)
+
+		if is_instance_valid(standing_bottom_block) or grid_position.y == 9:
+			is_falling = false
+			falled_down.emit()
+			position = Vector2(grid_position.x * 68 - 34, grid_position.y * 68 + 32)
+			blocks[grid_position] = self
+			name = str(grid_position + Vector2i(10,10)) 
+
+			if is_trail_enabled and is_instance_valid(trail): trail.emitting = false
+			
+			await get_tree().create_timer(0.01, true, true).timeout
+			Data.game._square_check(grid_position.x)
+		
+		elif is_instance_valid(falling_bottom_block):
+			await get_tree().create_timer(0.085, true, true).timeout
 
 
 # Resets block to it's normal state
@@ -148,10 +141,7 @@ func _reset(remove_squares : bool) -> void:
 	if remove_squares:
 		for square : Variant in squared_by: 
 			if not is_instance_valid(square) : continue
-			
-			if not square.is_removing: 
-				square._remove()
-	
+			if not square.is_removing: square._remove()
 		squared_by.clear()
 	
 	reset.emit()
@@ -218,6 +208,7 @@ func _free() -> void:
 	
 	_reset(true)
 	Data.game.blocks.erase(grid_position)
+	Data.game.all_blocks.erase(grid_position)
 
 	for mark : Sprite2D in marks : mark.free()
 	if is_instance_valid(special_sprite): 

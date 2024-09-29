@@ -33,7 +33,7 @@ func _ready() -> void:
 
 # Changes block color to random one
 func _joke() -> void:
-	if not is_falling and not is_tweening and not is_dying:
+	if not is_falling and not is_dying:
 		var colors : Array[int] = []
 
 		if Data.profile.config["gameplay"]["red"] : colors.append(BLOCK_COLOR.RED)

@@ -231,20 +231,17 @@ func _start_replay(replay : Replay) -> void:
 			gamemode.random_mixes = false
 			gamemode.current_seed = gamemode_settings["seed"]
 			gamemode.rng_start_state = gamemode_settings["state"]
-			gamemode.replay = replay
 
 		_: 
 			print("INVALID REPLAY GAMEMODE")
 			_display_system_message("INVALID REPLAY!")
 			return
 	
-	_start_game(first_skin_metadata, gamemode)
+	_start_game(first_skin_metadata, gamemode, replay)
 
 
 # Starts the game of LUMINEXT
-# - 'first_skin_metadata' - Metadata of the skin which would be loaded first
-# - 'gamemode' - Gamemode which would be used in game
-func _start_game(first_skin_metadata : SkinMetadata, gamemode : Gamemode, first_skin_data : SkinData = null) -> void:
+func _start_game(first_skin : Variant, gamemode : Gamemode, replay : Replay = null) -> void:
 	# Check if at least one color is enabled
 	var color_check : bool = false
 	for color : String in ["red","white","green","purple"]:
@@ -255,9 +252,9 @@ func _start_game(first_skin_metadata : SkinMetadata, gamemode : Gamemode, first_
 		_display_system_message("WARNING! NO BLOCK COLORS ENABLED!\nPLEASE TOGGLE ON SOME COLORS IN GAME CONFIGURATION")
 		return
 	
-	if first_skin_data == null and (first_skin_metadata == null or not FileAccess.file_exists(first_skin_metadata.path)):
-		print("SKIN LOADING ERROR! INVALID SKIN PATH!" + first_skin_metadata.path) 
-		_display_system_message("SKIN LOADING ERROR!\nINVALID SKIN PATH!\n\n" + first_skin_metadata.path)
+	if first_skin == null:
+		print("SKIN LOADING ERROR! NO SKIN SPECIFIED!") 
+		_display_system_message("SKIN LOADING ERROR!\nNO SKIN SPECIFIED!")
 		return
 
 	if gamemode == null:
@@ -279,17 +276,21 @@ func _start_game(first_skin_metadata : SkinMetadata, gamemode : Gamemode, first_
 	
 	var skin_data : SkinData
 
-	if first_skin_data == null: 
+	if first_skin is SkinMetadata: 
+		if not FileAccess.file_exists(first_skin.path):
+			print("SKIN LOADING ERROR! INVALID SKIN PATH : ", first_skin.path) 
+			_display_system_message("SKIN LOADING ERROR!\nINVALID SKIN PATH:\n\n" + first_skin.path)
+			return
 		skin_data = SkinData.new()
 
 		var thread : Thread = Thread.new()
 		var err : int = 0
 		
 		# If skin is inside addon file (which extension is "add"), to load it we must use different function
-		if first_skin_metadata.path.get_extension() == "add":
-			err = thread.start(skin_data._load_from_addon.bind(first_skin_metadata))
+		if first_skin.path.get_extension() == "add":
+			err = thread.start(skin_data._load_from_addon.bind(first_skin))
 		else:
-			err = thread.start(skin_data._load_from_path.bind(first_skin_metadata.path))
+			err = thread.start(skin_data._load_from_path.bind(first_skin.path))
 		
 		await skin_data.skin_loaded
 		await get_tree().create_timer(0.01).timeout
@@ -298,7 +299,7 @@ func _start_game(first_skin_metadata : SkinMetadata, gamemode : Gamemode, first_
 		if result != OK or err != OK:
 			print("THREAD ERROR : " + error_string(err))
 			print("SKIN LOADING ERROR : " + error_string(result))
-			_display_system_message("SKIN LOADING ERROR!\n" + error_string(result) + "\n" + first_skin_metadata.path)
+			_display_system_message("SKIN LOADING ERROR!\n" + error_string(result) + "\n" + first_skin.path)
 			
 			await get_tree().create_timer(2).timeout
 			
@@ -308,7 +309,12 @@ func _start_game(first_skin_metadata : SkinMetadata, gamemode : Gamemode, first_
 			Data.menu._return_from_game()
 			return
 	
-	else: skin_data = first_skin_data
+	elif first_skin is SkinData: 
+		skin_data = first_skin
+	else:
+		print("SKIN LOADING ERROR! UNKNOWN SKIN FORMAT") 
+		_display_system_message("SKIN LOADING ERROR!\nUNKNOWN SKIN FORMAT")
+		return
 
 	# Allow gamemode to preprocess some heavy stuff if it has such
 	if gamemode.use_preprocess:
@@ -338,10 +344,10 @@ func _start_game(first_skin_metadata : SkinMetadata, gamemode : Gamemode, first_
 	var game : Node2D = load("res://scenery/game/game.tscn").instantiate()
 	Data.game = game
 	game.gamemode = gamemode
-	game.replay = gamemode.replay
 	game._add_skin(skin_data)
 	
 	add_child(game)
+	if replay != null : game.replay.inputs_anim = replay.inputs_anim
 	game.add_child(gamemode)
 	# Move game node up to make it overlayable by menu
 	move_child(game,0)
