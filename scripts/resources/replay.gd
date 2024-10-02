@@ -25,8 +25,10 @@ signal replay_loaded
 
 const SCREENSHOT_TIME : float = 10.0
 const TICK : float = 1.0 / 120.0
+const ALLOWED_SKINS : Array[String] = ["grandmother clock", "The Years Will Pass", "Jades", "Panya Malathai", "Protocol"]
+const MAX_RECORD_TIME : float = 14400 # 4 Hours
 
-enum INVALID {OK, NON_STANDARD_SKIN, GAME_RULES_CHANGED}
+enum INVALID {OK, NON_STANDARD_SKIN, UNSUPPORTED_PLAYLIST, GAME_RULES_CHANGED, RECORD_TIME_EXCEEDED, UNSUPPORTED_GAMEMODE}
 
 var game_version : String = ""
 var replay_name : String = "Record"
@@ -41,11 +43,9 @@ var emulated_inputs : Dictionary = {
 	&"quick_drop" : false
 }
 var inputs_anim : Animation = null
-var record_start_time : int = 0 # When replay recording/playback started
 var is_valid : int = 0
 var current_tick : int = 0
 
-var record_timer : Timer = null
 var piece : Piece = null
 var queue_shift_call : Callable
 var timeline_call : Callable
@@ -62,8 +62,6 @@ func _ready() -> void:
 
 func _start_recording() -> void:
 	print("STARTED REPLAY RECORDING")
-	gamemode_settings.clear()
-	
 	inputs_anim = Animation.new()
 	for idx : int in 7:
 		inputs_anim.add_track(Animation.TYPE_METHOD)
@@ -79,9 +77,37 @@ func _start_recording() -> void:
 				gamemode_settings["mix"] = gamemode.current_mix
 				gamemode_settings["seed"] = gamemode.current_seed
 				gamemode_settings["state"] = Data.game.rng.state
+				gamemode_settings["score"] = 0
 
 				inputs_anim.length = gamemode.time_limit + 1.0
+			"playlist_mode":
+				if not gamemode.is_single_skin_mode: 
+					print("REPLAY RECORDING FAILED! ONLY SINGLE SKIN MODE IS SUPPORTED")
+					is_valid = INVALID.UNSUPPORTED_PLAYLIST
+					return
+
+				var metadata : SkinMetadata = Data.game.skin.skin_data.metadata
+				gamemode_settings["skin_name"] = metadata.name
+				gamemode_settings["skin_path"] = metadata.path
+				
+				if not gamemode_settings["skin_name"] in ALLOWED_SKINS:
+					print("REPLAY RECORDING FAILED! NON STANDARD SKIN")
+					is_valid = INVALID.NON_STANDARD_SKIN
+					return
+
+				gamemode_settings["name"] = "playlist_mode"
+
+				var rules : GameConfigPreset = GameConfigPreset.new()
+				rules._store_current_config()
+				gamemode_settings["ruleset"] = rules
+				Data.profile.gameplay_config_changed.connect(func() -> void: is_valid = INVALID.GAME_RULES_CHANGED)
+
+				gamemode_settings["score"] = 0
+				gamemode_settings["time"] = 0
+
+				inputs_anim.length = MAX_RECORD_TIME
 			_:
+				is_valid = INVALID.UNSUPPORTED_GAMEMODE
 				print("ERROR! UNSUPPORTED GAMEMODE")
 				return;
 
@@ -98,8 +124,6 @@ func _start_recording() -> void:
 	timer.one_shot = true
 	add_child(timer)
 	timer.start(SCREENSHOT_TIME + randf_range(-5.0,5.0))
-
-	record_start_time = Time.get_ticks_usec()
 	is_recording = true
 
 
@@ -112,6 +136,8 @@ func _pause(on : bool) -> void:
   
 
 func _stop_recording() -> void:
+	if current_tick > MAX_RECORD_TIME * 120 : is_valid = INVALID.RECORD_TIME_EXCEEDED
+
 	is_recording = false
 	is_paused = false
 	print("STOPPED REPLAY RECORDING")

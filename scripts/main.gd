@@ -43,7 +43,7 @@ func _ready() -> void:
 	print(OS.get_cmdline_args())
 
 	get_window().move_to_center()
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.25).timeout
 
 	# Store node references into Data singletone, to allow acessing them in any script file
 	Data.main = self
@@ -51,7 +51,7 @@ func _ready() -> void:
 
 	_load_mods()
 	
-	var start_boot_seq : bool = true if playtest_skin_path.is_empty() else false
+	var start_boot_seq : bool = playtest_skin_path.is_empty()
 	_load_menu(start_boot_seq, menu_starting_screen_name)
 	
 	if not playtest_skin_path.is_empty():
@@ -232,6 +232,13 @@ func _start_replay(replay : Replay) -> void:
 			gamemode.current_seed = gamemode_settings["seed"]
 			gamemode.rng_start_state = gamemode_settings["state"]
 
+		"playlist_mode":
+			gamemode = PlaylistMode.new()
+			gamemode.custom_config_preset = gamemode_settings["ruleset"]
+			first_skin_metadata.path = gamemode_settings["skin_path"]
+			gamemode.rng_start_seed = gamemode_settings["seed"]
+			gamemode.rng_start_state = gamemode_settings["state"]
+
 		_: 
 			print("INVALID REPLAY GAMEMODE")
 			_display_system_message("INVALID REPLAY!")
@@ -347,7 +354,9 @@ func _start_game(first_skin : Variant, gamemode : Gamemode, replay : Replay = nu
 	game._add_skin(skin_data)
 	
 	add_child(game)
-	if replay != null : game.replay.inputs_anim = replay.inputs_anim
+	if replay != null : 
+		game.replay.inputs_anim = replay.inputs_anim
+		game.is_playing_replay = true
 	game.add_child(gamemode)
 	# Move game node up to make it overlayable by menu
 	move_child(game,0)

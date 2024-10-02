@@ -57,11 +57,16 @@ func _load_ui() -> void:
 	game.foreground._reset()
 
 
-# Resets gamemode to initial state 
+# Resets gamemode to initial state, called last in game reset function
 func _reset() -> void:
 	_load_ui()
 	
 	reset_complete.emit()
+
+
+# Resets gamemode to initial state, called first in game reset function
+func _prereset() -> void:
+	pass
 
 
 # Called on game over

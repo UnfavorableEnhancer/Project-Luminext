@@ -37,17 +37,19 @@ func _load() -> void:
 	var tween : Tween = create_tween()
 	tween.tween_interval(0.5)
 	for i : Node in $V/Replays/V.get_children():
-		tween.tween_property(i, "modulate:a", 1.0, 0.25).from(0.0) 
+		tween.tween_property(i, "modulate:a", 1.0, 0.1).from(0.0) 
 	
 	$V/Replays.custom_minimum_size.y = clamp(count * 120, 120, 600)
 	_assign_selectable($V/Menu/Exit, Vector2i(0, count))
 	
-	await get_tree().create_timer(0.1).timeout
+	await menu.all_screens_added
 	cursor = Vector2i(0,0)
 	_move_cursor()
 
 
 func _scroll(cursor_pos : Vector2) -> void:
+	if Data.current_input_mode == Data.INPUT_MODE.MOUSE: return
+
 	$V/Replays.scroll_vertical = clamp(cursor_pos.y * 120 ,0 ,INF)
 
 

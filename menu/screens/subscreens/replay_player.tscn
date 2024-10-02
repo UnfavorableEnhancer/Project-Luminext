@@ -563,12 +563,13 @@ offset_bottom = 8.0
 scale = Vector2(1e-05, 1)
 
 [node name="Replays" type="ScrollContainer" parent="V"]
+custom_minimum_size = Vector2(0, 592)
 layout_mode = 2
 theme = SubResource("87")
 
 [node name="V" type="VBoxContainer" parent="V/Replays"]
+custom_minimum_size = Vector2(0, 600)
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 8
 

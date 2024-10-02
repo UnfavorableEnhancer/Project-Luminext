@@ -37,6 +37,7 @@ var x_pos : int = 0 # Current timeline X position in game field coords
 var total_deleted_squares_count : int = 0
 var current_square_group_size : int = 0
 var last_scanned_square_pos : Vector2i
+var first_scan_pos : Vector2i = Vector2i(-1,-1)
 
 var scanned_blocks : Array = [] # All blocks currently scanned by timeline
 var scanned_squares : Array = [] # All squares currently scanned by timeline
@@ -85,6 +86,7 @@ func _check_next_line() -> void:
 		
 		if squares.has(pos): 
 			var square : FX = squares[pos]
+			if first_scan_pos.x == -1 : first_scan_pos = pos
 			
 			if is_instance_valid(square): 
 				current_square_group_size += 1
@@ -116,9 +118,26 @@ func _delete_scanned() -> void:
 	var current_delete : Dictionary = Data.game.delete.duplicate(true)
 
 	if scanned_squares_count > 0 : 
+		# Recheck square group since it might got new squares (not really working rn)
+		#var squares : Dictionary = Data.game.squares
+		#scanned_squares.clear()
+		#current_square_group_size = 0
+		#for x : int in range(first_scan_pos.x, 16):
+			#for y : int in 9:
+				#var pos : Vector2i = Vector2i(x,y)
+				#if squares.has(pos): 
+					#var square : FX = squares[pos]
+					#if is_instance_valid(square): 
+						#current_square_group_size += 1
+						#scanned_squares.append(square)
+						#last_scanned_square_pos = pos
+		#scanned_squares_count = scanned_squares.size()
+		#first_scan_pos = Vector2i(-1,-1)
+		
 		current_square_group_size = scanned_squares_count
 		total_deleted_squares_count += scanned_squares_count
 		$Number.text = str(total_deleted_squares_count)
+		current_square_group_size = 0
 		
 		for square : Variant in scanned_squares:
 			if is_instance_valid(square):

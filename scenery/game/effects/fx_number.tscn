@@ -65,11 +65,12 @@ libraries = {
 }
 
 [node name="NUM" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 offset_left = -72.0
-offset_top = -99.904
+offset_top = -40.0
 offset_right = 82.0
-offset_bottom = 28.096
+offset_bottom = 88.0
 text = "8"
 label_settings = SubResource("LabelSettings_2bydh")
 horizontal_alignment = 1

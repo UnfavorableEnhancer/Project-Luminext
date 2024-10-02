@@ -59,10 +59,10 @@ var timeline : Node2D = null # Current timeline instance, does blocks clearing w
 
 var skin_change_status : int = 0 # Shows status of skin replacement procedure
 
-var sound_queue : Array = [] # Queued sounds, to be played in sync with music beat
+var created_squares : Array[Vector2i] = []
+var is_adding_square_number : bool = false
 
-var square_checker_x_pos : int = -1 # Current x position of square checker function, used to minimize running square check functions count
-var square_checkers_count : int = 0 # Current count of square checker functions
+var sound_queue : Array = [] # Queued sounds, to be played in sync with music beat
 
 var piece : Piece = null # Current piece reference
 var piece_fall_speed : float = 1.0 # Piece falling speed in seconds
@@ -70,7 +70,8 @@ var piece_fall_delay : float = 1.0 # Piece fall start delay in seconds
 
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
-var is_recording_replay : bool = false
+@onready var replay : Replay = $Replay
+var is_playing_replay : bool = false
 
 var menu_screen_to_return : String = "main_menu" # Menu screen name to which game will try to return when its ends
 var pause_screen_name : String = "playlist_mode_pause" # Menu screen name which would be created on game pause
@@ -78,7 +79,6 @@ var game_over_screen_name : String = "playlist_mode_gameover" # Menu screen name
 
 var custom_var : Dictionary = {} # Custom variables which might be used by mods
 
-@onready var replay : Replay = $Replay
 @onready var foreground : Node2D = $Foreground # Foreground is used to display UI (score, time, combo, etc.)
 @onready var gameplay : Node2D = $Gameplay # Gameplay is where all gameplay things takes place
 @onready var field : Node2D = $Gameplay/Field # Field is the place where all placed blocks exists
@@ -100,6 +100,8 @@ func _ready() -> void:
 # Resets game back to initial state and starts it again
 func _reset() -> void:
 	reset.emit()
+	gamemode._prereset()
+
 	is_game_over = true
 	is_paused = true
 	skin._pause(true)
@@ -118,12 +120,10 @@ func _reset() -> void:
 	for effect : FX in effects.get_children(): effect.queue_free()
 	for object : Node2D in field.get_children(): object.queue_free()
 	
-	if replay.inputs_anim == null and not is_recording_replay:
-		is_recording_replay = true
-	elif replay.inputs_anim != null:
+	if is_playing_replay:
 		is_manual_timeline = true
+		skin.sample_ended.disconnect(_start_timeline)
 		is_input_locked = true
-		#set_physics_process(false)
 
 	piece = null
 	piece_queue._reset()
@@ -131,18 +131,15 @@ func _reset() -> void:
 	
 	gamemode._reset()
 	await gamemode.reset_complete
-	
-	if is_manual_timeline: skin.sample_ended.disconnect(_start_timeline)
-		
-	is_game_over = false
-	skin._start()
 
-	if is_recording_replay: 
-		replay._start_recording()
-	else: 
+	if is_playing_replay: 
 		replay._start_playback()
 		_start_timeline()
+	else: 
+		replay._start_recording()
 	
+	is_game_over = false
+	skin._start()
 	_pause(false)
 
 
@@ -169,15 +166,12 @@ func _end() -> void:
 func _input(event : InputEvent) -> void:
 	if event.is_action_pressed("pause") : 
 		if not is_paused: _pause(true)
-	
-	if event.is_action_pressed("debug_game_tick"):
-		_tick()
 
 
 # Ends game and starts game over sequence
 func _game_over() -> void:
-	if is_recording_replay : replay._stop_recording()
-	else : replay._stop_playback()
+	if is_playing_replay :  replay._stop_playback()
+	else : replay._stop_recording()
 
 	is_game_over = true
 	_pause(true,false,false)
@@ -200,30 +194,27 @@ func _pause(on : bool = true, wait_for_screen_end : bool = false, add_pause_scre
 	
 	if on:
 		replay._pause(on)
-		if add_pause_screen:
-			Data.menu._add_screen("foreground")
-			Data.menu._add_screen(pause_screen_name)
-			Data.menu._sound("confirm4")
 
 		is_paused = true
-		
 		gameplay.process_mode = Node.PROCESS_MODE_DISABLED
 		foreground.process_mode = Node.PROCESS_MODE_DISABLED
 
-		create_tween().tween_property(pause_background, "modulate", Color(0,0,0,0.5), 1.0).from(Color(0.2,0.2,0.2,0))
-		
 		if timeline != null : timeline._pause(true)
 		skin._pause(true)
 		gamemode._pause(true)
 		
 		$Announce.paused = true
-	
+
+		create_tween().tween_property(pause_background, "modulate", Color(0,0,0,0.5), 1.0).from(Color(0.2,0.2,0.2,0))
+
+		if add_pause_screen:
+			Data.menu._add_screen("foreground")
+			Data.menu._add_screen(pause_screen_name)
+			Data.menu._sound("confirm4")
 	else:
 		is_paused = false
 		gameplay.process_mode = Node.PROCESS_MODE_INHERIT
 		foreground.process_mode = Node.PROCESS_MODE_INHERIT
-
-		create_tween().tween_property(pause_background, "modulate", Color(0,0,0,0), 1.0).from(Color(0.2,0.2,0.2,0.5))
 		
 		if timeline != null : timeline._pause(false)
 		skin._pause(false)
@@ -231,6 +222,8 @@ func _pause(on : bool = true, wait_for_screen_end : bool = false, add_pause_scre
 		
 		$Announce.paused = false
 		replay._pause(on)
+
+		create_tween().tween_property(pause_background, "modulate", Color(0,0,0,0), 1.0).from(Color(0.2,0.2,0.2,0.5))
 
 
 # Restarts game
@@ -244,8 +237,6 @@ func _retry() -> void:
 	await gamemode.retry_complete
 
 	if gamemode.retry_status != OK : 
-		create_tween().tween_property(Data.main.black,"color:a",0.0,0.25).from(1.0)
-		await get_tree().create_timer(0.25).timeout
 		_game_over()
 		return
 
@@ -395,7 +386,6 @@ func _give_new_piece(piece_start_pos : Vector2i = Vector2i(8,-1), piece_data : P
 	field.add_child(piece)
 	replay.piece = piece
 	
-	
 	piece_data.free()
 
 
@@ -481,44 +471,24 @@ func _physics_process(delta: float) -> void:
 	if timeline : timeline._physics()
 
 
-# Scans whole field for possible squares and creates them
-func _square_check(x_pos : int = 0) -> void:
-	if square_checkers_count > 0 and x_pos > square_checker_x_pos: return
-	square_checkers_count += 1
-	
-	var number_of_squares : int = 0
-	var last_square_pos : Vector2 = Vector2i(0,0)
-	
-	for x : int in 16:
-		square_checker_x_pos = x
-		var is_square_on_this_row : bool = false
-		
-		for y : int in 9:
+# Scans area for possible squares and creates them
+func _square_check(area : Rect2i) -> void:
+	for x : int in range(area.position.x,area.position.y):
+		var has_square_on_row : bool = false
+		for y : int in range(area.size.x,area.size.y):
 			var squared_blocks : Array = _check_square_possible(Vector2i(x,y))
 			if squared_blocks.is_empty() : continue
-			
-			number_of_squares += 1
-			# This check fixes bug which doesn't allow number FX to spawn if square is created on last row
-			if x < 15 : is_square_on_this_row = true
-			
-			if _create_square(Vector2i(x,y), squared_blocks): last_square_pos = Vector2i(x,y)
+			has_square_on_row = true
+			if _create_square(Vector2i(x,y), squared_blocks): created_squares.append(Vector2i(x,y))
 		
-		# If we didn't made any squares on current row, add number FX which shows total amount of squares in finished group and square creation sound
-		if not is_square_on_this_row:
-			if last_square_pos.x > 0:
-				_add_fx("num", last_square_pos, number_of_squares)
-				_add_sound("square", Vector2(last_square_pos.x*48+300,last_square_pos.y*48+200), false, false)
-				last_square_pos = Vector2i(0,0)
-			
-			number_of_squares = 0
-	
-	square_checker_x_pos = -1
-	square_checkers_count -= 1
+		if not created_squares.is_empty() and not has_square_on_row and not is_adding_square_number:
+			is_adding_square_number = true
+			await get_tree().create_timer(0.05).timeout
+			_add_square_number()
 
 
 # Checks is square possible at game field position
 func _check_square_possible(in_position : Vector2i) -> Array:
-	
 	var block : Variant = blocks.get(in_position,null)
 	
 	if block == null: 
@@ -565,25 +535,50 @@ func _remove_square(in_position : Vector2i) -> void:
 		squares[in_position]._remove()
 
 
+func _add_square_number() -> void:
+	var square_group_size : int = 0
+	var has_square_on_this_row : bool = false
+	var last_created_square : Vector2i = Vector2i(-1,-1)
+	
+	for x : int in 16:
+		has_square_on_this_row = false
+		for y : int in 9:
+			var coords : Vector2i = Vector2i(x,y)
+			if squares.has(coords):
+				square_group_size += 1
+				has_square_on_this_row = true
+				if created_squares.has(coords): last_created_square = coords
+		
+		if not has_square_on_this_row:
+			if last_created_square.x > -1 :
+				_add_sound("square", Vector2(last_created_square.x*48+300,last_created_square.y*48+200), false, false)
+				_add_fx("num", last_created_square, square_group_size)
+				last_created_square = Vector2i(-1,-1)
+			square_group_size = 0
+	
+	is_adding_square_number = false
+	created_squares.clear()
+
+
 # Creates square at game field position
 # "squared_blocks" Array must contain 4 Blocks references and blocks color
 func _create_square(in_position : Vector2i, squared_blocks : Array) -> bool:
+	if squares.has(in_position) : return false
+	
 	var color : int = squared_blocks[4]
+	var square : FX = _add_fx("square", in_position, color)
 	
-	if not squares.has(in_position):
-		var square : FX = _add_fx("square", in_position, color)
-		square.grid_position = in_position
-		squares[in_position] = square
-
-		# Remove blocks color string from array
-		squared_blocks.pop_back()
-
-		for block : Block in squared_blocks:
-			block._square(square)
-
-		return true
 	
-	return false
+	square.grid_position = in_position
+	squares[in_position] = square
+	
+	# Remove blocks color string from array
+	squared_blocks.pop_back()
+	
+	for block : Block in squared_blocks:
+		block._square(square)
+	
+	return true
 
 
 # This function starts new timeline from begining, and removes current one

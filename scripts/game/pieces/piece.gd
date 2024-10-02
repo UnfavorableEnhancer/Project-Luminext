@@ -30,7 +30,7 @@ enum BORDER {LEFT = 1, RIGHT = 15} # Game field borders X posiitons
 
 const TICK : float =  1.0 / 120.0
 
-const BASE_QUICK_DROP_SPEED : float = 68.0 / 120.0 / 0.015 # In pixels per tick
+const BASE_QUICK_DROP_SPEED : float = 68.0 / 120.0 / 0.01 # In pixels per tick
 const BASE_DASH_SPEED : float = 68.0 / 120.0 / 0.0125 # In pixels per tick
 
 const ENTRY_DELAY : float = 0.25 # Delay before player can quick drop piece
@@ -474,10 +474,6 @@ func _place_piece() -> void:
 	is_dying = true
 	piece_landed.emit()
 	
-	for block : BlockBase in blocks.values() : 
-		block.modulate.a = 0.0
-		if is_trail_enabled: block.trail.emitting = false
-	
 	Data.game._add_sound(&'drop',Vector2(position.x+300,position.y+500),false,false)
 	
 	# Add blocks to the field from bottom right one, so block movement would be right and blocks won't clip thru eachother
@@ -494,4 +490,9 @@ func _place_piece() -> void:
 
 # Properly removes piece from field
 func _end() -> void:
+	for block : BlockBase in blocks.values() : 
+		block.self_modulate.a = 0.0
+		if block.has_node("Special") : block.get_node("Special").self_modulate.a = 0.0
+		if is_trail_enabled: block.trail.emitting = false
+	
 	get_tree().create_timer(0.5).timeout.connect(queue_free)

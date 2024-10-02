@@ -27,22 +27,18 @@ func _ready() -> void:
 	cursor = Vector2i(0,0)
 	_move_cursor()
 
+
 func _continue() -> void:
 	Data.game._pause(false,true)
 	Data.menu._remove_screen("foreground")
 	_remove()
 
-func _save_replay() -> void:
-	var input : MenuScreen = Data.menu._add_screen("text_input")
-	input.desc_text = "ENTER REPLAY NAME"
-	input.object_to_call = Data.game.replay
-	input.call_function_name = "_save"
-	input._start()
 
 func _restart() -> void:
 	Data.game._retry()
 	Data.menu._remove_screen("foreground")
 	_remove()
+
 
 func _end() -> void:
 	Data.game._end()

@@ -326,8 +326,8 @@ func _sync() -> void:
 	if music_player == null: return
 	var music_position : float = music_player.get_playback_position()
 
-	if scene_player != null:
-		scene_player.seek(wrapf(music_position, 0, scene_player.current_animation_length) ,true)
+	#if scene_player != null:
+		#scene_player.seek(wrapf(music_position, 0, scene_player.current_animation_length) ,true)
 
 
 # Used by "beater" to emulate beat signals callback

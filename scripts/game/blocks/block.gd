@@ -39,11 +39,13 @@ enum OVERLAY_MARK {
 	MULTI # Used when multi block is being squared
 }
 
-const FALL_SPEED : float = 68.0 / 120.0 / 0.05 # Base gravity speed
+const FALL_SPEED : float = 68.0 / 120.0 / 0.065 # Base gravity speed
 
 var marks : Array = []
 
 var is_falling : bool = false
+var fall_left : float = 0.0
+
 var is_dying : bool = false
 var is_scanned : bool = false # True if is scanned by timeline
 
@@ -91,10 +93,11 @@ func _fall() -> void:
 	if is_instance_valid(bottom_block) or grid_position.y == 9:
 		blocks[grid_position] = self
 		await get_tree().create_timer(0.01, true, true).timeout
-		Data.game._square_check(grid_position.x)
+		Data.game._square_check(Rect2i(grid_position.x - 2, grid_position.x + 2, grid_position.y - 2, grid_position.y + 2))
 		return
-
+	
 	if not is_falling:
+		fall_left = 68.0
 		is_falling = true
 		_reset(true)
 		blocks.erase(grid_position)
@@ -102,33 +105,37 @@ func _fall() -> void:
 
 
 func _physics() -> void:
-	if not is_falling: return
-
-	position.y += FALL_SPEED * (1.0 / gravity_multiplier)
-
-	if position.y >= grid_position.y * 68 + 68:
-		Data.game.all_blocks.erase(grid_position)
-		grid_position.y += 1
-		Data.game.all_blocks[grid_position] = self
-
-		var blocks : Dictionary = Data.game.blocks
-		var standing_bottom_block : Variant = blocks.get(grid_position + Vector2i(0,1), null)
-		var falling_bottom_block : Variant = Data.game.all_blocks.get(grid_position + Vector2i(0,1), null)
-
-		if is_instance_valid(standing_bottom_block) or grid_position.y == 9:
-			is_falling = false
-			falled_down.emit()
-			position = Vector2(grid_position.x * 68 - 34, grid_position.y * 68 + 32)
-			blocks[grid_position] = self
-			name = str(grid_position + Vector2i(10,10)) 
-
-			if is_trail_enabled and is_instance_valid(trail): trail.emitting = false
-			
-			await get_tree().create_timer(0.01, true, true).timeout
-			Data.game._square_check(grid_position.x)
+	if not is_falling and fall_left <= 0: return
+	
+	var speed : float = FALL_SPEED * (1.0 / gravity_multiplier)
+	
+	if fall_left > speed:
+		fall_left -= speed
+		position.y += speed
+		return
+	
+	position.y += fall_left
+	
+	Data.game.all_blocks.erase(grid_position)
+	grid_position.y += 1
+	Data.game.all_blocks[grid_position] = self
+	
+	var standing_bottom_block : bool = is_instance_valid(Data.game.blocks.get(grid_position + Vector2i(0,1), null))
+	
+	if standing_bottom_block or grid_position.y == 9:
+		is_falling = false
+		fall_left = 0.0
+		falled_down.emit()
 		
-		elif is_instance_valid(falling_bottom_block):
-			await get_tree().create_timer(0.085, true, true).timeout
+		Data.game.blocks[grid_position] = self
+		name = str(grid_position + Vector2i(10,10)) 
+		
+		if is_trail_enabled and is_instance_valid(trail): trail.emitting = false
+		
+		await get_tree().create_timer(0.01, true, true).timeout
+		Data.game._square_check(Rect2i(grid_position.x - 2, grid_position.x + 2, grid_position.y - 2, grid_position.y + 2))
+	else:
+		fall_left = 68.0
 
 
 # Resets block to it's normal state

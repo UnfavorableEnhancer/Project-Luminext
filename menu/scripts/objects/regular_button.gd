@@ -59,7 +59,7 @@ func _ready() -> void:
 	if work_mode == WORK_MODE.TOGGLE : selection_toggled.connect(_toggled)
 
 	$Label.text = tr(text)
-	
+
 
 func _process(_delta : float) -> void:
 	$Label.text = text
@@ -89,7 +89,7 @@ func _toggled(on : bool) -> void:
 
 	if is_setting_button:
 		Data.profile._assign_setting(call_string, on)
-	
+
 
 func _set_toggle_by_data(data_dict : Dictionary) -> void:
 	is_toggled = false

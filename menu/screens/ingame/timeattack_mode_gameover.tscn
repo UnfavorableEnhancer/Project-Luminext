@@ -1,6 +1,6 @@
 [gd_scene load_steps=42 format=3 uid="uid://ds0xug7wdnh5a"]
 
-[ext_resource type="Script" path="res://menu/scripts/screens/playlist_mode_pause.gd" id="1_gs2xp"]
+[ext_resource type="Script" path="res://menu/scripts/screens/timeattack_mode_gameover.gd" id="1_iuoqc"]
 [ext_resource type="Shader" path="res://shaders/pixelize.gdshader" id="2_5rxg2"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="3_u31jn"]
 [ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://menu/objects/regular_button.tscn" id="4_njmbc"]
@@ -1888,10 +1888,10 @@ font_size = 56
 font = ExtResource("3_u31jn")
 font_size = 20
 
-[node name="Gameover" type="Control"]
+[node name="TimeAttackGameover" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_gs2xp")
+script = ExtResource("1_iuoqc")
 
 [node name="A" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1997,7 +1997,7 @@ scale = Vector2(1, 1e-05)
 text = "SAVE REPLAY"
 description_node = NodePath("../Desc")
 glow_color = Color(0.227451, 0.94902, 0.94902, 1)
-description = "Save replay of this time attack attempt to watch later or share wiht others."
+description = "Save replay of this time attack attempt to watch later or share with others."
 button_layout = 18
 menu_position = Vector2i(0, 1)
 press_sound_name = "confirm2"

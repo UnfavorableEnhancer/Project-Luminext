@@ -478,6 +478,7 @@ func _load_from_path(path : String, file : FileAccess = null) -> int:
 	call_deferred("emit_signal", "io_progress", Data.LOADING_STATUS.FINISH)
 	file.close()
 	version = ver
+	metadata.path = path
 	skin_loaded.emit()
 	return OK
 

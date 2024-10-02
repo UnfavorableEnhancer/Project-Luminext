@@ -61,4 +61,3 @@ func _squared() -> void:
 		
 		await get_tree().create_timer(0.01).timeout
 		Data.game._square_check(-1)
-

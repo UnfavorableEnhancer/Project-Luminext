@@ -41,6 +41,9 @@ var current_lap : int = 0 # Current amount of loops in skin playlist
 
 var menu_screen_to_return : String = "playlist_mode"
 
+var custom_config_preset : GameConfigPreset = null
+var config_backup : GameConfigPreset = null
+
 var time : int = 0 
 var score : int = 0 
 var deleted_squares : int = 0 # Total deleted squares count
@@ -49,6 +52,7 @@ var combo : int = 0 # Counts how many 4X bonuses were in row
 var max_combo : int = 32 # Max combo which can multiply incoming score
 
 var bpm_multiplyer : float = 1.0 # Multiplyer used to balance score gain with defferent BPMs (Formula : (BPM/120)^2) (For now unused)
+var rng_start_seed : int = -1 # Stores start seed of rng, if custom seed is loaded, to bring rng back after reset
 var rng_start_state : int = -1 # Stores start state of rng, if custom seed is loaded, to bring rng back after reset
 
 var level_count : int = 1 
@@ -68,8 +72,19 @@ func _ready() -> void:
 	game.game_over_screen_name = "playlist_mode_gameover"
 	game.menu_screen_to_return = menu_screen_to_return
 
+	if game.is_playing_replay: 
+		game.pause_screen_name = "general_pause"
+		game.game_over_screen_name = "demo_gameover"
+		game.menu_screen_to_return = "main_menu"
+
 	game.timeline_started.connect(_connect_timeline)
+	
 	_load_ui()
+
+	if custom_config_preset != null:
+		config_backup = GameConfigPreset.new()
+		config_backup._store_current_config()
+		custom_config_preset._apply_preset()
 
 	Data.profile.gameplay_config_changed.connect(_sync_settings)
 
@@ -78,12 +93,6 @@ func _ready() -> void:
 	time_timer.one_shot = false
 	add_child(time_timer)
 	time_timer.start(1.0)
-	
-	#var fall_score_timer : Timer = Timer.new()
-	#fall_score_timer.timeout.connect(_score_fall)
-	#fall_score_timer.one_shot = false
-	#add_child(fall_score_timer)
-	#fall_score_timer.start(0.005)
 
 
 # Updates gamemode settings and variables to match current profile config
@@ -95,48 +104,23 @@ func _sync_settings() -> void:
 	left_before_level_up = next_level_req
 	game.foreground.ui_elements["progress"]._change_progress(0.0)
 
-	if Data.profile.config["gameplay"]["classic_scoring"]:
-		bpm_multiplyer = 1.0
-	else :
-		bpm_multiplyer = snapped((game.skin.bpm / 120.0) * (game.skin.bpm / 120.0), 0.05)
+	if Data.profile.config["gameplay"]["classic_scoring"] : bpm_multiplyer = 1.0
+	else : bpm_multiplyer = snapped((game.skin.bpm / 120.0) * (game.skin.bpm / 120.0), 0.05)
+
+	if not Data.profile.config["gameplay"]["combo_system"] : game.foreground.ui_elements["combo"]._set_combo(-42) 
 	
-	var foreground : Node2D = game.foreground
-	if Data.profile.config["gameplay"]["combo_system"] and not foreground.ui_elements.has("combo") : 
-		foreground._add_ui_element("combo")
-	elif not Data.profile.config["gameplay"]["combo_system"] and foreground.ui_elements.has("combo") : 
-		foreground.ui_elements["combo"].queue_free()
+	if rng_start_seed != Data.profile.config["gameplay"]["seed"] and not game.is_playing_replay:
+		rng_start_seed = Data.profile.config["gameplay"]["seed"]
+		rng_start_state = -1
+
 	
-	var current_seed : int = randi()
-	game.rng.seed = current_seed if Data.profile.config["gameplay"]["seed"] < 1 else Data.profile.config["gameplay"]["seed"]
-	if Data.profile.config["gameplay"]["seed"] > 0:
-		if game.rng.state == -1: rng_start_state = game.rng.state
-		else: game.rng.state = rng_start_state
-	else:
-		rng_start_state = 0
-
-
-# Adds score for piece falling
-func _score_fall() -> void:
-	if game.piece != null and game.piece.is_droping:
-		score += clampi(int(combo / 8.0),1,4)
-		scoreboard._set_value(score,"score")
-
-
-func _input(event : InputEvent) -> void:
-	if event.is_action_pressed("debug_skip_skin") : _next_skin()
-
-
-# Called on game reset
-func _reset() -> void:
+func _prereset() -> void:
 	level_count = 1
 	score = 0
 	deleted_squares = 0
 	deleted_blocks = 0
 	combo = 0
 	time = 0
-	time_timer.start(1.0)
-
-	_sync_settings()
 
 	if is_single_skin_mode : current_lap = -1
 	elif is_single_run : current_lap = 0
@@ -148,8 +132,27 @@ func _reset() -> void:
 	scoreboard._set_value(0,"deleted_squares")
 	scoreboard._set_value(0,"deleted_blocks")
 
-	game.foreground.ui_elements["combo"]._set_combo(0)
+	game.foreground.ui_elements["combo"]._set_combo(-42)
 	game.foreground.ui_elements["bonus"]._reset()
+
+	_sync_settings()
+
+	var current_seed : int = randi()
+	game.rng.seed = current_seed if rng_start_seed < 1 else rng_start_seed
+	
+	#game.replay.gamemode_settings["seed"] = game.rng.seed
+	#game.replay.gamemode_settings["state"] = game.rng.state
+
+	if rng_start_seed > 0:
+		if game.rng.state == -1: rng_start_state = game.rng.state
+		else: game.rng.state = rng_start_state
+	else:
+		rng_start_state = -1
+
+
+# Called on game reset
+func _reset() -> void:
+	time_timer.start(1.0)
 	
 	# Delay is needed so game can properly receive reset complete signal
 	await get_tree().create_timer(0.01).timeout
@@ -163,17 +166,18 @@ func _pause(on : bool) -> void:
 
 # Called on game over
 func _game_over() -> void:
+	if game.is_playing_replay : return
 	var gameover_screen : MenuScreen = Data.menu.screens["playlist_mode_gameover"]
+	gameover_screen._setup(self)
 
-	gameover_screen.get_node("%Score").text = str(score)
-	gameover_screen.get_node("%SqrDel").text = "SQUARES : " + str(deleted_squares)
-	gameover_screen.get_node("%BlckDel").text = "BLOCKS : " + str(deleted_blocks)
-	gameover_screen.get_node("%Level").text = "LEVEL : " + str(level_count)
-	if playlist_pos < 1 : gameover_screen.get_node("%Stage").visible = false
-	else : gameover_screen.get_node("%Stage").text = "STAGE : " + str(playlist_pos)
-	if current_lap < 1 : gameover_screen.get_node("%Lap").visible = false
-	else : gameover_screen.get_node("%Lap").text = "LAP : " + str(current_lap)
-	gameover_screen.get_node("%Time").text = Data._to_time(time)
+	game.replay.gamemode_settings["score"] = str(score)
+	game.replay.gamemode_settings["time"] = Data._to_time(time)
+	game.replay.inputs_anim.length = time + 1
+
+
+func _end() -> void:
+	if config_backup != null : config_backup._apply_preset()
+	Data.profile._save_progress()
 
 
 # Loads game ui
@@ -192,7 +196,8 @@ func _load_ui() -> void:
 	scoreboard._enable_counter("score")
 	scoreboard._enable_counter("deleted")
 
-	if Data.profile.config["gameplay"]["combo_system"] : foreground._add_ui_element("combo")
+	foreground._add_ui_element("combo")
+	if game.is_playing_replay : foreground._add_ui_element("replay_ui")
 	
 	foreground._change_style(game.skin.skin_data.textures["ui_design"], game.skin.skin_data, 0.0)
 
@@ -325,9 +330,6 @@ func _add_score_by_blocks(deleted_blocks_count : int) -> void:
 	if deleted_blocks_count == 0 : return
 	
 	_increase_score_value(deleted_blocks_count, SCORE_ADDITION_TYPE.DELETED_BLOCKS)
-	
-	# var result_score : int = deleted_blocks_count * clamp(combo, 1, 32) as int
-	# _increase_score_value(result_score, SCORE_ADDITION_TYPE.SCORE)
 
 
 # Adds score by squares erased
@@ -394,7 +396,7 @@ func _check_bonus() -> void:
 
 # Raises game onto next level, increasing piece falling speed
 func _level_up() -> void:
-	game._add_sound("level_up", Vector2(1400,540))
+	game._add_sound("level_up", Vector2(960,540))
 	
 	level_count += 1
 	left_before_level_up = next_level_req
@@ -456,3 +458,7 @@ func _increase_score_value(add : int, which : int) -> void:
 			deleted_blocks += add
 			create_tween().tween_method(scoreboard._set_value.bind("deleted_blocks"), deleted_blocks - add, deleted_blocks, COUNTER_GROW_SPEED)
 			Data.profile.progress["stats"]["total_blocks_erased"] += add
+
+
+func _input(event : InputEvent) -> void:
+	if event.is_action_pressed("debug_skip_skin") : _next_skin()

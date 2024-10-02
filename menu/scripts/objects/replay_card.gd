@@ -36,10 +36,10 @@ func _load() -> void:
 		print("FILE ERROR! : ", error_string(FileAccess.get_open_error()))
 		return FileAccess.get_open_error()
 	
+	var ver : String = file.get_pascal_string()
 	$V/Name.text = file.get_pascal_string()
-	$V/Name.text = file.get_pascal_string()
-	$V/Author.text = file.get_pascal_string()
-	$V/Date.text = file.get_pascal_string()
+	$Author.text = file.get_pascal_string()
+	$Date.text = file.get_pascal_string() + " VER " + ver
 
 	$Screenshot.texture = file.get_var(true)
 	var gamemode_settings : Dictionary = file.get_var(true)
@@ -48,8 +48,8 @@ func _load() -> void:
 		$V/Name.text = "INVALID REPLAY"
 		$V/Gamemode.text = replay_path
 		$V/Name.modulate = Color.RED
-		$V/Author.text = ""
-		$V/Date.text = ""
+		$Author.text = ""
+		$Date.text = ""
 		replay_path = ""
 		is_invalid = true
 
@@ -63,14 +63,18 @@ func _load() -> void:
 				TimeAttackMode.TIME_ATTACK_RULESET.COLOR_3: ruleset_string = "3 COLOR"
 				TimeAttackMode.TIME_ATTACK_RULESET.HARDCORE: ruleset_string = "HARDCORE"
 			
-			$V/Gamemode.text = "TIME ATTACK MODE | " + str(gamemode_settings["time_limit"]) + " SEC | " + ruleset_string + " | SCORE : " + str(gamemode_settings["score"])
+			$V/Gamemode.text = "TIME ATTACK MODE | SCORE : " + str(gamemode_settings["score"]) + " | " + str(gamemode_settings["time_limit"]) + " SEC | " + ruleset_string
 			$Icon.texture.region = Rect2(0,256,256,256)
+		"playlist_mode":
+			$V/Gamemode.text = "PLAYLIST MODE | SCORE : " + gamemode_settings["score"] + " | TIME : " + gamemode_settings["time"] + "\nSKIN : " + gamemode_settings["skin_name"].to_upper()
+			$Icon.texture.region = Rect2(1536,0,256,256)
 		_:
-			$V/Name.text = "INVALID REPLAY"
+			$V/Name.text = "INVALID REPLAY!"
 			$V/Gamemode.text = replay_path
 			$V/Name.modulate = Color.RED
-			$V/Author.text = ""
-			$V/Date.text = ""
+			$Author.text = ""
+			$Date.text = ""
+			$Icon.texture.region = Rect2(0,0,256,256)
 			replay_path = ""
 			is_invalid = true
 
