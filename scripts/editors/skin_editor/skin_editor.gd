@@ -331,7 +331,7 @@ func _start_playtest_skn() -> void:
 	playlist_mode.menu_screen_to_return = "skin_editor"
 
 	skin_data.metadata.path = skin_path
-	Data.main._start_game(skin_data.metadata, playlist_mode, skin_data)
+	Data.main._start_game(skin_data, playlist_mode)
 
 
 # Ends skin playtest
@@ -437,10 +437,26 @@ func _edit_skn_text_data(entry : String, text : String) -> void:
 		"number" : 
 			skin_data.metadata.number = int(text)
 		# Block animation FPS
-		"red_anim_speed" : skin_data.textures["red_anim"][2] = int(text)
-		"white_anim_speed" : skin_data.textures["white_anim"][2] = int(text)
-		"green_anim_speed" : skin_data.textures["green_anim"][2] = int(text)
-		"purple_anim_speed" : skin_data.textures["purple_anim"][2] = int(text)
+		"red_anim_speed" : 
+			var fps : int = int(text)
+			skin_data.textures["red_anim"][2] = fps
+			skin_data._set_sprite_sheet_fps("red_anim", fps)
+			get_tree().call_group("texture_buttons", "_set_animation_fps", "red_anim", fps)
+		"white_anim_speed" : 
+			var fps : int = int(text)
+			skin_data.textures["white_anim"][2] = fps
+			skin_data._set_sprite_sheet_fps("white_anim", fps)
+			get_tree().call_group("texture_buttons", "_set_animation_fps", "white_anim", fps)
+		"green_anim_speed" : 
+			var fps : int = int(text)
+			skin_data.textures["green_anim"][2] = fps
+			skin_data._set_sprite_sheet_fps("green_anim", fps)
+			get_tree().call_group("texture_buttons", "_set_animation_fps", "green_anim", fps)
+		"purple_anim_speed" : 
+			var fps : int = int(text)
+			skin_data.textures["purple_anim"][2] = fps
+			skin_data._set_sprite_sheet_fps("purple_anim", fps)
+			get_tree().call_group("texture_buttons", "_set_animation_fps", "purple_anim", fps)
 		
 		"scene_path": skin_data.stream["scene_path"] = text
 	
@@ -564,7 +580,7 @@ func _change_block_animation_preset(index : int) -> void:
 		SkinData.BLOCK_ANIM_PATTERN.EACH_BAR: preset = [0,16,8,16,0,16,8,16]
 		SkinData.BLOCK_ANIM_PATTERN.EACH_HALF_BEAT: preset = [0,2,1,2,0,2,1,2]
 		SkinData.BLOCK_ANIM_PATTERN.COLOR_ORDER: preset = [0,8,2,8,4,8,6,8]
-		SkinData.BLOCK_ANIM_PATTERN.CONSTANT_LOOPING: preset = [0,0,0,0,0,0,0,0]
+		_, SkinData.BLOCK_ANIM_PATTERN.CONSTANT_LOOPING: preset = [0,0,0,0,0,0,0,0]
 	
 	skin_data.textures["red_anim"][0] = preset[0]
 	skin_data.textures["red_anim"][1] = preset[1]

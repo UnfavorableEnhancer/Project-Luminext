@@ -120,6 +120,7 @@ func _delete_scanned() -> void:
 				var square : Square = square_group.pop_back()
 				if not is_instance_valid(square) : continue
 				
+				# Check top-left block inside square if it is actually scanned by timeline
 				var check_block : Block = before_delete[square.grid_position]
 				if not check_block.is_scanned : continue
 				
@@ -136,7 +137,8 @@ func _delete_scanned() -> void:
 
 	if scanned_blocks.size() > 0 : 
 		for block : Block in scanned_blocks:
-			if not is_instance_valid(block) or not before_delete.has(block.grid_position): continue
+			if not is_instance_valid(block) : continue 
+			if not before_delete.has(block.grid_position) : continue
 			
 			real_delete.erase(block.grid_position)
 			block._free()

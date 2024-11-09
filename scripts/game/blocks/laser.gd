@@ -34,7 +34,6 @@ var lasered : Dictionary = {} #[Vector2i : Block]
 func _ready() -> void:
 	super()
 
-	reset.connect(_laser_reset)
 	falled_down.connect(_on_fall)
 	squared.connect(_start_laser)
 
@@ -44,24 +43,28 @@ func _physics() -> void:
 
 	if is_working:
 		if laser_timer > 0.0 : laser_timer -= TICK
-		else : _laser()
+		else : 
+			laser_timer = LASER_DELAY * (120.0 / Data.game.skin.bpm)
+			_laser()
 
 
 func _on_fall() -> void:
-	await physics_tick
 	# If we're just silly remastered clone, do work immidiately
-	if Data.profile.config["gameplay"]["instant_special"] : _start_laser()
+	if Data.profile.config["gameplay"]["instant_special"] and not is_working:
+		await physics_tick
+		_start_laser()
 
 
 # Called when laser block is squared
 func _start_laser() -> void:
-	# Add and store laser special effect, so we could use it later
-	laser_fx = Data.game._add_fx("laser", grid_position, color)
-	
-	laser_timer = LASER_DELAY
-	is_working = true
+	if not is_working:
+		# Add and store laser special effect, so we could use it later
+		laser_fx = Data.game._add_fx("laser", grid_position, color)
+		
+		laser_timer = LASER_DELAY * (120.0 / Data.game.skin.bpm)
+		is_working = true
 
-	_laser()
+		_laser()
 
 
 # "Laser" all blocks in directions (angles)
@@ -77,30 +80,40 @@ func _laser(angles : Array[float] = [0.0,45.0,90.0,135.0,180.0,225.0,270.0,315.0
 				if block.is_dying : continue
 				if lasered.has(block.grid_position) : continue
 				
-				block._add_mark(OVERLAY_MARK.DELETE)
-				block.reset.connect(lasered.erase.bind(block.grid_position))
+				block._make_deletable(true)
+				if not block.reset.is_connected(_remove_block.bind(block.grid_position)):
+					block.reset.connect(_remove_block.bind(block.grid_position))
 				lasered[block.grid_position] = block
 
 
+func _remove_block(at_position : Vector2i) -> void:
+	lasered.erase(at_position)
+
+
 # Resets laser block, and "unlaser" all lasered blocks
-func _laser_reset() -> void:
-	is_working = false
+func _reset(remove_squares : bool) -> void:
+	if is_working:
+		is_working = false
+		
+		if laser_fx != null:
+			laser_fx.queue_free()
+			laser_fx = null
+		
+		for block : Variant in lasered.values():
+			if is_instance_valid(block) : block._reset(false)
+		lasered.clear()
 	
-	laser_fx.queue_free()
-	laser_fx = null
-	
-	for block : Variant in lasered.values:
-		if is_instance_valid(block) : block._reset(false)
-	lasered.clear()
+	super(remove_squares)
 
 
 # Remove all lasered blocks with special animation
 func _laser_blast() -> void:
-	is_working = false
-	laser_fx._explode()
-	
-	for block : Variant in lasered:
-		if is_instance_valid(block) : block._free()
+	if is_working:
+		is_working = false
+		laser_fx._explode()
+		
+		for block : Variant in lasered.values():
+			if is_instance_valid(block) : block._free()
 
 
 func _free() -> void:

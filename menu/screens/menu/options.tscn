@@ -3082,7 +3082,6 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="LANGUAGE" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
-visible = false
 layout_mode = 0
 offset_left = 16.0
 offset_top = 304.0

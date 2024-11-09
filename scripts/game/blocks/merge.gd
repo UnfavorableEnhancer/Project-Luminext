@@ -22,7 +22,7 @@ extends Block
 
 class_name Merge
 
-var merged : bool = false
+var is_merged : bool = false
 
 
 func _ready() -> void:
@@ -33,24 +33,27 @@ func _ready() -> void:
 
 
 func _on_fall() -> void:
-	await physics_tick
 	# If we're just silly remastered clone, do work immidiately
-	if Data.profile.config["gameplay"]["instant_special"] : _merge()
+	if Data.profile.config["gameplay"]["instant_special"] : 
+		await physics_tick
+		_merge()
 
 
 # Called when merge block is squared
 func _merge() -> void:
-	if not merged:
-		merged = true
+	if not is_merged:
+		is_merged = true
 		# When squared, turn everyone same color
 		for x : int in range(grid_position.x - 2,grid_position.x + 3):
 			for y : int in range(grid_position.y - 2, grid_position.y + 3):
 				if Data.game.all_blocks.has(Vector2i(x,y)):
-					var block : Block = Data.game.all_blocks[Vector2i(x,y)]
+					var block : Variant = Data.game.all_blocks[Vector2i(x,y)]
+					if not is_instance_valid(block) : continue
 					if block.is_dying or block.is_scanned : continue
 
 					if block.color != color:
 						block.color = color
+						block._reset(true)
 						block._render()
 		
 		Data.game._add_fx("merge", grid_position, color)

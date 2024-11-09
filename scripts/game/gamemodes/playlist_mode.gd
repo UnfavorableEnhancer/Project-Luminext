@@ -379,8 +379,8 @@ func _check_bonus() -> void:
 		game.foreground.ui_elements["combo"]._set_combo(combo)
 
 	if deleted_squares_count > 3:
-		if Data.profile.config["audio"]["sequential_sounds"]: game._add_sound('bonus',Vector2(960,540),false,false,combo)
-		else: game._add_sound('bonus',Vector2(960,540))
+		if Data.profile.config["audio"]["sequential_sounds"]: game._add_sound("bonus",Vector2(960,540),false,false,combo - 1)
+		else: game._add_sound("bonus",Vector2(960,540))
 
 		var result_score : int 
 		if Data.profile.config["gameplay"]["classic_scoring"] : result_score = 160 * deleted_squares_count * clamp(combo, 1, max_combo) as int

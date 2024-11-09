@@ -22,9 +22,10 @@ extends Block
 
 class_name Chain
 
-const CHAIN_DELAY : float = 0.2
+const CHAIN_DELAY : float = 0.1 
 
 var chained : Dictionary = {} # Blocks chained by this chain block [Vector2i : Block]
+var current_chained : Dictionary = {} # Blocks chained by this chain block [Vector2i : Block]
 
 var chain_timer : float = 0.0 # Time before calling chain function
 
@@ -34,14 +35,13 @@ var is_working : bool = false
 func _ready() -> void:
 	super()
 	
-	reset.connect(_chain_reset)
 	squared.connect(_squared)
 	falled_down.connect(_on_fall)
 
 
 func _on_fall() -> void:
 	# If we're just silly remastered clone, do work immidiately
-	if Data.profile.config["gameplay"]["instant_special"] : 
+	if Data.profile.config["gameplay"]["instant_special"] and not is_working:
 		chain_timer = TICK
 		is_working = true
 
@@ -51,27 +51,24 @@ func _physics() -> void:
 
 	if is_working:
 		if chain_timer > 0.0 : chain_timer -= TICK
-		else : _start_chain()
+		else : 
+			current_chained.clear()
+			_chain(self, color)
+			chain_timer = CHAIN_DELAY * (120.0 / Data.game.skin.bpm)
 
 
 # Called when block is deleted
 func _free() -> void:
-	_chain_reset()
+	# Avoid crash because of recursion and reset it manually once
+	_reset(false)
 	super()
 
 
 # Called when chain block is squared
 func _squared() -> void:
-	chain_timer = CHAIN_DELAY
-	is_working = true
-
-
-# Called by chain timer
-func _start_chain() -> void:
-	is_working = false
-	# We clear "chained" each cycle because when field changes much, we can't be sure are blocks adjacent anymore
-	chained.clear()
-	_chain(self, color)
+	if not is_working:
+		chain_timer = CHAIN_DELAY * (120.0 / Data.game.skin.bpm)
+		is_working = true
 
 
 # Chains adjacent blocks, making them deletable
@@ -88,16 +85,26 @@ func _chain(block : Block, with_color : int = color) -> void:
 		if not chained.has(adj_block.grid_position):
 			chained[adj_block.grid_position] = adj_block
 			adj_block._make_deletable(true)
-			adj_block.reset.connect(chained.erase.bind(adj_block.grid_position))
+			
+			if not adj_block.reset.is_connected(_remove_block.bind(adj_block.grid_position)):
+				adj_block.reset.connect(_remove_block.bind(adj_block.grid_position))
+		
+		if not current_chained.has(adj_block.grid_position):
+			current_chained[adj_block.grid_position] = 1
 			_chain(adj_block, with_color)
+ 
+
+func _remove_block(at_position : Vector2i) -> void:
+	chained.erase(at_position)
 
 
-# Resets chain block, and 'unchain' all chained blocks
-func _chain_reset() -> void:
-	is_working = false
-	chain_timer = 0.0
-	
-	for block : Variant in chained.values():
-		if is_instance_valid(block): block._reset(false)
-	
-	chained.clear()
+func _reset(remove_squares : bool) -> void:
+	if is_working:
+		is_working = false
+		chain_timer = -1.0
+		
+		for block : Variant in chained.values():
+			if is_instance_valid(block): block._reset(false)
+		
+		chained.clear()
+	super(remove_squares)

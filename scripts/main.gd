@@ -441,11 +441,11 @@ func _test_skin(skin_metadata : SkinMetadata) -> void:
 # Toggles loading animation. Menu must be loaded first in order to work.
 func _toggle_loading(on : bool) -> void:
 	if Data.menu.loaded_screens_data.has("loading"):
-		if on and not loading_screen:
+		if on and loading_screen == null:
 			loading_screen = load(Data.menu.loaded_screens_data["loading"]).instantiate()
 			add_child(loading_screen)
 			loading_screen.get_node("A").play("start")
-		elif not on and loading_screen:
+		elif not on and loading_screen != null:
 			loading_screen.get_node("A").play("end")
 			await loading_screen.get_node("A").animation_finished
 			loading_screen.queue_free()

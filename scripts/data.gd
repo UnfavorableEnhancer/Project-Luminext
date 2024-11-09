@@ -54,7 +54,8 @@ enum LOADING_STATUS {
 enum PARSE {PROFILES, PLAYLISTS, PRESETS, ADDONS, MODS, REPLAYS}
 
 const VERSION : String = "0.1.1" # Current game version
-const BUILD : String = "28.09.2024" # Latest build date
+const BUILD : String = "09.11.2024" # Latest build date
+const GODOT_VER : String = "4.3.rc1 (custom)" # Latest build date
 
 const SKINS_PATH : String = "skins/" # Path to the skins folder
 const PLAYLISTS_PATH : String = "playlists/" # Path to the saved playlists folder

@@ -34,15 +34,15 @@ var wiped : Dictionary = {} # [Vector2i : Block]
 func _ready() -> void:
 	super()
 
-	reset.connect(_wipe_reset)
 	falled_down.connect(_on_fall)
 	squared.connect(_start_wipe)
 
 
 func _on_fall() -> void:
-	await physics_tick
 	# If we're just silly remastered clone, do work immidiately
-	if Data.profile.config["gameplay"]["instant_special"] : _start_wipe()
+	if Data.profile.config["gameplay"]["instant_special"] and not is_working: 
+		await physics_tick
+		_start_wipe()
 
 
 func _physics() -> void:
@@ -51,17 +51,17 @@ func _physics() -> void:
 	if is_working:
 		if wipe_timer > 0.0 : wipe_timer -= TICK
 		else : 
-			wipe_timer = WIPE_DELAY
+			wipe_timer = WIPE_DELAY * (120.0 / Data.game.skin.bpm)
 			_wipe()
 
 
 func _start_wipe() -> void:
-	wipe_fx = Data.game._add_fx("wipe", grid_position, color)
-	
-	wipe_timer = WIPE_DELAY
-	is_working = true
-
-	_wipe()
+	if not is_working:
+		wipe_timer = WIPE_DELAY * (120.0 / Data.game.skin.bpm)
+		is_working = true
+		
+		wipe_fx = Data.game._add_fx("wipe", grid_position, color)
+		_wipe()
 
 
 # Marks all blocks to delete in range
@@ -70,36 +70,46 @@ func _wipe() -> void:
 		for y : int in range(grid_position.y - 3, grid_position.y + 4):
 			if Data.game.blocks.has(Vector2i(x,y)):
 				var block : Block = Data.game.blocks[Vector2i(x,y)]
-
+				
 				if block.color != color : continue
 				if wiped.has(block.grid_position) : continue
 				
-				block._add_mark(OVERLAY_MARK.ERASE)
-				block.reset.connect(wiped.erase.bind(block.grid_position))
+				block._make_deletable(true)
+				if not block.reset.is_connected(_remove_block.bind(block.grid_position)):
+					block.reset.connect(_remove_block.bind(block.grid_position))
 				wiped[block.grid_position] = block
 
 
+func _remove_block(at_position : Vector2i) -> void:
+	wiped.erase(at_position)
+
+
 # Resets wipe block, and "unwipe" all wiped blocks
-func _wipe_reset() -> void:
-	is_working = false
+func _reset(remove_squares : bool) -> void:
+	if is_working:
+		is_working = false
+
+		if wipe_fx != null:
+			wipe_fx.queue_free()
+			wipe_fx = null
+
+		for block : Variant in wiped.values():
+			if is_instance_valid(block) : block._reset(false)
+
+		wiped.clear()
 	
-	wipe_fx.queue_free()
-	wipe_fx = null
-	
-	for block : Variant in wiped.values:
-		if is_instance_valid(block) : block._reset(false)
-	
-	wiped.clear()
+	super(remove_squares)
 
 
 # Remove all wiped blocks with special animation
 func _wipe_blast() -> void:
-	is_working = false
-	
-	wipe_fx._explode()
-	
-	for block : Variant in wiped.values:
-		if is_instance_valid(block) : block._free()
+	if is_working:
+		is_working = false
+		
+		wipe_fx._explode()
+		
+		for block : Variant in wiped.values():
+			if is_instance_valid(block) : block._free()
 
 
 func _free() -> void:

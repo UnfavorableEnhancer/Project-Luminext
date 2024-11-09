@@ -24,6 +24,7 @@ func _ready() -> void:
 	Data.menu.screens["foreground"].visible = false
 	$Info/VER.text = "VER " + Data.VERSION
 	$Info/BUILD.text = "BUILD " + Data.BUILD
+	$Info/BUILD.text = "PROJECT LUMINEXT IS POWERED BY\n GODOT ENGINE " + Data.GODOT_VER
 	
 	Data.input_method_changed.connect(_label)
 	_label()

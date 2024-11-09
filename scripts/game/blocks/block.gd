@@ -95,7 +95,8 @@ func _fall() -> void:
 
 	if is_instance_valid(bottom_block) or grid_position.y == 9:
 		blocks[grid_position] = self
-		await get_tree().create_timer(0.01, true, true).timeout
+		await physics_tick
+		falled_down.emit()
 		Data.game._square_check(Rect2i(grid_position.x - 2, grid_position.x + 2, grid_position.y - 2, grid_position.y + 2))
 		return
 	
@@ -111,7 +112,7 @@ func _physics() -> void:
 	physics_tick.emit()
 	if not is_falling and fall_left <= 0: return
 	
-	var speed : float = FALL_SPEED * (1.0 / gravity_multiplier)
+	var speed : float = FALL_SPEED * gravity_multiplier
 	
 	if fall_left > speed:
 		fall_left -= speed
@@ -161,7 +162,7 @@ func _reset(remove_squares : bool) -> void:
 # Makes this block deletable by timeline
 func _make_deletable(mark : bool = false) -> void:
 	Data.game.delete[grid_position] = self
-	if mark : _add_mark(OVERLAY_MARK.ERASE)
+	if mark : _add_mark(OVERLAY_MARK.DELETE)
 
 
 # Called when block is squared

@@ -1,5 +1,5 @@
 {
-	"block_gravity": 1.5,
+	"block_gravity": 1.25,
 	"chain": true,
 	"classic_scoring": false,
 	"combo_system": true,

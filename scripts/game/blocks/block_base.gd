@@ -55,14 +55,12 @@ var trail_quality : int = 80 # How much particles trail effect will use
 var is_trail_enabled : bool = false # If true, trail will be added on block spawn
 
 var is_refreshing : bool = false # Is block currently changing its visuals
-var is_animation_looping : bool = false # Should animation loop
+var is_standard_graphics : bool = false # True if block uses standard graphics
 
 var color : int = BLOCK_COLOR.RED # Current block color which is used in making squares
 var special : StringName # Block special ability name
 
 var special_sprite : AnimatedSprite2D = null
-
-var is_standard : bool = false # True if block uses standard graphics
 
 # Block coordinates transposed to the game field coordinates
 var grid_position : Vector2i = Vector2i(0,0)
@@ -71,19 +69,23 @@ var grid_position : Vector2i = Vector2i(0,0)
 func _init() -> void:
 	Data.profile.settings_changed.connect(_sync_settings)
 
-	if Data.profile.config["video"]["force_standard_blocks"] : sprite_frames = Data.blank_skin.textures["block"]
-	else : sprite_frames = Data.game.skin.skin_data.textures["block"]
-
 
 func _sync_settings() -> void:
-	_refresh_render(true)
+	if Data.profile.config["video"]["force_standard_blocks"] : 
+		if not is_standard_graphics:
+			is_standard_graphics = true
+			_refresh_render(true)
+	else: 
+		if is_standard_graphics:
+			is_standard_graphics = false
+			_refresh_render(true)
 
 
 func _ready() -> void:
 	add_to_group("blocks")
-	
 	# Animation must stop on finish, so we would be able to run animation again at specific moment, which is defined by skin data
-	animation_finished.connect(_stop_anim)
+	
+	animation_finished.connect(func() -> void: if animation != &"die": stop())
 
 
 func _setup_trail() -> void:
@@ -106,33 +108,27 @@ func _setup_trail() -> void:
 # Updates block visuals to fit currently loaded skin data with fade-out-in animation
 func _refresh_render(quick_effect : bool = false) -> void:
 	if is_refreshing: return
-	
 	is_refreshing = true
 	
 	var skin_data : SkinData = Data.game.skin.skin_data
 	var tween_time : float = 60.0 / skin_data.metadata.bpm * 1.5
 	var tween : Tween = create_tween()
 	
-	if quick_effect:
-		# Fade-in from dark animation
-		tween.tween_property(self,"modulate",Color(1,1,1,0),0.25).from(Color(1,1,1,1))
-		tween.tween_property(self,"modulate",Color(1,1,1,1),0.25).from(Color(1,1,1,0))
+	if quick_effect : tween_time = 0.25
+	
+	# Fade-out-in animation
+	tween.tween_property(self,"modulate",Color(1,1,1,0),tween_time).from(Color(1,1,1,1))
+	tween.tween_property(self,"modulate",Color(1,1,1,1),tween_time)
 
-		await tween.step_finished
-	else:
-		# Fade-out-in animation
-		tween.tween_property(self,"modulate",Color(1,1,1,0),tween_time).from(Color(1,1,1,1))
-		tween.tween_property(self,"modulate",Color(1,1,1,1),tween_time)
-
-		await tween.step_finished
+	await tween.step_finished
 
 	if not Data.profile.config["video"]["force_standard_blocks"]: 
 		sprite_frames = skin_data.textures["block"]
-		if is_instance_valid(special_sprite): 
+		if special_sprite != null:
 			special_sprite.sprite_frames = skin_data.textures["special"]
 	else:
 		sprite_frames = Data.blank_skin.textures["block"]
-		if is_instance_valid(special_sprite):
+		if special_sprite != null:
 			special_sprite.sprite_frames = Data.blank_skin.textures["special"]
 	
 	if is_trail_enabled:
@@ -145,6 +141,13 @@ func _refresh_render(quick_effect : bool = false) -> void:
 func _render() -> void:
 	if color == BLOCK_COLOR.NULL : return
 	
+	if Data.profile.config["video"]["force_standard_blocks"] : 
+		is_standard_graphics = true
+		sprite_frames = Data.blank_skin.textures["block"]
+	else : 
+		is_standard_graphics = false
+		sprite_frames = Data.game.skin.skin_data.textures["block"]
+	
 	match color:
 		BLOCK_COLOR.RED : animation = &"red"
 		BLOCK_COLOR.WHITE : animation = &"white"
@@ -153,7 +156,7 @@ func _render() -> void:
 		BLOCK_COLOR.MULTI : animation = &"multi"
 		BLOCK_COLOR.GARBAGE : animation = &"garbage"
 		BLOCK_COLOR.DARK : animation = &"garbage"
-
+	
 	color_changed.emit()
 	_setup_trail()
 	
@@ -170,14 +173,19 @@ func _render() -> void:
 		if special_sprite == null:
 			special_sprite = AnimatedSprite2D.new()
 			special_sprite.name = "Special"
-			special_sprite.frames = Data.game.skin.skin_data.textures["special"]
+			
+			if is_standard_graphics: 
+				special_sprite.sprite_frames = Data.blank_skin.textures["special"]
+			else: 
+				special_sprite.sprite_frames = Data.game.skin.skin_data.textures["special"]
+			
 			special_sprite.animation = special
 			
 			# Animation must stop on finish, so we would be able to run animation again at specific moment, which is defined by skin data
 			special_sprite.animation_finished.connect(special_sprite.stop)
 			add_child(special_sprite)
 	else:
-		if is_instance_valid(special_sprite):
+		if special_sprite != null:
 			special_sprite.queue_free()
 
 
@@ -205,20 +213,19 @@ static func _look(side : int, from_position : Vector2i) -> Vector2i:
 
 
 # Called by call_group function and is used to simultaneously play specified color animation
-func _play(anim_color : int = BLOCK_COLOR.RED) -> void:
+func _play(anim_color : int = color) -> void:
 	if animation == &"die" : return
 	
-	if anim_color == BLOCK_COLOR.SPECIAL and special_sprite:
+	if anim_color == BLOCK_COLOR.SPECIAL and special_sprite != null:
+		set_frame_and_progress(0,0)
 		play()
-		$Special.play()
-	
+		special_sprite.set_frame_and_progress(0,0)
+		special_sprite.play()
 	else:
-		if anim_color == color: play()
+		if anim_color == color: 
+			set_frame_and_progress(0,0)
+			play()
 		# Some special blocks are tied to white color animation timings
-		elif anim_color == BLOCK_COLOR.WHITE and color > 3: play()
-
-
-# Stops block animation back to first frame, so we can later play it again at specific moment
-func _stop_anim() -> void:
-	if animation != &"die": stop()
-	if is_animation_looping: play()
+		elif anim_color == BLOCK_COLOR.WHITE and color > 3: 
+			set_frame_and_progress(0,0)
+			play()

@@ -356,7 +356,6 @@ func _add_skin(skin_data : SkinData) -> void:
 	if not is_manual_timeline : skin.sample_ended.connect(_start_timeline)
 	
 	add_child(new_skin)
-	new_skin._initiate()
 
 
 #================================================================================================
@@ -679,6 +678,9 @@ func _add_sound(sound_name : StringName, sound_pos : Vector2, _play_once : bool 
 					if even_array.is_empty() : return null
 					
 					sample = even_array.pick_random()
+				else:
+					sample = sounds_dict["blast"][0]
+
 			&"blast3" : 
 				if sounds_dict["blast"].size() > 2:
 					var uneven_array : Array = sounds_dict["blast"].slice(2,999,2,true)
@@ -686,11 +688,13 @@ func _add_sound(sound_name : StringName, sound_pos : Vector2, _play_once : bool 
 					if uneven_array.is_empty() : return null
 					
 					sample = uneven_array.pick_random()
-			
+				else:
+					sample = sounds_dict["blast"][0]
+
 			&"square", &"timeline", &"special", &"blast", &"bonus":
 				var sounds_array : Array = sounds_dict[sound_name].duplicate(true)
 				# Remove last null entry in multi-sounds array
-				sounds_array.pop_back()
+				if sounds_array.back() == null: sounds_array.pop_back()
 				if sounds_array.is_empty() : return null
 				
 				sample = sounds_array.pick_random()

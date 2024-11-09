@@ -22,6 +22,7 @@ var pos : int = 1
 var score : int = 1
 var datetime : int = 1
 var author : String = "MISSING_NO"
+var author_id : String = "????"
 
 var time_attack_screen : MenuScreen = null
 
@@ -33,6 +34,7 @@ func _ready() -> void:
 	
 	$H/Num.text = str(pos)
 	$H/Name.text = author
+	$H/ID.text = "#" + str(hash(author_id))
 	var datetime_str : String = Time.get_datetime_string_from_unix_time(datetime).replace("-",".")
 	$Date.text = datetime_str.split("T")[1] + "  " + datetime_str.split("T")[0]
 	$Result.text = str(score)

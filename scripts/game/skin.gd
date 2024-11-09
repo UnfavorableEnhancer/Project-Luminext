@@ -32,7 +32,6 @@ signal beat # Emitted when music beat reached
 signal half_beat # Emitted when music half beat reached
 signal sample_ended # Emitted when current music sample has finished (sample = 2 bars)
 
-signal initiated # Emitted when skin is initiated and is ready to be played
 signal song_finished # Emitted when song has finished
 
 # Music syncing consts
@@ -45,7 +44,7 @@ var skin_data : SkinData = null
 var color_animation : Dictionary = {} # Stores times when to animate specific colored blocks and squares
 
 var bpm : float = 120.0 # Current beats per minute, mainly used in music synchronization system
-var force_beater : bool = false # If true, music sync would be emulated by speical timer called "beater"
+var force_beater : bool = false # If true, music sync would be emulated by special timer called "beater"
 
 var current_beat : int = 0
 var current_half_beat : int = 0
@@ -62,22 +61,24 @@ var scene_player : AnimationPlayer = null # Loaded scenery animation player
 var music_sample_start_position : float = 0 # Used for looping, last music sample playback position
 var scene_sample_start_position : float = 0 # Used for looping, last scenery part playback position
 
-var is_initiated : bool = false
 var is_paused : bool = false
 var is_music_playing : bool = false
 var is_music_looping : bool = false # If this is true, current music sample will loop
 
 
-func _initiate() -> void:
+func _ready() -> void:
+	set_physics_process(false)
+
+	video_player = $Back/Video
+	video_player.volume_db = -99
 	Data.profile.settings_changed.connect(_sync_settings)
 	_sync_settings()
-	
-	video_player = $Back/Video
 
 	$Back/Background.texture = skin_data.textures["back"]
-	
 	_load_godot_scene()
 	_load_video()
+
+	_setup_block_animation_timers()
 	
 	half_beat.connect(_animate_colors)
 	sample_ended.connect(_sync)
@@ -85,9 +86,6 @@ func _initiate() -> void:
 	if skin_data.metadata.settings["looping"] : 
 		sample_ended.connect(_loop_music)
 		is_music_looping = true
-
-	initiated.emit()
-	is_initiated = true
 
 
 func _sync_settings() -> void:
@@ -144,6 +142,13 @@ func _load_godot_scene() -> void:
 
 # Resets skin back to beginning
 func _reset() -> void:
+	current_half_beat = 0
+	current_beat = 0
+	music_sample_start_position = 0
+	scene_sample_start_position = 0
+	is_music_playing = false
+	set_physics_process(false)
+
 	if music_player != null: 
 		music_player.stop()
 		music_player.queue_free()
@@ -153,19 +158,22 @@ func _reset() -> void:
 		beater.free()
 		beater = null
 	
-	is_music_playing = false
-	set_physics_process(false)
-	
 	if Data.profile.config["video"]["disable_scenery"] and scene_player != null:
 		scene_player.get_parent().queue_free()
 		scene_player = null
 	elif scene_player == null:
 		_load_godot_scene()
 	
+	if scene_player != null:
+		scene_player.seek(0, true)
+		scene_player.stop()
+	
 	if Data.profile.config["video"]["disable_video"] and video_player.stream != null:
 		video_player.stream = null
 	elif video_player.stream == null:
 		_load_video()
+	
+	video_player.stop()
 	
 	if Data.profile.config["gameplay"]["force_bpm"] > 0 : 
 		bpm = Data.profile.config["gameplay"]["force_bpm"]
@@ -173,107 +181,23 @@ func _reset() -> void:
 	else : 
 		bpm = skin_data.metadata.bpm
 		force_beater = false
-
-	if scene_player != null:
-		scene_player.seek(0, true)
-		scene_player.stop()
-
-	music_sample_start_position = 0
-	scene_sample_start_position = 0
 	
-	if skin_data.metadata.settings["looping"] : is_music_looping = true
+	_pause(false)
 
 
 # Starts skin from beginning
 func _start() -> void:
-	if not is_initiated: _initiate()
 	_reset()
-	is_paused = false
-	
-	_setup_block_animation_timers()
-	_play_video()
-	if scene_player != null: scene_player.play()
+
 	_start_music()
-
-
-# Set pause state
-func _pause(on : bool) -> void:
-	if on:
-		is_paused = true
-		
-		if scene_player != null: scene_player.pause()
-		if beater != null : beater.paused = true
-		video_player.paused = true
-
-		if music_player != null:
-			current_music_position = music_player.get_playback_position()
-			music_player.stop()
-			is_music_playing = false
-	else:
-		is_paused = false
-		
-		if scene_player != null: 
-			scene_player.play()
-			#scene_player.seek(scene_player.current_animation_position, true)
-		
-		if beater != null : beater.paused = false
-		video_player.paused = false
-
-		if music_player != null : 
-			music_player.play(current_music_position)
-			is_music_playing = true
-
-
-# Start scenery bonus animation
-func _bonus(number : int) -> void:
-	if scene_player == null : return
-	if not has_node("Back/Scene/A2") : return
-	
-	var anim_name : String = "bonus"
-	var anim_player : AnimationPlayer = $Back/Scene/A2
-	
-	if skin_data.metadata.settings["random_bonus"]:
-		var anim_amount : int = anim_player.get_animation_list().size()
-		anim_name = "bonus" + str(round(randf_range(0,anim_amount - 1)))
-		if anim_name[5] == '0': anim_name = "bonus"
-	else:
-		if number == 1: anim_name = "bonus2"
-		if number == 2: anim_name = "bonus3"
-		if number > 2: anim_name = "bonus4"
-	
-	if anim_player.has_animation(anim_name):
-		anim_player.play(anim_name)
-	elif anim_player.has_animation("bonus"):
-		anim_player.play("bonus")
+	if video_player.stream != null: video_player.play()
+	if scene_player != null: scene_player.play()
 
 
 # Starts music from beginning
 func _start_music() -> void:
 	if is_paused: return
-	
-	current_half_beat = 0
-	current_beat = 0
-	music_sample_start_position = 0
-	scene_sample_start_position = 0
-	is_music_playing = false
-	set_physics_process(false)
-
-	if music_player != null:
-		music_player.stop()
-		music_player.queue_free()
-		song_finished.emit()
-		music_player = null
-
 	if Data.game != null and Data.game.is_game_over : return
-	
-	# If skin has no music, emulate music syncing by creating special timer called "Beater"
-	if force_beater and beater == null: 
-		beater = Timer.new()
-		beater.name = "Beater"
-		beater.wait_time = 30.0 / bpm
-		beater.timeout.connect(_emulate_beat)
-		add_child(beater)
-		beater.start()
 	
 	if (skin_data.stream["music"] != null):
 		music_player = AudioStreamPlayer.new()
@@ -283,8 +207,22 @@ func _start_music() -> void:
 		
 		add_child(music_player)
 		music_player.play()
-		music_player.finished.connect(_start_music)
+		music_player.finished.connect(song_finished.emit)
+		music_player.finished.connect(_start)
 		is_music_playing = true
+	else:
+		force_beater = true
+
+	# If skin has no music, emulate music syncing by creating special timer called "Beater"
+	if force_beater and beater == null: 
+		beater = Timer.new()
+		beater.name = "Beater"
+		beater.wait_time = 30.0 / bpm
+		beater.one_shot = false
+		beater.process_callback = Timer.TIMER_PROCESS_PHYSICS
+		beater.timeout.connect(_emulate_beat)
+		add_child(beater)
+		beater.start()
 	
 	if beater == null:
 		set_physics_process(true)
@@ -361,10 +299,52 @@ func _loop_music() -> void:
 			#$Back/Scene/A.seek(scene_sample_start_position)
 
 
-# Plays video from beginning
-func _play_video() -> void:
-	video_player.paused = false
-	video_player.play()
+# Set pause state
+func _pause(on : bool) -> void:
+	is_paused = on
+
+	if on:
+		if scene_player != null: scene_player.pause()
+		if beater != null : beater.paused = true
+		video_player.paused = true
+
+		if music_player != null:
+			current_music_position = music_player.get_playback_position()
+			music_player.stop()
+			is_music_playing = false
+	else:
+		if scene_player != null: scene_player.play()
+			#scene_player.seek(scene_player.current_animation_position, true)
+		
+		if beater != null : beater.paused = false
+		video_player.paused = false
+
+		if music_player != null : 
+			music_player.play(current_music_position)
+			is_music_playing = true
+
+
+# Start scenery bonus animation
+func _bonus(number : int) -> void:
+	if scene_player == null : return
+	if not has_node("Back/Scene/A2") : return
+	
+	var anim_name : String = "bonus"
+	var anim_player : AnimationPlayer = $Back/Scene/A2
+	
+	if skin_data.metadata.settings["random_bonus"]:
+		var anim_amount : int = anim_player.get_animation_list().size()
+		anim_name = "bonus" + str(round(randf_range(0,anim_amount - 1)))
+		if anim_name[5] == '0': anim_name = "bonus"
+	else:
+		if number == 1: anim_name = "bonus2"
+		if number == 2: anim_name = "bonus3"
+		if number > 2: anim_name = "bonus4"
+	
+	if anim_player.has_animation(anim_name):
+		anim_player.play(anim_name)
+	elif anim_player.has_animation("bonus"):
+		anim_player.play("bonus")
 
 
 # Quickly shakes background to some position
@@ -404,12 +384,14 @@ func _end(end_anim_time : float) -> void:
 
 # Setups half-beat values for each color array, defining on which half-beats current color blocks and squares animations should play
 func _setup_block_animation_timers() -> void:
-	if not Data.profile.config["video"]["block_animations"] : return
+	color_animation.clear()
 	
-	# Start constant looping animation
+	# If "looping" animation is set for this skin
 	if skin_data.textures["red_anim"][1] == 0:
-		get_tree().call_group("blocks","set","is_animation_looping",true)
-		get_tree().call_group("blocks","play")
+		color_animation[BlockBase.BLOCK_COLOR.RED] = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+		color_animation[BlockBase.BLOCK_COLOR.WHITE] = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+		color_animation[BlockBase.BLOCK_COLOR.GREEN] = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+		color_animation[BlockBase.BLOCK_COLOR.PURPLE] = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 		return
 	
 	var color_anim_entries : Array[String] = ["red_anim","white_anim","green_anim","purple_anim"]
@@ -439,6 +421,7 @@ func _setup_block_animation_timers() -> void:
 # Called on each half-beat, and turns on colored blocks and squares animation
 func _animate_colors() -> void:
 	if not Data.profile.config["video"]["block_animations"] : return
+	if color_animation.is_empty() : return
 
 	for color : int in color_animation:
 		if color_animation[color][current_half_beat] == 1:
@@ -446,4 +429,4 @@ func _animate_colors() -> void:
 			get_tree().call_group("squares","_play",color)
 		
 		if current_half_beat == 8:
-			get_tree().call_group("blocks","_play","special")
+			get_tree().call_group("blocks","_play",BlockBase.BLOCK_COLOR.SPECIAL)

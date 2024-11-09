@@ -38,8 +38,8 @@ enum BLOCK_ANIM_PATTERN {
 	EACH_2BEATS,
 	EACH_BAR,
 	EACH_HALF_BEAT,
-	COLOR_ORDER,
-	CONSTANT_LOOPING
+	COLOR_ORDER = 5,
+	CONSTANT_LOOPING = 6
 	} 
 
 # All supported UI designs
@@ -262,12 +262,25 @@ func _update_sprite_sheet(new_texture : Variant, animation_name : String) -> voi
 		
 		if not animation_name.ends_with("chain"):
 			if animation_name.begins_with("r"): textures[sprite_sheet_name].set_animation_speed(animation_name,textures["red_anim"][2])
-			elif animation_name.begins_with("wh"): textures[sprite_sheet_name].set_animation_speed(animation_name,textures["white_anim"][2])
-			elif animation_name.begins_with("gr"): textures[sprite_sheet_name].set_animation_speed(animation_name,textures["green_anim"][2])
+			elif animation_name.begins_with("w"): textures[sprite_sheet_name].set_animation_speed(animation_name,textures["white_anim"][2])
+			elif animation_name.begins_with("g") and animation_name != "garbage": textures[sprite_sheet_name].set_animation_speed(animation_name,textures["green_anim"][2])
 			elif animation_name.begins_with("p"): textures[sprite_sheet_name].set_animation_speed(animation_name,textures["purple_anim"][2])
 	
 	else:
 		textures[sprite_sheet_name].add_frame(animation_name,new_texture)
+
+
+func _set_sprite_sheet_fps(color : String, fps : int) -> void:
+	for sprite_sheet_name  : String in ["block","square"]:
+		for animation_name : String in textures[sprite_sheet_name].get_animation_names():
+			textures[sprite_sheet_name].set_animation_speed(animation_name,fps)
+		
+			if not animation_name.ends_with("chain"):
+				match color:
+					"red_anim" : if animation_name.begins_with("r"): textures[sprite_sheet_name].set_animation_speed(animation_name, fps)
+					"white_anim" : if animation_name.begins_with("w"): textures[sprite_sheet_name].set_animation_speed(animation_name, fps)
+					"green_anim" : if animation_name.begins_with("g") and animation_name != "garbage": textures[sprite_sheet_name].set_animation_speed(animation_name, fps)
+					"purple_anim" : if animation_name.begins_with("p"): textures[sprite_sheet_name].set_animation_speed(animation_name, fps)
 
 
 # Saves skin into specified path as '.skn' file

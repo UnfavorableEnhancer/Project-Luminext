@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://dwerdfbjp04f6"]
+[gd_scene load_steps=49 format=3 uid="uid://dwerdfbjp04f6"]
 
 [ext_resource type="Script" path="res://menu/scripts/screens/main_menu.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://b4r6tm3v5swvf" path="res://menu/images/new_grid.png" id="2_cadar"]
@@ -739,10 +739,6 @@ region = Rect2(0, 512, 256, 256)
 atlas = ExtResource("9_a02og")
 region = Rect2(768, 512, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8sg4i"]
-atlas = ExtResource("9_a02og")
-region = Rect2(512, 512, 256, 256)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_uytjy"]
 atlas = ExtResource("9_a02og")
 region = Rect2(1536, 512, 256, 256)
@@ -917,10 +913,10 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 32.0
-offset_top = -36.0
-offset_right = 104.0
-offset_bottom = 36.0
+offset_left = 16.0
+offset_top = -52.0
+offset_right = 120.0
+offset_bottom = 52.0
 grow_vertical = 2
 scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(0, 104)
@@ -1250,19 +1246,6 @@ menu_position = Vector2i(2, 3)
 work_mode = 2
 press_sound_name = "announce_statistics"
 call_string = "statistics"
-
-[node name="RANKING" parent="TabBar/PROFILE/Buttons" instance=ExtResource("6")]
-layout_mode = 2
-text = "SCORE RANKING"
-icon = SubResource("AtlasTexture_8sg4i")
-expand_icon = true
-description = "SCORE_RANKING_DESC"
-button_layout = 7
-button_color = Color(0.828125, 0.300842, 0.449141, 1)
-menu_position = Vector2i(2, 3)
-work_mode = 2
-press_sound_name = "announce_score_ranking"
-call_string = "score_ranking"
 
 [node name="REPLAY" parent="TabBar/PROFILE/Buttons" instance=ExtResource("6")]
 layout_mode = 2

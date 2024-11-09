@@ -80,7 +80,15 @@ func _load_texture() -> void:
 		for i : int in animation_frames_count:
 			new_frames.add_frame("default",texture.get_frame_texture(texture_name,i))
 		
-		new_frames.set_animation_speed("default", animation_frames_count * 6)
+		if not texture_name.ends_with("chain"):
+			if texture_name.begins_with("r"): new_frames.set_animation_speed("default", editor.skin_data.textures["red_anim"][2])
+			elif texture_name.begins_with("w"): new_frames.set_animation_speed("default", editor.skin_data.textures["white_anim"][2])
+			elif texture_name.begins_with("g") and texture_name != "garbage": new_frames.set_animation_speed("default", editor.skin_data.textures["green_anim"][2])
+			elif texture_name.begins_with("p"): new_frames.set_animation_speed("default", editor.skin_data.textures["purple_anim"][2])
+			else: new_frames.set_animation_speed("default", animation_frames_count * 6)
+		else:	
+			new_frames.set_animation_speed("default", animation_frames_count * 6)
+		
 		new_frames.set_animation_loop("default", false)
 		
 		if animation:
@@ -98,6 +106,17 @@ func _load_texture() -> void:
 		texture_normal = texture
 		if standard_texture == null : standard_texture = texture
 		if animation: animation.sprite_frames = null
+
+
+func _set_animation_fps(color : String, fps : int) -> void:
+	if not animation : return
+
+	if not texture_name.ends_with("chain"):
+		match color:
+			"red_anim" : if texture_name.begins_with("r"): animation.sprite_frames.set_animation_speed("default", fps)
+			"white_anim" : if texture_name.begins_with("w"): animation.sprite_frames.set_animation_speed("default", fps)
+			"green_anim" : if texture_name.begins_with("g") and texture_name != "garbage": animation.sprite_frames.set_animation_speed("default", fps)
+			"purple_anim" : if texture_name.begins_with("p"): animation.sprite_frames.set_animation_speed("default", fps)
 
 
 # Reset texture to standard one

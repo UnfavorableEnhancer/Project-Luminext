@@ -33,8 +33,9 @@ var adjacent_squares : Dictionary = {} # All adjacent squares "coordinates" : sq
 var grid_position : Vector2i = Vector2i(0,0)
 
 var is_removing : bool = false 
-var is_looping : bool = false
 var is_refreshing : bool = false
+
+var is_standard_graphics : bool = false # True if block uses standard graphics
 
 func _ready() -> void:
 	add_to_group("squares")
@@ -71,19 +72,31 @@ func _ready() -> void:
 	else: anim = "min"
 	
 	_render()
+	
+	$S1.animation_finished.connect($S1.stop)
+	
 	_start()
 
 
 func _sync_settings() -> void:
-	_refresh_render(true)
+	if Data.profile.config["video"]["force_standard_blocks"] : 
+		if not is_standard_graphics:
+			is_standard_graphics = true
+			_refresh_render(true)
+	else: 
+		if is_standard_graphics:
+			is_standard_graphics = false
+			_refresh_render(true)
 
 
 # Renders square visuals
 func _render() -> void:
 	if Data.profile.config["video"]["force_standard_blocks"] :
 		$S1.sprite_frames = Data.blank_skin.textures["square"]
+		is_standard_graphics = true
 	else:
 		$S1.sprite_frames = Data.game.skin.skin_data.textures["square"]
+		is_standard_graphics = false
 	
 	var animation : String
 
@@ -102,11 +115,11 @@ func _render() -> void:
 
 # Plays square animation
 func _play(color : int) -> void:
-	match parameter:
-		"rsquare" : if color == BlockBase.BLOCK_COLOR.RED : $S1.play()
-		"wsquare" : if color == BlockBase.BLOCK_COLOR.WHITE : $S1.play()
-		"gsquare" : if color == BlockBase.BLOCK_COLOR.GREEN : $S1.play()
-		"psquare" : if color == BlockBase.BLOCK_COLOR.PURPLE : $S1.play()
+	if is_removing : return
+
+	if parameter == color : 
+		$S1.set_frame_and_progress(0,0)
+		$S1.play()
 
 
 # Updates square visuals to fit currently loaded skin data with fade-out-in animation
@@ -118,18 +131,13 @@ func _refresh_render(quick_effect : bool = false) -> void:
 	var tween_time : float = 60.0 / Data.game.skin.bpm
 	var tween : Tween = create_tween()
 	
-	if quick_effect:
-		# Fade-out animation
-		tween.tween_property(self,"modulate",Color(1,1,1,0),0.25).from(Color(1,1,1,1))
-		tween.tween_property(self,"modulate",Color(1,1,1,1),0.25)
+	if quick_effect : tween_time = 0.25
+	
+	# Fade-out animation
+	tween.tween_property(self,"modulate",Color(1,1,1,0),tween_time).from(Color(1,1,1,1))
+	tween.tween_property(self,"modulate",Color(1,1,1,1),tween_time)
 
-		await tween.step_finished
-	else:
-		# Fade-out animation
-		tween.tween_property(self,"modulate",Color(1,1,1,0),tween_time).from(Color(1,1,1,1))
-		tween.tween_property(self,"modulate",Color(1,1,1,1),tween_time)
-
-		await tween.step_finished
+	await tween.step_finished
 
 	if Data.profile.config["video"]["force_standard_blocks"] :
 		$S1.sprite_frames = Data.blank_skin.textures["square"]
@@ -151,7 +159,7 @@ func _remove() -> void:
 				var square : Variant = adjacent_squares[square_pos]
 				if is_instance_valid(square):
 					square.adjacent_squares.erase(grid_position)
-
+		
 		Data.game.squares.erase(grid_position)
 		queue_free()
 
@@ -168,12 +176,6 @@ func _check_adjacent() -> void:
 		if is_instance_valid(square):
 			adjacent_squares[coord] = squares[coord]
 			square.adjacent_squares[grid_position] = self
-
-
-# Called when square animation is finished, and it resets animation
-func _on_S1_animation_finished() -> void:
-	$S1.stop()
-	if is_looping: $S1.play()
 
 
 # Called when square appear animation ends

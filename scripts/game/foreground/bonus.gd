@@ -70,25 +70,25 @@ func _bonus(combo : int, deleted_squares_count : int, result_score : int) -> voi
 		$Classic/ANIM.stop()
 		$Classic/ANIM.play("start")
 	else: 
-		if combo % 4 == 1 : 
+		if combo == 1 : 
 			$BigArrow/number/two.visible = false
 			$BigArrow/number/three.visible = false
 			$BigArrow/number/four.visible = false
 			$BigArrow/arrow.texture = arrow_1_tex
 			$BigArrow/arrow2.texture = arrow_1_tex
-		if combo % 4 == 2 : 
+		elif combo == 2 : 
 			$BigArrow/number/two.visible = true
 			$BigArrow/number/three.visible = false
 			$BigArrow/number/four.visible = false
 			$BigArrow/arrow.texture = arrow_2_tex
 			$BigArrow/arrow2.texture = arrow_2_tex
-		if combo % 4 == 3 : 
+		elif combo == 3 : 
 			$BigArrow/number/two.visible = false
 			$BigArrow/number/three.visible = true
 			$BigArrow/number/four.visible = false
 			$BigArrow/arrow.texture = arrow_3_tex
 			$BigArrow/arrow2.texture = arrow_3_tex
-		if combo > 0 and combo % 4 == 0 : 
+		elif combo > 3: 
 			$BigArrow/number/two.visible = false
 			$BigArrow/number/three.visible = false
 			$BigArrow/number/four.visible = true

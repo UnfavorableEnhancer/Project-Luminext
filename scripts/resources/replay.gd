@@ -24,7 +24,7 @@ signal replay_saved
 signal replay_loaded
 
 const SCREENSHOT_TIME : float = 10.0
-const TICK : float = 1.0 / 60.0
+const TICK : float = 1.0 / 120.0
 const ALLOWED_SKINS : Array[String] = ["grandmother clock", "The Years Will Pass", "Jades", "Panya Malathai", "Protocol"]
 const MAX_RECORD_TIME : float = 14400 # 4 Hours
 
