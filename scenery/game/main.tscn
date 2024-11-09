@@ -7,7 +7,7 @@
 
 [node name="Main" type="Node"]
 script = ExtResource("1")
-menu_starting_screen_name = "playlist_mode"
+menu_starting_screen_name = "main_menu"
 
 [node name="Menu" parent="." instance=ExtResource("2")]
 layout_mode = 3

@@ -22,6 +22,9 @@ const RANKING_BAR : PackedScene = preload("res://menu/objects/ranking_bar.tscn")
 
 var selected_time : int = 60
 var selected_ruleset : int = TimeAttackMode.TIME_ATTACK_RULESET.STANDARD
+var selected_ranking : String = "local"
+var ranking_time_left : int = 0
+
 var random_mixes : bool = true
 
 
@@ -36,7 +39,7 @@ func _ready() -> void:
 		if Data.menu.custom_data.has("last_music_pos"):
 			Data.menu.music_player.seek(Data.menu.custom_data["last_music_pos"])
 	
-	#_show_selected_stats()
+	Data.total_timer_tick.connect(_count_reset)
 	
 	await menu.all_screens_added
 	cursor = Vector2i(0,0)
@@ -58,9 +61,7 @@ func _select_time(time : String) -> void:
 		"-42": # Custom sec special variable
 			var input : MenuScreen = Data.menu._add_screen("text_input")
 			input.desc_text = "Enter your own time limit (from 1 to 9999 secs)"
-			input.object_to_call = self
-			input.call_function_name = "_set_custom_time"
-			input._start()
+			input.accept_function = _set_custom_time
 			return
 		_:
 			_set_custom_time(time)
@@ -69,7 +70,14 @@ func _select_time(time : String) -> void:
 	create_tween().tween_property($Setup/Time/Select/Glow,"modulate:a",0.0,0.2).from(1.0)
 
 	Data.profile.config["misc"]["TA_time_limit"] = selected_time
-	_show_selected_stats()
+	_show_stats()
+	_display_ranking(selected_ranking)
+
+
+func _count_reset() -> void:
+	if ranking_time_left > 0:
+		ranking_time_left -= 1
+		$Ranking/Timer.text = "RESET IN:\n" + Data._to_time(ranking_time_left)
 
 
 func _exit_tree() -> void:
@@ -89,20 +97,16 @@ func _set_custom_time(time : String) -> void:
 	elif selected_time > 1999 : $Setup/Time/CUSTOM/Time.label_settings.font_size = 36
 	else: $Setup/Time/CUSTOM/Time.label_settings.font_size = 56
 	
-	_show_selected_stats()
+	_show_stats()
+	_display_ranking(selected_ranking)
 
 
-func _show_selected_stats() -> void:
-	for i : Node in $Ranking/S/V.get_children():
-		i.queue_free()
-	
+func _show_stats() -> void:
 	if not selected_time in [60,120,180,300,600]:
 		$Playerdata/Hiscore.text = "???"
 		$Playerdata/Average.text = "???"
-		$Ranking/Deny.visible = true
 		return
-	
-	$Ranking/Deny.visible = false
+
 	var entry_string : String
 	match selected_ruleset:
 		TimeAttackMode.TIME_ATTACK_RULESET.STANDARD: entry_string = str(selected_time) + "sec_standard" 
@@ -116,32 +120,146 @@ func _show_selected_stats() -> void:
 	else:
 		$Playerdata/Hiscore.text = "---"
 
-	var local_ranking : Array = Data.global_settings[entry_string + "_ranking"]
-	local_ranking.sort_custom(func(a : Array, b : Array) -> bool: return a[1] > b[1])
-
-	# Calculate current user average and display leaderboard
-	var count : int = 0
 	var average_count : int = 0
 	var total : int = 0
-	for i : Array in local_ranking:
-		count += 1
+	for i : Array in Data.global_settings[entry_string + "_ranking"]:
 		if i[0] == Data.profile.name:
 			average_count += 1
 			total += i[1]
-
-		var rank : MenuSelectableButton = RANKING_BAR.instantiate()
-		rank.pos = count
-		rank.author = i[0]
-		rank.score = i[1]
-		rank.datetime = i[2]
-		rank.menu_position = Vector2i(-1,-1)
-		$Ranking/S/V.add_child(rank)
 	
 	if average_count > 0:
 		$Playerdata/Average.text = str(roundi(float(total) / average_count))
 	else:
 		$Playerdata/Average.text = "---"
+
+
+func _display_ranking(type : String) -> void:
+	selected_ranking = type
+
+	for i : Node in $Ranking/S/V.get_children():
+		i.queue_free()
 	
+	if not selected_time in [60,120,180,300,600]:
+		$Ranking/Deny.visible = true
+		return
+	$Ranking/Deny.visible = false
+	$Ranking/Timer.visible = false
+
+	var entry_string : String
+	match selected_ruleset:
+		TimeAttackMode.TIME_ATTACK_RULESET.STANDARD: entry_string = str(selected_time) + "std" 
+		TimeAttackMode.TIME_ATTACK_RULESET.CLASSIC: entry_string = str(selected_time) + "cls" 
+		TimeAttackMode.TIME_ATTACK_RULESET.ARCADE: entry_string = str(selected_time) + "arc" 
+		TimeAttackMode.TIME_ATTACK_RULESET.COLOR_3: entry_string = str(selected_time) + "thr" 
+		TimeAttackMode.TIME_ATTACK_RULESET.HARDCORE: entry_string = str(selected_time) + "hrd" 
+	
+	match type:
+		"local" :
+			match selected_ruleset:
+				TimeAttackMode.TIME_ATTACK_RULESET.STANDARD: entry_string = str(selected_time) + "sec_standard" 
+				TimeAttackMode.TIME_ATTACK_RULESET.CLASSIC: entry_string = str(selected_time) + "sec_classic" 
+				TimeAttackMode.TIME_ATTACK_RULESET.ARCADE: entry_string = str(selected_time) + "sec_arcade" 
+				TimeAttackMode.TIME_ATTACK_RULESET.COLOR_3: entry_string = str(selected_time) + "sec_3color" 
+				TimeAttackMode.TIME_ATTACK_RULESET.HARDCORE: entry_string = str(selected_time) + "sec_hardcore" 
+
+			var local_ranking : Array = Data.global_settings[entry_string + "_ranking"]
+			local_ranking.sort_custom(func(a : Array, b : Array) -> bool: return a[1] > b[1])
+
+			# Calculate current user average and display leaderboard
+			var count : int = 0
+			for i : Array in local_ranking:
+				count += 1
+				var rank : MenuSelectableButton = RANKING_BAR.instantiate()
+				rank.pos = count
+				rank.author = i[0]
+				rank.score = i[1]
+				rank.datetime = i[2]
+				$Ranking/S/V.add_child(rank)
+				_assign_selectable(rank,Vector2i(3,count))
+			
+			$Ranking/Detail4.text = "LOCAL SCORE RANKING"
+			var tween : Tween = create_tween().set_parallel(true)
+			tween.tween_property($Ranking/Back, "color", Color("cab45c1a"), 0.1)
+			tween.tween_property($Ranking/Detail4, "visible_ratio", 1.0, 0.1).from(0.0)
+			
+		"total" :
+			$Ranking/Detail4.text = "ONLINE SCORE RANKING"
+			var tween : Tween = create_tween().set_parallel(true)
+			tween.tween_property($Ranking/Back, "color", Color("ca5fcd1a"), 0.1)
+			tween.tween_property($Ranking/Detail4, "visible_ratio", 1.0, 0.1).from(0.0)
+			return
+			
+			var success : bool = Data.ranking_manager._load_score("ta_total")
+			if not success : return
+			
+			var current_ranking : Dictionary = Data.ranking_manager.ranking["ta_total"][entry_string]
+
+			var count : int = 0
+			for player_name : String in current_ranking:
+				count += 1
+				var data : Array = current_ranking[player_name]
+				var rank : MenuSelectableButton = RANKING_BAR.instantiate()
+				rank.pos = count
+				rank.author = player_name.get_slice("_",0)
+				rank.score = data[0]
+				rank.datetime = data[1]
+				rank.call_function_name = "_start_replay"
+				rank.call_string = data[4]
+				$Ranking/S/V.add_child(rank)
+				_assign_selectable(rank,Vector2i(3,count))
+			
+		"monthly" :
+			$Ranking/Detail4.text = "MONTHLY SCORE RANKING"
+			var tween : Tween = create_tween().set_parallel(true)
+			tween.tween_property($Ranking/Back, "color", Color("dd54541a"), 0.1)
+			tween.tween_property($Ranking/Detail4, "visible_ratio", 1.0, 0.1).from(0.0)
+			
+			ranking_time_left = Data.ranking_manager._get_time_left("ta_monthly")
+			$Ranking/Timer.visible = true
+			return
+			
+			Data.ranking_manager._load_score("ta_monthly")
+			var current_ranking : Dictionary = Data.ranking_manager.ranking["ta_monthly"][entry_string]
+
+			var count : int = 0
+			for player_name : String in current_ranking:
+				count += 1
+				var data : Array = current_ranking[player_name]
+				var rank : MenuSelectableButton = RANKING_BAR.instantiate()
+				rank.pos = count
+				rank.author = player_name.get_slice("_",0)
+				rank.score = data[0]
+				rank.datetime = data[1]
+				rank.replay_bytes = data[4]
+				$Ranking/S/V.add_child(rank)
+				_assign_selectable(rank,Vector2i(3,count))
+			
+		"weekly" :
+			$Ranking/Detail4.text = "WEEKLY SCORE RANKING"
+			var tween : Tween = create_tween().set_parallel(true)
+			tween.tween_property($Ranking/Back, "color", Color("5cca991a"), 0.1)
+			tween.tween_property($Ranking/Detail4, "visible_ratio", 1.0, 0.1).from(0.0)
+			
+			ranking_time_left = Data.ranking_manager._get_time_left("ta_weekly")
+			$Ranking/Timer.visible = true
+			return
+			
+			Data.ranking_manager._load_score("ta_weekly")
+			var current_ranking : Dictionary = Data.ranking_manager.ranking["ta_weekly"][entry_string]
+
+			var count : int = 0
+			for player_name : String in current_ranking:
+				count += 1
+				var data : Array = current_ranking[player_name]
+				var rank : MenuSelectableButton = RANKING_BAR.instantiate()
+				rank.pos = count
+				rank.author = player_name.get_slice("_",0)
+				rank.score = data[0]
+				rank.datetime = data[1]
+				rank.replay_bytes = data[4]
+				$Ranking/S/V.add_child(rank)
+				_assign_selectable(rank,Vector2i(3,count))
+
 
 func _select_ruleset(value : float) -> void:
 	selected_ruleset = int(value)
@@ -170,7 +288,8 @@ func _select_ruleset(value : float) -> void:
 			$Desc/Desc.text = "Hard rules featuring garbage and chaos blocks. Also only laser special block is avaiable."
 	
 	Data.profile.config["misc"]["TA_ruleset"] = selected_ruleset
-	_show_selected_stats()
+	_show_stats()
+	_display_ranking(selected_ranking)
 
 
 func _start_game() -> void:
@@ -210,3 +329,23 @@ func _start_game() -> void:
 	gamemode.random_mixes = Data.profile.config["misc"]["TA_random_mixes"]
 	
 	Data.main._start_game(ta_skin_metadata, gamemode)
+
+
+func _start_replay(replay_data : String) -> void:
+	var dialog : MenuScreen = menu._add_screen("accept_dialog")
+	dialog.desc_text = "Do you want to play this player record replay?"
+	var accepted : bool = await dialog.closed
+
+	if not accepted : return
+	
+	var temp_file : FileAccess = FileAccess.open(Data.CACHE_PATH + "temp.rpl", FileAccess.WRITE)
+	if FileAccess.get_open_error() != OK:
+		print("ERROR! Opening online replay failed...")
+		return
+
+	var buffer : PackedByteArray = replay_data.to_utf8_buffer()
+	temp_file.store_buffer(buffer)
+
+	var replay : Replay = Replay.new()
+	replay._load(Data.CACHE_PATH + "temp.rpl")
+	Data.main._start_replay(replay)

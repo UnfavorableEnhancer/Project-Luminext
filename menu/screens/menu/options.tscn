@@ -1243,7 +1243,6 @@ offset_bottom = 1115.0
 color = Color(0.623529, 0.623529, 0.623529, 1)
 
 [node name="Background" type="Control" parent="."]
-modulate = Color(1, 1, 1, 0)
 z_index = -2
 anchors_preset = 0
 offset_right = 40.0
@@ -1274,18 +1273,15 @@ libraries = {
 autoplay = "base"
 
 [node name="Optionsback" type="ColorRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 512.0
 offset_top = 72.0
 offset_right = 1920.0
 offset_bottom = 792.0
-scale = Vector2(1, 1e-05)
 pivot_offset = Vector2(0, 360)
 color = Color(0, 0, 0, 0.5)
 
 [node name="AUDIO" type="Control" parent="."]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1659,8 +1655,6 @@ offset_bottom = 695.0
 text = "AUDIO SETTINGS"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
-visible_characters = 0
-visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="AUDIO/Detail5"]
 texture_filter = 2
@@ -1676,7 +1670,6 @@ flip_v = true
 
 [node name="VIDEO" type="Control" parent="."]
 visible = false
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2368,8 +2361,6 @@ offset_bottom = 687.0
 text = "VIDEO SETTINGS"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
-visible_characters = 0
-visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="VIDEO/Detail5"]
 texture_filter = 2
@@ -2385,7 +2376,6 @@ flip_v = true
 
 [node name="CONTROLS" type="Control" parent="."]
 visible = false
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2786,8 +2776,6 @@ offset_bottom = 695.0
 text = "CONTROL ASSIGN"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
-visible_characters = 0
-visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="CONTROLS/Detail5"]
 texture_filter = 2
@@ -2803,7 +2791,6 @@ flip_v = true
 
 [node name="LANGUAGE" type="Control" parent="."]
 visible = false
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2927,8 +2914,6 @@ offset_bottom = 755.0
 text = "LANGUAGE SELECT"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
-visible_characters = 0
-visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="LANGUAGE/Detail5"]
 texture_filter = 2
@@ -2941,7 +2926,6 @@ texture = SubResource("AtlasTexture_1fbr7")
 expand_mode = 1
 
 [node name="Desc" type="ColorRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.092
@@ -2952,7 +2936,6 @@ offset_left = -176.64
 offset_top = 744.28
 offset_right = 1743.36
 offset_bottom = 952.28
-scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(0, 160)
 mouse_filter = 2
 color = Color(0, 0, 0, 0.501961)
@@ -2981,8 +2964,6 @@ offset_bottom = 199.0
 text = "DESCRIPTION"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
-visible_characters = 0
-visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="Desc/Detail3"]
 texture_filter = 2
@@ -2997,7 +2978,6 @@ flip_h = true
 flip_v = true
 
 [node name="Menu" type="ColorRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.059
@@ -3005,7 +2985,6 @@ anchor_bottom = 0.059
 offset_top = 8.28
 offset_right = 496.0
 offset_bottom = 728.28
-scale = Vector2(1, 1e-05)
 mouse_filter = 2
 color = Color(0, 0, 0, 0.501961)
 
@@ -3015,7 +2994,6 @@ offset_left = 16.0
 offset_top = 100.0
 offset_right = 480.0
 offset_bottom = 156.0
-scale = Vector2(1, 1e-05)
 text = "AUDIO"
 description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.180392, 0.529412, 0.807843, 1)
@@ -3047,7 +3025,6 @@ offset_left = 16.0
 offset_top = 168.0
 offset_right = 480.0
 offset_bottom = 224.0
-scale = Vector2(1, 1e-05)
 text = "VIDEO"
 description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.164706, 0.698039, 0.34902, 1)
@@ -3079,7 +3056,6 @@ offset_left = 16.0
 offset_top = 236.0
 offset_right = 480.0
 offset_bottom = 292.0
-scale = Vector2(1, 1e-05)
 text = "CONTROLS"
 description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.741176, 0.721569, 0.172549, 1)
@@ -3112,7 +3088,6 @@ offset_left = 16.0
 offset_top = 304.0
 offset_right = 480.0
 offset_bottom = 360.0
-scale = Vector2(1, 1e-05)
 text = "LANGUAGE"
 description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.670588, 0.403922, 0.792157, 1)
@@ -3144,7 +3119,6 @@ offset_left = 16.0
 offset_top = 380.0
 offset_right = 480.0
 offset_bottom = 384.0
-scale = Vector2(1e-05, 1)
 
 [node name="Line2" type="ColorRect" parent="Menu"]
 layout_mode = 0
@@ -3152,7 +3126,6 @@ offset_left = 16.0
 offset_top = 80.0
 offset_right = 480.0
 offset_bottom = 84.0
-scale = Vector2(1e-05, 1)
 
 [node name="APPLY" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
 layout_mode = 0
@@ -3160,7 +3133,6 @@ offset_left = 16.0
 offset_top = 404.0
 offset_right = 480.0
 offset_bottom = 460.0
-scale = Vector2(1, 1e-05)
 text = "APPLY"
 description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.133333, 0.690196, 0.521569, 1)
@@ -3191,7 +3163,6 @@ offset_left = 16.0
 offset_top = 472.0
 offset_right = 480.0
 offset_bottom = 528.0
-scale = Vector2(1, 1e-05)
 text = "RESET CHANGES"
 description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.756863, 0.541176, 0.2, 1)
@@ -3222,7 +3193,6 @@ offset_left = 16.0
 offset_top = 540.0
 offset_right = 480.0
 offset_bottom = 596.0
-scale = Vector2(1, 1e-05)
 text = "RESET TO STANDARD
 "
 description_node = NodePath("../../Desc/Text")
@@ -3256,7 +3226,6 @@ offset_left = 16.0
 offset_top = 608.0
 offset_right = 480.0
 offset_bottom = 664.0
-scale = Vector2(1, 1e-05)
 text = "CANCEL"
 description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.564706, 0.564706, 0.564706, 1)
@@ -3293,8 +3262,6 @@ offset_bottom = 711.0
 text = "OPTIONS SELECT"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
-visible_characters = 0
-visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="Menu/Detail4"]
 texture_filter = 2
@@ -3324,7 +3291,6 @@ offset_left = 132.32
 offset_top = -2.36
 offset_right = 1916.32
 offset_bottom = 69.64
-scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(1784, 0)
 mouse_filter = 2
 color = Color(0, 1, 0.788, 0.75)
@@ -3346,12 +3312,10 @@ anchor_bottom = 0.059
 offset_top = -2.36
 offset_right = 136.0
 offset_bottom = 133.64
-scale = Vector2(1e-05, 1e-05)
 mouse_filter = 2
 color = Color(0, 0.207843, 0.164706, 1)
 
 [node name="Icon" type="TextureRect" parent="Top/Iconhold"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -3361,7 +3325,6 @@ offset_top = -52.0
 offset_right = 120.0
 offset_bottom = 52.0
 grow_vertical = 2
-scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(0, 120)
 mouse_filter = 2
 texture = SubResource("65")

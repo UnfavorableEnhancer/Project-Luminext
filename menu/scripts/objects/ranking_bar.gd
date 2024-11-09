@@ -23,6 +23,8 @@ var score : int = 1
 var datetime : int = 1
 var author : String = "MISSING_NO"
 
+var time_attack_screen : MenuScreen = null
+
 func _ready() -> void:
 	super()
 	
@@ -45,8 +47,8 @@ func _selected() -> void:
 	if is_instance_valid(foreground_screen):
 		foreground_screen._show_button_layout(0)
 	
-	create_tween().tween_property($Glow,"modulate",Color("2fffb640"),0.2).from(Color("00000000"))
+	create_tween().tween_property($Glow,"modulate",Color("2fffb640"),0.1).from(Color("00000000"))
 
 
 func _deselected() -> void:
-	create_tween().tween_property($Glow,"modulate",Color("00000000"),0.2)
+	create_tween().tween_property($Glow,"modulate",Color("00000000"),0.1)

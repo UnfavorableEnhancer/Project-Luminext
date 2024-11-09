@@ -81,7 +81,8 @@ func _remove(anim_name : String = "end") -> void:
 # Assigns selectable to given position coordinates (old selectable position will be removed)
 func _assign_selectable(selectable : Control, to_position : Vector2i) -> void:
 	if selectables.has(to_position):
-		selectables[to_position].menu_position = Vector2i(-1,-1)
+		if is_instance_valid(selectables[to_position]): 
+			selectables[to_position].menu_position = Vector2i(-1,-1)
 		selectables.erase(to_position)
 
 	if selectables.has(selectable.menu_position) and selectables[selectable.menu_position].name == selectable.name:

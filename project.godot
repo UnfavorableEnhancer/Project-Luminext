@@ -33,6 +33,7 @@ buses/channel_disable_time=0.05
 [autoload]
 
 Data="*res://scripts/data.gd"
+SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
 
 [compression]
 

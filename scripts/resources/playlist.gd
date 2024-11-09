@@ -35,15 +35,21 @@ var missing_skins : Array = []
 
 
 # Adds skin into playlist by its metadata hash
-func _add_to_playlist(skin_path : String, skin_hash : StringName) -> void:
+func _add_to_playlist(skin_path : String, skin_hash : StringName, emit: bool = true) -> void:
 	skins.append([skin_path,skin_hash])
-	playlist_changed.emit()
+	if emit : playlist_changed.emit()
 
 
 # Removes specified position inside playlist
-func _remove_from_playlist(pos : int) -> void:
+func _remove_from_playlist(pos : int, emit : bool = true) -> void:
 	skins.remove_at(pos)
-	playlist_changed.emit()
+	if emit : playlist_changed.emit()
+
+
+func _clear() -> void:
+	skins.clear()
+	missing_skins.clear()
+	name = ""
 
 
 # Swaps skins in playlist

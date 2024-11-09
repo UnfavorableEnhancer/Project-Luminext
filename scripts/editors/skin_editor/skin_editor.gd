@@ -46,7 +46,6 @@ var is_exiting : bool = false
 var is_in_playtest : bool = false
 
 var stat_timer : Timer = null # Timer used to count total time spent in skin editor
-var accepted : bool = true # Used for accept dialogs
 
 
 #================================================================================================
@@ -79,14 +78,13 @@ func _ready() -> void:
 # Start current skin saving
 func _save_skin(skip_dialog : bool = false) -> void:
 	if not skip_dialog:
-		accepted = true
 		Data.menu._sound("confirm3")
 		var dialog : MenuScreen = menu._add_screen("accept_dialog")
 		dialog.desc_text = "Are you sure you want to save this skin?"
-		dialog.canceled.connect(func() -> void: accepted = false)
-		await dialog.closed
 		
+		var accepted : bool = await dialog.closed
 		if not accepted : return
+
 	await get_tree().create_timer(0.25).timeout
 	
 	var thread : Thread = Thread.new()
@@ -264,12 +262,11 @@ func _import_skin(data : SkinData = null) -> void:
 func _reset() -> void:
 	Data.menu._sound("confirm2")
 	
-	accepted = true
 	var dialog : MenuScreen = menu._add_screen("accept_dialog")
 	if has_unsaved_changes : dialog.desc_text = "This skin has unsaved changes. Are you sure you want to reset everything?"
 	else : dialog.desc_text = "Are you sure you want to reset everything?"
-	dialog.canceled.connect(func() -> void: accepted = false)
-	await dialog.closed
+
+	var accepted : bool = await dialog.closed
 	if not accepted : return
 	
 	var new_skin : SkinData = SkinData.new()
@@ -295,14 +292,14 @@ func _exit() -> void:
 		
 		Data.menu._sound("cancel")
 		
-		accepted = true
 		if has_unsaved_changes:
 			var dialog : MenuScreen = menu._add_screen("accept_dialog")
 			dialog.desc_text = "This skin has unsaved changes. Are you sure you want to exit?"
-			dialog.canceled.connect(func() -> void: accepted = false)
-			await dialog.closed
-		if accepted:
-			Data.menu._change_screen("main_menu")
+			
+			var accepted : bool = await dialog.closed
+			if not accepted : return
+		
+		Data.menu._change_screen("main_menu")
 
 
 # Starts skin playtest
@@ -310,14 +307,14 @@ func _start_playtest_skn() -> void:
 	if is_in_playtest: return
 	
 	if has_unsaved_changes:
-		accepted = true
 		var dialog : MenuScreen = menu._add_screen("accept_dialog")
 		dialog.desc_text = "This skin has unsaved changes and you must save it now in order to continue. Proceed?"
-		dialog.canceled.connect(func() -> void: accepted = false)
-		dialog.accepted.connect(func() -> void: has_unsaved_changes = false; _save_skin(true))
-		await dialog.closed
 		
-		if accepted: await skin_saved
+		var accepted : bool = await dialog.closed
+		if accepted: 
+			has_unsaved_changes = false
+			_save_skin(true)
+			await skin_saved
 		else: return
 	
 	skin_data._cache_godot_scene()

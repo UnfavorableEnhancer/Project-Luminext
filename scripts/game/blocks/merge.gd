@@ -29,26 +29,25 @@ func _ready() -> void:
 	super()
 	
 	falled_down.connect(_on_fall)
-	squared.connect(_squared)
+	squared.connect(_merge)
 
 
 func _on_fall() -> void:
-	await get_tree().create_timer(0.01).timeout
+	await physics_tick
 	# If we're just silly remastered clone, do work immidiately
-	if Data.profile.config["gameplay"]["instant_special"] : _squared()
+	if Data.profile.config["gameplay"]["instant_special"] : _merge()
 
 
 # Called when merge block is squared
-func _squared() -> void:
+func _merge() -> void:
 	if not merged:
 		merged = true
 		# When squared, turn everyone same color
 		for x : int in range(grid_position.x - 2,grid_position.x + 3):
 			for y : int in range(grid_position.y - 2, grid_position.y + 3):
-				if Data.game.blocks.has(Vector2i(x,y)):
-					var block : Block = Data.game.blocks[Vector2i(x,y)]
-					if block.is_dying : continue
-					if block.is_scanned : continue
+				if Data.game.all_blocks.has(Vector2i(x,y)):
+					var block : Block = Data.game.all_blocks[Vector2i(x,y)]
+					if block.is_dying or block.is_scanned : continue
 
 					if block.color != color:
 						block.color = color
@@ -57,7 +56,7 @@ func _squared() -> void:
 		Data.game._add_fx("merge", grid_position, color)
 		
 		# Remove special gem from self
-		$Special.queue_free()
+		special_sprite.queue_free()
 		
-		await get_tree().create_timer(0.01).timeout
-		Data.game._square_check(-1)
+		await physics_tick
+		Data.game._square_check(Rect2i(grid_position.x - 3, grid_position.x + 3, grid_position.y - 4, grid_position.y + 4))

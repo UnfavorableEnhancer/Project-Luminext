@@ -62,6 +62,8 @@ var special : StringName # Block special ability name
 
 var special_sprite : AnimatedSprite2D = null
 
+var is_standard : bool = false # True if block uses standard graphics
+
 # Block coordinates transposed to the game field coordinates
 var grid_position : Vector2i = Vector2i(0,0)
 

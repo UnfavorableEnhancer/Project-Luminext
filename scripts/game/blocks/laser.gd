@@ -23,12 +23,12 @@ extends Block
 class_name Laser
 
 const LASER_DELAY : float = 0.2
+var laser_timer : float = 0.0
 
 var laser_fx : FX = null
-var laser_timer : Timer = null
-var working : bool = false
+var is_working : bool = false
 
-var lasered : Array[Block] = []
+var lasered : Dictionary = {} #[Vector2i : Block]
 
 
 func _ready() -> void:
@@ -36,50 +36,36 @@ func _ready() -> void:
 
 	reset.connect(_laser_reset)
 	falled_down.connect(_on_fall)
-	squared.connect(_on_fall)
+	squared.connect(_start_laser)
+
+
+func _physics() -> void:
+	super()
+
+	if is_working:
+		if laser_timer > 0.0 : laser_timer -= TICK
+		else : _laser()
 
 
 func _on_fall() -> void:
-	await get_tree().create_timer(0.01).timeout
+	await physics_tick
 	# If we're just silly remastered clone, do work immidiately
-	if Data.profile.config["gameplay"]["instant_special"] : _squared()
-
-
-# Resets laser block, and "unlaser" all lasered blocks
-func _laser_reset() -> void:
-	if working:
-		working = false
-		
-		laser_fx.queue_free()
-		laser_fx = null
-		
-		laser_timer.queue_free()
-		laser_timer = null
-		
-		for block : Block in lasered:
-			if is_instance_valid(block) : block._reset(false)
-		lasered.clear()
+	if Data.profile.config["gameplay"]["instant_special"] : _start_laser()
 
 
 # Called when laser block is squared
-func _squared() -> void:
-	if not working: 
-		working = true
-		
-		# Add and store laser special effect, so we could remove it later
-		laser_fx = Data.game._add_fx("laser", grid_position, color)
-		
-		laser_timer = Timer.new()
-		laser_timer.timeout.connect(_work)
-		add_child(laser_timer)
-		laser_timer.start(LASER_DELAY)
-		
-		# Mark self to delete
-		_add_mark(OVERLAY_MARK.DELETE)
+func _start_laser() -> void:
+	# Add and store laser special effect, so we could use it later
+	laser_fx = Data.game._add_fx("laser", grid_position, color)
+	
+	laser_timer = LASER_DELAY
+	is_working = true
+
+	_laser()
 
 
 # "Laser" all blocks in directions (angles)
-func _work(angles : Array[float] = [0.0,45.0,90.0,135.0,180.0,225.0,270.0,315.0]) -> void:
+func _laser(angles : Array[float] = [0.0,45.0,90.0,135.0,180.0,225.0,270.0,315.0]) -> void:
 	# When squared, mark to delete anything on horizontal, vertical and diagonal sight
 	for angle : float in angles:
 		for distance : int in 17:
@@ -87,24 +73,34 @@ func _work(angles : Array[float] = [0.0,45.0,90.0,135.0,180.0,225.0,270.0,315.0]
 			
 			if Data.game.blocks.has(search_vec):
 				var block : Block = Data.game.blocks[search_vec]
+
+				if block.is_dying : continue
+				if lasered.has(block.grid_position) : continue
 				
-				if not block.is_falling and not block in lasered:  
-					block._add_mark(OVERLAY_MARK.DELETE)
-					block._make_deletable()
-					lasered.append(block)
+				block._add_mark(OVERLAY_MARK.DELETE)
+				block.reset.connect(lasered.erase.bind(block.grid_position))
+				lasered[block.grid_position] = block
+
+
+# Resets laser block, and "unlaser" all lasered blocks
+func _laser_reset() -> void:
+	is_working = false
+	
+	laser_fx.queue_free()
+	laser_fx = null
+	
+	for block : Variant in lasered.values:
+		if is_instance_valid(block) : block._reset(false)
+	lasered.clear()
 
 
 # Remove all lasered blocks with special animation
 func _laser_blast() -> void:
-	if working:
-		working = false
-		laser_fx._explode()
-		
-		laser_timer.queue_free()
-		laser_timer = null
-		
-		for block : Block in lasered:
-			if is_instance_valid(block) : block._free()
+	is_working = false
+	laser_fx._explode()
+	
+	for block : Variant in lasered:
+		if is_instance_valid(block) : block._free()
 
 
 func _free() -> void:

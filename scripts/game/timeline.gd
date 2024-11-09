@@ -36,8 +36,8 @@ var x_pos : int = 0 # Current timeline X position in game field coords
 
 var total_deleted_squares_count : int = 0
 var current_square_group_size : int = 0
+
 var last_scanned_square_pos : Vector2i
-var first_scan_pos : Vector2i = Vector2i(-1,-1)
 
 var scanned_blocks : Array = [] # All blocks currently scanned by timeline
 var scanned_squares : Array = [] # All squares currently scanned by timeline
@@ -81,17 +81,12 @@ func _check_next_line() -> void:
 				block._add_mark(Block.OVERLAY_MARK.ERASE)
 				block.is_scanned = true
 				has_erased_something = true
-			
-			#delete.erase(pos)
 		
 		if squares.has(pos): 
-			var square : FX = squares[pos]
-			if first_scan_pos.x == -1 : first_scan_pos = pos
-			
+			var square : Square = squares[pos]
 			if is_instance_valid(square): 
 				current_square_group_size += 1
-				scanned_squares.append(square)
-				
+				scanned_squares.append(pos)
 				last_scanned_square_pos = Vector2i(x_pos,y)
 				Data.game._add_fx(&'erase', Vector2(x_pos,y), square.parameter)
 	
@@ -111,57 +106,44 @@ func _delete_scanned() -> void:
 	var has_found_special : bool = false
 	var is_square_deleted : bool = false
 	
-	var scanned_squares_count : int = scanned_squares.size()
-	var scanned_blocks_count : int = scanned_blocks.size()
-	
-	var real_delete : Dictionary = Data.game.delete
-	var current_delete : Dictionary = Data.game.delete.duplicate(true)
+	var actual_deleted_squares_count : int = 0
 
-	if scanned_squares_count > 0 : 
-		# Recheck square group since it might got new squares (not really working rn)
-		#var squares : Dictionary = Data.game.squares
-		#scanned_squares.clear()
-		#current_square_group_size = 0
-		#for x : int in range(first_scan_pos.x, 16):
-			#for y : int in 9:
-				#var pos : Vector2i = Vector2i(x,y)
-				#if squares.has(pos): 
-					#var square : FX = squares[pos]
-					#if is_instance_valid(square): 
-						#current_square_group_size += 1
-						#scanned_squares.append(square)
-						#last_scanned_square_pos = pos
-		#scanned_squares_count = scanned_squares.size()
-		#first_scan_pos = Vector2i(-1,-1)
-		
-		current_square_group_size = scanned_squares_count
-		total_deleted_squares_count += scanned_squares_count
-		$Number.text = str(total_deleted_squares_count)
-		current_square_group_size = 0
-		
-		for square : Variant in scanned_squares:
-			if is_instance_valid(square):
+	var real_delete : Dictionary = Data.game.delete
+	var before_delete : Dictionary = Data.game.delete.duplicate(true)
+
+	if scanned_squares.size() > 0 : 
+		is_square_deleted = true
+		var deleted_square_groups : Array = Data.game._get_all_sqaure_groups(scanned_squares)
+
+		for square_group : Array in deleted_square_groups:
+			while not square_group.is_empty():
+				var square : Square = square_group.pop_back()
+				if not is_instance_valid(square) : continue
+				
+				var check_block : Block = before_delete[square.grid_position]
+				if not check_block.is_scanned : continue
+				
 				Data.game._add_fx("blast", square.grid_position, square.parameter)
 				square._remove()
-
-		scanned_squares.clear()
+				actual_deleted_squares_count += 1
 		
-		is_square_deleted = true
-	
-	if scanned_blocks_count > 0 : 
-		for block : Block in scanned_blocks:
-			if is_instance_valid(block) : 
-				if not current_delete.has(block.grid_position):
-					continue
-				
-				real_delete.erase(block.grid_position)
-				block._free()
-				if not block.special.is_empty() and block.special != &"joker" : has_found_special = true
+		total_deleted_squares_count += actual_deleted_squares_count
+		$Number.text = str(total_deleted_squares_count)
+		scanned_squares.clear()
+		current_square_group_size = 0
+		
+	squares_deleted.emit(actual_deleted_squares_count)
 
-		scanned_blocks.clear()
+	if scanned_blocks.size() > 0 : 
+		for block : Block in scanned_blocks:
+			if not is_instance_valid(block) or not before_delete.has(block.grid_position): continue
+			
+			real_delete.erase(block.grid_position)
+			block._free()
+			if not block.special.is_empty() and block.special != &"joker" : has_found_special = true
 	
-	blocks_deleted.emit(scanned_blocks_count)
-	squares_deleted.emit(scanned_squares_count)
+	blocks_deleted.emit(scanned_blocks.size())
+	scanned_blocks.clear()
 	
 	if is_instance_valid(timeline_sound):
 		timeline_sound.stop()
@@ -174,11 +156,11 @@ func _delete_scanned() -> void:
 			Data.game._add_sound(&"special",Vector2(x_pos*48+300,480))
 		else: 
 			if Data.profile.config["audio"]["sequential_sounds"]:
-				if scanned_squares_count == 1:
+				if actual_deleted_squares_count == 1:
 					Data.game._add_sound(&"blast1",Vector2(x_pos*48+300,480))
-				elif scanned_squares_count % 2 == 0:
+				elif actual_deleted_squares_count % 2 == 0:
 					Data.game._add_sound(&"blast2",Vector2(x_pos*48+300,480))
-				elif scanned_squares_count % 2 == 1:
+				elif actual_deleted_squares_count % 2 == 1:
 					Data.game._add_sound(&"blast3",Vector2(x_pos*48+300,480))
 			else:
 				Data.game._add_sound(&"blast",Vector2(x_pos*48+300,480))

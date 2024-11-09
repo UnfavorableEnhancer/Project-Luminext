@@ -18,36 +18,42 @@
 
 extends MenuScreen
 
-var desc_text : String = ""
-var object_to_call : Variant
-var call_function_name : String = ""
-var cancel_function_name : String = ""
+signal closed(result : bool)
+signal closed_text(text : String)
+
+var desc_text : String = "" :
+	set(text) : $ColorRect/Label.text = text
+
+var accept_function : Callable
+var cancel_function : Callable
 
 
 func _ready() -> void:
 	menu.screens["foreground"]._raise()
 
-
-func _start() -> void:
-	$ColorRect/Label.text = desc_text
-	await create_tween().tween_interval(0.5).finished
-	
+	await menu.all_screens_added
 	$ColorRect/Name.grab_focus()
+
 	await $ColorRect/Name.text_submitted
-	
 	var input : String = $ColorRect/Name.text
-	
+
 	if input.is_empty():
 		Data.menu._sound("cancel")
-		if not cancel_function_name.is_empty():
-			object_to_call.call(cancel_function_name, $ColorRect/Name.text)
+		if cancel_function : cancel_function.call(input)
+		closed.emit(false)
+		closed_text.emit("")
 	else:
 		Data.menu._sound("confirm3")
-		object_to_call.call(call_function_name, $ColorRect/Name.text)
+		if accept_function : accept_function.call(input)
+		closed.emit(true)
+		closed_text.emit(input)
 	
 	_remove()
 
 
 func _input(event : InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
+		cancel_function.call("")
+		closed.emit(false)
+		closed_text.emit("")
 		_remove()

@@ -24,4 +24,4 @@ amount = 64
 process_material = SubResource("ParticleProcessMaterial_t0ess")
 texture = ExtResource("1")
 lifetime = 0.2
-fixed_fps = 300
+fixed_fps = 240

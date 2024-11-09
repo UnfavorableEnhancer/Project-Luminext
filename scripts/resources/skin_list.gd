@@ -271,7 +271,7 @@ func _get_skin_metadata_by_hash(MD5_hash_string : StringName) -> SkinMetadata:
 
 func _get_skin_metadata_by_file_path(skin_file_path : String) -> SkinMetadata:
 	if not path_links.has(skin_file_path): return null
-	var skin_hash :StringName = path_links[skin_file_path]
+	var skin_hash : StringName = path_links[skin_file_path]
 	return _get_skin_metadata_by_hash(skin_hash)
 
 
@@ -366,6 +366,25 @@ func _process_addon_skin(addon_path : String, skin_metadata : SkinMetadata) -> v
 			#challenges_array.append(challenge)
 		#
 	#return challenges_array
+
+
+# Get random skins array from skin list, if amount = -1 it will return all avaiable skins in random order
+func _get_random_skin(amount : int) -> Array:
+	if amount == -1 or amount > skins_amount: amount = skins_amount
+	if amount == 0: return []
+
+	var skins_array : Array = []
+
+	var uncovered_skins_array : Array = []
+	for i : int in skins_amount:
+		uncovered_skins_array.append(path_links.keys()[i])
+
+	for i : int in amount:
+		var rand : int = randi_range(0, uncovered_skins_array.size() - 1)
+		skins_array.append(uncovered_skins_array[rand])
+		uncovered_skins_array.remove_at(rand)
+
+	return skins_array
 
 
 # Counts skin files and addon files amount. Used to determine if skin list needs an update.

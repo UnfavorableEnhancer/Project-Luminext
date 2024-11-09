@@ -28,6 +28,7 @@ class_name Square
 #-----------------------------------------------------------------------
 
 var squared_blocks : Array[Block] = [] # All blocks contained inside this square
+var adjacent_squares : Dictionary = {} # All adjacent squares "coordinates" : squares
 
 var grid_position : Vector2i = Vector2i(0,0)
 
@@ -144,8 +145,29 @@ func _remove() -> void:
 		is_removing = true
 		for block : Block in squared_blocks: 
 			if block.squared_by.size() == 1: block._reset(true)
+		
+		if adjacent_squares.size() > 0:
+			for square_pos : Vector2i in adjacent_squares.keys():
+				var square : Variant = adjacent_squares[square_pos]
+				if is_instance_valid(square):
+					square.adjacent_squares.erase(grid_position)
+
 		Data.game.squares.erase(grid_position)
 		queue_free()
+
+
+# Check adjacent squares for grouping
+func _check_adjacent() -> void:
+	var squares : Dictionary = Data.game.squares
+
+	adjacent_squares.clear()
+
+	for i : Vector2i in [Vector2i(-1,0),Vector2i(1,0),Vector2i(0,-1),Vector2i(0,1),Vector2i(1,1),Vector2i(-1,1),Vector2i(1,-1),Vector2i(-1,-1)]:
+		var coord : Vector2i = grid_position + i
+		var square : Variant = squares.get(coord, null)
+		if is_instance_valid(square):
+			adjacent_squares[coord] = squares[coord]
+			square.adjacent_squares[grid_position] = self
 
 
 # Called when square animation is finished, and it resets animation

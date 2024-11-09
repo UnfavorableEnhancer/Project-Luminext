@@ -17,7 +17,7 @@ Currently project in pretty early stage of development but already includes many
 - **Playlist mode** - put more than *10* skins into single playlist and save it!
 - **60/120/180/300/600 sec Time attack mode** - with 5 disciplines to beat records in and a lot of nerdy graphs and statistics of your results! 
 - **Synthesia mode** - put your own music and play it with funky visualizer!
-- **4 Brand new original skins included** - made with giant help of our community members!
+- **6 Brand new original skins included** - made with giant help of our community members!
 - **7 Special blocks and 4 color mode!** - *just for fun!*
 
 In future there's gonna be a lot more skins/gamemodes and features added, so any help with development process would be highly appreciated.
@@ -53,8 +53,11 @@ All source code contributors, would get an special discord role and get credited
 
 ## Building
 To run the project you only need to download standard [Godot Engine 4.3 (without C# support)](https://godotengine.org/download)
+For skin custom scenery making purposes I recommend to use my build of Godot Engine 4.3 editor, which fixes animation snapping bug. [You can download it here.](https://github.com/UnfavorableEnhancer/godot)
 
 Then you can just drag & drop cloned project folder to godot project manager and you're ready to go!
+
+*Note: Online leaderboards aren't avaiable in cloned project due to missing plugin and API key. Project uses SilentWolf plugin for online leaderboards and it currently has undefined license, so we can't include it here. Only official builds feature online leaderboards.*
 
 Currently those platfroms are supported:
 - Windows - To change exported game exe icon and metadata you'll need to use WindowsSDK rcedit.exe or Resource Hacker.
@@ -62,7 +65,6 @@ Currently those platfroms are supported:
 
 There are also some things which may require additional software to work with:
 - Krita 5.1.5+ - Used to access some graphical assets sources (with .kra extension)
-- Aseprite or LibreSprite - Used to access some graphical assets sources (with .ase extension, LibreSprite could throw some errors on file open, but it mostly loads completely fine).
 
 ## License
 Luminext is GNU AGPL V3.0 licensed project. You can read license in "COPYING.txt".

@@ -42,13 +42,12 @@ func _joke() -> void:
 		if Data.profile.config["gameplay"]["purple"] : colors.append(BLOCK_COLOR.PURPLE)
 		
 		color = colors.pick_random()
+
+		await physics_tick
+		Data.game._square_check(Rect2i(grid_position.x - 2, grid_position.x + 2, grid_position.y - 2, grid_position.y + 2))
 		
 		var tween : Tween = create_tween()
-		var tween_time : float = 60.0 / Data.game.skin.bpm / 2.0
-		tween.tween_property(self, "modulate:a", 0.0, tween_time / 2.0)
-		tween.tween_property(self, "modulate:a", 1.0, tween_time / 2.0)
-		await tween.step_finished
-		_render()
-
-		await get_tree().create_timer(0.01).timeout
-		Data.game._square_check(grid_position.x)
+		var tween_time : float = 60.0 / Data.game.skin.bpm / 4.0
+		tween.tween_property(self, "modulate:a", 0.0, tween_time)
+		tween.tween_callback(_render)
+		tween.tween_property(self, "modulate:a", 1.0, tween_time)

@@ -72,9 +72,9 @@ func _make_block_type_and_special(do_special : bool = false) -> Array:
 	
 	if Data.profile.config["gameplay"]["garbage"] and random > 0.85:
 		return [BlockBase.BLOCK_COLOR.GARBAGE,""]
-	if Data.profile.config["gameplay"]["multi"] and random > 0.85:
+	if Data.profile.config["gameplay"]["multi"] and random > 0.65:
 		return [BlockBase.BLOCK_COLOR.MULTI,""]
-	if Data.profile.config["gameplay"]["joker"] and random > 0.75:
+	if Data.profile.config["gameplay"]["joker"] and random > 0.50:
 		return [block_color,&"joker"]
 	
 	if do_special and special_chance < 40.0:

@@ -210,6 +210,10 @@ var progress : Dictionary = {
 		"600sec_hardcore" : 0,
 	},
 	
+	"misc":{
+		"key" : "0451",
+	},
+
 	"achievements":
 	{
 		"999999_score" : false,
@@ -275,6 +279,7 @@ func _create_profile(profile_name : String) -> int:
 	print("CREATING PROFILE WITH NAME ", profile_name)
 	name = profile_name
 	is_guest_profile = false
+	progress["misc"]["key"] = str(hash(profile_name) + randi())
 
 	var err : int = _save_progress()
 	if err != OK:
@@ -336,7 +341,9 @@ func _load_progress() -> int:
 			for key : String in progress[category].keys():
 				if loaded_progress[category].has(key):
 					progress[category][key] = loaded_progress[category][key]
-
+				elif category == "misc" and not loaded_progress.has("key"):
+					progress["misc"]["key"] = str(hash(name) + randi())
+					
 	file.close()
 	
 	progress_changed.emit()

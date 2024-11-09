@@ -26,6 +26,7 @@ extends Node
 #-----------------------------------------------------------------------
 
 signal input_method_changed # Called when input method changes from keyboard to gamepad, to mouse and etc.
+signal total_timer_tick # Called by total time timer on each timeout
 
 enum INPUT_MODE {KEYBOARD, MOUSE, GAMEPAD}
 enum PROFILE_LOAD_STATE {SUCCESS, MISSING, EMPTY}
@@ -73,6 +74,8 @@ const MENU_PATH : String = "res://menu" # Path to the menu files, where all menu
 var main : Node # Main node, which holds everything
 var game : Node2D # Currently playing game node
 var menu : Control # Currently loaded menu node
+
+var ranking_manager : Node = null
 
 var skin_list : SkinList = SkinList.new() # All skins list
 var playlist : SkinPlaylist = SkinPlaylist.new() # Skins playlist is stored here for ease access and to make it persistent
@@ -158,8 +161,14 @@ func _ready() -> void:
 
 	var total_time_timer : Timer = Timer.new()
 	total_time_timer.timeout.connect(func() -> void : profile.progress["stats"]["total_time"] += 1)
+	total_time_timer.timeout.connect(total_timer_tick.emit)
 	add_child(total_time_timer)
 	total_time_timer.start(1.0)
+
+	await get_tree().create_timer(0.1).timeout
+	ranking_manager = Node.new()
+	ranking_manager.set_script(load("res://scripts/ranking_manager.gd"))
+	add_child(ranking_manager)
 
 
 # Converts int (secs) to (hh:mm:ss) time format

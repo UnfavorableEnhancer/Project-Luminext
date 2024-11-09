@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://m0bs1xvtbnm2"]
+[gd_scene load_steps=53 format=3 uid="uid://m0bs1xvtbnm2"]
 
 [ext_resource type="Script" path="res://menu/scripts/screens/playlist_mode.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="3_lt37c"]
@@ -8,6 +8,81 @@
 [ext_resource type="FontFile" uid="uid://bncda7ixlpa7b" path="res://fonts/rounded_mgenplus.ttf" id="9"]
 [ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="10"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="11"]
+
+[sub_resource type="Animation" id="Animation_tyj1h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skins/ColorRect:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skins/ColorRect/H/RAND1:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skins/ColorRect/H/RAND5:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skins/ColorRect/H/RAND10:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skins/ColorRect/H/RANDALL:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Playlist/CLEAR:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_1ukwn"]
 resource_name = "end"
@@ -457,6 +532,78 @@ tracks/36/keys = {
 "update": 0,
 "values": [1.0, 0.0, 0.0]
 }
+tracks/37/type = "value"
+tracks/37/imported = false
+tracks/37/enabled = true
+tracks/37/path = NodePath("Skins/ColorRect:scale")
+tracks/37/interp = 1
+tracks/37/loop_wrap = true
+tracks/37/keys = {
+"times": PackedFloat32Array(0.3, 0.45, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/38/type = "value"
+tracks/38/imported = false
+tracks/38/enabled = true
+tracks/38/path = NodePath("Skins/ColorRect/H/RAND1:scale")
+tracks/38/interp = 1
+tracks/38/loop_wrap = true
+tracks/38/keys = {
+"times": PackedFloat32Array(0.1875, 0.3, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
+}
+tracks/39/type = "value"
+tracks/39/imported = false
+tracks/39/enabled = true
+tracks/39/path = NodePath("Skins/ColorRect/H/RAND5:scale")
+tracks/39/interp = 1
+tracks/39/loop_wrap = true
+tracks/39/keys = {
+"times": PackedFloat32Array(0.15, 0.2625, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
+}
+tracks/40/type = "value"
+tracks/40/imported = false
+tracks/40/enabled = true
+tracks/40/path = NodePath("Skins/ColorRect/H/RAND10:scale")
+tracks/40/interp = 1
+tracks/40/loop_wrap = true
+tracks/40/keys = {
+"times": PackedFloat32Array(0.1125, 0.225, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
+}
+tracks/41/type = "value"
+tracks/41/imported = false
+tracks/41/enabled = true
+tracks/41/path = NodePath("Skins/ColorRect/H/RANDALL:scale")
+tracks/41/interp = 1
+tracks/41/loop_wrap = true
+tracks/41/keys = {
+"times": PackedFloat32Array(0.0750001, 0.1875, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
+}
+tracks/42/type = "value"
+tracks/42/imported = false
+tracks/42/enabled = true
+tracks/42/path = NodePath("Playlist/CLEAR:scale")
+tracks/42/interp = 1
+tracks/42/loop_wrap = true
+tracks/42/keys = {
+"times": PackedFloat32Array(0, 0.1125, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
 
 [sub_resource type="Animation" id="17"]
 resource_name = "start"
@@ -800,31 +947,31 @@ tracks/27/keys = {
 tracks/28/type = "value"
 tracks/28/imported = false
 tracks/28/enabled = true
-tracks/28/path = NodePath("Data/FileName:percent_visible")
+tracks/28/path = NodePath("Menu/Desc:modulate")
 tracks/28/interp = 1
 tracks/28/loop_wrap = true
 tracks/28/keys = {
 "times": PackedFloat32Array(0, 0.7, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, 0.0, 1.0]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 tracks/29/type = "value"
 tracks/29/imported = false
 tracks/29/enabled = true
-tracks/29/path = NodePath("Menu/Desc:modulate")
+tracks/29/path = NodePath("Menu/Detail4:visible_ratio")
 tracks/29/interp = 1
 tracks/29/loop_wrap = true
 tracks/29/keys = {
-"times": PackedFloat32Array(0, 0.7, 1),
+"times": PackedFloat32Array(0, 0.85, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [0.0, 0.0, 1.0]
 }
 tracks/30/type = "value"
 tracks/30/imported = false
 tracks/30/enabled = true
-tracks/30/path = NodePath("Menu/Detail4:visible_ratio")
+tracks/30/path = NodePath("Playlist/Detail4:visible_ratio")
 tracks/30/interp = 1
 tracks/30/loop_wrap = true
 tracks/30/keys = {
@@ -836,7 +983,7 @@ tracks/30/keys = {
 tracks/31/type = "value"
 tracks/31/imported = false
 tracks/31/enabled = true
-tracks/31/path = NodePath("Playlist/Detail4:visible_ratio")
+tracks/31/path = NodePath("Skins/Detail4:visible_ratio")
 tracks/31/interp = 1
 tracks/31/loop_wrap = true
 tracks/31/keys = {
@@ -848,7 +995,7 @@ tracks/31/keys = {
 tracks/32/type = "value"
 tracks/32/imported = false
 tracks/32/enabled = true
-tracks/32/path = NodePath("Skins/Detail4:visible_ratio")
+tracks/32/path = NodePath("Data/Detail4:visible_ratio")
 tracks/32/interp = 1
 tracks/32/loop_wrap = true
 tracks/32/keys = {
@@ -860,54 +1007,115 @@ tracks/32/keys = {
 tracks/33/type = "value"
 tracks/33/imported = false
 tracks/33/enabled = true
-tracks/33/path = NodePath("Data/Detail4:visible_ratio")
+tracks/33/path = NodePath("Skins/Info:self_modulate")
 tracks/33/interp = 1
 tracks/33/loop_wrap = true
 tracks/33/keys = {
 "times": PackedFloat32Array(0, 0.85, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, 0.0, 1.0]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 tracks/34/type = "value"
 tracks/34/imported = false
 tracks/34/enabled = true
-tracks/34/path = NodePath("Skins/Info:self_modulate")
+tracks/34/path = NodePath("Background:modulate")
 tracks/34/interp = 1
 tracks/34/loop_wrap = true
 tracks/34/keys = {
-"times": PackedFloat32Array(0, 0.85, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/35/type = "value"
-tracks/35/imported = false
-tracks/35/enabled = true
-tracks/35/path = NodePath("Background:modulate")
-tracks/35/interp = 1
-tracks/35/loop_wrap = true
-tracks/35/keys = {
 "times": PackedFloat32Array(0, 0.6, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(0.835294, 0.92549, 0.917647, 0.709804)]
 }
-tracks/36/type = "value"
-tracks/36/imported = false
-tracks/36/enabled = true
-tracks/36/path = NodePath("Data/Detail5:visible_ratio")
-tracks/36/interp = 1
-tracks/36/loop_wrap = true
-tracks/36/keys = {
+tracks/35/type = "value"
+tracks/35/imported = false
+tracks/35/enabled = true
+tracks/35/path = NodePath("Data/Detail5:visible_ratio")
+tracks/35/interp = 1
+tracks/35/loop_wrap = true
+tracks/35/keys = {
 "times": PackedFloat32Array(0, 0.85, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 1.0]
 }
+tracks/36/type = "value"
+tracks/36/imported = false
+tracks/36/enabled = true
+tracks/36/path = NodePath("Skins/ColorRect:scale")
+tracks/36/interp = 1
+tracks/36/loop_wrap = true
+tracks/36/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/37/type = "value"
+tracks/37/imported = false
+tracks/37/enabled = true
+tracks/37/path = NodePath("Skins/ColorRect/H/RAND1:scale")
+tracks/37/interp = 1
+tracks/37/loop_wrap = true
+tracks/37/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(0, 1), Vector2(1, 1)]
+}
+tracks/38/type = "value"
+tracks/38/imported = false
+tracks/38/enabled = true
+tracks/38/path = NodePath("Skins/ColorRect/H/RAND5:scale")
+tracks/38/interp = 1
+tracks/38/loop_wrap = true
+tracks/38/keys = {
+"times": PackedFloat32Array(0, 0.65, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(0, 1), Vector2(1, 1)]
+}
+tracks/39/type = "value"
+tracks/39/imported = false
+tracks/39/enabled = true
+tracks/39/path = NodePath("Skins/ColorRect/H/RAND10:scale")
+tracks/39/interp = 1
+tracks/39/loop_wrap = true
+tracks/39/keys = {
+"times": PackedFloat32Array(0, 0.7, 0.85),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(0, 1), Vector2(1, 1)]
+}
+tracks/40/type = "value"
+tracks/40/imported = false
+tracks/40/enabled = true
+tracks/40/path = NodePath("Skins/ColorRect/H/RANDALL:scale")
+tracks/40/interp = 1
+tracks/40/loop_wrap = true
+tracks/40/keys = {
+"times": PackedFloat32Array(0, 0.75, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(0, 1), Vector2(1, 1)]
+}
+tracks/41/type = "value"
+tracks/41/imported = false
+tracks/41/enabled = true
+tracks/41/path = NodePath("Playlist/CLEAR:scale")
+tracks/41/interp = 1
+tracks/41/loop_wrap = true
+tracks/41/keys = {
+"times": PackedFloat32Array(0, 0.85, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gmogj"]
 _data = {
+"RESET": SubResource("Animation_tyj1h"),
 "end": SubResource("Animation_1ukwn"),
 "start": SubResource("17")
 }
@@ -1087,6 +1295,22 @@ font_color = Color(0, 0, 0, 1)
 atlas = ExtResource("3_lt37c")
 region = Rect2(1536, 0, 256, 256)
 
+[sub_resource type="LabelSettings" id="LabelSettings_rf7fj"]
+font = ExtResource("11")
+font_size = 20
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dor8"]
+atlas = ExtResource("3_lt37c")
+region = Rect2(256, 768, 256, 256)
+
+[sub_resource type="LabelSettings" id="LabelSettings_sc4du"]
+font = ExtResource("11")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_otxua"]
+font = ExtResource("11")
+font_size = 20
+
 [sub_resource type="StyleBoxFlat" id="131"]
 bg_color = Color(0.270588, 0.278431, 0.270588, 1)
 
@@ -1108,6 +1332,18 @@ VScrollBar/styles/grabber = SubResource("131")
 VScrollBar/styles/grabber_highlight = SubResource("132")
 VScrollBar/styles/grabber_pressed = SubResource("133")
 VScrollBar/styles/scroll = SubResource("134")
+
+[sub_resource type="LabelSettings" id="LabelSettings_lenwg"]
+font = ExtResource("11")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_butdo"]
+font = ExtResource("11")
+font_size = 18
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtwge"]
+atlas = ExtResource("3_lt37c")
+region = Rect2(0, 768, 256, 256)
 
 [sub_resource type="LabelSettings" id="LabelSettings_q32p1"]
 font = ExtResource("11")
@@ -1362,7 +1598,7 @@ offset_bottom = 360.0
 scale = Vector2(1, 1e-05)
 text = "SAVE"
 description_node = NodePath("../Desc")
-glow_color = Color(0.223529, 0.705882, 0.717647, 1)
+glow_color = Color(0.223529, 0.717647, 0.567095, 1)
 description = "Save current playlist."
 menu_position = Vector2i(0, 3)
 call_function_name = "_save_playlist"
@@ -1394,7 +1630,7 @@ offset_bottom = 432.0
 scale = Vector2(1, 1e-05)
 text = "LOAD"
 description_node = NodePath("../Desc")
-glow_color = Color(0.905882, 0.396078, 0.588235, 1)
+glow_color = Color(0.905882, 0.396078, 0.396078, 1)
 description = "Load saved playlist."
 menu_position = Vector2i(0, 4)
 work_mode = 2
@@ -1460,8 +1696,9 @@ layout_mode = 0
 offset_left = 16.0
 offset_top = 552.0
 offset_right = 456.0
-offset_bottom = 616.0
+offset_bottom = 624.0
 label_settings = SubResource("LabelSettings_m0ric")
+horizontal_alignment = 1
 
 [node name="ColorRect" type="ColorRect" parent="Menu"]
 layout_mode = 0
@@ -1569,10 +1806,153 @@ offset_bottom = 736.0
 scale = Vector2(1e-05, 1)
 color = Color(0, 0, 0, 0.501961)
 
+[node name="ColorRect" type="ColorRect" parent="Skins"]
+custom_minimum_size = Vector2(1072, 56)
+layout_mode = 2
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 1120.0
+offset_bottom = 72.0
+color = Color(0.235, 0.235, 0.235, 0.5)
+
+[node name="Label2" type="Label" parent="Skins/ColorRect"]
+layout_mode = 0
+offset_left = 96.0
+offset_right = 328.0
+offset_bottom = 56.0
+text = "SHUFFLE"
+label_settings = SubResource("LabelSettings_rf7fj")
+vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Skins/ColorRect"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1096.0
+offset_top = -24.0
+offset_right = -1032.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_2dor8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="H" type="Control" parent="Skins/ColorRect"]
+layout_mode = 2
+anchors_preset = 0
+offset_left = 488.0
+offset_right = 1080.0
+offset_bottom = 56.0
+
+[node name="RAND1" parent="Skins/ColorRect/H" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
+custom_minimum_size = Vector2(96, 56)
+layout_mode = 2
+offset_left = 160.0
+offset_right = 256.0
+offset_bottom = 56.0
+description_node = NodePath("../../../../Menu/Desc")
+glow_color = Color(0.835938, 0.398376, 0.521441, 1)
+description = "Add 1 random skin into playlist."
+button_layout = 2
+menu_position = Vector2i(1, 0)
+press_sound_name = "confirm"
+call_string = "1"
+call_function_name = "_add_random_skin"
+
+[node name="Label2" type="Label" parent="Skins/ColorRect/H/RAND1"]
+layout_mode = 0
+offset_right = 96.0
+offset_bottom = 56.0
+text = "1"
+label_settings = SubResource("LabelSettings_sc4du")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="RAND5" parent="Skins/ColorRect/H" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
+custom_minimum_size = Vector2(96, 56)
+layout_mode = 2
+offset_left = 272.0
+offset_right = 368.0
+offset_bottom = 56.0
+description_node = NodePath("../../../../Menu/Desc")
+glow_color = Color(0.835938, 0.398376, 0.521441, 1)
+description = "Add 5 random skins into playlist."
+button_layout = 2
+menu_position = Vector2i(2, 0)
+press_sound_name = "confirm"
+call_string = "5"
+call_function_name = "_add_random_skin"
+
+[node name="Label2" type="Label" parent="Skins/ColorRect/H/RAND5"]
+layout_mode = 0
+offset_right = 96.0
+offset_bottom = 56.0
+text = "5"
+label_settings = SubResource("LabelSettings_sc4du")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="RAND10" parent="Skins/ColorRect/H" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
+custom_minimum_size = Vector2(96, 56)
+layout_mode = 2
+offset_left = 384.0
+offset_right = 480.0
+offset_bottom = 56.0
+description_node = NodePath("../../../../Menu/Desc")
+glow_color = Color(0.835938, 0.398376, 0.521441, 1)
+description = "Add 10 random skins into playlist."
+button_layout = 2
+menu_position = Vector2i(3, 0)
+press_sound_name = "confirm"
+call_string = "10"
+call_function_name = "_add_random_skin"
+
+[node name="Label2" type="Label" parent="Skins/ColorRect/H/RAND10"]
+layout_mode = 0
+offset_right = 96.0
+offset_bottom = 56.0
+text = "10"
+label_settings = SubResource("LabelSettings_sc4du")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="RANDALL" parent="Skins/ColorRect/H" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
+custom_minimum_size = Vector2(96, 56)
+layout_mode = 2
+offset_left = 496.0
+offset_right = 592.0
+offset_bottom = 56.0
+description_node = NodePath("../../../../Menu/Desc")
+glow_color = Color(0.835938, 0.398376, 0.521441, 1)
+description = "Shuffle all avaiable skins into playlist."
+button_layout = 2
+menu_position = Vector2i(4, 0)
+press_sound_name = "confirm"
+call_string = "all"
+call_function_name = "_add_random_skin"
+
+[node name="Label2" type="Label" parent="Skins/ColorRect/H/RANDALL"]
+layout_mode = 0
+offset_right = 96.0
+offset_bottom = 56.0
+text = "ALL"
+label_settings = SubResource("LabelSettings_otxua")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
 [node name="S" type="ScrollContainer" parent="Skins"]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 16.0
+offset_top = 88.0
 offset_right = 1120.0
 offset_bottom = 624.0
 theme = SubResource("87")
@@ -1609,17 +1989,17 @@ flip_h = true
 flip_v = true
 
 [node name="Info" type="Label" parent="Skins"]
-modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
 self_modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 layout_mode = 0
-offset_left = 44.0
-offset_top = 636.0
-offset_right = 1124.0
-offset_bottom = 655.0
-text = "42 SKINS TOTAL"
-label_settings = SubResource("LabelSettings_240ju")
-horizontal_alignment = 2
+offset_left = -344.0
+offset_top = 8.0
+offset_right = -32.0
+offset_bottom = 64.0
+text = "24 SKINS TOTAL"
+label_settings = SubResource("LabelSettings_lenwg")
+horizontal_alignment = 1
+vertical_alignment = 1
 uppercase = true
 
 [node name="Playlist" type="ColorRect" parent="."]
@@ -1632,10 +2012,52 @@ offset_bottom = 736.0
 scale = Vector2(1, 1e-05)
 color = Color(0, 0, 0, 0.501961)
 
+[node name="CLEAR" parent="Playlist" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
+custom_minimum_size = Vector2(196, 56)
+layout_mode = 2
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 248.0
+offset_bottom = 72.0
+description_node = NodePath("../../Menu/Desc")
+glow_color = Color(0.213623, 0.546875, 0.250072, 1)
+description = "Remove all skins from playlist."
+button_layout = 2
+menu_position = Vector2i(5, 0)
+press_sound_name = "confirm2"
+call_function_name = "_clear_playlist"
+
+[node name="Label2" type="Label" parent="Playlist/CLEAR"]
+layout_mode = 0
+offset_left = 96.0
+offset_right = 216.0
+offset_bottom = 56.0
+text = "CLEAR"
+label_settings = SubResource("LabelSettings_butdo")
+vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Playlist/CLEAR"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -232.0
+offset_top = -24.0
+offset_right = -168.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_rtwge")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="S" type="ScrollContainer" parent="Playlist"]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 16.0
+offset_top = 88.0
 offset_right = 248.0
 offset_bottom = 624.0
 theme = SubResource("87")
@@ -1692,7 +2114,8 @@ offset_top = 72.0
 offset_right = 1904.0
 offset_bottom = 736.0
 mouse_filter = 2
-color = Color(0.898039, 0.156863, 0.384314, 0.501961)
+color = Color(0.156863, 0.898039, 0.654841, 0.501961)
+metadata/_edit_lock_ = true
 
 [node name="Data" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)

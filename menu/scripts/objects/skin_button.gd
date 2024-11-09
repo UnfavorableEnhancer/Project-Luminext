@@ -70,7 +70,7 @@ func _ready() -> void:
 		$LabelTexture.texture = skin_metadata.label_art
 
 
-func _selected() -> void:	
+func _selected() -> void:
 	Data.menu._sound("select")
 
 	if Data.menu.screens.has("foreground"): 
@@ -81,10 +81,11 @@ func _selected() -> void:
 	$Selected.visible = true
 	create_tween().tween_property($Glow,"modulate:a",0.0,0.2).from(1.0)
 
-	if skin_metadata.preview != null:
-		$Preview.start(1.5)
-	
-	skin_selected.emit(skin_metadata)
+	if not is_skin_missing :
+		if skin_metadata.preview != null:
+			$Preview.start(1.5)
+		
+		skin_selected.emit(skin_metadata)
 
 
 func _deselected() -> void:
@@ -134,7 +135,7 @@ func _add_to_playlist() -> void:
 		if Data.playlist.skins.size() > 1:
 			Data.menu._sound("confirm2")
 			# We use selectables var "position" to store current position in playlist
-			parent_screen._swap_skins(menu_position.y)
+			parent_screen._swap_skins(menu_position.y - 1)
 			modulate = Color.PURPLE
 			return
 	else:
@@ -148,7 +149,7 @@ func _remove_from_playlist() -> void:
 	Data.menu._sound("cancel")
 	if not is_in_playlist : return
 	
-	Data.playlist._remove_from_playlist(menu_position.y)
+	Data.playlist._remove_from_playlist(menu_position.y - 1)
 	parent_screen._display_current_playlist()
 
 

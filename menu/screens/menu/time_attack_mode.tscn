@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://drw8tynskp6ct"]
+[gd_scene load_steps=41 format=3 uid="uid://drw8tynskp6ct"]
 
 [ext_resource type="Script" path="res://menu/scripts/screens/time_attack_mode.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://160thw0yemok" path="res://menu/objects/slider.tscn" id="2"]
@@ -1415,6 +1415,10 @@ VScrollBar/styles/scroll = SubResource("134")
 font = ExtResource("11")
 font_size = 20
 
+[sub_resource type="LabelSettings" id="LabelSettings_xap3r"]
+font = ExtResource("11")
+font_size = 18
+
 [sub_resource type="LabelSettings" id="LabelSettings_ur7mf"]
 font = ExtResource("11")
 font_size = 32
@@ -1452,7 +1456,6 @@ offset_bottom = 1120.0
 color = Color(0.337255, 0.337255, 0.337255, 1)
 
 [node name="Background" type="Control" parent="."]
-modulate = Color(1, 1, 1, 0)
 z_index = -2
 layout_mode = 3
 anchors_preset = 0
@@ -1502,12 +1505,10 @@ libraries = {
 autoplay = "clock"
 
 [node name="Setup" type="ColorRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_top = 64.0
 offset_right = 880.0
 offset_bottom = 824.0
-scale = Vector2(1, 1e-05)
 pivot_offset = Vector2(440, 552)
 color = Color(0, 0, 0, 0.501961)
 
@@ -1519,7 +1520,6 @@ offset_right = 888.0
 offset_bottom = 304.0
 
 [node name="Label4" type="Label" parent="Setup/Time"]
-modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 0
 offset_right = 960.0
@@ -1532,14 +1532,12 @@ layout_mode = 0
 offset_top = 32.0
 offset_right = 848.0
 offset_bottom = 36.0
-scale = Vector2(1e-05, 1)
 
 [node name="T60" parent="Setup/Time" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
 layout_mode = 0
 offset_top = 48.0
 offset_right = 272.0
 offset_bottom = 112.0
-scale = Vector2(1e-05, 1e-05)
 description_node = NodePath("../../../Desc/Desc")
 glow_color = Color(0.261475, 0.929688, 0.743209, 1)
 description = "Set 60 seconds (1 minute) time limit."
@@ -1575,7 +1573,6 @@ offset_left = 288.0
 offset_top = 48.0
 offset_right = 560.0
 offset_bottom = 112.0
-scale = Vector2(1e-05, 1e-05)
 description_node = NodePath("../../../Desc/Desc")
 glow_color = Color(0.261475, 0.929688, 0.743209, 1)
 description = "Set 120 seconds (2 minutes) time limit."
@@ -1612,7 +1609,6 @@ offset_left = 576.0
 offset_top = 48.0
 offset_right = 848.0
 offset_bottom = 112.0
-scale = Vector2(1e-05, 1e-05)
 description_node = NodePath("../../../Desc/Desc")
 glow_color = Color(0.261475, 0.929688, 0.743209, 1)
 description = "Set 180 seconds (3 minutes) time limit."
@@ -1648,7 +1644,6 @@ layout_mode = 0
 offset_top = 128.0
 offset_right = 272.0
 offset_bottom = 192.0
-scale = Vector2(1e-05, 1e-05)
 description_node = NodePath("../../../Desc/Desc")
 glow_color = Color(0.261475, 0.929688, 0.743209, 1)
 description = "Set 300 seconds (5 minutes) time limit."
@@ -1685,7 +1680,6 @@ offset_left = 288.0
 offset_top = 128.0
 offset_right = 560.0
 offset_bottom = 192.0
-scale = Vector2(1e-05, 1e-05)
 description_node = NodePath("../../../Desc/Desc")
 glow_color = Color(0.261475, 0.929688, 0.743209, 1)
 description = "Set 600 seconds (10 minutes) time limit."
@@ -1722,7 +1716,6 @@ offset_left = 576.0
 offset_top = 128.0
 offset_right = 848.0
 offset_bottom = 192.0
-scale = Vector2(1e-05, 1e-05)
 description_node = NodePath("../../../Desc/Desc")
 glow_color = Color(0.261475, 0.929688, 0.743209, 1)
 description = "Set your own time limit. Your record won't be saved."
@@ -1781,7 +1774,6 @@ offset_right = 880.0
 offset_bottom = 400.0
 
 [node name="Label3" type="Label" parent="Setup/Rulesets"]
-modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 0
 offset_left = 16.0
@@ -1796,7 +1788,6 @@ layout_mode = 0
 offset_top = -16.0
 offset_right = 848.0
 offset_bottom = -12.0
-scale = Vector2(1e-05, 1)
 
 [node name="Slider" parent="Setup/Rulesets" node_paths=PackedStringArray("description_node") instance=ExtResource("2")]
 layout_mode = 0
@@ -1804,7 +1795,6 @@ offset_left = 16.0
 offset_top = 96.0
 offset_right = 864.0
 offset_bottom = 124.0
-scale = Vector2(1e-05, 1)
 max_value = 4.0
 tick_count = 5
 description_node = NodePath("../../../Desc/Desc")
@@ -1814,7 +1804,6 @@ menu_position = Vector2i(0, 2)
 call_function_name = "_select_ruleset"
 
 [node name="Power" type="Label" parent="Setup/Rulesets/Slider"]
-modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 0
 offset_left = 472.0
@@ -1826,7 +1815,6 @@ label_settings = SubResource("LabelSettings_g4n5i")
 horizontal_alignment = 2
 
 [node name="RandomMixes" parent="Setup" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 16.0
 offset_top = 440.0
@@ -1869,10 +1857,8 @@ offset_left = 16.0
 offset_top = 576.0
 offset_right = 864.0
 offset_bottom = 580.0
-scale = Vector2(1e-05, 1)
 
 [node name="Start" parent="Setup" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 16.0
 offset_top = 600.0
@@ -1902,7 +1888,6 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Back" parent="Setup" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 16.0
 offset_top = 664.0
@@ -1944,8 +1929,6 @@ offset_bottom = 751.0
 text = "GAME SETUP"
 label_settings = SubResource("LabelSettings_lwkt4")
 uppercase = true
-visible_characters = 0
-visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="Setup/Detail4"]
 texture_filter = 2
@@ -1975,7 +1958,6 @@ offset_left = 132.32
 offset_top = -2.36
 offset_right = 1916.32
 offset_bottom = 69.64
-scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(1784, 0)
 mouse_filter = 2
 color = Color(0.929, 0.302, 0.435, 0.75)
@@ -1997,13 +1979,11 @@ anchor_bottom = 0.059
 offset_top = -2.36
 offset_right = 136.0
 offset_bottom = 133.64
-scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(0, -2.38419e-07)
 mouse_filter = 2
 color = Color(0.364706, 0.0745098, 0.164706, 1)
 
 [node name="Icon" type="TextureRect" parent="Top/Iconhold"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -2013,7 +1993,6 @@ offset_top = -52.0
 offset_right = 120.0
 offset_bottom = 52.0
 grow_vertical = 2
-scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(0, 104)
 mouse_filter = 2
 texture = SubResource("130")
@@ -2021,23 +2000,168 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Ranking" type="ColorRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 896.0
 offset_top = 296.0
 offset_right = 1920.0
 offset_bottom = 1016.0
-scale = Vector2(1, 1e-05)
 color = Color(0, 0, 0, 0.501961)
+
+[node name="LoadingLabel" type="Label" parent="Ranking"]
+visible = false
+layout_mode = 0
+offset_left = 336.0
+offset_top = 440.0
+offset_right = 644.0
+offset_bottom = 463.0
+text = "LOADING RANKING..."
+label_settings = SubResource("LabelSettings_g4n5i")
+
+[node name="Loading" type="Control" parent="Ranking"]
+visible = false
+anchors_preset = 0
+offset_left = 416.0
+offset_top = 280.0
+offset_right = 552.0
+offset_bottom = 416.0
+pivot_offset = Vector2(68, 68)
+
+[node name="B" type="ColorRect" parent="Ranking/Loading"]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="B2" type="ColorRect" parent="Ranking/Loading"]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 136.0
+offset_bottom = 64.0
+color = Color(1, 1, 1, 0.2)
+
+[node name="B3" type="ColorRect" parent="Ranking/Loading"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 72.0
+offset_right = 136.0
+offset_bottom = 136.0
+color = Color(1, 1, 1, 0.2)
+
+[node name="B4" type="ColorRect" parent="Ranking/Loading"]
+layout_mode = 0
+offset_top = 72.0
+offset_right = 64.0
+offset_bottom = 136.0
+color = Color(1, 1, 1, 0.2)
+
+[node name="Back" type="ColorRect" parent="Ranking"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 80.0
+offset_right = 976.0
+offset_bottom = 680.0
+color = Color(0.867, 0.329, 0.329, 0.1)
+metadata/_edit_lock_ = true
+
+[node name="Total" parent="Ranking" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 176.0
+description_node = NodePath("../../Desc/Desc")
+glow_color = Color(0.79123, 0.374054, 0.804688, 1)
+description = "Show online total leaderboard."
+menu_position = Vector2i(3, 0)
+press_sound_name = "confirm4"
+call_string = "total"
+call_function_name = "_display_ranking"
+
+[node name="L" type="Label" parent="Ranking/Total"]
+layout_mode = 0
+offset_right = 160.0
+offset_bottom = 48.0
+text = "ONLINE"
+label_settings = SubResource("LabelSettings_g4n5i")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Monthly" parent="Ranking" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 16.0
+offset_right = 392.0
+description_node = NodePath("../../Desc/Desc")
+glow_color = Color(0.867188, 0.328583, 0.328583, 1)
+description = "Show online monthly leaderboard."
+menu_position = Vector2i(4, 0)
+press_sound_name = "confirm4"
+call_string = "monthly"
+call_function_name = "_display_ranking"
+
+[node name="L" type="Label" parent="Ranking/Monthly"]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 48.0
+text = "MONTHLY"
+label_settings = SubResource("LabelSettings_g4n5i")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Weekly" parent="Ranking" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 16.0
+offset_right = 584.0
+description_node = NodePath("../../Desc/Desc")
+glow_color = Color(0.362411, 0.792969, 0.601236, 1)
+description = "Show online weekly leaderboard."
+menu_position = Vector2i(5, 0)
+press_sound_name = "confirm4"
+call_string = "weekly"
+call_function_name = "_display_ranking"
+
+[node name="L" type="Label" parent="Ranking/Weekly"]
+layout_mode = 0
+offset_right = 176.0
+offset_bottom = 48.0
+text = "WEEKLY"
+label_settings = SubResource("LabelSettings_g4n5i")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Local" parent="Ranking" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 16.0
+description_node = NodePath("../../Desc/Desc")
+glow_color = Color(0.792969, 0.705512, 0.362411, 1)
+description = "Show local leaderboard."
+menu_position = Vector2i(6, 0)
+press_sound_name = "confirm4"
+call_string = "local"
+call_function_name = "_display_ranking"
+
+[node name="L" type="Label" parent="Ranking/Local"]
+layout_mode = 0
+offset_right = 168.0
+offset_bottom = 48.0
+text = "LOCAL"
+label_settings = SubResource("LabelSettings_g4n5i")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="S" type="ScrollContainer" parent="Ranking"]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 16.0
+offset_top = 80.0
 offset_right = 1008.0
 offset_bottom = 680.0
 theme = SubResource("87")
 horizontal_scroll_mode = 0
+metadata/_edit_lock_ = true
 
 [node name="V" type="VBoxContainer" parent="Ranking/S"]
 layout_mode = 2
@@ -2051,11 +2175,9 @@ offset_left = 44.0
 offset_top = 692.0
 offset_right = 420.0
 offset_bottom = 711.0
-text = "LOCAL SCORE RANKING"
+text = "SCORE RANKING"
 label_settings = SubResource("LabelSettings_lwkt4")
 uppercase = true
-visible_characters = 0
-visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="Ranking/Detail4"]
 texture_filter = 2
@@ -2075,25 +2197,36 @@ modulate = Color(1, 1, 1, 0.5)
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 0
 offset_left = 32.0
-offset_top = 24.0
-offset_right = 469.0
-offset_bottom = 72.0
-text = "SCORE RANKING IS NOT AVAIABLE IN CUSTOM SEC MODE"
+offset_top = 96.0
+offset_right = 958.0
+offset_bottom = 144.0
+text = "SCORE RANKING IS NOT AVAIABLE IN CUSTOM SEC MODE..."
 label_settings = SubResource("LabelSettings_4w6n7")
 
+[node name="Timer" type="Label" parent="Ranking"]
+modulate = Color(1, 1, 1, 0.5)
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 0
+offset_left = 800.0
+offset_top = 16.0
+offset_right = 1008.0
+offset_bottom = 64.0
+text = "RESET IN:
+999:99:99"
+label_settings = SubResource("LabelSettings_xap3r")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Playerdata" type="ColorRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 896.0
 offset_top = 72.0
 offset_right = 1920.0
 offset_bottom = 280.0
-scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(0, 344)
 color = Color(0, 0, 0, 0.501961)
 
 [node name="Text" type="Label" parent="Playerdata"]
-modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 0
 offset_left = 32.0
@@ -2104,7 +2237,6 @@ text = "HIGHEST SCORE :"
 label_settings = SubResource("LabelSettings_ur7mf")
 
 [node name="Hiscore" type="Label" parent="Playerdata"]
-modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 0
 offset_left = 32.0
@@ -2115,7 +2247,6 @@ text = "220"
 label_settings = SubResource("LabelSettings_kdhl3")
 
 [node name="Text2" type="Label" parent="Playerdata"]
-modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 0
 offset_left = 536.0
@@ -2126,7 +2257,6 @@ text = "AVERAGE SCORE :"
 label_settings = SubResource("LabelSettings_ur7mf")
 
 [node name="Average" type="Label" parent="Playerdata"]
-modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 0
 offset_left = 536.0
@@ -2147,8 +2277,6 @@ offset_bottom = 199.0
 text = "SELECTED MODE STATISTICS"
 label_settings = SubResource("LabelSettings_lwkt4")
 uppercase = true
-visible_characters = 0
-visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="Playerdata/Detail4"]
 texture_filter = 2
@@ -2159,14 +2287,14 @@ offset_right = -11.0
 offset_bottom = 20.0
 texture = SubResource("AtlasTexture_1fbr7")
 expand_mode = 1
+flip_h = true
+flip_v = true
 
 [node name="Desc" type="ColorRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_top = 840.0
 offset_right = 880.0
 offset_bottom = 1016.0
-scale = Vector2(1e-05, 1)
 color = Color(0, 0, 0, 0.501961)
 
 [node name="Desc" type="Label" parent="Desc"]
@@ -2189,8 +2317,6 @@ offset_bottom = 167.0
 text = "DESCRIPTION"
 label_settings = SubResource("LabelSettings_lwkt4")
 uppercase = true
-visible_characters = 0
-visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="Desc/Detail4"]
 texture_filter = 2

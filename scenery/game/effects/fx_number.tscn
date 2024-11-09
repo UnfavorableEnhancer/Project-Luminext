@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://d31pyhxqlo3ri"]
+[gd_scene load_steps=7 format=3 uid="uid://d31pyhxqlo3ri"]
 
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="1"]
 
@@ -9,11 +9,6 @@ func _ready() -> void:
 	z_index = 401
 	name = \"n\" + str(position.x + 10) + str(position.y + 10)
 	$NUM.text = str(parameter)
-	
-	if parameter > 64: $NUM.modulate = Color.LIGHT_CORAL
-	if parameter > 16: $NUM.modulate = Color.LIGHT_PINK
-	elif parameter > 4: $NUM.modulate = Color.LIGHT_BLUE
-	else: $NUM.modulate = Color.WHITE
 	
 	_start()
 "
@@ -39,14 +34,42 @@ tracks/1/path = NodePath("NUM:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.5, 1),
+"times": PackedFloat32Array(0, 0.2, 0.5, 1),
 "transitions": PackedFloat32Array(0.5, 1, 1.5, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_1alf0"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NUM:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.25),
+"update": 0,
+"values": [Vector2(-72, -40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NUM:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bbgd2"]
 _data = {
+"RESET": SubResource("Animation_1alf0"),
 "start": SubResource("16")
 }
 

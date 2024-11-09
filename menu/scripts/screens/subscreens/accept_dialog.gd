@@ -18,23 +18,17 @@
 
 extends MenuScreen
 
-signal accepted
-signal canceled
-signal closed
+signal closed(result : bool)
 
-var desc_text : String = ""
-var object_to_call : Variant = null
+var desc_text : String = "" : 
+	set(text) : $ColorRect/Dialog.text = text
 
-var call_function_name : String = ""
-var cancel_function_name : String = ""
-var call_function_argument : Variant = null
-var cancel_function_argument : Variant = null
+var accept_function : Callable
+var cancel_function : Callable
+var is_accepted : bool = false
 
 
 func _ready() -> void:
-	await get_tree().create_timer(0.1).timeout
-	$ColorRect/Dialog.text = desc_text
-	
 	menu.screens["foreground"]._raise()
 	
 	await menu.all_screens_added
@@ -43,20 +37,16 @@ func _ready() -> void:
 
 
 func _cancel() -> void:
-	if not cancel_function_name.is_empty() and object_to_call != null:
-		if cancel_function_argument == null: object_to_call.call(cancel_function_name)
-		else: object_to_call.call(cancel_function_name,cancel_function_argument)
+	if cancel_function : cancel_function.call()
 	
-	canceled.emit()
-	closed.emit()
+	closed.emit(false)
+	
 	_remove()
 
 
 func _accept() -> void:
-	if not call_function_name.is_empty() and object_to_call != null:
-		if call_function_argument == null: object_to_call.call(call_function_name)
-		else: object_to_call.call(call_function_name,call_function_argument)
+	if accept_function : accept_function.call()
 	
-	accepted.emit()
-	closed.emit()
+	closed.emit(true)
+	
 	_remove()

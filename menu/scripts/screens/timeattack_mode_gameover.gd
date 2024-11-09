@@ -195,9 +195,7 @@ func _new_record() -> void:
 func _save_replay() -> void:
 	var input : MenuScreen = Data.menu._add_screen("text_input")
 	input.desc_text = "ENTER REPLAY NAME"
-	input.object_to_call = Data.game.replay
-	input.call_function_name = "_save"
-	input._start()
+	input.accept_function = Data.game.replay._save
 
 
 func _restart() -> void:

@@ -107,7 +107,7 @@ func _display_skins_list() -> void:
 			skin_button.skin_metadata = Data.skin_list.skins[album][number]
 			skin_button.custom_minimum_size = Vector2(256,64)
 			skin_button.skin_selected.connect(_display_skin_metadata)
-			_assign_selectable(skin_button,Vector2(row_number + 1,skin_list_rows_amount))
+			_assign_selectable(skin_button,Vector2(row_number + 1,skin_list_rows_amount + 1))
 			skin_button.parent_screen = self
 			grid.call_deferred("add_child",skin_button)
 			
@@ -220,6 +220,7 @@ func _move_cursor(direction : int = CURSOR_DIRECTION.HERE, one_shot : bool = fal
 	cursor_selection_fail.emit(cursor, direction)
 	return false
 
+
 # Displays playlist
 func _display_current_playlist() -> void:
 	for skin_button : MenuSelectableButton in $Playlist/S/V.get_children():
@@ -228,7 +229,7 @@ func _display_current_playlist() -> void:
 	
 	if Data.playlist.skins.is_empty():
 		$Playlist/Counter.text = "0"
-		cursor = Vector2(0,0)
+		cursor = Vector2(5,0)
 		_move_cursor()
 		return
 	
@@ -237,7 +238,7 @@ func _display_current_playlist() -> void:
 		var skin_path : String = skin_entry[0]
 		var skin_button : MenuSelectableButton = SKIN_BUTTON.instantiate()
 		skin_button.skin_metadata = Data.skin_list._get_skin_metadata_by_file_path(skin_path)
-		_assign_selectable(skin_button,Vector2(5,count))
+		_assign_selectable(skin_button,Vector2(5,count + 1))
 		skin_button.parent_screen = self
 		skin_button.is_in_playlist = true
 		
@@ -246,10 +247,11 @@ func _display_current_playlist() -> void:
 	
 	$Playlist/Counter.text = str(count)
 	visited_cursor_positions[5] = 0
-	if cursor.y == count:
-		_move_cursor(CURSOR_DIRECTION.UP)
-	else:
-		_move_cursor()
+	if cursor.x == 5:
+		if cursor.y == count:
+			_move_cursor(CURSOR_DIRECTION.UP)
+		else:
+			_move_cursor()
 
 
 func _display_skin_metadata(metadata : SkinMetadata) -> void:
@@ -273,6 +275,30 @@ func _display_skin_metadata(metadata : SkinMetadata) -> void:
 	%Info.text = metadata.info
 
 
+func _add_random_skin(amount : String) -> void:
+	var random_skins_list : Array = []
+	match amount:
+		"1" : random_skins_list = Data.skin_list._get_random_skin(1)
+		"5" : random_skins_list = Data.skin_list._get_random_skin(5)
+		"10" : random_skins_list = Data.skin_list._get_random_skin(10)
+		"all" : random_skins_list = Data.skin_list._get_random_skin(-1)
+	
+	if random_skins_list.is_empty() : return
+	for skin_path : String in random_skins_list:
+		var skin_hash : StringName = Data.skin_list.path_links[skin_path]
+		Data.playlist._add_to_playlist(skin_path, skin_hash, false)
+	
+	_display_current_playlist()
+
+
+func _clear_playlist() -> void:
+	$Error.color = Color("28e5a780")
+	create_tween().tween_property($Error,"modulate:a",0.0,0.25).from(1.0)
+	
+	Data.playlist._clear()
+	_display_current_playlist()
+
+
 func _swap_skins(skin_position : int) -> void:
 	if skin_position > -1:
 		if currently_swapping_skin_pos == -1:
@@ -283,6 +309,7 @@ func _swap_skins(skin_position : int) -> void:
 			$Swap.modulate.a = 0
 			create_tween().tween_property($Swap,"modulate:a",1.0,1.0)
 			currently_swapping_skin_pos = skin_position
+			$Playlist/CLEAR._disable(true)
 			return
 			
 		else:
@@ -296,21 +323,20 @@ func _swap_skins(skin_position : int) -> void:
 			input_lock[1] = false
 			$Swap.position = Vector2(9999,0)
 			create_tween().tween_property($Swap,"modulate:a",0.0,1.0)
+			$Playlist/CLEAR._disable(false)
 
 
 func _save_playlist() -> void:
 	if Data.playlist.skins.is_empty():
-		var tween : Tween = create_tween()
-		tween.tween_property($Error,"modulate:a",0.0,0.25).from(1.0)
+		$Error.color = Color("e5286280")
+		create_tween().tween_property($Error,"modulate:a",0.0,0.25).from(1.0)
 		Data.menu._sound("error")
 		return
 	
 	Data.menu._sound("confirm2")
 	var input : MenuScreen = Data.menu._add_screen("text_input")
 	input.desc_text = "ENTER PLAYLIST NAME"
-	input.object_to_call = Data.playlist
-	input.call_function_name = "_save"
-	input._start()
+	input.accept_function = Data.playlist._save
 
 
 # func _reload_skin_list():
@@ -336,16 +362,16 @@ func _start_game_endless() -> void:
 func _start_game(first_skin_metadata : SkinMetadata = null, single_skin_mode : bool = false, endless_mode : bool = false) -> void:
 	if first_skin_metadata == null:
 		if Data.playlist.skins.is_empty():
-			var tween : Tween = create_tween()
-			tween.tween_property($Error,"modulate:a",0.0,0.25).from(1.0)
+			$Error.color = Color("e5286280")
+			create_tween().tween_property($Error,"modulate:a",0.0,0.25).from(1.0)
 			Data.menu._sound("error")
 			return
 		
 		var first_skin_hash : StringName = Data.playlist.skins[0][1]
 		first_skin_metadata = Data.skin_list._get_skin_metadata_by_hash(first_skin_hash)
 		if first_skin_metadata == null:
-			var tween : Tween = create_tween()
-			tween.tween_property($Error,"modulate:a",0.0,0.25).from(1.0)
+			$Error.color = Color("e5286280")
+			create_tween().tween_property($Error,"modulate:a",0.0,0.25).from(1.0)
 			Data.menu._sound("error")
 			return
 

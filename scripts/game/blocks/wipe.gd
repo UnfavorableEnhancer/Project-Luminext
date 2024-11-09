@@ -23,12 +23,12 @@ extends Block
 class_name Wipe
 
 const WIPE_DELAY : float = 0.2
+var wipe_timer : float = 0.0
 
-var working : bool = false
-var wipe_timer : Timer = null
+var is_working : bool = false
 var wipe_fx : FX = null
 
-var wiped : Array[Block] = []
+var wiped : Dictionary = {} # [Vector2i : Block]
 
 
 func _ready() -> void:
@@ -36,74 +36,70 @@ func _ready() -> void:
 
 	reset.connect(_wipe_reset)
 	falled_down.connect(_on_fall)
-	squared.connect(_squared)
+	squared.connect(_start_wipe)
 
 
 func _on_fall() -> void:
-	await get_tree().create_timer(0.01).timeout
+	await physics_tick
 	# If we're just silly remastered clone, do work immidiately
-	if Data.profile.config["gameplay"]["instant_special"] : _squared()
+	if Data.profile.config["gameplay"]["instant_special"] : _start_wipe()
+
+
+func _physics() -> void:
+	super()
+
+	if is_working:
+		if wipe_timer > 0.0 : wipe_timer -= TICK
+		else : 
+			wipe_timer = WIPE_DELAY
+			_wipe()
+
+
+func _start_wipe() -> void:
+	wipe_fx = Data.game._add_fx("wipe", grid_position, color)
+	
+	wipe_timer = WIPE_DELAY
+	is_working = true
+
+	_wipe()
+
+
+# Marks all blocks to delete in range
+func _wipe() -> void:
+	for x : int in range(grid_position.x - 3, grid_position.x + 4):
+		for y : int in range(grid_position.y - 3, grid_position.y + 4):
+			if Data.game.blocks.has(Vector2i(x,y)):
+				var block : Block = Data.game.blocks[Vector2i(x,y)]
+
+				if block.color != color : continue
+				if wiped.has(block.grid_position) : continue
+				
+				block._add_mark(OVERLAY_MARK.ERASE)
+				block.reset.connect(wiped.erase.bind(block.grid_position))
+				wiped[block.grid_position] = block
 
 
 # Resets wipe block, and "unwipe" all wiped blocks
 func _wipe_reset() -> void:
-	if working:
-		working = false
-		
-		wipe_fx.queue_free()
-		wipe_fx = null
-		
-		wipe_timer.queue_free()
-		wipe_timer = null
-		
-		for block : Block in wiped:
-			if is_instance_valid(block) : block._reset(false)
-		
-		wiped = []
-
-
-# Called when wipe block is squared
-func _squared() -> void:
-	if not working: 
-		working = true
-		
-		wipe_fx = Data.game._add_fx("wipe", grid_position, color)
-		
-		# Create special work timer
-		wipe_timer = Timer.new()
-		wipe_timer.timeout.connect(_work)
-		add_child(wipe_timer)
-		wipe_timer.start(WIPE_DELAY)
-		
-		# Mark self to delete
-		_add_mark(OVERLAY_MARK.DELETE)
-
-
-# Marks all blocks to delete in range
-func _work(work_range : int = 3) -> void:
-	for x : int in range(grid_position.x - work_range, grid_position.x + work_range + 1):
-		for y : int in range(grid_position.y - work_range, grid_position.y + work_range + 1):
-			if Data.game.blocks.has(Vector2i(x,y)):
-				var block : Block = Data.game.blocks[Vector2i(x,y)]
-				
-				if not block.is_falling and block.color == color and not block in wiped:
-					block._add_mark(OVERLAY_MARK.DELETE)
-					block._make_deletable()
-					wiped.append(block)
+	is_working = false
+	
+	wipe_fx.queue_free()
+	wipe_fx = null
+	
+	for block : Variant in wiped.values:
+		if is_instance_valid(block) : block._reset(false)
+	
+	wiped.clear()
 
 
 # Remove all wiped blocks with special animation
 func _wipe_blast() -> void:
-	if working:
-		working = false
-		
-		wipe_fx._explode()
-		
-		wipe_timer.queue_free()
-		wipe_timer = null
-		
-		for block : Block in wiped:
-			if is_instance_valid(block) : block._free()
+	is_working = false
+	
+	wipe_fx._explode()
+	
+	for block : Variant in wiped.values:
+		if is_instance_valid(block) : block._free()
 
 
 func _free() -> void:

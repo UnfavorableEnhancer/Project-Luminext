@@ -20,3 +20,5 @@ TODO
 Project Luminext.code-workspace
 addons/ffmpeg/win64/~libgdffmpeg.windows.template_debug.x86_64.dlls
 addons/ffmpeg/win64/~libgdffmpeg.windows.template_debug.x86_64.dll
+scripts/resources/api.txt
+/addons/silent_wolf

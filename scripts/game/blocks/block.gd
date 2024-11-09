@@ -26,6 +26,8 @@ extends BlockBase
 
 class_name Block
 
+signal physics_tick
+
 signal started_moving # Emitted when block starts moving
 signal reset # Emitted when block resets
 signal falled_down # Emitted when block falled down
@@ -39,7 +41,8 @@ enum OVERLAY_MARK {
 	MULTI # Used when multi block is being squared
 }
 
-const FALL_SPEED : float = 68.0 / 120.0 / 0.065 # Base gravity speed
+const FALL_SPEED : float = 68.0 / 120.0 / 0.055 # Base gravity speed
+const TICK : float = 1.0 / 120.0
 
 var marks : Array = []
 
@@ -105,6 +108,7 @@ func _fall() -> void:
 
 
 func _physics() -> void:
+	physics_tick.emit()
 	if not is_falling and fall_left <= 0: return
 	
 	var speed : float = FALL_SPEED * (1.0 / gravity_multiplier)
@@ -132,7 +136,7 @@ func _physics() -> void:
 		
 		if is_trail_enabled and is_instance_valid(trail): trail.emitting = false
 		
-		await get_tree().create_timer(0.01, true, true).timeout
+		await physics_tick
 		Data.game._square_check(Rect2i(grid_position.x - 2, grid_position.x + 2, grid_position.y - 2, grid_position.y + 2))
 	else:
 		fall_left = 68.0
@@ -155,8 +159,9 @@ func _reset(remove_squares : bool) -> void:
 
 
 # Makes this block deletable by timeline
-func _make_deletable() -> void:
+func _make_deletable(mark : bool = false) -> void:
 	Data.game.delete[grid_position] = self
+	if mark : _add_mark(OVERLAY_MARK.ERASE)
 
 
 # Called when block is squared

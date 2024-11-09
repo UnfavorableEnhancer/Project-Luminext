@@ -60,6 +60,7 @@ var timeline : Node2D = null # Current timeline instance, does blocks clearing w
 var skin_change_status : int = 0 # Shows status of skin replacement procedure
 
 var created_squares : Array[Vector2i] = []
+var square_group : Array[Square] = []
 var is_adding_square_number : bool = false
 
 var sound_queue : Array = [] # Queued sounds, to be played in sync with music beat
@@ -477,14 +478,16 @@ func _square_check(area : Rect2i) -> void:
 		var has_square_on_row : bool = false
 		for y : int in range(area.size.x,area.size.y):
 			var squared_blocks : Array = _check_square_possible(Vector2i(x,y))
+			
 			if squared_blocks.is_empty() : continue
 			has_square_on_row = true
+
 			if _create_square(Vector2i(x,y), squared_blocks): created_squares.append(Vector2i(x,y))
 		
 		if not created_squares.is_empty() and not has_square_on_row and not is_adding_square_number:
 			is_adding_square_number = true
-			await get_tree().create_timer(0.05).timeout
-			_add_square_number()
+			await get_tree().create_timer(0.025,true,true).timeout
+			_add_square_numbers()
 
 
 # Checks is square possible at game field position
@@ -535,29 +538,51 @@ func _remove_square(in_position : Vector2i) -> void:
 		squares[in_position]._remove()
 
 
-func _add_square_number() -> void:
-	var square_group_size : int = 0
-	var has_square_on_this_row : bool = false
-	var last_created_square : Vector2i = Vector2i(-1,-1)
-	
-	for x : int in 16:
-		has_square_on_this_row = false
-		for y : int in 9:
-			var coords : Vector2i = Vector2i(x,y)
-			if squares.has(coords):
-				square_group_size += 1
-				has_square_on_this_row = true
-				if created_squares.has(coords): last_created_square = coords
+# Checks every sqaure in "created_sqaures", builds their groups and adds respective group sizes number animation
+func _add_square_numbers() -> void:
+	while not created_squares.is_empty():
+		var square_pos : Vector2i = created_squares.pop_front()
+		if not squares.has(square_pos) : continue
+
+		square_group.clear()
+		var origin_square : Square = squares[square_pos]
+
+		_get_square_group(origin_square,created_squares)
 		
-		if not has_square_on_this_row:
-			if last_created_square.x > -1 :
-				_add_sound("square", Vector2(last_created_square.x*48+300,last_created_square.y*48+200), false, false)
-				_add_fx("num", last_created_square, square_group_size)
-				last_created_square = Vector2i(-1,-1)
-			square_group_size = 0
-	
+		_add_sound("square", Vector2(square_pos.x*48+300,square_pos.y*48+200), false, false)
+		_add_fx("num", square_pos, square_group.size())
+
 	is_adding_square_number = false
-	created_squares.clear()
+
+		
+# Scan all chained squares from origin sqaure and store result sqaure group in "square_group" variable
+# Also clean-ups "squares_to_check" array leaving only single squares instances from each group
+func _get_square_group(origin_square : Square, squares_to_check : Array) -> void:
+	square_group.append(origin_square)
+
+	for adj_square : Square in origin_square.adjacent_squares.values():
+		if not adj_square in square_group:
+			if adj_square.grid_position in squares_to_check:
+				squares_to_check.erase(adj_square.grid_position)
+
+			_get_square_group(adj_square,squares_to_check)
+
+
+# Scans all squares from "created_sqaures" array and builds their respective square groups, which are packed into single array and returned
+func _get_all_sqaure_groups(squares_to_check : Array) -> Array:
+	var sqaure_groups : Array = []
+
+	while not squares_to_check.is_empty():
+		var square_pos : Vector2i = squares_to_check.pop_front()
+		if not squares.has(square_pos) : continue
+
+		square_group.clear()
+		var origin_square : Square = squares[square_pos]
+
+		_get_square_group(origin_square,squares_to_check)
+		sqaure_groups.append(square_group.duplicate(true))
+
+	return sqaure_groups
 
 
 # Creates square at game field position
@@ -568,9 +593,9 @@ func _create_square(in_position : Vector2i, squared_blocks : Array) -> bool:
 	var color : int = squared_blocks[4]
 	var square : FX = _add_fx("square", in_position, color)
 	
-	
 	square.grid_position = in_position
 	squares[in_position] = square
+	square._check_adjacent()
 	
 	# Remove blocks color string from array
 	squared_blocks.pop_back()

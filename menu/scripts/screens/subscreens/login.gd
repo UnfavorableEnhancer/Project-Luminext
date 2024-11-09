@@ -48,8 +48,7 @@ func _ready() -> void:
 		Profile.STATUS.CONFIG_MISSING, Profile.STATUS.CONFIG_FAIL:
 			var dialog : MenuScreen = menu._add_screen("accept_dialog")
 			dialog.desc_text = "Warning! This profile config file is missing. Continue?"
-			dialog.object_to_call = self
-			dialog.call_function_name = "_continue_loading"
+			dialog.accept_function = _continue_loading
 
 	var tween : Tween = create_tween()
 	tween.tween_interval(0.75)
@@ -112,8 +111,7 @@ func _load_profile(profile_name : String) -> void:
 	if Data.profile.status == Profile.STATUS.CONFIG_FAIL or Data.profile.status == Profile.STATUS.CONFIG_MISSING:
 		var dialog : MenuScreen = menu._add_screen("accept_dialog")
 		dialog.desc_text = "Warning! This profile config file is missing. Continue?"
-		dialog.object_to_call = self
-		dialog.call_function_name = "_continue_loading"
+		dialog.accept_function = _continue_loading
 		return
 	
 	menu.screens["foreground"].get_node("ProfileLayout/Name").text = profile_name
@@ -132,9 +130,7 @@ func _continue_loading() -> void:
 func _start_profile_create() -> void:
 	var input : MenuScreen = menu._add_screen("text_input")
 	input.desc_text = "Enter new profile name"
-	input.object_to_call = self
-	input.call_function_name = "_create_profile"
-	input._start()
+	input.accept_function = _create_profile
 
 
 func _create_profile(profile_name : String) -> void:
@@ -148,5 +144,4 @@ func _create_profile(profile_name : String) -> void:
 func _exit() -> void:
 	var dialog : MenuScreen = Data.menu._add_screen("accept_dialog")
 	dialog.desc_text = "Are you sure you want to exit?"
-	dialog.object_to_call = Data.main
-	dialog.call_function_name = "_exit"
+	dialog.accept_function = Data.main._exit

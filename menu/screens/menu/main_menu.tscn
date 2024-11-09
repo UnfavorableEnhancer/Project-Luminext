@@ -13,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://b2wfw86u3bxb2" path="res://menu/images/flash_3.png" id="7_5g3bg"]
 [ext_resource type="Texture2D" uid="uid://b6m8j1567royh" path="res://menu/images/flash_4.png" id="8_sbwpg"]
 [ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="9_a02og"]
-[ext_resource type="Texture2D" uid="uid://gjjagndo43q2" path="res://images/menu/star.png" id="10_1kht2"]
 
 [sub_resource type="Animation" id="Animation_st2o3"]
 resource_name = "RESET"
@@ -670,6 +669,10 @@ font = ExtResource("3")
 font_size = 36
 font_color = Color(0, 0, 0, 1)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fccoj"]
+atlas = ExtResource("9_a02og")
+region = Rect2(512, 0, 256, 256)
+
 [sub_resource type="LabelSettings" id="LabelSettings_loy7m"]
 font = ExtResource("5")
 font_size = 24
@@ -922,7 +925,7 @@ grow_vertical = 2
 scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(0, 104)
 mouse_filter = 2
-texture = ExtResource("10_1kht2")
+texture = SubResource("AtlasTexture_fccoj")
 expand_mode = 1
 stretch_mode = 5
 flip_v = true
