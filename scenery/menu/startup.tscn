@@ -1,10 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://cltu0m5su5emu"]
+[gd_scene load_steps=20 format=3 uid="uid://cltu0m5su5emu"]
 
 [ext_resource type="Script" path="res://scripts/startup.gd" id="1_uko8a"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2_epdba"]
 [ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="3_vil0g"]
 [ext_resource type="Texture2D" uid="uid://cnhvvl7npvop0" path="res://images/menu/disclaimer_icon.png" id="4_a603p"]
-[ext_resource type="FontFile" uid="uid://05yb3ehcnjdh" path="res://fonts/notosansjp_regular.otf" id="5_xy4xc"]
 [ext_resource type="Texture2D" uid="uid://bwaxxfoss3b83" path="res://images/menu/epylepsy_warning.png" id="6_vgagi"]
 [ext_resource type="Texture2D" uid="uid://nbb1lk4huo71" path="res://images/menu/headphones_icon.png" id="7_ax6gv"]
 
@@ -39,69 +38,6 @@ font_size = 42
 font = ExtResource("2_epdba")
 font_size = 72
 
-[sub_resource type="FontFile" id="1"]
-fallbacks = Array[Font]([ExtResource("3_vil0g"), ExtResource("5_xy4xc")])
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/glyphs/0/advance = Vector2(0, 0)
-cache/0/16/0/glyphs/0/offset = Vector2(0, 0)
-cache/0/16/0/glyphs/0/size = Vector2(0, 0)
-cache/0/16/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
-cache/0/16/0/glyphs/0/texture_idx = -1
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/16/0/kerning_overrides/42/0 = Vector2(0, 0)
-cache/0/16/0/kerning_overrides/64/0 = Vector2(0, 0)
-cache/0/16/0/kerning_overrides/48/0 = Vector2(0, 0)
-cache/0/42/0/ascent = 0.0
-cache/0/42/0/descent = 0.0
-cache/0/42/0/underline_position = 0.0
-cache/0/42/0/underline_thickness = 0.0
-cache/0/42/0/scale = 1.0
-cache/0/42/0/glyphs/0/advance = Vector2(0, 0)
-cache/0/42/0/glyphs/0/offset = Vector2(0, 0)
-cache/0/42/0/glyphs/0/size = Vector2(0, 0)
-cache/0/42/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
-cache/0/42/0/glyphs/0/texture_idx = -1
-cache/0/42/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/42/0/kerning_overrides/42/0 = Vector2(0, 0)
-cache/0/42/0/kerning_overrides/64/0 = Vector2(0, 0)
-cache/0/42/0/kerning_overrides/48/0 = Vector2(0, 0)
-cache/0/64/0/ascent = 0.0
-cache/0/64/0/descent = 0.0
-cache/0/64/0/underline_position = 0.0
-cache/0/64/0/underline_thickness = 0.0
-cache/0/64/0/scale = 1.0
-cache/0/64/0/glyphs/0/advance = Vector2(0, 0)
-cache/0/64/0/glyphs/0/offset = Vector2(0, 0)
-cache/0/64/0/glyphs/0/size = Vector2(0, 0)
-cache/0/64/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
-cache/0/64/0/glyphs/0/texture_idx = -1
-cache/0/64/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/64/0/kerning_overrides/42/0 = Vector2(0, 0)
-cache/0/64/0/kerning_overrides/64/0 = Vector2(0, 0)
-cache/0/64/0/kerning_overrides/48/0 = Vector2(0, 0)
-cache/0/48/0/ascent = 0.0
-cache/0/48/0/descent = 0.0
-cache/0/48/0/underline_position = 0.0
-cache/0/48/0/underline_thickness = 0.0
-cache/0/48/0/scale = 1.0
-cache/0/48/0/glyphs/0/advance = Vector2(0, 0)
-cache/0/48/0/glyphs/0/offset = Vector2(0, 0)
-cache/0/48/0/glyphs/0/size = Vector2(0, 0)
-cache/0/48/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
-cache/0/48/0/glyphs/0/texture_idx = -1
-cache/0/48/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/48/0/kerning_overrides/42/0 = Vector2(0, 0)
-cache/0/48/0/kerning_overrides/64/0 = Vector2(0, 0)
-cache/0/48/0/kerning_overrides/48/0 = Vector2(0, 0)
-
-[sub_resource type="LabelSettings" id="LabelSettings_ixmc0"]
-font = ExtResource("3_vil0g")
-font_size = 42
-
 [sub_resource type="FontVariation" id="FontVariation_7a1b8"]
 base_font = ExtResource("2_epdba")
 
@@ -111,18 +47,6 @@ font_size = 36
 
 [sub_resource type="Animation" id="Animation_vejhr"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hide/Disclaimer/Text:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_ffffa"]
 resource_name = "end"
@@ -244,11 +168,11 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Hide/Disclaimer/Text:modulate")
+tracks/8/path = NodePath("Hide/Disclaimer/Sign:self_modulate")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(2.8, 3.8, 10, 11),
+"times": PackedFloat32Array(2.5, 3.5, 10, 11),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -256,34 +180,10 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Hide/Epylepsy/Text:modulate")
+tracks/9/path = NodePath("Hide/Epylepsy/Sign:self_modulate")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(10.5, 11.5, 15.2, 16.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Hide/Disclaimer/Sign:self_modulate")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(2.5, 3.5, 10, 11),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Hide/Epylepsy/Sign:self_modulate")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
 "times": PackedFloat32Array(10, 11, 15.2, 16.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
@@ -332,7 +232,7 @@ layout_mode = 0
 offset_top = 312.0
 offset_right = 1920.0
 offset_bottom = 728.0
-text = "This game is made by 
+text = "MADE_BY
 "
 label_settings = SubResource("LabelSettings_uou4c")
 horizontal_alignment = 1
@@ -369,20 +269,46 @@ text = "DISCLAIMER"
 label_settings = SubResource("LabelSettings_mvt77")
 vertical_alignment = 1
 
-[node name="Text" type="Label" parent="Hide/Disclaimer"]
+[node name="V" type="VBoxContainer" parent="Hide/Disclaimer"]
 layout_mode = 0
 offset_left = 128.0
 offset_top = 280.0
-offset_right = 1776.0
-offset_bottom = 968.0
-text = "Project Luminext has no relationship with Lumines™ series and wasn't endorsed 
-by it's respective owners: Enhance, Resonair and BNEI, nor any of their affiliates.
+offset_right = 1784.0
+offset_bottom = 960.0
 
-This game is currently in active development stage, so any features present here might be subject to change. Visit our official Discord server or project GitHub page to get more info about bug-reporting and contributing to this project.
+[node name="Text" type="Label" parent="Hide/Disclaimer/V"]
+custom_minimum_size = Vector2(1656, 0)
+layout_mode = 2
+text = "DISCLAIMER_TEXT"
+label_settings = SubResource("LabelSettings_bclqd")
+autowrap_mode = 2
 
-This is a free community project available for others to use and contribute to, without charge. Source code is open and licensed under the AGPL v3 license.
+[node name="Space" type="Control" parent="Hide/Disclaimer/V"]
+custom_minimum_size = Vector2(1656, 48)
+layout_mode = 2
 
-You can contact me with : random.likes.apes@gmail.com"
+[node name="Text2" type="Label" parent="Hide/Disclaimer/V"]
+custom_minimum_size = Vector2(1656, 0)
+layout_mode = 2
+text = "DISCLAIMER_TEXT2"
+label_settings = SubResource("LabelSettings_bclqd")
+autowrap_mode = 2
+
+[node name="Text3" type="Label" parent="Hide/Disclaimer/V"]
+custom_minimum_size = Vector2(1656, 0)
+layout_mode = 2
+text = "DISCLAIMER_TEXT3"
+label_settings = SubResource("LabelSettings_bclqd")
+autowrap_mode = 2
+
+[node name="Space2" type="Control" parent="Hide/Disclaimer/V"]
+custom_minimum_size = Vector2(1656, 48)
+layout_mode = 2
+
+[node name="Text4" type="Label" parent="Hide/Disclaimer/V"]
+custom_minimum_size = Vector2(1656, 0)
+layout_mode = 2
+text = "DISCLAIMER_TEXT4"
 label_settings = SubResource("LabelSettings_bclqd")
 autowrap_mode = 2
 
@@ -418,18 +344,28 @@ text = "WARNING"
 label_settings = SubResource("LabelSettings_s3mvs")
 vertical_alignment = 1
 
-[node name="Text" type="Label" parent="Hide/Epylepsy"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 0
+[node name="V" type="VBoxContainer" parent="Hide/Epylepsy"]
 offset_left = 128.0
 offset_top = 312.0
-offset_right = 1464.0
-offset_bottom = 704.0
-theme_override_fonts/font = SubResource("1")
-text = "This game features flashing lights and light patterns which may induce dizzy speels or epileptic seizures for small percentage of people, even if they never experienced these problems before.
+offset_right = 1784.0
+offset_bottom = 960.0
 
-If you notice any sympoms of dizziness, discomfort and disorientation, stop playing immideately and consult with a doctor before resuming."
-label_settings = SubResource("LabelSettings_ixmc0")
+[node name="Text" type="Label" parent="Hide/Epylepsy/V"]
+custom_minimum_size = Vector2(1656, 0)
+layout_mode = 2
+text = "WARNING_TEXT"
+label_settings = SubResource("LabelSettings_bclqd")
+autowrap_mode = 2
+
+[node name="Space" type="Control" parent="Hide/Epylepsy/V"]
+custom_minimum_size = Vector2(1656, 48)
+layout_mode = 2
+
+[node name="Text2" type="Label" parent="Hide/Epylepsy/V"]
+custom_minimum_size = Vector2(1656, 0)
+layout_mode = 2
+text = "WARNING_TEXT2"
+label_settings = SubResource("LabelSettings_bclqd")
 autowrap_mode = 2
 
 [node name="Sign" type="TextureRect" parent="Hide/Epylepsy"]
@@ -459,8 +395,7 @@ layout_mode = 0
 offset_top = 352.0
 offset_right = 1920.0
 offset_bottom = 784.0
-text = "HEADPHONES ARE HIGHLY RECOMMENDED
-FOR EXCELLENT EXPERIENCE"
+text = "HEADPHONES_TEXT"
 label_settings = SubResource("LabelSettings_n5sj1")
 horizontal_alignment = 1
 vertical_alignment = 1

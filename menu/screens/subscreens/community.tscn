@@ -374,7 +374,7 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("Content/Text:visible_ratio")
+tracks/14/path = NodePath("Content/V/Text:visible_ratio")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -469,7 +469,7 @@ offset_left = 44.0
 offset_top = 820.0
 offset_right = 391.0
 offset_bottom = 839.0
-text = "COMMUNITY/MEDIA INFO"
+text = "COMMUNITY_ARROW"
 label_settings = SubResource("LabelSettings_xv3m0")
 uppercase = true
 visible_characters = 0
@@ -564,26 +564,77 @@ offset_right = 1240.0
 offset_bottom = 16.0
 scale = Vector2(1e-05, 1)
 
-[node name="Text" type="Label" parent="Content"]
-layout_mode = 2
-offset_top = 40.0
+[node name="V" type="VBoxContainer" parent="Content"]
+layout_mode = 0
+offset_top = 32.0
 offset_right = 1240.0
-offset_bottom = 432.0
-text = "If you liked this game a lot, we invite you to join our official Project Luminext Discord server!
+offset_bottom = 472.0
 
-There you'll find:
-- Custom skins and other mods made by our community members
-- A way to easily do bug-reports and suggestions
-- Discussions about game mechanics and what pizza flavour is best
-- News about game development progress
-
-You can also visit our game official GitHub repository, since this project is open-source.
-"
+[node name="Text" type="Label" parent="Content/V"]
+custom_minimum_size = Vector2(1240, 0)
+layout_mode = 2
+text = "COMMUNITY_TEXT1"
 label_settings = SubResource("LabelSettings_m0dil")
 vertical_alignment = 1
 autowrap_mode = 2
 visible_characters = 0
 visible_ratio = 0.0
+
+[node name="Space" type="Control" parent="Content/V"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="Text2" type="Label" parent="Content/V"]
+custom_minimum_size = Vector2(1240, 0)
+layout_mode = 2
+text = "COMMUNITY_TEXT2"
+label_settings = SubResource("LabelSettings_m0dil")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Text3" type="Label" parent="Content/V"]
+custom_minimum_size = Vector2(1240, 0)
+layout_mode = 2
+text = "COMMUNITY_TEXT3"
+label_settings = SubResource("LabelSettings_m0dil")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Text4" type="Label" parent="Content/V"]
+custom_minimum_size = Vector2(1240, 0)
+layout_mode = 2
+text = "COMMUNITY_TEXT4"
+label_settings = SubResource("LabelSettings_m0dil")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Text5" type="Label" parent="Content/V"]
+custom_minimum_size = Vector2(1240, 0)
+layout_mode = 2
+text = "COMMUNITY_TEXT5"
+label_settings = SubResource("LabelSettings_m0dil")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Text6" type="Label" parent="Content/V"]
+custom_minimum_size = Vector2(1240, 0)
+layout_mode = 2
+text = "COMMUNITY_TEXT6"
+label_settings = SubResource("LabelSettings_m0dil")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Space2" type="Control" parent="Content/V"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="Text7" type="Label" parent="Content/V"]
+custom_minimum_size = Vector2(1240, 0)
+layout_mode = 2
+text = "COMMUNITY_TEXT7"
+label_settings = SubResource("LabelSettings_m0dil")
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Line2" type="ColorRect" parent="Content"]
 custom_minimum_size = Vector2(0, 4)
@@ -601,7 +652,7 @@ offset_right = 1896.0
 offset_bottom = 792.0
 scale = Vector2(1, 1e-05)
 pivot_offset = Vector2(1240, 0)
-text = "VISIT DISCORD SERVER"
+text = "COMMUNITY_INVITE1"
 glow_color = Color(0.4, 0.952941, 0.964706, 1)
 press_sound_name = "confirm4"
 call_function_name = "_accept_invite"
@@ -614,7 +665,7 @@ offset_right = 1896.0
 offset_bottom = 856.0
 scale = Vector2(1, 1e-05)
 pivot_offset = Vector2(1240, 0)
-text = "VISIT GITHUB REPO"
+text = "COMMUNITY_INVITE2"
 glow_color = Color(0.4, 0.952941, 0.964706, 1)
 menu_position = Vector2i(0, 1)
 press_sound_name = "confirm4"
@@ -628,7 +679,7 @@ offset_right = 1896.0
 offset_bottom = 920.0
 scale = Vector2(1, 1e-05)
 pivot_offset = Vector2(1240, 0)
-text = "NO THANKS"
+text = "COMMUNITY_NO_THANKS"
 glow_color = Color(0.756863, 0.247059, 0.45098, 1)
 menu_position = Vector2i(0, 2)
 work_mode = 7

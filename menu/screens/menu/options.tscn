@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://6uirnlwcpt7s"]
+[gd_scene load_steps=86 format=3 uid="uid://6uirnlwcpt7s"]
 
 [ext_resource type="Texture2D" uid="uid://clbyjed38caju" path="res://menu/images/controls.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://bruo4pkdqcre4" path="res://menu/images/flags.png" id="2"]
@@ -1160,13 +1160,17 @@ region = Rect2(384, 128, 128, 128)
 atlas = ExtResource("1")
 region = Rect2(0, 256, 128, 128)
 
+[sub_resource type="LabelSettings" id="LabelSettings_1w2bb"]
+font = ExtResource("6")
+font_size = 20
+
 [sub_resource type="AtlasTexture" id="145"]
 atlas = ExtResource("2")
 region = Rect2(0, 0, 160, 106)
 
 [sub_resource type="AtlasTexture" id="146"]
 atlas = ExtResource("2")
-region = Rect2(0, 322, 160, 106)
+region = Rect2(160, 107, 160, 107)
 
 [sub_resource type="LabelSettings" id="LabelSettings_bb3qu"]
 font = ExtResource("8")
@@ -1243,6 +1247,7 @@ offset_bottom = 1115.0
 color = Color(0.623529, 0.623529, 0.623529, 1)
 
 [node name="Background" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
 z_index = -2
 anchors_preset = 0
 offset_right = 40.0
@@ -1273,15 +1278,18 @@ libraries = {
 autoplay = "base"
 
 [node name="Optionsback" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 512.0
 offset_top = 72.0
 offset_right = 1920.0
 offset_bottom = 792.0
+scale = Vector2(1, 1e-05)
 pivot_offset = Vector2(0, 360)
 color = Color(0, 0, 0, 0.5)
 
 [node name="AUDIO" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1321,7 +1329,7 @@ max_value = 0.0
 value = -10.0
 tick_count = 7
 description_node = NodePath("../../../../../Desc/Text")
-description = "Change game/menu music volume"
+description = "MUSIC_VOLUME_DESC"
 call_string = "music_volume"
 call_function_name = "_change_option"
 
@@ -1355,7 +1363,7 @@ offset_left = 96.0
 offset_right = 648.0
 offset_bottom = 52.0
 theme_override_fonts/font = SubResource("84")
-text = "MUSIC VOLUME"
+text = "MUSIC_VOLUME"
 label_settings = SubResource("LabelSettings_6y2n5")
 vertical_alignment = 1
 uppercase = true
@@ -1378,7 +1386,7 @@ max_value = 0.0
 value = -10.0
 tick_count = 7
 description_node = NodePath("../../../../../Desc/Text")
-description = "Change game/menu sound effects volume"
+description = "SFX_VOLUME_DESC"
 call_string = "sound_volume"
 call_function_name = "_change_option"
 
@@ -1408,7 +1416,7 @@ offset_left = 96.0
 offset_right = 648.0
 offset_bottom = 52.0
 theme_override_fonts/font = SubResource("84")
-text = "SOUND VOLUME"
+text = "SFX_VOLUME"
 label_settings = SubResource("LabelSettings_6y2n5")
 vertical_alignment = 1
 uppercase = true
@@ -1429,7 +1437,7 @@ offset_bottom = 50.0
 max_value = 0.5
 tick_count = 2
 description_node = NodePath("../../../../../Desc/Text")
-description = "Select your output audio device"
+description = "AUDIO_DEVICE_DESC"
 call_string = "audio_device"
 call_function_name = "_change_option"
 
@@ -1459,7 +1467,7 @@ offset_left = 96.0
 offset_right = 648.0
 offset_bottom = 52.0
 theme_override_fonts/font = SubResource("84")
-text = "AUDIO DEVICE"
+text = "AUDIO_DEVICE"
 label_settings = SubResource("LabelSettings_6y2n5")
 vertical_alignment = 1
 uppercase = true
@@ -1481,7 +1489,7 @@ max_value = 3.0
 value = 3.0
 tick_count = 4
 description_node = NodePath("../../../../../Desc/Text")
-description = "Change how much you wanna hear our great announcer voice"
+description = "ANNOUNCER_DESC"
 call_string = "announcer"
 call_function_name = "_change_option"
 
@@ -1528,10 +1536,10 @@ layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
 offset_bottom = 52.0
-text = "POSITIONAL SOUND"
+text = "POS_SOUND"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Make all game SFX appear sounding from source position"
+description = "POS_SOUND_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
@@ -1571,10 +1579,10 @@ offset_left = 72.0
 offset_top = 2.0
 offset_right = 1328.0
 offset_bottom = 54.0
-text = "SEQUENTIAL SOUNDS"
+text = "SEQ_SOUNDS"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Make some game SFX play only on certain events (ex. squares explosion sound will be different depending on deleted squares count)"
+description = "SEQ_SOUNDS_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
@@ -1614,10 +1622,10 @@ offset_left = 72.0
 offset_top = 2.0
 offset_right = 1328.0
 offset_bottom = 54.0
-text = "SKIN PREVIEW"
+text = "SKIN_PREVIEW"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Make skin preview play in menu when skin is selected"
+description = "SKIN_PREVIEW_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
@@ -1652,9 +1660,11 @@ offset_left = 28.0
 offset_top = 676.0
 offset_right = 260.0
 offset_bottom = 695.0
-text = "AUDIO SETTINGS"
+text = "OPTIONS_ARROW3"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="AUDIO/Detail5"]
 texture_filter = 2
@@ -1670,6 +1680,7 @@ flip_v = true
 
 [node name="VIDEO" type="Control" parent="."]
 visible = false
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1695,7 +1706,7 @@ theme_override_constants/separation = 16
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_fonts/font = SubResource("135")
-text = "DISPLAY SETTINGS"
+text = "VS_LABEL1"
 label_settings = SubResource("LabelSettings_xk0on")
 
 [node name="ColorRect" type="ColorRect" parent="VIDEO/SCROLL/V/Label"]
@@ -1719,7 +1730,7 @@ offset_bottom = 52.0
 max_value = 5.0
 tick_count = 6
 description_node = NodePath("../../../../../Desc/Text")
-description = "Change game resolution in windowed mode"
+description = "RESOLUTION_DESC"
 call_string = "resolution"
 call_function_name = "_change_option"
 
@@ -1768,7 +1779,7 @@ offset_bottom = 52.0
 text = "FULLSCREEN"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Enable fullscreen mode. Can be toggled anytime by pressing F11 button."
+description = "FULLSCREEN_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
@@ -1808,9 +1819,7 @@ max_value = 300.0
 value = 60.0
 tick_count = 6
 description_node = NodePath("../../../../../Desc/Text")
-description = "Limit game FPS to certain value. Helps saving performance since lower FPS limit is, less GPU is being used.
-You can check current FPS by pressing F1.
-If you experience stutters, try setting this value slightly higher than your monitor refresh rate."
+description = "FPS_LIMIT_DESC"
 input_dash_speed = 4
 call_string = "max_fps"
 call_function_name = "_change_option"
@@ -1840,7 +1849,7 @@ offset_left = 96.0
 offset_top = 4.0
 offset_right = 1168.0
 offset_bottom = 48.0
-text = "FPS LIMIT"
+text = "FPS_LIMIT"
 label_settings = SubResource("LabelSettings_x3w21")
 vertical_alignment = 1
 uppercase = true
@@ -1849,7 +1858,7 @@ uppercase = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_fonts/font = SubResource("135")
-text = "GAMEPLAY"
+text = "VS_LABEL2"
 label_settings = SubResource("LabelSettings_24oyo")
 
 [node name="ColorRect" type="ColorRect" parent="VIDEO/SCROLL/V/Label2"]
@@ -1870,10 +1879,10 @@ layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
 offset_bottom = 52.0
-text = "BLOCK ANIMATIONS"
+text = "BLOCK_ANIM"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Allows each block to play its own animation depending on current music beat."
+description = "BLOCK_ANIM_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
@@ -1908,10 +1917,10 @@ layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
 offset_bottom = 52.0
-text = "BLOCK TRAIL"
+text = "BLOCK_TRAIL"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Enables block and piece trails effects."
+description = "BLOCK_TRAIL_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
@@ -1950,7 +1959,7 @@ max_value = 4.0
 value = 2.0
 tick_count = 5
 description_node = NodePath("../../../../../Desc/Text")
-description = "Change special in-game effects quality. Decreasing this value might help to improve game field visibility."
+description = "FX_QUALITY_DESC"
 call_string = "fx_quality"
 call_function_name = "_change_option"
 
@@ -1979,7 +1988,7 @@ offset_left = 96.0
 offset_top = 4.0
 offset_right = 1056.0
 offset_bottom = 48.0
-text = "EFFECTS QUALITY"
+text = "FX_QUALITY"
 label_settings = SubResource("LabelSettings_x3w21")
 vertical_alignment = 1
 uppercase = true
@@ -1999,7 +2008,7 @@ offset_bottom = 52.0
 max_value = 2.0
 value = 1.0
 description_node = NodePath("../../../../../Desc/Text")
-description = "Change squares animation quality. Decreasing this value might help to improve game field visibility."
+description = "SQUARES_QUALITY_DESC"
 call_string = "square_quality"
 call_function_name = "_change_option"
 
@@ -2028,7 +2037,7 @@ offset_left = 96.0
 offset_top = 4.0
 offset_right = 1056.0
 offset_bottom = 48.0
-text = "SQUARES QUALITY"
+text = "SQUARES_QUALITY"
 label_settings = SubResource("LabelSettings_x3w21")
 vertical_alignment = 1
 uppercase = true
@@ -2045,10 +2054,10 @@ layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
 offset_bottom = 52.0
-text = "AUDIO VISUALIZER"
+text = "EQ_VISUALIZER"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Enable in-game background audio visualizer."
+description = "EQ_VISUALIZER_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
@@ -2083,10 +2092,10 @@ layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
 offset_bottom = 52.0
-text = "MOVING BACKGROUND"
+text = "BACK_MOVE"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Makes background moving along current piece position making scenery more dynamic."
+description = "BACK_MOVE_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
@@ -2121,10 +2130,10 @@ layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
 offset_bottom = 52.0
-text = "CLASSIC BONUS"
+text = "CLASSIC_BONUS"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Replace standard bonus animation with classic animation like in Lumines: Puzzle Fusion"
+description = "CLASSIC_BONUS_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
@@ -2150,7 +2159,7 @@ vertical_alignment = 1
 [node name="Label3" type="Label" parent="VIDEO/SCROLL/V"]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-text = "TWEAKS & OPTIMIZATION"
+text = "VS_LABEL3"
 label_settings = SubResource("LabelSettings_x3w21")
 
 [node name="ColorRect" type="ColorRect" parent="VIDEO/SCROLL/V/Label3"]
@@ -2171,10 +2180,10 @@ layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
 offset_bottom = 52.0
-text = "BACKGROUND DARKENING"
+text = "BACK_DARK"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Makes background much darker, improving game field visibility."
+description = "BACK_DARK_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
@@ -2210,10 +2219,10 @@ offset_left = 72.0
 offset_top = 1.0
 offset_right = 1328.0
 offset_bottom = 53.0
-text = "BACKGROUND EFFECTS"
+text = "BACK_FX"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Makes all in-game special effects play on background layer instead of foreground. Enabling this improves game field visibility."
+description = "BACK_FX_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
@@ -2248,10 +2257,10 @@ layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
 offset_bottom = 52.0
-text = "ONLY STANDARD BLOCKS"
+text = "FORCE_STD_BLOCKS"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Makes all blocks appear only with standard graphics no matter which skin is currently loaded."
+description = "FORCE_STD_BLOCKS_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
@@ -2286,10 +2295,10 @@ layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
 offset_bottom = 52.0
-text = "REMOVE VIDEO"
+text = "REMOVE_VIDEO"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Removes video from background if skin has it. Might greatly improve performance. Requires skin restart to take action."
+description = "REMOVE_VIDEO_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
@@ -2324,10 +2333,10 @@ layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
 offset_bottom = 52.0
-text = "REMOVE SCENERY"
+text = "REMOVE_SCENE"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Removes animated background scenery if skin has it. Might improve performance. Requires skin restart to take action."
+description = "REMOVE_SCENE_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
@@ -2358,9 +2367,11 @@ offset_left = 20.0
 offset_top = 668.0
 offset_right = 252.0
 offset_bottom = 687.0
-text = "VIDEO SETTINGS"
+text = "OPTIONS_ARROW4"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="VIDEO/Detail5"]
 texture_filter = 2
@@ -2376,6 +2387,7 @@ flip_v = true
 
 [node name="CONTROLS" type="Control" parent="."]
 visible = false
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2396,7 +2408,7 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_right = 428.0
 offset_bottom = 52.0
-text = "GAMEPLAY"
+text = "KEY_CATEGORY1"
 label_settings = SubResource("LabelSettings_xk0on")
 
 [node name="ColorRect" type="ColorRect" parent="CONTROLS/Input/Label"]
@@ -2418,10 +2430,10 @@ layout_mode = 0
 offset_left = 64.0
 offset_right = 616.0
 offset_bottom = 48.0
-text = "MOVE LEFT"
+text = "MOVE_LEFT"
 description_node = NodePath("../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Assign piece move left button."
+description = "MOVE_LEFT_DESC"
 button_layout = 3
 press_sound_name = "confirm3"
 call_string = "move_left"
@@ -2457,10 +2469,10 @@ layout_mode = 0
 offset_left = 64.0
 offset_right = 616.0
 offset_bottom = 48.0
-text = "MOVE RIGHT"
+text = "MOVE_RIGHT"
 description_node = NodePath("../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Assign piece move right button."
+description = "MOVE_RIGHT_DESC"
 button_layout = 3
 press_sound_name = "confirm3"
 call_string = "move_right"
@@ -2495,10 +2507,10 @@ layout_mode = 0
 offset_left = 64.0
 offset_right = 616.0
 offset_bottom = 48.0
-text = "ROTATE LEFT"
+text = "ROTATE_LEFT"
 description_node = NodePath("../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Assign piece left rotation button."
+description = "ROTATE_LEFT_DESC"
 button_layout = 3
 press_sound_name = "confirm3"
 call_string = "rotate_left"
@@ -2534,10 +2546,10 @@ layout_mode = 0
 offset_left = 64.0
 offset_right = 616.0
 offset_bottom = 48.0
-text = "ROTATE RIGHT"
+text = "ROTATE_RIGHT"
 description_node = NodePath("../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Assign piece right rotation button."
+description = "ROTATE_RIGHT_DESC"
 button_layout = 3
 press_sound_name = "confirm3"
 call_string = "rotate_right"
@@ -2572,10 +2584,10 @@ layout_mode = 0
 offset_left = 64.0
 offset_right = 616.0
 offset_bottom = 48.0
-text = "QUICK DROP"
+text = "QUICK_DROP"
 description_node = NodePath("../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Assign piece quick drop button."
+description = "QUICK_DROP_DESC"
 button_layout = 3
 press_sound_name = "confirm3"
 call_string = "quick_drop"
@@ -2611,10 +2623,10 @@ layout_mode = 0
 offset_left = 64.0
 offset_right = 616.0
 offset_bottom = 48.0
-text = "SWAP"
+text = "SWAP_PIECE"
 description_node = NodePath("../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Assign piece swap button."
+description = "SWAP_PIECE_DESC"
 button_layout = 3
 press_sound_name = "confirm3"
 call_string = "side_ability"
@@ -2641,7 +2653,7 @@ layout_mode = 0
 offset_top = 264.0
 offset_right = 428.0
 offset_bottom = 316.0
-text = "MENU & UI"
+text = "KEY_CATEGORY2"
 label_settings = SubResource("LabelSettings_xk0on")
 
 [node name="ColorRect" type="ColorRect" parent="CONTROLS/Input/Label2"]
@@ -2663,10 +2675,10 @@ layout_mode = 0
 offset_left = 64.0
 offset_right = 616.0
 offset_bottom = 48.0
-text = "ACCEPT"
+text = "MENU_ACCEPT"
 description_node = NodePath("../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Assign menu accept button."
+description = "MENU_ACCEPT_DESC"
 button_layout = 3
 press_sound_name = "confirm3"
 call_string = "ui_accept"
@@ -2702,10 +2714,10 @@ layout_mode = 0
 offset_left = 64.0
 offset_right = 616.0
 offset_bottom = 48.0
-text = "CANCEL"
+text = "MENU_CANCEL"
 description_node = NodePath("../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Assign menu cancel button."
+description = "MENU_CANCEL_DESC"
 button_layout = 3
 press_sound_name = "confirm3"
 call_string = "ui_cancel"
@@ -2740,10 +2752,10 @@ layout_mode = 0
 offset_left = 64.0
 offset_right = 616.0
 offset_bottom = 48.0
-text = "EXTRA"
+text = "MENU_EXTRA"
 description_node = NodePath("../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "Assign menu special action button."
+description = "MENU_EXTRA_DESC"
 button_layout = 3
 press_sound_name = "confirm3"
 call_string = "ui_extra"
@@ -2773,9 +2785,11 @@ offset_left = 20.0
 offset_top = 676.0
 offset_right = 252.0
 offset_bottom = 695.0
-text = "CONTROL ASSIGN"
+text = "OPTIONS_ARROW5"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="CONTROLS/Detail5"]
 texture_filter = 2
@@ -2791,6 +2805,7 @@ flip_v = true
 
 [node name="LANGUAGE" type="Control" parent="."]
 visible = false
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2814,8 +2829,39 @@ theme = SubResource("92")
 layout_mode = 2
 theme_override_constants/separation = 16
 
+[node name="Text" type="Label" parent="LANGUAGE/SCROLL/V"]
+modulate = Color(1, 1, 1, 0.5)
+custom_minimum_size = Vector2(1320, 0)
+layout_mode = 2
+text = "LANGUAGE_TEXT1"
+label_settings = SubResource("LabelSettings_1w2bb")
+autowrap_mode = 2
+uppercase = true
+
+[node name="Text2" type="Label" parent="LANGUAGE/SCROLL/V"]
+modulate = Color(1, 1, 1, 0.5)
+custom_minimum_size = Vector2(1320, 0)
+layout_mode = 2
+text = "LANGUAGE_TEXT2"
+label_settings = SubResource("LabelSettings_1w2bb")
+autowrap_mode = 2
+uppercase = true
+
+[node name="Text3" type="Label" parent="LANGUAGE/SCROLL/V"]
+modulate = Color(1, 1, 1, 0.5)
+custom_minimum_size = Vector2(1320, 0)
+layout_mode = 2
+text = "LANGUAGE_TEXT3"
+label_settings = SubResource("LabelSettings_1w2bb")
+autowrap_mode = 2
+uppercase = true
+
+[node name="ColorRect" type="ColorRect" parent="LANGUAGE/SCROLL/V"]
+custom_minimum_size = Vector2(1320, 4)
+layout_mode = 2
+
 [node name="Flag" type="TextureRect" parent="LANGUAGE/SCROLL/V"]
-custom_minimum_size = Vector2(128, 64)
+custom_minimum_size = Vector2(128, 48)
 layout_mode = 2
 texture = SubResource("145")
 expand_mode = 1
@@ -2823,97 +2869,82 @@ stretch_mode = 4
 
 [node name="ENGLISH" parent="LANGUAGE/SCROLL/V/Flag" instance=ExtResource("11")]
 layout_mode = 2
-offset_left = 112.0
+offset_left = 88.0
 offset_right = 1320.0
+offset_bottom = 48.0
 text = "ENGLISH"
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
 description = "SET_LANGUAGE_DESC"
 press_sound_name = "enter"
 call_string = "en"
+call_function_name = "_select_language"
 
-[node name="Progress" type="Label" parent="LANGUAGE/SCROLL/V/Flag/ENGLISH"]
-modulate = Color(0.537255, 0.537255, 0.537255, 1)
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -228.0
-offset_top = -26.0
-offset_right = -16.0
-offset_bottom = 26.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_fonts/font = SubResource("84")
-text = "100%"
-label_settings = SubResource("LabelSettings_16anr")
-horizontal_alignment = 2
-vertical_alignment = 1
+[node name="Mark" type="TextureRect" parent="LANGUAGE/SCROLL/V/Flag" groups=["language_marks"]]
+visible = false
+layout_mode = 2
+offset_left = 1264.0
+offset_top = -1.0
+offset_right = 1312.0
+offset_bottom = 47.0
+texture = SubResource("AtlasTexture_1fbr7")
+expand_mode = 1
 
 [node name="Flag2" type="TextureRect" parent="LANGUAGE/SCROLL/V"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 texture = SubResource("146")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="JAPAN" parent="LANGUAGE/SCROLL/V/Flag2" instance=ExtResource("11")]
+[node name="ITALIAN" parent="LANGUAGE/SCROLL/V/Flag2" instance=ExtResource("11")]
 layout_mode = 2
-offset_left = 112.0
+offset_left = 88.0
 offset_right = 1320.0
-text = "JAPANESE [太郎]"
+offset_bottom = 48.0
+text = "ITALIAN"
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
 description = "SET_LANGUAGE_DESC"
 press_sound_name = "enter"
-call_string = "ja"
+call_string = "it"
+call_function_name = "_select_language"
 
-[node name="Progress" type="Label" parent="LANGUAGE/SCROLL/V/Flag2/JAPAN"]
-modulate = Color(0.537255, 0.537255, 0.537255, 1)
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -228.0
-offset_top = -26.0
-offset_right = -16.0
-offset_bottom = 26.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_fonts/font = SubResource("84")
-text = "100%"
-label_settings = SubResource("LabelSettings_16anr")
-horizontal_alignment = 2
-vertical_alignment = 1
+[node name="Mark" type="TextureRect" parent="LANGUAGE/SCROLL/V/Flag2" groups=["language_marks"]]
+visible = false
+offset_left = 1264.0
+offset_top = -1.0
+offset_right = 1312.0
+offset_bottom = 47.0
+texture = SubResource("AtlasTexture_1fbr7")
+expand_mode = 1
 
-[node name="ColorRect" type="ColorRect" parent="LANGUAGE/SCROLL/V"]
-custom_minimum_size = Vector2(1320, 4)
+[node name="Blank" type="TextureRect" parent="LANGUAGE/SCROLL/V"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="LANGUAGE/SCROLL/V/ColorRect"]
+[node name="GITHUB" parent="LANGUAGE/SCROLL/V/Blank" instance=ExtResource("11")]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-offset_top = 16.0
+offset_top = -1.0
 offset_right = 1320.0
-offset_bottom = 133.0
-text = "THIS GAME IS COMMUNITY TRANSLATED! 
-IF YOU WISH TO HELP TRANSLATING THIS GAME TO YOUR LOCAL LANGUAGE, PLEASE VISIT THIS GitHub PAGE:
-github.com"
-label_settings = SubResource("LabelSettings_xk0on")
-autowrap_mode = 2
+offset_bottom = 47.0
+text = "TRANSLATION_PAGE"
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "TRANSLATION_PAGE_DESC"
+press_sound_name = "enter"
+call_function_name = "_open_translation_page"
 
 [node name="Detail5" type="Label" parent="LANGUAGE"]
-modulate = Color(0.639216, 0.639216, 0.639216, 1)
+modulate = Color(0.639, 0.639, 0.639, 0.5)
 texture_filter = 1
 layout_mode = 0
 offset_left = 20.0
-offset_top = 736.0
-offset_right = 252.0
-offset_bottom = 755.0
-text = "LANGUAGE SELECT"
+offset_top = 676.0
+offset_right = 272.0
+offset_bottom = 695.0
+text = "OPTIONS_ARROW6"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="LANGUAGE/Detail5"]
 texture_filter = 2
@@ -2926,6 +2957,7 @@ texture = SubResource("AtlasTexture_1fbr7")
 expand_mode = 1
 
 [node name="Desc" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.092
@@ -2936,6 +2968,7 @@ offset_left = -176.64
 offset_top = 744.28
 offset_right = 1743.36
 offset_bottom = 952.28
+scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(0, 160)
 mouse_filter = 2
 color = Color(0, 0, 0, 0.501961)
@@ -2961,9 +2994,11 @@ offset_left = 44.0
 offset_top = 180.0
 offset_right = 276.0
 offset_bottom = 199.0
-text = "DESCRIPTION"
+text = "OPTIONS_ARROW2"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="Desc/Detail3"]
 texture_filter = 2
@@ -2978,6 +3013,7 @@ flip_h = true
 flip_v = true
 
 [node name="Menu" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.059
@@ -2985,6 +3021,7 @@ anchor_bottom = 0.059
 offset_top = 8.28
 offset_right = 496.0
 offset_bottom = 728.28
+scale = Vector2(1, 1e-05)
 mouse_filter = 2
 color = Color(0, 0, 0, 0.501961)
 
@@ -2994,10 +3031,11 @@ offset_left = 16.0
 offset_top = 100.0
 offset_right = 480.0
 offset_bottom = 156.0
+scale = Vector2(1, 1e-05)
 text = "AUDIO"
 description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.180392, 0.529412, 0.807843, 1)
-description = "Open audio settings tab."
+description = "AUDIO_DESC"
 button_layout = 2
 menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm"
@@ -3025,10 +3063,11 @@ offset_left = 16.0
 offset_top = 168.0
 offset_right = 480.0
 offset_bottom = 224.0
+scale = Vector2(1, 1e-05)
 text = "VIDEO"
 description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.164706, 0.698039, 0.34902, 1)
-description = "Open video settings tab."
+description = "VIDEO_DESC"
 button_layout = 2
 menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm"
@@ -3056,10 +3095,11 @@ offset_left = 16.0
 offset_top = 236.0
 offset_right = 480.0
 offset_bottom = 292.0
+scale = Vector2(1, 1e-05)
 text = "CONTROLS"
 description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.741176, 0.721569, 0.172549, 1)
-description = "Open control assign tab."
+description = "CONTROLS_DESC"
 button_layout = 2
 menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm"
@@ -3087,10 +3127,11 @@ offset_left = 16.0
 offset_top = 304.0
 offset_right = 480.0
 offset_bottom = 360.0
+scale = Vector2(1, 1e-05)
 text = "LANGUAGE"
 description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.670588, 0.403922, 0.792157, 1)
-description = "Open language tab."
+description = "LANGUAGE_DESC"
 menu_position = Vector2i(-1, -1)
 press_sound_name = "enter"
 is_cancel_button = true
@@ -3118,6 +3159,7 @@ offset_left = 16.0
 offset_top = 380.0
 offset_right = 480.0
 offset_bottom = 384.0
+scale = Vector2(1e-05, 1)
 
 [node name="Line2" type="ColorRect" parent="Menu"]
 layout_mode = 0
@@ -3125,6 +3167,7 @@ offset_left = 16.0
 offset_top = 80.0
 offset_right = 480.0
 offset_bottom = 84.0
+scale = Vector2(1e-05, 1)
 
 [node name="APPLY" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
 layout_mode = 0
@@ -3132,10 +3175,11 @@ offset_left = 16.0
 offset_top = 404.0
 offset_right = 480.0
 offset_bottom = 460.0
+scale = Vector2(1, 1e-05)
 text = "APPLY"
 description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.133333, 0.690196, 0.521569, 1)
-description = "Apply and save all changes and return to previous menu screen."
+description = "APPLY_DESC"
 button_layout = 2
 menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm4"
@@ -3162,10 +3206,11 @@ offset_left = 16.0
 offset_top = 472.0
 offset_right = 480.0
 offset_bottom = 528.0
-text = "RESET CHANGES"
+scale = Vector2(1, 1e-05)
+text = "RESET_CHANGES"
 description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.756863, 0.541176, 0.2, 1)
-description = "Reset all current tab changes."
+description = "RESET_CHANGES_DESC"
 button_layout = 2
 menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm2"
@@ -3192,11 +3237,11 @@ offset_left = 16.0
 offset_top = 540.0
 offset_right = 480.0
 offset_bottom = 596.0
-text = "RESET TO STANDARD
-"
+scale = Vector2(1, 1e-05)
+text = "RESET_TO_STANDARD"
 description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.694118, 0.262745, 0.262745, 1)
-description = "Reset all current tab settings to standard."
+description = "RESET_TO_STANDARD_DESC"
 button_layout = 2
 menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm2"
@@ -3225,10 +3270,11 @@ offset_left = 16.0
 offset_top = 608.0
 offset_right = 480.0
 offset_bottom = 664.0
+scale = Vector2(1, 1e-05)
 text = "CANCEL"
 description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.564706, 0.564706, 0.564706, 1)
-description = "Cancel all changes and return to previous menu screen."
+description = "CANCEL_DESC"
 button_layout = 2
 menu_position = Vector2i(-1, -1)
 press_sound_name = "cancel"
@@ -3258,9 +3304,11 @@ offset_left = 40.0
 offset_top = 692.0
 offset_right = 272.0
 offset_bottom = 711.0
-text = "OPTIONS SELECT"
+text = "OPTIONS_ARROW1"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="Menu/Detail4"]
 texture_filter = 2
@@ -3290,6 +3338,7 @@ offset_left = 132.32
 offset_top = -2.36
 offset_right = 1916.32
 offset_bottom = 69.64
+scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(1784, 0)
 mouse_filter = 2
 color = Color(0, 1, 0.788, 0.75)
@@ -3311,10 +3360,12 @@ anchor_bottom = 0.059
 offset_top = -2.36
 offset_right = 136.0
 offset_bottom = 133.64
+scale = Vector2(1e-05, 1e-05)
 mouse_filter = 2
 color = Color(0, 0.207843, 0.164706, 1)
 
 [node name="Icon" type="TextureRect" parent="Top/Iconhold"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -3324,6 +3375,7 @@ offset_top = -52.0
 offset_right = 120.0
 offset_bottom = 52.0
 grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(0, 120)
 mouse_filter = 2
 texture = SubResource("65")
@@ -3332,8 +3384,7 @@ stretch_mode = 6
 
 [node name="Overlay" type="ColorRect" parent="."]
 layout_mode = 0
-offset_left = 2000.0
-offset_right = 3920.0
+offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0, 0, 0, 0)
 metadata/_edit_lock_ = true

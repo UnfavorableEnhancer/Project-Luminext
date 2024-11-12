@@ -43,7 +43,7 @@ func _ready() -> void:
 
 func _set_seed() -> void:
 	var input : MenuScreen = menu._add_screen("text_input")
-	input.desc_text = "Enter seed number"
+	input.desc_text = tr("SEED_DIALOG")
 
 	var value : String = await input.closed_text
 	if value.is_empty() : return
@@ -164,5 +164,5 @@ func _save_preset() -> void:
 	preset._store_current_config()
 
 	var input : MenuScreen = Data.menu._add_screen("text_input")
-	input.desc_text = "ENTER CONFIGURATION PRESET NAME"
+	input.desc_text = tr("SAVE_PRESET_DIALOG")
 	input.accept_function = preset._save

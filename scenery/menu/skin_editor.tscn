@@ -1344,9 +1344,7 @@ offset_top = -624.0
 offset_right = -623.992
 offset_bottom = -701.0
 theme_override_fonts/font = SubResource("73")
-text = "Welcome to the Project Luminext skin editor v1.0
-If you come here by mistake, press cancel button to exit.
-Check \"modding\" folder in order to find manual and assets sources.
+text = "SE_WELCOME
 "
 label_settings = SubResource("LabelSettings_vd7m7")
 horizontal_alignment = 1
@@ -1369,12 +1367,12 @@ theme_override_styles/tab_unselected = SubResource("38")
 current_tab = 0
 all_tabs_in_front = true
 
-[node name="METADATA" type="Control" parent="Hide/TabContainer"]
+[node name="SE_METADATA" type="Control" parent="Hide/TabContainer"]
 layout_mode = 2
 mouse_filter = 2
 metadata/_tab_index = 0
 
-[node name="Label7" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label7" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = 15
@@ -1386,10 +1384,10 @@ offset_right = -1266.0
 offset_bottom = -796.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "COVER ART"
+text = "SE_COVER"
 label_settings = SubResource("LabelSettings_wn5au")
 
-[node name="CoverArt" type="TextureButton" parent="Hide/TabContainer/METADATA/Label7"]
+[node name="CoverArt" type="TextureButton" parent="Hide/TabContainer/SE_METADATA/Label7"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 1
@@ -1407,10 +1405,10 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "cover_art"
-description = "Skin cover art. Size : 512x512."
+description = "SE_COVER_DESC"
 category = "metadata"
 
-[node name="Label8" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label8" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1422,10 +1420,10 @@ offset_bottom = -476.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = SubResource("83")
-text = "LABEL ART"
+text = "SE_LABEL"
 label_settings = SubResource("LabelSettings_wn5au")
 
-[node name="LabelArt" type="TextureButton" parent="Hide/TabContainer/METADATA/Label8"]
+[node name="LabelArt" type="TextureButton" parent="Hide/TabContainer/SE_METADATA/Label8"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 1
@@ -1443,10 +1441,10 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "label_art"
-description = "Skin label art. Size: 512x64."
+description = "SE_LABEL_DESC"
 category = "metadata"
 
-[node name="Label2" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label2" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = 15
@@ -1458,10 +1456,10 @@ offset_right = -1016.0
 offset_bottom = -796.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "NAME"
+text = "SE_NAME"
 label_settings = SubResource("LabelSettings_wn5au")
 
-[node name="Name" type="LineEdit" parent="Hide/TabContainer/METADATA/Label2"]
+[node name="Name" type="LineEdit" parent="Hide/TabContainer/SE_METADATA/Label2"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 32.0
@@ -1478,9 +1476,9 @@ caret_blink = true
 caret_blink_interval = 1.5
 script = ExtResource("14")
 data = "name"
-description = "Skin name. Will be used to create skin file name."
+description = "SE_NAME_DESC"
 
-[node name="Label" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = -1
@@ -1492,11 +1490,11 @@ offset_left = 1128.0
 offset_top = 173.0
 offset_right = -624.0
 offset_bottom = -783.0
-text = "BPM :"
+text = "SE_BPM"
 label_settings = SubResource("LabelSettings_wn5au")
 vertical_alignment = 1
 
-[node name="BPM" type="LineEdit" parent="Hide/TabContainer/METADATA/Label"]
+[node name="BPM" type="LineEdit" parent="Hide/TabContainer/SE_METADATA/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 112.0
@@ -1516,9 +1514,9 @@ caret_blink = true
 caret_blink_interval = 1.5
 script = ExtResource("14")
 data = "BPM"
-description = "Skin/song BPM. Defines timeline and some animations speed. Can be fractional number like: 145.23."
+description = "SE_BPM_DESC"
 
-[node name="Label5" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label5" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = 15
@@ -1530,10 +1528,10 @@ offset_right = -1016.0
 offset_bottom = -684.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "ALBUM"
+text = "SE_ALBUM"
 label_settings = SubResource("LabelSettings_wn5au")
 
-[node name="Album" type="LineEdit" parent="Hide/TabContainer/METADATA/Label5"]
+[node name="Album" type="LineEdit" parent="Hide/TabContainer/SE_METADATA/Label5"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 32.0
@@ -1550,9 +1548,9 @@ caret_blink = true
 caret_blink_interval = 1.5
 script = ExtResource("14")
 data = "album"
-description = "Skin album. Will be used to put this skin in own category (album) inside skin list."
+description = "SE_ALBUM_DESC"
 
-[node name="Label6" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label6" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = -1
@@ -1564,11 +1562,11 @@ offset_left = 936.0
 offset_top = 333.0
 offset_right = -589.0
 offset_bottom = -629.0
-text = "NUMBER IN ALBUM :"
+text = "SE_NUMBER"
 label_settings = SubResource("LabelSettings_wn5au")
 vertical_alignment = 1
 
-[node name="Number" type="LineEdit" parent="Hide/TabContainer/METADATA/Label6"]
+[node name="Number" type="LineEdit" parent="Hide/TabContainer/SE_METADATA/Label6"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 376.0
@@ -1587,9 +1585,9 @@ caret_blink = true
 caret_blink_interval = 1.5
 script = ExtResource("14")
 data = "number"
-description = "Number in album. Used to sort skin inside album."
+description = "SE_NUMBER_DESC"
 
-[node name="Label3" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label3" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = 15
@@ -1601,10 +1599,10 @@ offset_right = -1175.0
 offset_bottom = -572.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "MUSIC ARTIST"
+text = "SE_ARTIST"
 label_settings = SubResource("LabelSettings_wn5au")
 
-[node name="Artist" type="LineEdit" parent="Hide/TabContainer/METADATA/Label3"]
+[node name="Artist" type="LineEdit" parent="Hide/TabContainer/SE_METADATA/Label3"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 32.0
@@ -1621,9 +1619,9 @@ caret_blink = true
 caret_blink_interval = 1.5
 script = ExtResource("14")
 data = "artist"
-description = "Music artist."
+description = "SE_ARTIST_DESC"
 
-[node name="Label4" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label4" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = 15
@@ -1635,10 +1633,10 @@ offset_right = -1401.0
 offset_bottom = -316.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "ABOUT INFO"
+text = "SE_ABOUT"
 label_settings = SubResource("LabelSettings_wn5au")
 
-[node name="Info" type="TextEdit" parent="Hide/TabContainer/METADATA/Label4"]
+[node name="Info" type="TextEdit" parent="Hide/TabContainer/SE_METADATA/Label4"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 48.0
@@ -1654,7 +1652,7 @@ context_menu_enabled = false
 caret_blink = true
 caret_blink_interval = 1.5
 
-[node name="Label16" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label16" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = 15
@@ -1666,17 +1664,17 @@ offset_right = 4.0
 offset_bottom = -316.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "SKIN EDIT HISTORY"
+text = "SE_EDIT_HISTORY"
 label_settings = SubResource("LabelSettings_wn5au")
 
-[node name="ColorRect" type="ColorRect" parent="Hide/TabContainer/METADATA/Label16"]
+[node name="ColorRect" type="ColorRect" parent="Hide/TabContainer/SE_METADATA/Label16"]
 layout_mode = 0
 offset_top = 48.0
 offset_right = 568.0
 offset_bottom = 328.0
 color = Color(0.137255, 0.137255, 0.137255, 1)
 
-[node name="S" type="ScrollContainer" parent="Hide/TabContainer/METADATA/Label16"]
+[node name="S" type="ScrollContainer" parent="Hide/TabContainer/SE_METADATA/Label16"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 56.0
@@ -1684,12 +1682,12 @@ offset_right = 560.0
 offset_bottom = 320.0
 theme = SubResource("92")
 
-[node name="EditHistory" type="Label" parent="Hide/TabContainer/METADATA/Label16/S"]
+[node name="EditHistory" type="Label" parent="Hide/TabContainer/SE_METADATA/Label16/S"]
 unique_name_in_owner = true
 layout_mode = 2
 label_settings = SubResource("LabelSettings_l6uw8")
 
-[node name="Label12" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label12" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = 15
@@ -1701,10 +1699,10 @@ offset_right = -24.0
 offset_bottom = -796.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "MUSIC LOOPING"
+text = "SE_MUSIC_LOOP"
 label_settings = SubResource("LabelSettings_wn5au")
 
-[node name="Loop" type="CheckButton" parent="Hide/TabContainer/METADATA/Label12"]
+[node name="Loop" type="CheckButton" parent="Hide/TabContainer/SE_METADATA/Label12"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 40.0
@@ -1731,9 +1729,9 @@ text = "OFF"
 alignment = 1
 script = ExtResource("10")
 entry_name = "looping"
-description = "Makes music loop around current music sample (2 bars) when no square is erased yet."
+description = "SE_MUSIC_LOOP_DESC"
 
-[node name="Label10" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label10" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = 15
@@ -1745,10 +1743,10 @@ offset_right = -24.0
 offset_bottom = -684.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "NO BACKGROUND MOVEMENT"
+text = "SE_NO_BACK_MOVE"
 label_settings = SubResource("LabelSettings_wn5au")
 
-[node name="Shake" type="CheckButton" parent="Hide/TabContainer/METADATA/Label10"]
+[node name="Shake" type="CheckButton" parent="Hide/TabContainer/SE_METADATA/Label10"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 40.0
@@ -1775,9 +1773,9 @@ text = "OFF"
 alignment = 1
 script = ExtResource("10")
 entry_name = "no_shaking"
-description = "Disable background movement option for this skin."
+description = "SE_NO_BACK_MOVE_DESC"
 
-[node name="Label13" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label13" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = 15
@@ -1789,10 +1787,10 @@ offset_right = 155.0
 offset_bottom = -572.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "ZOOM BACKGROUND"
+text = "SE_ZOOM_BACK"
 label_settings = SubResource("LabelSettings_wn5au")
 
-[node name="Zoom" type="CheckButton" parent="Hide/TabContainer/METADATA/Label13"]
+[node name="Zoom" type="CheckButton" parent="Hide/TabContainer/SE_METADATA/Label13"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 40.0
@@ -1818,9 +1816,9 @@ text = "ON"
 alignment = 1
 script = ExtResource("10")
 entry_name = "zoom_background"
-description = "Increase background scale when background movement option is enabled, so you can hide out of bounds things."
+description = "SE_ZOOM_BACK_DESC"
 
-[node name="Label15" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label15" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = 15
@@ -1832,10 +1830,10 @@ offset_right = 50.0
 offset_bottom = -460.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "RANDOM BONUS ANIMATION"
+text = "SE_RANDOM_BONUS"
 label_settings = SubResource("LabelSettings_wn5au")
 
-[node name="BonusRand" type="CheckButton" parent="Hide/TabContainer/METADATA/Label15"]
+[node name="BonusRand" type="CheckButton" parent="Hide/TabContainer/SE_METADATA/Label15"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 40.0
@@ -1861,9 +1859,9 @@ text = "OFF"
 alignment = 1
 script = ExtResource("10")
 entry_name = "random_bonus"
-description = "Do random scenery bonus animations from start instead of sequential."
+description = "SE_RANDOM_BONUS_DESC"
 
-[node name="Label9" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label9" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 visible = false
 layout_mode = 0
 anchor_right = 1.0
@@ -1875,7 +1873,7 @@ offset_bottom = -381.0
 theme_override_fonts/font = SubResource("83")
 text = "EDITOR_LEVEL_UP_LEFT"
 
-[node name="Level" type="LineEdit" parent="Hide/TabContainer/METADATA/Label9"]
+[node name="Level" type="LineEdit" parent="Hide/TabContainer/SE_METADATA/Label9"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 96.0
@@ -1894,7 +1892,7 @@ script = ExtResource("14")
 data = "level_up"
 description = "EDITOR_LEVEL_UP_SPEED_DESC"
 
-[node name="Label11" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label11" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 visible = false
 layout_mode = 0
 anchor_right = 1.0
@@ -1906,7 +1904,7 @@ offset_bottom = -213.0
 theme_override_fonts/font = SubResource("83")
 text = "EDITOR_FALL_SPEED"
 
-[node name="Speed" type="LineEdit" parent="Hide/TabContainer/METADATA/Label11"]
+[node name="Speed" type="LineEdit" parent="Hide/TabContainer/SE_METADATA/Label11"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 72.0
@@ -1925,7 +1923,7 @@ script = ExtResource("14")
 data = "speed"
 description = "EDITOR_FALL_SPEED_DESC"
 
-[node name="Label14" type="Label" parent="Hide/TabContainer/METADATA"]
+[node name="Label14" type="Label" parent="Hide/TabContainer/SE_METADATA"]
 visible = false
 layout_mode = 0
 anchor_right = 1.0
@@ -1937,7 +1935,7 @@ offset_bottom = -69.0
 theme_override_fonts/font = SubResource("83")
 text = "EDITOR_FALL_DELAY"
 
-[node name="Delay" type="LineEdit" parent="Hide/TabContainer/METADATA/Label14"]
+[node name="Delay" type="LineEdit" parent="Hide/TabContainer/SE_METADATA/Label14"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 72.0
@@ -1956,36 +1954,36 @@ script = ExtResource("14")
 data = "delay"
 description = "EDITOR_FALL_DELAY_DESC"
 
-[node name="ColorRect" type="ColorRect" parent="Hide/TabContainer/METADATA"]
+[node name="ColorRect" type="ColorRect" parent="Hide/TabContainer/SE_METADATA"]
 layout_mode = 0
 offset_left = 1264.0
 offset_top = -3.0
 offset_right = 1272.0
 offset_bottom = 853.0
 
-[node name="GRAPHICS" type="Control" parent="Hide/TabContainer"]
+[node name="SE_VISUALS" type="Control" parent="Hide/TabContainer"]
 visible = false
 layout_mode = 2
 mouse_filter = 2
 metadata/_tab_index = 1
 
-[node name="Line3" type="ColorRect" parent="Hide/TabContainer/GRAPHICS"]
+[node name="Line3" type="ColorRect" parent="Hide/TabContainer/SE_VISUALS"]
 layout_mode = 0
 offset_left = 888.0
 offset_top = 5.0
 offset_right = 896.0
 offset_bottom = 853.0
 
-[node name="Label" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+[node name="Label" type="Label" parent="Hide/TabContainer/SE_VISUALS"]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 21.0
 offset_right = 328.0
 offset_bottom = 55.0
-text = "SPRITES"
+text = "SE_SPRITES"
 label_settings = SubResource("LabelSettings_0l4hl")
 
-[node name="red" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="red" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 40.0
@@ -1997,12 +1995,12 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "red"
-description = "Red block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_RED_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/red"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/red"]
 position = Vector2(32, 32)
 
-[node name="white" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="white" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 80.0
@@ -2015,12 +2013,12 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "white"
-description = "White block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_WHITE_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/white"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/white"]
 position = Vector2(32, 32)
 
-[node name="green" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="green" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 160.0
@@ -2033,12 +2031,12 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "green"
-description = "Green block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_GREEN_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/green"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/green"]
 position = Vector2(32, 32)
 
-[node name="purple" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="purple" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 240.0
@@ -2051,12 +2049,12 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "purple"
-description = "Purple block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_PURPLE_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/purple"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/purple"]
 position = Vector2(32, 32)
 
-[node name="rchain" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="rchain" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 120.0
@@ -2067,13 +2065,13 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "rchain"
-description = "Special red block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_RED_SPEC_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/rchain"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/rchain"]
 position = Vector2(32, 32)
 sprite_frames = SubResource("113")
 
-[node name="wchain" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="wchain" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 80.0
@@ -2085,13 +2083,13 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "wchain"
-description = "Special white block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_WHITE_SPEC_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/wchain"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/wchain"]
 position = Vector2(32, 32)
 sprite_frames = SubResource("99")
 
-[node name="gchain" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="gchain" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 160.0
@@ -2103,13 +2101,13 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "gchain"
-description = "Special green block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_GREEN_SPEC_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/gchain"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/gchain"]
 position = Vector2(32, 32)
 sprite_frames = SubResource("100")
 
-[node name="pchain" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="pchain" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 240.0
@@ -2121,13 +2119,13 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "pchain"
-description = "Special purple block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_PURPLE_SPEC_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/pchain"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/pchain"]
 position = Vector2(32, 32)
 sprite_frames = SubResource("101")
 
-[node name="chain" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="chain" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 320.0
@@ -2139,13 +2137,13 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "chain"
-description = "Chain special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_CHAIN_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/chain"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/chain"]
 position = Vector2(32, 32)
 sprite_frames = SubResource("102")
 
-[node name="merge" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="merge" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 400.0
@@ -2157,13 +2155,13 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "merge"
-description = "Merge special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_MERGE_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/merge"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/merge"]
 position = Vector2(32, 32)
 sprite_frames = SubResource("103")
 
-[node name="laser" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="laser" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 480.0
@@ -2175,13 +2173,13 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "laser"
-description = "Laser special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_LASER_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/laser"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/laser"]
 position = Vector2(32, 32)
 sprite_frames = SubResource("105")
 
-[node name="wipe" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="wipe" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 560.0
@@ -2193,13 +2191,13 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "wipe"
-description = "Wipe special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_WIPE_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/wipe"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/wipe"]
 position = Vector2(32, 32)
 sprite_frames = SubResource("106")
 
-[node name="multi" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="multi" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 640.0
@@ -2212,12 +2210,12 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "multi"
-description = "Multi block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_MULTI_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/multi"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/multi"]
 position = Vector2(32, 32)
 
-[node name="garbage" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="garbage" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 720.0
@@ -2230,12 +2228,12 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "garbage"
-description = "Dark block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_DARK_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/garbage"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/garbage"]
 position = Vector2(32, 32)
 
-[node name="erase" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="erase" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 320.0
@@ -2248,9 +2246,9 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "erase"
-description = "Erased block texture. Size: 64x64"
+description = "SE_ERASED_DESC"
 
-[node name="die" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="die" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 400.0
@@ -2261,13 +2259,13 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "die"
-description = "Block explosion animation. Size: 64x64. Can be animated if imported as horisontal sprite sheet."
+description = "SE_DEATH_ANIM_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/die"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/die"]
 position = Vector2(32, 32)
 sprite_frames = SubResource("175")
 
-[node name="scan" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="scan" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 480.0
@@ -2279,9 +2277,9 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "select"
-description = "Block highlight texture. Size: 64x64"
+description = "SE_LIGHT_DESC"
 
-[node name="rsquare" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="rsquare" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 200.0
@@ -2293,12 +2291,12 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "rsquare"
-description = "Red square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_RED_SQR_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/rsquare"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/rsquare"]
 position = Vector2(64, 64)
 
-[node name="wsquare" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="wsquare" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 144.0
@@ -2311,12 +2309,12 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "wsquare"
-description = "White square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_WHITE_SQR_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/wsquare"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/wsquare"]
 position = Vector2(64, 64)
 
-[node name="gsquare" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="gsquare" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 288.0
@@ -2329,12 +2327,12 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "gsquare"
-description = "Green square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_GREEN_SQR_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/gsquare"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/gsquare"]
 position = Vector2(64, 64)
 
-[node name="psquare" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="psquare" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 432.0
@@ -2347,12 +2345,12 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "psquare"
-description = "Purple square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_lenght/image_height."
+description = "SE_PURPLE_SQR_DESC"
 
-[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/GRAPHICS/Label/psquare"]
+[node name="A" type="AnimatedSprite2D" parent="Hide/TabContainer/SE_VISUALS/Label/psquare"]
 position = Vector2(64, 64)
 
-[node name="star" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="star" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 576.0
@@ -2364,9 +2362,9 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "effect_1"
-description = "Square explosion star texture. Size: 165x165."
+description = "SE_EXPLO1_DESC"
 
-[node name="star2" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label"]
+[node name="star2" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 712.0
@@ -2378,18 +2376,18 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "effect_2"
-description = "Square explosion spark texture. Size: 250x250."
+description = "SE_EXPLO2_DESC"
 
-[node name="Label6" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+[node name="Label6" type="Label" parent="Hide/TabContainer/SE_VISUALS"]
 layout_mode = 0
 offset_left = 432.0
 offset_top = 413.0
 offset_right = 864.0
 offset_bottom = 470.0
-text = "EFFECTS COLORS"
+text = "SE_FX_COLOR"
 label_settings = SubResource("LabelSettings_0l4hl")
 
-[node name="redfx" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label6"]
+[node name="redfx" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label6"]
 unique_name_in_owner = true
 modulate = Color(0.92549, 0.490196, 0.141176, 1)
 layout_mode = 0
@@ -2400,9 +2398,9 @@ focus_mode = 1
 texture_normal = ExtResource("15")
 script = ExtResource("12")
 color_name = "red_fx"
-description = "Red blocks effects color."
+description = "SE_RED_FX_DESC"
 
-[node name="whitefx" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label6"]
+[node name="whitefx" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label6"]
 unique_name_in_owner = true
 modulate = Color(0.507813, 1, 0.896179, 1)
 layout_mode = 0
@@ -2414,9 +2412,9 @@ focus_mode = 1
 texture_normal = ExtResource("15")
 script = ExtResource("12")
 color_name = "white_fx"
-description = "White blocks effects color."
+description = "SE_WHITE_FX_DESC"
 
-[node name="greenfx" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label6"]
+[node name="greenfx" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label6"]
 unique_name_in_owner = true
 modulate = Color(0.2, 1, 0.133333, 1)
 layout_mode = 0
@@ -2428,9 +2426,9 @@ focus_mode = 1
 texture_normal = ExtResource("15")
 script = ExtResource("12")
 color_name = "green_fx"
-description = "Green blocks effects color."
+description = "SE_GREEN_FX_DESC"
 
-[node name="purplefx" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label6"]
+[node name="purplefx" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label6"]
 unique_name_in_owner = true
 modulate = Color(0.752941, 0.0509804, 1, 1)
 layout_mode = 0
@@ -2442,19 +2440,19 @@ focus_mode = 1
 texture_normal = ExtResource("15")
 script = ExtResource("12")
 color_name = "purple_fx"
-description = "Purple blocks effects color."
+description = "SE_PURPLE_FX_DESC"
 
-[node name="Label19" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+[node name="Label19" type="Label" parent="Hide/TabContainer/SE_VISUALS"]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 373.0
 offset_right = 488.0
 offset_bottom = 430.0
 pivot_offset = Vector2(2, -4)
-text = "BONUS ARROW"
+text = "SE_BONUS_ARROW"
 label_settings = SubResource("LabelSettings_0l4hl")
 
-[node name="Label23" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+[node name="Label23" type="Label" parent="Hide/TabContainer/SE_VISUALS/Label19"]
 texture_filter = 1
 layout_mode = 0
 offset_top = 40.0
@@ -2465,7 +2463,7 @@ text = "1x"
 label_settings = SubResource("LabelSettings_ixgrn")
 uppercase = true
 
-[node name="Label24" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+[node name="Label24" type="Label" parent="Hide/TabContainer/SE_VISUALS/Label19"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 208.0
@@ -2477,7 +2475,7 @@ text = "2x"
 label_settings = SubResource("LabelSettings_ixgrn")
 uppercase = true
 
-[node name="Label25" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+[node name="Label25" type="Label" parent="Hide/TabContainer/SE_VISUALS/Label19"]
 texture_filter = 1
 layout_mode = 0
 offset_top = 200.0
@@ -2488,7 +2486,7 @@ text = "3x"
 label_settings = SubResource("LabelSettings_ixgrn")
 uppercase = true
 
-[node name="Label27" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+[node name="Label27" type="Label" parent="Hide/TabContainer/SE_VISUALS/Label19"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 52.0
@@ -2500,7 +2498,7 @@ text = "COMBO"
 label_settings = SubResource("LabelSettings_ixgrn")
 uppercase = true
 
-[node name="Label28" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+[node name="Label28" type="Label" parent="Hide/TabContainer/SE_VISUALS/Label19"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 52.0
@@ -2512,7 +2510,7 @@ text = "COMBO"
 label_settings = SubResource("LabelSettings_ixgrn")
 uppercase = true
 
-[node name="Label29" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+[node name="Label29" type="Label" parent="Hide/TabContainer/SE_VISUALS/Label19"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 260.0
@@ -2524,7 +2522,7 @@ text = "COMBO"
 label_settings = SubResource("LabelSettings_ixgrn")
 uppercase = true
 
-[node name="Label30" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+[node name="Label30" type="Label" parent="Hide/TabContainer/SE_VISUALS/Label19"]
 layout_mode = 0
 offset_left = 260.0
 offset_top = 200.0
@@ -2535,7 +2533,7 @@ text = "COMBO"
 label_settings = SubResource("LabelSettings_ixgrn")
 uppercase = true
 
-[node name="Label26" type="Label" parent="Hide/TabContainer/GRAPHICS/Label19"]
+[node name="Label26" type="Label" parent="Hide/TabContainer/SE_VISUALS/Label19"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 208.0
@@ -2547,7 +2545,7 @@ text = "4x"
 label_settings = SubResource("LabelSettings_ixgrn")
 uppercase = true
 
-[node name="Arrow" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label19"]
+[node name="Arrow" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label19"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 64.0
@@ -2559,9 +2557,9 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "arrow_1"
-description = "Bonus arrow texture. Size: 775x549."
+description = "SE_BONUS_ARROW_DESC"
 
-[node name="Arrow2" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label19"]
+[node name="Arrow2" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label19"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 208.0
@@ -2574,9 +2572,9 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "arrow_2"
-description = "Bonus arrow texture when combo is 2x. Size: 775x549."
+description = "SE_BONUS_ARROW_DESC"
 
-[node name="Arrow3" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label19"]
+[node name="Arrow3" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label19"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 224.0
@@ -2588,9 +2586,9 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "arrow_3"
-description = "Bonus arrow texture when combo is 3x. Size: 775x549."
+description = "SE_BONUS_ARROW_DESC"
 
-[node name="Arrow4" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label19"]
+[node name="Arrow4" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label19"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 208.0
@@ -2603,9 +2601,9 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "arrow_4"
-description = "Bonus arrow texture when combo is 4x. Size: 775x549."
+description = "SE_BONUS_ARROW_DESC"
 
-[node name="Two" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label19"]
+[node name="Two" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label19"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = -4.0
@@ -2618,9 +2616,9 @@ ignore_texture_size = true
 stretch_mode = 4
 script = ExtResource("11")
 texture_name = "2_tex"
-description = "2x combo number texture appearing in bonus animation. Size: 350x190."
+description = "SE_2X_DESC"
 
-[node name="Three" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label19"]
+[node name="Three" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label19"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 132.0
@@ -2633,9 +2631,9 @@ ignore_texture_size = true
 stretch_mode = 4
 script = ExtResource("11")
 texture_name = "3_tex"
-description = "3x combo number texture appearing in bonus animation. Size: 350x190."
+description = "SE_3X_DESC"
 
-[node name="Four" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label19"]
+[node name="Four" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label19"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 260.0
@@ -2648,18 +2646,18 @@ ignore_texture_size = true
 stretch_mode = 4
 script = ExtResource("11")
 texture_name = "4_tex"
-description = "4x combo number texture appearing in bonus animation. Size: 350x190."
+description = "SE_4X_DESC"
 
-[node name="Label3" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+[node name="Label3" type="Label" parent="Hide/TabContainer/SE_VISUALS"]
 layout_mode = 0
 offset_left = 432.0
 offset_top = 565.0
 offset_right = 840.0
 offset_bottom = 605.0
-text = "BLOCKS ANIMATION"
+text = "SE_BLOCK_ANIM"
 label_settings = SubResource("LabelSettings_0l4hl")
 
-[node name="AnimStyle" type="OptionButton" parent="Hide/TabContainer/GRAPHICS/Label3"]
+[node name="AnimStyle" type="OptionButton" parent="Hide/TabContainer/SE_VISUALS/Label3"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 40.0
@@ -2694,7 +2692,7 @@ popup/item_5/id = 5
 popup/item_6/text = "LOOPING"
 popup/item_6/id = 6
 
-[node name="RedAnim" type="Label" parent="Hide/TabContainer/GRAPHICS/Label3"]
+[node name="RedAnim" type="Label" parent="Hide/TabContainer/SE_VISUALS/Label3"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 1
@@ -2711,7 +2709,7 @@ text = "RED ANIMATION FPS"
 label_settings = SubResource("LabelSettings_i17bh")
 uppercase = true
 
-[node name="Speed" type="LineEdit" parent="Hide/TabContainer/GRAPHICS/Label3/RedAnim"]
+[node name="Speed" type="LineEdit" parent="Hide/TabContainer/SE_VISUALS/Label3/RedAnim"]
 layout_mode = 0
 offset_left = 320.0
 offset_top = -8.0
@@ -2731,10 +2729,9 @@ caret_blink = true
 caret_blink_interval = 1.5
 script = ExtResource("14")
 data = "red_anim_speed"
-description = "Set red block color animation FPS.
-**Will be applyed only on texture import!**"
+description = "SE_RED_FPS"
 
-[node name="WhiteAnim" type="Label" parent="Hide/TabContainer/GRAPHICS/Label3"]
+[node name="WhiteAnim" type="Label" parent="Hide/TabContainer/SE_VISUALS/Label3"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 1
@@ -2751,7 +2748,7 @@ text = "WHITE ANIMATION FPS"
 label_settings = SubResource("LabelSettings_i17bh")
 uppercase = true
 
-[node name="Speed" type="LineEdit" parent="Hide/TabContainer/GRAPHICS/Label3/WhiteAnim"]
+[node name="Speed" type="LineEdit" parent="Hide/TabContainer/SE_VISUALS/Label3/WhiteAnim"]
 layout_mode = 0
 offset_left = 320.0
 offset_top = -8.0
@@ -2771,10 +2768,9 @@ caret_blink = true
 caret_blink_interval = 1.5
 script = ExtResource("14")
 data = "white_anim_speed"
-description = "Set white block color animation FPS.
-**Will be applyed only on texture import!**"
+description = "SE_WHITE_FPS"
 
-[node name="GreenAnim" type="Label" parent="Hide/TabContainer/GRAPHICS/Label3"]
+[node name="GreenAnim" type="Label" parent="Hide/TabContainer/SE_VISUALS/Label3"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 1
@@ -2791,7 +2787,7 @@ text = "GREEN ANIMATION FPS"
 label_settings = SubResource("LabelSettings_i17bh")
 uppercase = true
 
-[node name="Speed" type="LineEdit" parent="Hide/TabContainer/GRAPHICS/Label3/GreenAnim"]
+[node name="Speed" type="LineEdit" parent="Hide/TabContainer/SE_VISUALS/Label3/GreenAnim"]
 layout_mode = 0
 offset_left = 320.0
 offset_top = -8.0
@@ -2811,10 +2807,9 @@ caret_blink = true
 caret_blink_interval = 1.5
 script = ExtResource("14")
 data = "green_anim_speed"
-description = "Set green block color animation FPS.
-**Will be applyed only on texture import!**"
+description = "SE_GREEN_FPS"
 
-[node name="PurpleAnim" type="Label" parent="Hide/TabContainer/GRAPHICS/Label3"]
+[node name="PurpleAnim" type="Label" parent="Hide/TabContainer/SE_VISUALS/Label3"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 1
@@ -2831,7 +2826,7 @@ text = "PURPLE ANIMATION FPS"
 label_settings = SubResource("LabelSettings_i17bh")
 uppercase = true
 
-[node name="Speed" type="LineEdit" parent="Hide/TabContainer/GRAPHICS/Label3/PurpleAnim"]
+[node name="Speed" type="LineEdit" parent="Hide/TabContainer/SE_VISUALS/Label3/PurpleAnim"]
 layout_mode = 0
 offset_left = 320.0
 offset_top = -8.0
@@ -2851,20 +2846,19 @@ caret_blink = true
 caret_blink_interval = 1.5
 script = ExtResource("14")
 data = "purple_anim_speed"
-description = "Set purple block color animation FPS.
-**Will be applyed only on texture import!**"
+description = "SE_PURPLE_FPS"
 
-[node name="Label14" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+[node name="Label14" type="Label" parent="Hide/TabContainer/SE_VISUALS"]
 layout_mode = 0
 offset_left = 1216.0
 offset_top = 21.0
 offset_right = 1864.0
 offset_bottom = 70.0
-text = "BACKGROUND"
+text = "SE_BACK"
 label_settings = SubResource("LabelSettings_0l4hl")
 horizontal_alignment = 2
 
-[node name="Video" type="Button" parent="Hide/TabContainer/GRAPHICS/Label14"]
+[node name="Video" type="Button" parent="Hide/TabContainer/SE_VISUALS/Label14"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 240.0
@@ -2882,9 +2876,9 @@ clip_text = true
 script = ExtResource("13")
 data_name = "video"
 file_dialog_to_open = "video"
-description = "Insert video to use it as skin background. Supported formats: .webm; .mp4; .ogv."
+description = "SE_VIDEO_DESC"
 
-[node name="Scene" type="Button" parent="Hide/TabContainer/GRAPHICS/Label14"]
+[node name="Scene" type="Button" parent="Hide/TabContainer/SE_VISUALS/Label14"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 240.0
@@ -2902,9 +2896,9 @@ clip_text = true
 script = ExtResource("13")
 data_name = "scene"
 file_dialog_to_open = "scene"
-description = "Insert packed godot scenery to use it as skin background. Please read modding instructions for more info!"
+description = "SE_SCENE_DESC"
 
-[node name="Background" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label14"]
+[node name="Background" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label14"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = -296.0
@@ -2917,9 +2911,9 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("11")
 texture_name = "back"
-description = "Static background image. Size : 1920x1080."
+description = "SE_BACK_DESC"
 
-[node name="UIPreview" type="TextureRect" parent="Hide/TabContainer/GRAPHICS/Label14"]
+[node name="UIPreview" type="TextureRect" parent="Hide/TabContainer/SE_VISUALS/Label14"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = -296.0
@@ -2930,7 +2924,7 @@ mouse_filter = 2
 texture = ExtResource("20_ljbd5")
 expand_mode = 1
 
-[node name="TimelinePreview" type="TextureRect" parent="Hide/TabContainer/GRAPHICS/Label14"]
+[node name="TimelinePreview" type="TextureRect" parent="Hide/TabContainer/SE_VISUALS/Label14"]
 unique_name_in_owner = true
 modulate = Color(1, 0.74902, 0, 1)
 layout_mode = 0
@@ -2942,7 +2936,7 @@ mouse_filter = 2
 texture = ExtResource("21_ue55i")
 expand_mode = 1
 
-[node name="TimelinePreview2" type="TextureRect" parent="Hide/TabContainer/GRAPHICS/Label14/TimelinePreview"]
+[node name="TimelinePreview2" type="TextureRect" parent="Hide/TabContainer/SE_VISUALS/Label14/TimelinePreview"]
 material = SubResource("CanvasItemMaterial_djnbx")
 layout_mode = 0
 offset_right = 944.0
@@ -2951,7 +2945,7 @@ mouse_filter = 2
 texture = ExtResource("22_wr5px")
 expand_mode = 1
 
-[node name="EQPreview" type="TextureRect" parent="Hide/TabContainer/GRAPHICS/Label14"]
+[node name="EQPreview" type="TextureRect" parent="Hide/TabContainer/SE_VISUALS/Label14"]
 unique_name_in_owner = true
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
@@ -2963,17 +2957,17 @@ mouse_filter = 2
 texture = ExtResource("22_lar5u")
 expand_mode = 1
 
-[node name="Label15" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+[node name="Label15" type="Label" parent="Hide/TabContainer/SE_VISUALS"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 920.0
 offset_top = 613.0
 offset_right = 1248.0
 offset_bottom = 637.0
-text = "UI COLOR"
+text = "SE_UI_COLOR"
 label_settings = SubResource("LabelSettings_0l4hl")
 
-[node name="Back" type="TextureRect" parent="Hide/TabContainer/GRAPHICS/Label15"]
+[node name="Back" type="TextureRect" parent="Hide/TabContainer/SE_VISUALS/Label15"]
 modulate = Color(0.5, 0.5, 0.5, 1)
 layout_mode = 0
 offset_left = 400.0
@@ -2984,7 +2978,7 @@ mouse_filter = 2
 texture = ExtResource("24_8qiwp")
 expand_mode = 1
 
-[node name="UIColor" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label15"]
+[node name="UIColor" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label15"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 400.0
@@ -2996,19 +2990,19 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("12")
 color_name = "ui_color"
-description = "Change game UI color."
+description = "SE_UI_COLOR_DESC"
 
-[node name="Label16" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+[node name="Label16" type="Label" parent="Hide/TabContainer/SE_VISUALS"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 920.0
 offset_top = 669.0
 offset_right = 1376.0
 offset_bottom = 693.0
-text = "TIMELINE COLOR"
+text = "SE_TIMELINE"
 label_settings = SubResource("LabelSettings_0l4hl")
 
-[node name="Back" type="TextureRect" parent="Hide/TabContainer/GRAPHICS/Label16"]
+[node name="Back" type="TextureRect" parent="Hide/TabContainer/SE_VISUALS/Label16"]
 modulate = Color(0.5, 0.5, 0.5, 1)
 layout_mode = 0
 offset_left = 400.0
@@ -3019,7 +3013,7 @@ mouse_filter = 2
 texture = ExtResource("24_8qiwp")
 expand_mode = 1
 
-[node name="TimelineColor" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label16"]
+[node name="TimelineColor" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label16"]
 unique_name_in_owner = true
 modulate = Color(1, 0.75, 0, 1)
 layout_mode = 0
@@ -3032,19 +3026,19 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("12")
 color_name = "timeline_color"
-description = "Change timeline color."
+description = "SE_TIMELINE_DESC"
 
-[node name="Label13" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+[node name="Label13" type="Label" parent="Hide/TabContainer/SE_VISUALS"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 920.0
 offset_top = 725.0
 offset_right = 1264.0
 offset_bottom = 776.0
-text = "VISUALIZER COLOR"
+text = "SE_VISUALIZER"
 label_settings = SubResource("LabelSettings_0l4hl")
 
-[node name="Back" type="TextureRect" parent="Hide/TabContainer/GRAPHICS/Label13"]
+[node name="Back" type="TextureRect" parent="Hide/TabContainer/SE_VISUALS/Label13"]
 modulate = Color(0.5, 0.5, 0.5, 1)
 layout_mode = 0
 offset_left = 400.0
@@ -3055,7 +3049,7 @@ mouse_filter = 2
 texture = ExtResource("24_8qiwp")
 expand_mode = 1
 
-[node name="EQColor" type="TextureButton" parent="Hide/TabContainer/GRAPHICS/Label13"]
+[node name="EQColor" type="TextureButton" parent="Hide/TabContainer/SE_VISUALS/Label13"]
 unique_name_in_owner = true
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
@@ -3068,19 +3062,19 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("12")
 color_name = "eq_visualizer_color"
-description = "Change background audio visualizer color"
+description = "SE_VISUALIZER_DESC"
 
-[node name="Label12" type="Label" parent="Hide/TabContainer/GRAPHICS"]
+[node name="Label12" type="Label" parent="Hide/TabContainer/SE_VISUALS"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 920.0
 offset_top = 789.0
 offset_right = 1328.0
 offset_bottom = 837.0
-text = "SCENE PATH"
+text = "SE_SCENE_PATH"
 label_settings = SubResource("LabelSettings_0l4hl")
 
-[node name="UIDesign" type="OptionButton" parent="Hide/TabContainer/GRAPHICS/Label12"]
+[node name="UIDesign" type="OptionButton" parent="Hide/TabContainer/SE_VISUALS/Label12"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3126,7 +3120,7 @@ popup/item_9/id = 9
 popup/item_10/text = "TECHNO"
 popup/item_10/id = 10
 
-[node name="ScenePath" type="LineEdit" parent="Hide/TabContainer/GRAPHICS"]
+[node name="ScenePath" type="LineEdit" parent="Hide/TabContainer/SE_VISUALS"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1192.0
@@ -3144,15 +3138,15 @@ caret_blink = true
 caret_blink_interval = 1.5
 script = ExtResource("14")
 data = "scene_path"
-description = "Scene path in project folder. Must be entered in order for scene to be loaded."
+description = "SE_SCENE_PATH_DESC"
 
-[node name="AUDIO" type="Control" parent="Hide/TabContainer"]
+[node name="SE_AUDIO" type="Control" parent="Hide/TabContainer"]
 visible = false
 layout_mode = 2
 mouse_filter = 2
 metadata/_tab_index = 2
 
-[node name="Music" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="Music" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3166,14 +3160,14 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "INPUT MUSIC"
+text = "SE_MUSIC"
 clip_text = true
 script = ExtResource("13")
 data_name = "music"
 file_dialog_to_open = "audio"
-description = "Main skin music. Supported formats: .ogg; .mp3; .wav"
+description = "SE_MUSIC_DESC"
 
-[node name="Announce" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="Announce" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3187,14 +3181,14 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "INPUT ANNOUNCE"
+text = "SE_ANNOUNCE"
 clip_text = true
 script = ExtResource("22")
 sound_name = "announce"
-description = "Played when this skin is loaded and  is ready to start"
+description = "SE_ANNOUNCE_DESC"
 category = "metadata"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/Announce"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/Announce"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 672.0
@@ -3209,7 +3203,7 @@ button_mask = 3
 text = "PLAY"
 clip_text = true
 
-[node name="Preview" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="Preview" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3223,14 +3217,14 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "INPUT PREVIEW"
+text = "SE_PREVIEW"
 clip_text = true
 script = ExtResource("22")
 sound_name = "preview"
-description = "Played when skin is selected in playlist mode menu"
+description = "SE_PREVIEW_DESC"
 category = "metadata"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/Preview"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/Preview"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 672.0
@@ -3245,7 +3239,7 @@ button_mask = 3
 text = "PLAY"
 clip_text = true
 
-[node name="Ending" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="Ending" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3258,13 +3252,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "INPUT ENDING"
+text = "SE_ENDING"
 clip_text = true
 script = ExtResource("22")
 sound_name = "ending"
-description = "Played when skin transition starts, so this would be last skin sample"
+description = "SE_ENDING_DESC"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/Ending"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/Ending"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 672.0
@@ -3278,7 +3272,7 @@ button_mask = 3
 text = "PLAY"
 clip_text = true
 
-[node name="SquareSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="SquareSound" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3292,13 +3286,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SQUARE CREATION"
+text = "SE_SQUARE_CREATION"
 clip_text = true
 script = ExtResource("22")
 sound_name = "square"
-description = "Played when square is created."
+description = "SE_SQUARE_CREATION_DESC"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/SquareSound"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/SquareSound"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 600.0
@@ -3310,10 +3304,10 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
-[node name="N" type="SpinBox" parent="Hide/TabContainer/AUDIO/SquareSound"]
+[node name="N" type="SpinBox" parent="Hide/TabContainer/SE_AUDIO/SquareSound"]
 texture_filter = 1
 layout_mode = 0
 anchor_right = 0.13
@@ -3327,7 +3321,7 @@ theme_override_icons/updown = SubResource("AtlasTexture_6ccv5")
 max_value = 0.0
 rounded = true
 
-[node name="BlastSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="BlastSound" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3341,13 +3335,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SQUARE BLAST"
+text = "SE_SQUARE_BLAST"
 clip_text = true
 script = ExtResource("22")
 sound_name = "blast"
-description = "Played when square erased by timeline."
+description = "SE_SQUARE_BLAST_DESC"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/BlastSound"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/BlastSound"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 600.0
@@ -3359,10 +3353,10 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
-[node name="N" type="SpinBox" parent="Hide/TabContainer/AUDIO/BlastSound"]
+[node name="N" type="SpinBox" parent="Hide/TabContainer/SE_AUDIO/BlastSound"]
 texture_filter = 1
 layout_mode = 0
 anchor_right = 0.13
@@ -3376,7 +3370,7 @@ theme_override_icons/updown = SubResource("AtlasTexture_6ccv5")
 max_value = 0.0
 rounded = true
 
-[node name="SpecialSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="SpecialSound" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3390,13 +3384,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SPECIAL BLOCK BLAST"
+text = "SE_SPECIAL_BLAST"
 clip_text = true
 script = ExtResource("22")
 sound_name = "special"
-description = "Played when special block is erased."
+description = "SE_SPECIAL_BLAST_DESC"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/SpecialSound"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/SpecialSound"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 600.0
@@ -3408,10 +3402,10 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
-[node name="N" type="SpinBox" parent="Hide/TabContainer/AUDIO/SpecialSound"]
+[node name="N" type="SpinBox" parent="Hide/TabContainer/SE_AUDIO/SpecialSound"]
 texture_filter = 1
 layout_mode = 0
 anchor_right = 0.13
@@ -3425,7 +3419,7 @@ theme_override_icons/updown = SubResource("AtlasTexture_6ccv5")
 max_value = 0.0
 rounded = true
 
-[node name="TimelineSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="TimelineSound" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3439,13 +3433,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "TIMELINE ERASING BLOCKS"
+text = "SE_TIMELINE_SOUND"
 clip_text = true
 script = ExtResource("22")
 sound_name = "timeline"
-description = "Played when timeline starts deleting blocks and squares."
+description = "SE_TIMELINE_SOUND_DESC"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/TimelineSound"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/TimelineSound"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 600.0
@@ -3457,10 +3451,10 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
-[node name="N" type="SpinBox" parent="Hide/TabContainer/AUDIO/TimelineSound"]
+[node name="N" type="SpinBox" parent="Hide/TabContainer/SE_AUDIO/TimelineSound"]
 texture_filter = 1
 layout_mode = 0
 anchor_right = 0.13
@@ -3474,7 +3468,7 @@ theme_override_icons/updown = SubResource("AtlasTexture_6ccv5")
 max_value = 0.0
 rounded = true
 
-[node name="BonusSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="BonusSound" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3488,13 +3482,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "4X BONUS SOUND"
+text = "SE_BONUS_SOUND"
 clip_text = true
 script = ExtResource("22")
 sound_name = "bonus"
-description = "Played when 4 and more squares were erased in current timeline sweep. (4x bonus)"
+description = "SE_BONUS_SOUND_DESC"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/BonusSound"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/BonusSound"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 600.0
@@ -3506,10 +3500,10 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
-[node name="N" type="SpinBox" parent="Hide/TabContainer/AUDIO/BonusSound"]
+[node name="N" type="SpinBox" parent="Hide/TabContainer/SE_AUDIO/BonusSound"]
 texture_filter = 1
 layout_mode = 0
 anchor_right = 0.13
@@ -3523,7 +3517,7 @@ theme_override_icons/updown = SubResource("AtlasTexture_6ccv5")
 max_value = 0.0
 rounded = true
 
-[node name="MoveSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="MoveSound" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3537,13 +3531,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PIECE MOVE"
+text = "SE_PIECE_MOVE"
 clip_text = true
 script = ExtResource("22")
 sound_name = "move"
-description = "Played when piece is moved"
+description = "SE_PIECE_MOVE_DESC"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/MoveSound"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/MoveSound"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 760.0
@@ -3555,10 +3549,10 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
-[node name="RotLeftSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="RotLeftSound" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3572,13 +3566,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "ROTATE LEFT"
+text = "SE_ROTATE_LEFT"
 clip_text = true
 script = ExtResource("22")
 sound_name = "rotate_left"
-description = "Played when piece is rotated left"
+description = "SE_ROTATE_LEFT_DESC"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/RotLeftSound"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/RotLeftSound"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 760.0
@@ -3590,10 +3584,10 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
-[node name="RotRightSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="RotRightSound" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3607,13 +3601,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "ROTATE RIGHT"
+text = "SE_ROTATE_RIGHT"
 clip_text = true
 script = ExtResource("22")
 sound_name = "rotate_right"
-description = "Played when piece is rotated right"
+description = "SE_ROTATE_RIGHT_DESC"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/RotRightSound"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/RotRightSound"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 760.0
@@ -3625,10 +3619,10 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
-[node name="LeftDashSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="LeftDashSound" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3642,13 +3636,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PIECE DASH LEFT"
+text = "SE_DASH_LEFT"
 clip_text = true
 script = ExtResource("22")
 sound_name = "left_dash"
-description = "Played when piece dashes left"
+description = "SE_DASH_LEFT_DESC"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/LeftDashSound"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/LeftDashSound"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 760.0
@@ -3660,10 +3654,10 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
-[node name="RightDashSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="RightDashSound" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3677,13 +3671,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PIECE DASH RIGHT"
+text = "SE_DASH_RIGHT"
 clip_text = true
 script = ExtResource("22")
 sound_name = "right_dash"
-description = "Played when piece dashes right"
+description = "SE_DASH_RIGHT_DESC"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/RightDashSound"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/RightDashSound"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 760.0
@@ -3695,10 +3689,10 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
-[node name="DropSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="DropSound" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3712,13 +3706,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PIECE DROP"
+text = "SE_PIECE_DROP"
 clip_text = true
 script = ExtResource("22")
 sound_name = "drop"
-description = "Played when piece is dropped"
+description = "SE_PIECE_DROP_DESC"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/DropSound"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/DropSound"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 760.0
@@ -3730,10 +3724,10 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
-[node name="QueueShiftSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="QueueShiftSound" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3747,13 +3741,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "QUEUE SHIFT"
+text = "SE_PIECE_SWAP"
 clip_text = true
 script = ExtResource("22")
 sound_name = "queue_shift"
-description = "Played when piece is swapped"
+description = "SE_PIECE_SWAP_DESC"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/QueueShiftSound"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/QueueShiftSound"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 760.0
@@ -3765,10 +3759,10 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
-[node name="LevelSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="LevelSound" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3782,13 +3776,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "LEVEL UP!"
+text = "SE_LEVEL_UP"
 clip_text = true
 script = ExtResource("22")
 sound_name = "level_up"
-description = "Played when level up occurs"
+description = "SE_LEVEL_UP_DESC"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/LevelSound"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/LevelSound"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 760.0
@@ -3800,10 +3794,10 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
-[node name="SpecialBonusSound" type="Button" parent="Hide/TabContainer/AUDIO"]
+[node name="SpecialBonusSound" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 0
@@ -3816,13 +3810,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SPECIAL BONUS"
+text = "SE_SPECIAL_BONUS"
 clip_text = true
 script = ExtResource("22")
 sound_name = "special_bonus"
-description = "Played when special bonus (single color/all clear) occured"
+description = "SE_SPECIAL_BONUS_DESC"
 
-[node name="Play" type="Button" parent="Hide/TabContainer/AUDIO/SpecialBonusSound"]
+[node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/SpecialBonusSound"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 760.0
@@ -3833,10 +3827,10 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
-[node name="Label4" type="Label" parent="Hide/TabContainer/AUDIO"]
+[node name="Label4" type="Label" parent="Hide/TabContainer/SE_AUDIO"]
 visible = false
 layout_mode = 0
 offset_left = 1048.0
@@ -3847,7 +3841,7 @@ pivot_offset = Vector2(-312, -48)
 theme_override_fonts/font = SubResource("97")
 text = "EDITOR_WAV_IMPORT"
 
-[node name="WavHZ" type="OptionButton" parent="Hide/TabContainer/AUDIO/Label4"]
+[node name="WavHZ" type="OptionButton" parent="Hide/TabContainer/SE_AUDIO/Label4"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 136.0
@@ -3865,7 +3859,7 @@ theme_override_styles/pressed = SubResource("71")
 theme_override_styles/normal = SubResource("72")
 theme_override_icons/arrow = SubResource("69")
 
-[node name="WavType" type="OptionButton" parent="Hide/TabContainer/AUDIO/Label4"]
+[node name="WavType" type="OptionButton" parent="Hide/TabContainer/SE_AUDIO/Label4"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 136.0
@@ -3883,7 +3877,7 @@ theme_override_styles/pressed = SubResource("71")
 theme_override_styles/normal = SubResource("72")
 theme_override_icons/arrow = SubResource("69")
 
-[node name="WavStereo" type="CheckButton" parent="Hide/TabContainer/AUDIO/Label4"]
+[node name="WavStereo" type="CheckButton" parent="Hide/TabContainer/SE_AUDIO/Label4"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 488.0
@@ -3905,7 +3899,7 @@ shortcut_in_tooltip = false
 text = "OFF"
 script = ExtResource("10")
 
-[node name="Label10" type="Label" parent="Hide/TabContainer/AUDIO"]
+[node name="Label10" type="Label" parent="Hide/TabContainer/SE_AUDIO"]
 visible = false
 layout_mode = 0
 offset_left = 1536.0
@@ -3916,7 +3910,7 @@ theme_override_fonts/font = SubResource("31")
 text = "EDITOR_WAV_STEREO"
 uppercase = true
 
-[node name="Label11" type="Label" parent="Hide/TabContainer/AUDIO"]
+[node name="Label11" type="Label" parent="Hide/TabContainer/SE_AUDIO"]
 visible = false
 layout_mode = 0
 offset_left = 1048.0
@@ -3927,7 +3921,7 @@ theme_override_fonts/font = SubResource("31")
 text = "EDITOR_WAV_MIX_RATE"
 uppercase = true
 
-[node name="Label12" type="Label" parent="Hide/TabContainer/AUDIO"]
+[node name="Label12" type="Label" parent="Hide/TabContainer/SE_AUDIO"]
 visible = false
 layout_mode = 0
 offset_left = 1048.0
@@ -3938,7 +3932,7 @@ theme_override_fonts/font = SubResource("31")
 text = "EDITOR_WAV_FORMAT"
 uppercase = true
 
-[node name="V" type="VBoxContainer" parent="Hide/TabContainer/AUDIO"]
+[node name="V" type="VBoxContainer" parent="Hide/TabContainer/SE_AUDIO"]
 layout_mode = 0
 offset_left = 1040.0
 offset_top = 341.0
@@ -3946,7 +3940,7 @@ offset_right = 1872.0
 offset_bottom = 829.0
 theme_override_constants/separation = 8
 
-[node name="Label5" type="Label" parent="Hide/TabContainer/AUDIO/V"]
+[node name="Label5" type="Label" parent="Hide/TabContainer/SE_AUDIO/V"]
 texture_filter = 1
 custom_minimum_size = Vector2(832, 0)
 layout_mode = 2
@@ -3957,13 +3951,13 @@ To move between sounds you can use the arrow buttons or type the number and pres
 label_settings = SubResource("LabelSettings_vhifn")
 autowrap_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="Hide/TabContainer/AUDIO"]
+[node name="ColorRect" type="ColorRect" parent="Hide/TabContainer/SE_AUDIO"]
 layout_mode = 0
 offset_top = 309.0
 offset_right = 1888.0
 offset_bottom = 317.0
 
-[node name="ColorRect2" type="ColorRect" parent="Hide/TabContainer/AUDIO"]
+[node name="ColorRect2" type="ColorRect" parent="Hide/TabContainer/SE_AUDIO"]
 layout_mode = 0
 offset_left = 1008.0
 offset_top = 1.0
@@ -3972,7 +3966,7 @@ offset_bottom = 853.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Hide"]
 layout_mode = 0
-offset_left = 1145.0
+offset_left = 66.0
 offset_top = 16.0
 offset_right = 1896.0
 offset_bottom = 75.0
@@ -3988,7 +3982,7 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/hover = SubResource("77")
 theme_override_styles/pressed = SubResource("75")
 theme_override_styles/normal = SubResource("76")
-text = "RESET"
+text = "SE_RESET"
 
 [node name="ColorRect5" type="ColorRect" parent="Hide/HBoxContainer"]
 custom_minimum_size = Vector2(24, 0)
@@ -4004,7 +3998,7 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/hover = SubResource("77")
 theme_override_styles/pressed = SubResource("75")
 theme_override_styles/normal = SubResource("76")
-text = "PLAYTEST"
+text = "SE_PLAYTEST"
 
 [node name="ColorRect4" type="ColorRect" parent="Hide/HBoxContainer"]
 custom_minimum_size = Vector2(24, 0)
@@ -4020,7 +4014,7 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/hover = SubResource("77")
 theme_override_styles/pressed = SubResource("75")
 theme_override_styles/normal = SubResource("76")
-text = "LOAD"
+text = "SE_LOAD"
 
 [node name="ColorRect3" type="ColorRect" parent="Hide/HBoxContainer"]
 custom_minimum_size = Vector2(24, 0)
@@ -4036,7 +4030,7 @@ theme_override_styles/hover = SubResource("77")
 theme_override_styles/pressed = SubResource("75")
 theme_override_styles/normal = SubResource("76")
 shortcut_in_tooltip = false
-text = "SAVE"
+text = "SE_SAVE"
 
 [node name="ColorRect2" type="ColorRect" parent="Hide/HBoxContainer"]
 custom_minimum_size = Vector2(24, 0)
@@ -4226,13 +4220,13 @@ offset_bottom = 1080.0
 color = Color(0, 0, 0, 0)
 metadata/_edit_lock_ = true
 
-[connection signal="mouse_entered" from="Hide/TabContainer/METADATA/Label4/Info" to="." method="_on_Info_mouse_entered"]
-[connection signal="text_changed" from="Hide/TabContainer/METADATA/Label4/Info" to="." method="_on_Info_text_changed"]
-[connection signal="mouse_entered" from="Hide/TabContainer/METADATA/Label16/S/EditHistory" to="." method="_on_edit_history_mouse_entered"]
-[connection signal="item_selected" from="Hide/TabContainer/GRAPHICS/Label3/AnimStyle" to="." method="_change_block_animation_preset"]
-[connection signal="mouse_entered" from="Hide/TabContainer/GRAPHICS/Label3/AnimStyle" to="." method="_on_AnimStyle_mouse_entered"]
-[connection signal="item_selected" from="Hide/TabContainer/GRAPHICS/Label12/UIDesign" to="." method="_on_UIDesign_item_selected"]
-[connection signal="mouse_entered" from="Hide/TabContainer/GRAPHICS/Label12/UIDesign" to="." method="_on_UIDesign_mouse_entered"]
+[connection signal="mouse_entered" from="Hide/TabContainer/SE_METADATA/Label4/Info" to="." method="_on_Info_mouse_entered"]
+[connection signal="text_changed" from="Hide/TabContainer/SE_METADATA/Label4/Info" to="." method="_on_Info_text_changed"]
+[connection signal="mouse_entered" from="Hide/TabContainer/SE_METADATA/Label16/S/EditHistory" to="." method="_on_edit_history_mouse_entered"]
+[connection signal="item_selected" from="Hide/TabContainer/SE_VISUALS/Label3/AnimStyle" to="." method="_change_block_animation_preset"]
+[connection signal="mouse_entered" from="Hide/TabContainer/SE_VISUALS/Label3/AnimStyle" to="." method="_on_AnimStyle_mouse_entered"]
+[connection signal="item_selected" from="Hide/TabContainer/SE_VISUALS/Label12/UIDesign" to="." method="_on_UIDesign_item_selected"]
+[connection signal="mouse_entered" from="Hide/TabContainer/SE_VISUALS/Label12/UIDesign" to="." method="_on_UIDesign_mouse_entered"]
 [connection signal="mouse_entered" from="Hide/HBoxContainer/Reset" to="." method="_on_Reset_mouse_entered"]
 [connection signal="pressed" from="Hide/HBoxContainer/Reset" to="." method="_reset"]
 [connection signal="mouse_entered" from="Hide/HBoxContainer/Test" to="." method="_on_Test_mouse_entered"]
@@ -4241,4 +4235,5 @@ metadata/_edit_lock_ = true
 [connection signal="pressed" from="Hide/HBoxContainer/Load" to="." method="_import_skin"]
 [connection signal="mouse_entered" from="Hide/HBoxContainer/Save" to="." method="_on_Save_mouse_entered"]
 [connection signal="pressed" from="Hide/HBoxContainer/Save" to="." method="_save_skin"]
+[connection signal="mouse_entered" from="Hide/HBoxContainer/Exit" to="." method="_on_exit_mouse_entered"]
 [connection signal="pressed" from="Hide/HBoxContainer/Exit" to="." method="_exit"]

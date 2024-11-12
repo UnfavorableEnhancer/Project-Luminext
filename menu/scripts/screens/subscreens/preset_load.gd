@@ -31,7 +31,7 @@ func _ready() -> void:
 func _load() -> void:
 	var presets : Array  = Data._parse(Data.PARSE.PRESETS)
 	if presets.is_empty() : 
-		$Label.text = "NO_PRESETS"
+		$Label.text = tr("NO_PRESETS")
 		_assign_selectable($BACK, Vector2i(0,0))
 		return
 	

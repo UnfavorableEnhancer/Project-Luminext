@@ -486,13 +486,13 @@ pivot_offset = Vector2(1240, 0)
 color = Color(0, 0, 0, 0.5)
 
 [node name="Box" type="ColorRect" parent="."]
-modulate = Color(1, 1, 1, 0.0444443)
+modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 944.0
 offset_top = 144.0
 offset_right = 1920.0
 offset_bottom = 992.0
-scale = Vector2(0.0444443, 1)
+scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(976, 0)
 color = Color(0, 0, 0, 0.5)
 
@@ -504,7 +504,7 @@ offset_left = 44.0
 offset_top = 820.0
 offset_right = 391.0
 offset_bottom = 839.0
-text = "LOGIN SCREEN"
+text = "LOGIN_ARROW"
 label_settings = SubResource("LabelSettings_xv3m0")
 uppercase = true
 visible_characters = 0
@@ -621,7 +621,6 @@ offset_bottom = 8.0
 scale = Vector2(1e-05, 1)
 
 [node name="Profiles" type="ScrollContainer" parent="V"]
-modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
 theme = SubResource("87")
@@ -655,7 +654,7 @@ offset_top = 8.0
 offset_right = 928.0
 offset_bottom = 56.0
 scale = Vector2(1, 1e-05)
-text = "CREATE NEW PROFILE"
+text = "PE_CREATE_NEW"
 glow_color = Color(0.211765, 0.819608, 0.54902, 1)
 button_layout = 14
 press_sound_name = "confirm"
@@ -667,7 +666,7 @@ offset_top = 72.0
 offset_right = 928.0
 offset_bottom = 120.0
 scale = Vector2(1, 1e-05)
-text = "EXIT THE GAME"
+text = "LOGIN_EXIT"
 glow_color = Color(1, 0.309804, 0.309804, 1)
 button_layout = 14
 menu_position = Vector2i(0, 1)

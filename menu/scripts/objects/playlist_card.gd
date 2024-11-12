@@ -35,13 +35,13 @@ func _load(playlist_path : String) -> void:
 	var success : int = playlist._load(playlist_path)
 	
 	if success != OK: 
-		$Name.text = "LOAD FAILED : " + playlist.name
+		$Name.text = tr("FAILED_PLAYLIST") + " " + playlist.name
 		$Name.modulate = Color.RED
 		is_empty = true
 		return
 	
 	if playlist.skins.size() == 0: 
-		$Name.text = "INVALID PLAYLIST DATA : " + playlist.name
+		$Name.text = tr("CORRUPT_PLAYLIST") + " " + playlist.name
 		$Name.modulate = Color.RED
 		is_empty = true
 		return

@@ -77,7 +77,7 @@ func _select_time(time : String) -> void:
 func _count_reset() -> void:
 	if ranking_time_left > 0:
 		ranking_time_left -= 1
-		$Ranking/Timer.text = "RESET IN:\n" + Data._to_time(ranking_time_left)
+		$Ranking/Timer.text = tr("TA_RESET_IN") + " " + Data._to_time(ranking_time_left)
 
 
 func _exit_tree() -> void:
@@ -267,25 +267,25 @@ func _select_ruleset(value : float) -> void:
 
 	match int(value):
 		TimeAttackMode.TIME_ATTACK_RULESET.STANDARD: 
-			$Setup/Rulesets/Slider/Power.text = "STANDARD" 
-			$Setup/Rulesets/Slider.description = "Standard Luminext time attack rules. Features piece position saving, piece swapping, and only merge special block is avaiable."
-			$Desc/Desc.text = "Standard Luminext time attack rules. Features piece position saving, piece swapping, and only merge special block is avaiable."
+			$Setup/Rulesets/Slider/Power.text = tr("TA_STANDARD") 
+			$Setup/Rulesets/Slider.description = tr("TA_STANDARD_DESC")
+			$Desc/Desc.text = tr("TA_STANDARD_DESC")
 		TimeAttackMode.TIME_ATTACK_RULESET.CLASSIC: 
-			$Setup/Rulesets/Slider/Power.text = "CLASSIC" 
-			$Setup/Rulesets/Slider.description = "Classic Lumines time attack rules. No position saving, piece swapping, and only chain special block is avaiable."
-			$Desc/Desc.text = "Classic Lumines time attack rules. No position saving, piece swapping, and only chain special block is avaiable."
+			$Setup/Rulesets/Slider/Power.text = tr("TA_CLASSIC")
+			$Setup/Rulesets/Slider.description = tr("TA_CLASSIC_DESC")
+			$Desc/Desc.text = tr("TA_CLASSIC_DESC")
 		TimeAttackMode.TIME_ATTACK_RULESET.ARCADE: 
-			$Setup/Rulesets/Slider/Power.text = "ARCADE" 
-			$Setup/Rulesets/Slider.description = "Same as standard, but all 4 main special blocks + multi block are avaiable and appear frequently."
-			$Desc/Desc.text = "Same as standard, but all 4 main special blocks + multi block are avaiable and appear frequently."
+			$Setup/Rulesets/Slider/Power.text = tr("TA_ARCADE") 
+			$Setup/Rulesets/Slider.description = tr("TA_ARCADE_DESC")
+			$Desc/Desc.text = tr("TA_ARCADE_DESC")
 		TimeAttackMode.TIME_ATTACK_RULESET.COLOR_3: 
-			$Setup/Rulesets/Slider/Power.text = "3 COLOR" 
-			$Setup/Rulesets/Slider.description = "Same as standard but features 3 block colors instead of 2. Also multi and wipe special blocks are avaiable."
-			$Desc/Desc.text = "Same as standard but features 3 block colors instead of 2. Also only wipe special block is avaiable."
+			$Setup/Rulesets/Slider/Power.text = tr("TA_3_COLOR")
+			$Setup/Rulesets/Slider.description = tr("TA_3_COLOR_DESC")
+			$Desc/Desc.text = tr("TA_3_COLOR_DESC")
 		TimeAttackMode.TIME_ATTACK_RULESET.HARDCORE: 
-			$Setup/Rulesets/Slider/Power.text = "EXPERT" 
-			$Setup/Rulesets/Slider.description = "Hard rules featuring garbage and chaos blocks. Also only laser special block is avaiable."
-			$Desc/Desc.text = "Hard rules featuring garbage and chaos blocks. Also only laser special block is avaiable."
+			$Setup/Rulesets/Slider/Power.text = tr("TA_EXPERT")
+			$Setup/Rulesets/Slider.description = tr("TA_EXPERT_DESC")
+			$Desc/Desc.text = tr("TA_EXPERT_DESC")
 	
 	Data.profile.config["misc"]["TA_ruleset"] = selected_ruleset
 	_show_stats()
@@ -333,7 +333,7 @@ func _start_game() -> void:
 
 func _start_replay(replay_data : String) -> void:
 	var dialog : MenuScreen = menu._add_screen("accept_dialog")
-	dialog.desc_text = "Do you want to play this player record replay?"
+	dialog.desc_text = tr("TA_REPLAY_DIALOG")
 	var accepted : bool = await dialog.closed
 
 	if not accepted : return

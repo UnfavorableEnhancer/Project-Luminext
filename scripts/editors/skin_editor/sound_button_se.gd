@@ -42,7 +42,7 @@ func _ready() -> void:
 	gui_input.connect(_on_press)
 	mouse_entered.connect(_selected)
 	
-	text = tr("INPUT") + " " + tr(sound_name.to_upper())
+	text = tr("SE_INPUT") + " " + tr(sound_name.to_upper())
 	
 	if has_node("N"): 
 		is_multi_sound_button = true
@@ -66,7 +66,7 @@ func _remove_sound() -> void:
 			_load_sound()
 	else:
 		sounds[sound_name] = null
-		text = tr("INPUT") + " " + tr(sound_name.to_upper())
+		text = tr("SE_INPUT") + " " + tr(sound_name.to_upper())
 
 
 # Checks sound existance inside skin data and display corresponding text
@@ -79,7 +79,7 @@ func _load_sound(number : int = 0) -> void:
 			text = tr(sound_name.to_upper())
 			has_sound = false
 		else:
-			text = tr("SOME") + " " + tr(sound_name.to_upper())
+			text = tr("SE_SOME") + " " + tr(sound_name.to_upper())
 			has_sound = true
 	
 	else:
@@ -87,7 +87,7 @@ func _load_sound(number : int = 0) -> void:
 			text = tr(sound_name.to_upper())
 			has_sound = false
 		else:
-			text = tr("SOME") + " " + tr(sound_name.to_upper())
+			text = tr("SE_SOME") + " " + tr(sound_name.to_upper())
 			has_sound = true
 
 

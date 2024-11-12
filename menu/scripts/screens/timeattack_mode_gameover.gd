@@ -35,7 +35,7 @@ func _setup(ta_mode : TimeAttackMode) -> void:
 	var square_per_sweep : Array = ta_mode.statistics["square_per_sweep"]
 
 	if ta_mode.time_attack_timer.time_left > 0:
-		$Top/Text.text = "TIME ATTACK FAILED!"
+		$Top/Text.text = tr("TA_FAILED")
 
 		$Results/Score.text = "DQ"
 		$Results/Score.self_modulate = Color.RED
@@ -156,16 +156,16 @@ func _setup(ta_mode : TimeAttackMode) -> void:
 	
 	var ruleset_string : String = ""
 	match ta_mode.ruleset:
-		TimeAttackMode.TIME_ATTACK_RULESET.STANDARD: ruleset_string = "STANDARD" 
-		TimeAttackMode.TIME_ATTACK_RULESET.CLASSIC: ruleset_string = "CLASSIC" 
-		TimeAttackMode.TIME_ATTACK_RULESET.ARCADE: ruleset_string = "ARCADE" 
-		TimeAttackMode.TIME_ATTACK_RULESET.COLOR_3: ruleset_string = "3 COLOR" 
-		TimeAttackMode.TIME_ATTACK_RULESET.HARDCORE: ruleset_string = "HARDCORE" 
+		TimeAttackMode.TIME_ATTACK_RULESET.STANDARD: ruleset_string = tr("TA_STANDARD")
+		TimeAttackMode.TIME_ATTACK_RULESET.CLASSIC: ruleset_string = tr("TA_CLASSIC") 
+		TimeAttackMode.TIME_ATTACK_RULESET.ARCADE: ruleset_string = tr("ARCADE") 
+		TimeAttackMode.TIME_ATTACK_RULESET.COLOR_3: ruleset_string = tr("TA_3_COLOR") 
+		TimeAttackMode.TIME_ATTACK_RULESET.HARDCORE: ruleset_string = tr("TA_HARDCORE")
 
-	$Results/Detail4.text = str(ta_mode.time_limit) + " sec | " + ruleset_string + " | RESULTS"
+	$Results/Detail4.text = str(ta_mode.time_limit) + tr("SEC") + " | " + ruleset_string + " | " + tr("TA_RESULTS")
 	
 	$Results/Attempts.text = str(ta_mode.current_attempt)
-	$Results/Seed.text = "CURRENT ATTEMPT SEED: " + str(ta_mode.current_seed)
+	$Results/Seed.text = tr("CURRENT_SEED") + " " + str(ta_mode.current_seed)
 
 
 # graph line Y from -16 to 216
@@ -194,7 +194,7 @@ func _new_record() -> void:
 
 func _save_replay() -> void:
 	var input : MenuScreen = Data.menu._add_screen("text_input")
-	input.desc_text = "ENTER REPLAY NAME"
+	input.desc_text = tr("SAVE_REPLAY_DIALOG")
 	input.accept_function = Data.game.replay._save
 
 

@@ -150,11 +150,11 @@ func _set_selectables(tab : int) -> void:
 	_assign_selectable($Menu/AUDIO, Vector2i(0,0))
 	_assign_selectable($Menu/VISUAL, Vector2i(0,1))
 	_assign_selectable($Menu/CONTROL, Vector2i(0,2))
-	#_assign_selectable($Menu/LANGUAGE, Vector2(0,3)) Locked until return of language support
-	_assign_selectable($Menu/APPLY, Vector2i(0,3))
-	_assign_selectable($Menu/RESET, Vector2i(0,4))
-	_assign_selectable($Menu/RESET2, Vector2i(0,5))
-	_assign_selectable($Menu/EXIT, Vector2i(0,6))
+	_assign_selectable($Menu/LANGUAGE, Vector2(0,3))
+	_assign_selectable($Menu/APPLY, Vector2i(0,4))
+	_assign_selectable($Menu/RESET, Vector2i(0,5))
+	_assign_selectable($Menu/RESET2, Vector2i(0,6))
+	_assign_selectable($Menu/EXIT, Vector2i(0,7))
 
 	var tab_instance : Control
 
@@ -217,11 +217,13 @@ func _reset_current_tab_changes() -> void:
 
 func _load_settings() -> void:
 	_reload_all_action_icons()
-
+	
 	$AUDIO/SCROLL/V/AUDIODEVICE/Slider.max_value = AudioServer.get_output_device_list().size() - 1
 	
 	get_tree().call_group("toggle_buttons","_set_toggle_by_data", Data.profile.config)
 	get_tree().call_group("sliders","_set_value_by_data", Data.profile.config)
+	
+	_set_language_icon()
 
 
 func _reload_all_action_icons() -> void:
@@ -250,6 +252,23 @@ func _load_icon_for_action(action : String) -> void:
 		new_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		new_icon.position = Vector2(616,0)
 		action_holder.add_child(new_icon) 
+
+
+func _select_language(locale_name : String) -> void:
+	Data.profile._assign_setting("language", locale_name, Profile.SETTING_TYPE.MISC)
+	_set_language_icon()
+
+
+func _set_language_icon() -> void:
+	get_tree().call_group("language_marks","set","visible",false)
+	
+	match Data.profile.config["misc"]["language"]:
+		"en" : $LANGUAGE/SCROLL/V/Flag/Mark.visible = true
+		"it" : $LANGUAGE/SCROLL/V/Flag2/Mark.visible = true
+
+
+func _open_translation_page() -> void:
+	pass
 
 
 func _exit_with_apply() -> void:

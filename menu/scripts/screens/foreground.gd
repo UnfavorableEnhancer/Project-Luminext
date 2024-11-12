@@ -74,53 +74,53 @@ func  _show_button_layout(button_layout : int = -1) -> void:
 		MENU_BUTTON_LAYOUT.EMPTY:
 			return
 		
-		# SELECT (UP_DOWN) ENTER BACK
+		# SELECT (UP_DOWN) LAYOUT_ENTER BACK
 		MENU_BUTTON_LAYOUT.UP_DOWN_SELECT:
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("up_down", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("up_down2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else : $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("ENTER"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_LAYOUT_ENTER"))
 			
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("BACK TO PREVIOUS SCREEN"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_BACK_TO_PREV"))
 		
-		# SELECT ENTER BACK
+		# SELECT LAYOUT_ENTER BACK
 		MENU_BUTTON_LAYOUT.SELECT:
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else: $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("ENTER"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_ENTER"))
 			
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("BACK TO PREVIOUS SCREEN"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_BACK_TO_PREV"))
 		
-		# CHANGE_INPUT ENTER BACK
+		# CHANGE_INPUT LAYOUT_ENTER BACK
 		MENU_BUTTON_LAYOUT.CHANGE_INPUT:
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else : $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("CHANGE INPUT"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_CHANGE_INPUT"))
 			
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("BACK TO PREVIOUS SCREEN"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_BACK_TO_PREV"))
 		
 		# SELECT ADD_TO_PLAYLIST PLAY_SELECTED_SKIN
 		MENU_BUTTON_LAYOUT.SKIN_SELECT:
@@ -128,15 +128,15 @@ func  _show_button_layout(button_layout : int = -1) -> void:
 				$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else : $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("ADD THIS SKIN TO PLAYLIST"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_ADD_SKIN"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_middle", BUTTON_ICON_SIZE))
 			else : $ButtonLayout.add_child(Data.menu._create_button_icon("ui_extra", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("PLAY THIS SKIN"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_PLAY_SKIN"))
 		
 		# SELECT SWAP_SKINS REMOVE_SKIN
 		MENU_BUTTON_LAYOUT.PLAYLIST_SELECT:
@@ -144,16 +144,16 @@ func  _show_button_layout(button_layout : int = -1) -> void:
 				$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else : $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("SWAP THIS SKIN"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_SWAP_SKIN"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_right", BUTTON_ICON_SIZE))
 			else : $ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
 			if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : $ButtonLayout.add_child(Data.menu._create_button_icon("backspace", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("REMOVE THIS SKIN FROM PLAYLIST"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_REMOVE_SKIN"))
 		
 		# CHANGE_VALUE SELECT BACK
 		MENU_BUTTON_LAYOUT.SLIDER:
@@ -161,190 +161,190 @@ func  _show_button_layout(button_layout : int = -1) -> void:
 				$ButtonLayout.add_child(Data.menu._create_button_icon("up_down", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("up_down2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("left_right", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("CHANGE SLIDER VALUE"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SLIDER"))
 				
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("BACK TO PREVIOUS SCREEN"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_BACK_TO_PREV"))
 			else:
 				$ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("CHANGE SLIDER VALUE"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SLIDER"))
 		
 		MENU_BUTTON_LAYOUT.MAIN_MENU:
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else: $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("ENTER"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_ENTER"))
 			
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("EXIT FROM THE GAME"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_EXIT"))
 
 		MENU_BUTTON_LAYOUT.TOGGLE_UP_DOWN:
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("up_down", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("up_down2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else: $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("TOGGLE ON/OFF"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_TOGGLE"))
 			
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("BACK TO PREVIOUS SCREEN"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_BACK_TO_PREV"))
 
 		MENU_BUTTON_LAYOUT.TOGGLE:
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else: $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("TOGGLE ON/OFF"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_TOGGLE"))
 			
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("BACK TO PREVIOUS SCREEN"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_BACK_TO_PREV"))
 		
 		MENU_BUTTON_LAYOUT.SYNTHESIA_SONG:
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else: $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("PLAY WITH THIS SONG"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_PLAY_SONG"))
 			
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("BACK TO PREVIOUS SCREEN"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_BACK_TO_PREV"))
 		
 		MENU_BUTTON_LAYOUT.TA_TIME:
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else: $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("CHOOSE THIS TIME LIMIT"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_TIME_LIMIT"))
 			
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("BACK TO PREVIOUS SCREEN"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_BACK_TO_PREV"))
 		
 		MENU_BUTTON_LAYOUT.PROFILE:
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("up_down", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("up_down2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else: $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("CHOOSE THIS PROFILE"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_PROFILE"))
 			
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("BACK TO PREVIOUS SCREEN"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_BACK_TO_PREV"))
 		
 		MENU_BUTTON_LAYOUT.LOGIN_PROFILE:
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("up_down", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("up_down2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else: $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("CHOOSE THIS PROFILE"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_PROFILE"))
 
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("EXIT FROM THE GAME"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_EXIT"))
 		
 		MENU_BUTTON_LAYOUT.LOGIN:
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("up_down", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("up_down2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else: $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("ENTER"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_ENTER"))
 
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("EXIT FROM THE GAME"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_EXIT"))
 		
 		MENU_BUTTON_LAYOUT.SCROLL:
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("up_down", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("up_down2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SCROLL UP/DOWN"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SCROLL"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("BACK TO PREVIOUS SCREEN"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_BACK_TO_PREV"))
 		
 		MENU_BUTTON_LAYOUT.SOUND_REPLAY:
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("all_arrows2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else : $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("PLAY THIS SKIN"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_PLAY_SKIN"))
 		
 		MENU_BUTTON_LAYOUT.PAUSE:
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("up_down", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("up_down2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else: $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("ENTER"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_ENTER"))
 
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("BACK TO THE GAME"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_BACK_TO_GAME"))
 		
 		MENU_BUTTON_LAYOUT.GAMEOVER:
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("up_down", BUTTON_ICON_SIZE))
 				if Data.current_input_mode == Data.INPUT_MODE.KEYBOARD : 
 					$ButtonLayout.add_child(Data.menu._create_button_icon("up_down2", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("SELECT"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_SELECT"))
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else: $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("ENTER"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_ENTER"))
 
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))
-				$ButtonLayout.add_child(_create_text_node("RETURN BACK TO MENU"))
+				$ButtonLayout.add_child(_create_text_node("LAYOUT_BACK_TO_MENU"))
 
 		
 	current_button_layout = button_layout
@@ -358,7 +358,7 @@ func _create_text_node(text : String) -> Label:
 	label_settings.font = LABEL_FONT
 	label_settings.font_size = 16
 	
-	label.text = " " + text + "   "
+	label.text = " " + tr(text) + "   "
 	label.uppercase = true
 	label.label_settings = label_settings
 	

@@ -22,9 +22,9 @@ var is_exiting : bool = true
 
 func _ready() -> void:
 	Data.menu.screens["foreground"].visible = false
-	$Info/VER.text = "VER " + Data.VERSION
-	$Info/BUILD.text = "BUILD " + Data.BUILD
-	$Info/BUILD.text = "PROJECT LUMINEXT IS POWERED BY\n GODOT ENGINE " + Data.GODOT_VER
+	$Info/VER.text = tr("VERSION") + Data.VERSION
+	$Info/BUILD.text = tr("BUILD") + Data.BUILD
+	$Info/BUILD.text = tr("POWERED_BY") + "\n GODOT ENGINE " + Data.GODOT_VER
 	
 	Data.input_method_changed.connect(_label)
 	_label()
@@ -37,8 +37,8 @@ func _ready() -> void:
 
 
 func _label() -> void:
-	if Data.current_input_mode == Data.INPUT_MODE.GAMEPAD: $ENTER.text = tr("PRESS START TO ENTER THE GAME")
-	else: $ENTER.text = tr("PRESS ENTER TO START THE GAME")
+	if Data.current_input_mode == Data.INPUT_MODE.GAMEPAD: $ENTER.text = tr("PRESS_START")
+	else: $ENTER.text = tr("PRESS_ENTER")
 
 
 func _input(event : InputEvent) -> void:

@@ -31,7 +31,7 @@ func _ready() -> void:
 func _load() -> void:
 	var playlists : Array = Data._parse(Data.PARSE.PLAYLISTS)
 	if playlists.is_empty() : 
-		$Label.text = "NO PLAYLISTS FOUND"
+		$Label.text = tr("NO_PLAYLISTS")
 		_assign_selectable($BACK, Vector2i(0,0))
 		if menu.is_locked : await menu.all_screens_added
 		cursor = Vector2i(0,0)

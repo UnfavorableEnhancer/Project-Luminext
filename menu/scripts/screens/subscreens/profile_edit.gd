@@ -50,7 +50,7 @@ func _display_profile_list() -> void:
 	var profiles : Array = Data._parse(Data.PARSE.PROFILES)
 	
 	if profiles.is_empty() : 
-		$V/Text.text = "NO PROFILES FOUND"
+		$V/Text.text = tr("PE_NO_PROFILES")
 		$V/Delete._disabled(true)
 	elif profiles.size() < 2:
 		$V/Delete._disabled(true)
@@ -65,7 +65,7 @@ func _display_profile_list() -> void:
 		button.call_function_name = "_load_profile"
 		button.call_string = profile_name
 		if profile_name == Data.profile.name:
-			button.text = profile_name + " [CURRENT]"
+			button.text = profile_name + " " + tr("PE_CURRENT")
 		else:
 			button.text = profile_name
 		
@@ -73,7 +73,7 @@ func _display_profile_list() -> void:
 		button.glow_color = Color("27a1a3")
 		button.custom_minimum_size = Vector2(928,48)
 		button.menu_position = Vector2i(0,count)
-		button.description = "Select this profile."
+		button.description = "PE_SELECT"
 		button.description_node = $V/Desc
 		button.button_layout = 12
 		button.modulate.a = 0.0
@@ -110,7 +110,7 @@ func _load_profile(profile_name : String) -> void:
 
 	if Data.profile.status == Profile.STATUS.CONFIG_FAIL or Data.profile.status == Profile.STATUS.CONFIG_MISSING:
 		var dialog : MenuScreen = menu._add_screen("")
-		dialog.desc_text = "Warning! This profile config file is missing. Continue?"
+		dialog.desc_text = tr("PE_CONFIG_MISSING")
 		dialog.accept_function = _continue_loading
 		return
 	
@@ -120,15 +120,15 @@ func _load_profile(profile_name : String) -> void:
 
 func _delete_profile() -> void:
 	delete_mode = true
-	$V/Text.text = "SELECT PROFILE TO DELETE"
+	$V/Text.text = tr("PE_DELETE_OPTION")
 	$V/Text.modulate = Color.RED
 	$V/Menu/Create._disable(true)
-	$V/Menu/Delete.text = "CANCEL DELETION"
+	$V/Menu/Delete.text = tr("PE_CANCEL_DELETE")
 
 
 func _continue_deletion(profile_name : String) -> void:
 	var dialog : MenuScreen = menu._add_screen("")
-	dialog.desc_text = "Are you sure you want to delete this profile?"
+	dialog.desc_text = tr("PE_DELETE_DIALOG")
 	var accepted : bool = await dialog.closed
 
 	if accepted:
@@ -139,14 +139,14 @@ func _continue_deletion(profile_name : String) -> void:
 		_display_profile_list()
 		
 		if profile_name == Data.profile.name:
-			$V/Text.text = "YOU MUST SELECT OR CREATE AN PROFILE IN ORDER TO CONTINUE"
+			$V/Text.text = tr("PE_MUST_SELECT")
 			$V/Menu/Cancel._disable(true)
 	else:
 		delete_mode = false
-		$V/Text.text = "SELECT PROFILE TO LOAD"
+		$V/Text.text = tr("PE_SELECT_OPTION")
 		$V/Text.modulate = Color.WHITE
 		$V/Menu/Create._disable(false)
-		$V/Menu/Delete.text = "DELETE PROFILE"
+		$V/Menu/Delete.text = tr("PE_DELETE")
 
 	return
 
@@ -158,7 +158,7 @@ func _continue_loading() -> void:
 
 func _start_profile_create() -> void:
 	var input : MenuScreen = menu._add_screen("text_input")
-	input.desc_text = "Enter new profile name"
+	input.desc_text = tr("PE_CREATE_DIALOG")
 	input.accept_function = _create_profile
 
 

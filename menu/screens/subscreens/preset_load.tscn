@@ -292,7 +292,7 @@ offset_left = 44.0
 offset_top = 612.0
 offset_right = 276.0
 offset_bottom = 631.0
-text = "PRESET LOAD"
+text = "PRESET_LOAD_ARROW"
 label_settings = SubResource("LabelSettings_a72wb")
 uppercase = true
 visible_characters = 0
@@ -320,7 +320,7 @@ offset_bottom = 788.0
 scale = Vector2(1e-05, 1)
 text = "CANCEL"
 glow_color = Color(0.564706, 0.564706, 0.564706, 1)
-description = "Back to main menu."
+description = "PRESET_LOAD_CANCEL"
 menu_position = Vector2i(-1, -1)
 work_mode = 7
 press_sound_name = "cancel"
@@ -352,7 +352,7 @@ offset_left = 16.0
 offset_top = 212.0
 offset_right = 555.0
 offset_bottom = 260.0
-text = "SELECT GAMEPLAY PRESET TO LOAD"
+text = "SELECT_PRESET"
 label_settings = SubResource("LabelSettings_a372g")
 
 [node name="ColorRect" type="ColorRect" parent="Label"]

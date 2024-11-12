@@ -60,17 +60,17 @@ func _select_visualizer(value : float) -> void:
 	
 	match int(value):
 		SynthesiaMode.VISUALISER.SHOCKWAVE: 
-			$Menu/Visual/Value.text = "SHOCKWAVE (FANCY)"
-			$Menu/Visual/Slider2.description = "Rainbow trippy shockwave which shakes with the beat of music."
-			$Desc/Desc.text = "Rainbow trippy shockwave which shakes with the beat of music."
+			$Menu/Visual/Value.text = tr("SHOCKWAVE_FANCY")
+			$Menu/Visual/Slider2.description = tr("SHOCKWAVE_FANCY_DESC")
+			$Desc/Desc.text = tr("SHOCKWAVE_FANCY_DESC")
 		SynthesiaMode.VISUALISER.SHOCKWAVE_SIMPLE: 
-			$Menu/Visual/Value.text = "SHOCKWAVE (SIMPLE)"
-			$Menu/Visual/Slider2.description = "Simplier version of shockwave background with better performance."
-			$Desc/Desc.text = "Simplier version of shockwave background with better performance."
+			$Menu/Visual/Value.text = tr("SHOCKWAVE_SIMPLE")
+			$Menu/Visual/Slider2.description = tr("SHOCKWAVE_SIMPLE_DESC")
+			$Desc/Desc.text = tr("SHOCKWAVE_SIMPLE_DESC")
 		SynthesiaMode.VISUALISER.REZ: 
-			$Menu/Visual/Value.text = "EDEN"
-			$Menu/Visual/Slider2.description = "Background inspired by stage select animation from game Rez."
-			$Desc/Desc.text = "Background inspired by stage select animation from game Rez."
+			$Menu/Visual/Value.text = tr("EDEN")
+			$Menu/Visual/Slider2.description = tr("EDEN_DESC")
+			$Desc/Desc.text = tr("EDEN_DESC")
 
 
 func _select_soundset(value : float) -> void:
@@ -79,13 +79,13 @@ func _select_soundset(value : float) -> void:
 
 	match int(value):
 		SynthesiaMode.SOUND_SET.DRUMS : 
-			$Menu/Soundset/Value.text = "DRUMS"
-			$Menu/Soundset/Slider.description = "Sound set based just on various drum sets."
-			$Desc/Desc.text = "Sound set based just on various drum sets."
+			$Menu/Soundset/Value.text = tr("DRUMS")
+			$Menu/Soundset/Slider.description = tr("DRUMS_DESC")
+			$Desc/Desc.text = tr("DRUMS_DESC")
 		SynthesiaMode.SOUND_SET.BFXR : 
-			$Menu/Soundset/Value.text = "RETRO"
-			$Menu/Soundset/Slider.description = "Sound set featuring 8-bit samples made with BFXR."
-			$Desc/Desc.text = "Sound set featuring 8-bit samples made with BFXR."
+			$Menu/Soundset/Value.text = tr("RETRO")
+			$Menu/Soundset/Slider.description = tr("RETRO_DESC")
+			$Desc/Desc.text = tr("RETRO_DESC")
 		SynthesiaMode.SOUND_SET.CALM : 
 			$Menu/Soundset/Value.text = "CALM"
 			$Menu/Soundset/Slider.description = "Sound set featuring calm and chill samples."

@@ -55,7 +55,7 @@ func _load_data() -> void:
 		text = editor.skin_data.stream[data_name]
 		text = text.substr(text.length() - 20)
 	else:
-		text = tr("SOME") + " " + data_name.to_upper()
+		text = tr("SE_SOME") + " " + data_name.to_upper()
 
 
 # Called on button press

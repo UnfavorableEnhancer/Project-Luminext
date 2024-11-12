@@ -191,6 +191,6 @@ func _exit_dialog() -> void:
 	is_exiting = true
 	
 	var dialog : MenuScreen = Data.menu._add_screen("accept_dialog")
-	dialog.desc_text = "Are you sure you want to exit from this game?"
+	dialog.desc_text = tr("EXIT_DIALOG")
 	dialog.cancel_function = func() -> void: await get_tree().create_timer(1.0).timeout; is_exiting = false
 	dialog.accept_function = Data.main._exit

@@ -485,10 +485,10 @@ func _return_setting_value_string(setting_name : String, value : Variant) -> Str
 		"audio_device" : return_string = AudioServer.get_output_device_list()[value]
 		"announcer" :
 			match value:
-				0.0: return_string = "OFF"
-				1.0: return_string = "MENU_ONLY"
-				2.0: return_string = "GAME_ONLY"
-				3.0: return_string = "ON"
+				0.0: return_string = tr("ANNOUNCER1")
+				1.0: return_string = tr("ANNOUNCER2")
+				2.0: return_string = tr("ANNOUNCER3")
+				3.0: return_string = tr("ANNOUNCER4")
 		
 		"resolution":
 			return_string = str(config["video"]["resolution_x"]) + "x" + str(config["video"]["resolution_y"])
@@ -496,21 +496,17 @@ func _return_setting_value_string(setting_name : String, value : Variant) -> Str
 			return_string = str(value) + " FPS"
 		"fx_quality":
 			match value:
-				0.0: return_string = "MINIMUM"
-				1.0: return_string = "LOW"
-				2.0: return_string = "MEDIUM"
-				3.0: return_string = "MAX"
-				4.0: return_string = "BEAUTY"
+				0.0: return_string = tr("QUALITY_1")
+				1.0: return_string = tr("QUALITY_2")
+				2.0: return_string = tr("QUALITY_3")
+				3.0: return_string = tr("QUALITY_4")
+				4.0: return_string = tr("QUALITY_5")
 		"square_quality":
 			match value:
-				0.0: return_string = "MINIMUM"
-				1.0: return_string = "MEDIUM"
-				2.0: return_string = "MAX"
-		"bonus_style" :
-			match value:
-				0.0: return_string = "STANDARD"
-				1.0: return_string = "BIG ARROW"
-				2.0: return_string = "CLASSIC"
+				0.0: return_string = tr("QUALITY_1")
+				1.0: return_string = tr("QUALITY_3")
+				2.0: return_string = tr("QUALITY_4")
+		
 		_ :
 			return_string = str(value)
 	
@@ -521,8 +517,10 @@ func _return_setting_value_string(setting_name : String, value : Variant) -> Str
 func _assign_setting(setting_name : String, value : Variant, setting_category : int = SETTING_TYPE.UNKNOWN) -> void:
 	if setting_category == SETTING_TYPE.GAMEPLAY or setting_name in config["gameplay"].keys():
 		config["gameplay"][setting_name] = value
+	
 	elif setting_category == SETTING_TYPE.AUDIO or setting_name in config["audio"].keys():
 		config["audio"][setting_name] = value
+	
 	elif setting_name == "resolution":
 		match value:
 				0.0 : 
@@ -543,11 +541,13 @@ func _assign_setting(setting_name : String, value : Variant, setting_category : 
 				5.0 : 
 					config["video"]["resolution_x"] = 1920
 					config["video"]["resolution_y"] = 1080
+	
 	elif setting_category == SETTING_TYPE.VIDEO or setting_name in config["video"].keys():
 		config["video"][setting_name] = value
+	
 	elif setting_category == SETTING_TYPE.MISC or setting_name in config["misc"].keys():
 		config["misc"][setting_name] = value
-	
+
 	has_changes_in_config = true
 	setting_changed.emit(setting_name)
 

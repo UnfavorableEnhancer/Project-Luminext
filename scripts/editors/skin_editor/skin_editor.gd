@@ -80,7 +80,7 @@ func _save_skin(skip_dialog : bool = false) -> void:
 	if not skip_dialog:
 		Data.menu._sound("confirm3")
 		var dialog : MenuScreen = menu._add_screen("accept_dialog")
-		dialog.desc_text = "Are you sure you want to save this skin?"
+		dialog.desc_text = tr("SE_SAVE_DIALOG")
 		
 		var accepted : bool = await dialog.closed
 		if not accepted : return
@@ -263,8 +263,8 @@ func _reset() -> void:
 	Data.menu._sound("confirm2")
 	
 	var dialog : MenuScreen = menu._add_screen("accept_dialog")
-	if has_unsaved_changes : dialog.desc_text = "This skin has unsaved changes. Are you sure you want to reset everything?"
-	else : dialog.desc_text = "Are you sure you want to reset everything?"
+	if has_unsaved_changes : dialog.desc_text = tr("SE_UNSAVED_RESET")
+	else : dialog.desc_text = tr("SE_RESET_DIALOG")
 
 	var accepted : bool = await dialog.closed
 	if not accepted : return
@@ -294,7 +294,7 @@ func _exit() -> void:
 		
 		if has_unsaved_changes:
 			var dialog : MenuScreen = menu._add_screen("accept_dialog")
-			dialog.desc_text = "This skin has unsaved changes. Are you sure you want to exit?"
+			dialog.desc_text = tr("SE_UNSAVED_EXIT")
 			
 			var accepted : bool = await dialog.closed
 			if not accepted : return
@@ -308,7 +308,7 @@ func _start_playtest_skn() -> void:
 	
 	if has_unsaved_changes:
 		var dialog : MenuScreen = menu._add_screen("accept_dialog")
-		dialog.desc_text = "This skin has unsaved changes and you must save it now in order to continue. Proceed?"
+		dialog.desc_text = tr("SE_UNSAVED_CONTINUE")
 		
 		var accepted : bool = await dialog.closed
 		if accepted: 
@@ -643,28 +643,31 @@ func _on_UIDesign_item_selected(index : int) -> void:
 
 
 func _on_UIDesign_mouse_entered() -> void:
-	_show_description("Select UI design.")
+	_show_description("SE_UI_DESIGN_DESC")
 
 func _on_Info_text_changed() -> void:
 	skin_data.metadata["info"] = get_node("%Info").text
 
 func _on_Info_mouse_entered() -> void:
-	_show_description("Skin description/about text. Write here whatever you want.")
+	_show_description("SE_ABOUT_DESC")
 
 func _on_Test_mouse_entered() -> void:
-	_show_description("Start skin playtest session.")
+	_show_description("SE_PLAYTEST_DESC")
 
 func _on_Load_mouse_entered() -> void:
-	_show_description("Load skin file to edit.")
+	_show_description("SE_LOAD_DESC")
 
 func _on_Save_mouse_entered() -> void:
-	_show_description("Save current skin. Skin will be saved to your 'skins' directory.")
+	_show_description("SE_SAVE_DESC")
 
 func _on_Reset_mouse_entered() -> void:
-	_show_description("Reset current skin to standard one.")
+	_show_description("SE_RESET_DESC")
 
 func _on_AnimStyle_mouse_entered() -> void:
-	_show_description("Select block animation timings preset.")
+	_show_description("SE_BLOCK_ANIM_DESC")
 
 func _on_edit_history_mouse_entered() -> void:
-	_show_description("Shows every saved skin edit date and editor name.")
+	_show_description("SE_EDIT_HISTORY_DESC")
+
+func _on_exit_mouse_entered() -> void:
+	_show_description("SE_EXIT_DESC")

@@ -43,7 +43,7 @@ func _ready() -> void:
 	_load_skin_list()
 	_display_current_playlist()
 	
-	$Skins/Info.text = str(Data.skin_list.skins_amount) + " SKINS TOTAL"
+	$Skins/Info.text = str(Data.skin_list.skins_amount) + " " + tr("SKINS_TOTAL")
 
 	await menu.all_screens_added
 	cursor = Vector2i(0,0)
@@ -262,7 +262,7 @@ func _display_skin_metadata(metadata : SkinMetadata) -> void:
 		%Name.text = "UNKNOWN SKIN"
 		%Music.text = ""
 		%FileName.text = ""
-		%Info.text = "PLEASE CHECK IF ANY SKIN IS PLACED INSIDE SKINS FOLDER"
+		%Info.text = tr("NO_SKINS2")
 		return
 	
 	if metadata.cover_art == null : %CoverArt.texture = load("res://menu/images/unk.png")

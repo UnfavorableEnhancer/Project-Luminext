@@ -28,19 +28,19 @@ func _ready() -> void:
 		OK : pass
 		Replay.INVALID.NON_STANDARD_SKIN :
 			replay_save_button._disable(true)
-			replay_save_button.description = "Play single standard skin to enable replay recording."
+			replay_save_button.description = "SAVE_REPLAY_ERROR1"
 		Replay.INVALID.GAME_RULES_CHANGED :
 			replay_save_button._disable(true)
-			replay_save_button.description = "Game rules were changed during replay recording."
+			replay_save_button.description = "SAVE_REPLAY_ERROR2"
 		Replay.INVALID.RECORD_TIME_EXCEEDED :
 			replay_save_button._disable(true)
-			replay_save_button.description = "Replay recording time exceeded."
+			replay_save_button.description = "SAVE_REPLAY_ERROR3"
 		Replay.INVALID.UNSUPPORTED_GAMEMODE :
 			replay_save_button._disable(true)
-			replay_save_button.description = "This gamemode is not supported for replay recording."
+			replay_save_button.description = "SAVE_REPLAY_ERROR4"
 		Replay.INVALID.UNSUPPORTED_PLAYLIST :
 			replay_save_button._disable(true)
-			replay_save_button.description = "Play single standard skin to enable replay recording."
+			replay_save_button.description = "SAVE_REPLAY_ERROR1"
 
 	await menu.all_screens_added
 	cursor = Vector2i(0,0)
@@ -49,21 +49,21 @@ func _ready() -> void:
 
 func _setup(playlist_mode : PlaylistMode) -> void:
 	%Score.text = str(playlist_mode.score)
-	%SqrDel.text = "SQUARES : " + str(playlist_mode.deleted_squares)
-	%BlckDel.text = "BLOCKS : " + str(playlist_mode.deleted_blocks)
-	%Level.text = "LEVEL : " + str(playlist_mode.level_count)
+	%SqrDel.text = tr("SQAURES") + " : " + str(playlist_mode.deleted_squares)
+	%BlckDel.text = tr("BLOCKS") + " : " + str(playlist_mode.deleted_blocks)
+	%Level.text = tr("END_LEVEL") + " : " + str(playlist_mode.level_count)
 	%Time.text = Data._to_time(playlist_mode.time)
 
 	if playlist_mode.playlist_pos < 1 : %Stage.visible = false
-	else : %Stage.text = "STAGE : " + str(playlist_mode.playlist_pos)
+	else : %Stage.text = tr("STAGE") + " : " + str(playlist_mode.playlist_pos)
 
 	if playlist_mode.current_lap < 1 : %Lap.visible = false
-	else : %Lap.text = "LAP : " + str(playlist_mode.current_lap)
+	else : %Lap.text = tr("LAP") + " : " + str(playlist_mode.current_lap)
 
 
 func _save_replay() -> void:
 	var input : MenuScreen = Data.menu._add_screen("text_input")
-	input.desc_text = "ENTER REPLAY NAME"
+	input.desc_text = tr("SAVE_REPLAY_DIALOG")
 	input.accept_function = Data.game.replay._save
 
 
