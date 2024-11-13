@@ -84,7 +84,7 @@ func  _show_button_layout(button_layout : int = -1) -> void:
 			
 			if Data.current_input_mode == Data.INPUT_MODE.MOUSE : $ButtonLayout.add_child(Data.menu._create_button_icon("mouse_left", BUTTON_ICON_SIZE))
 			else : $ButtonLayout.add_child(Data.menu._create_button_icon("ui_accept", BUTTON_ICON_SIZE))
-			$ButtonLayout.add_child(_create_text_node("LAYOUT_LAYOUT_ENTER"))
+			$ButtonLayout.add_child(_create_text_node("LAYOUT_ENTER"))
 			
 			if Data.current_input_mode != Data.INPUT_MODE.MOUSE : 
 				$ButtonLayout.add_child(Data.menu._create_button_icon("ui_cancel", BUTTON_ICON_SIZE))

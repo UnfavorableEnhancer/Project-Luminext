@@ -294,7 +294,7 @@ debug_game_tick={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://translations/project_luminext_translation.en.translation", "res://translations/project_luminext_translation.fr.translation", "res://translations/project_luminext_translation.it.translation", "res://translations/project_luminext_translation.ja.translation", "res://translations/project_luminext_translation.pt.translation", "res://translations/project_luminext_translation.ru.translation")
+locale/translations=PackedStringArray("res://translations/project_luminext_translation.en.translation", "res://translations/project_luminext_translation.ts.translation")
 
 [network]
 

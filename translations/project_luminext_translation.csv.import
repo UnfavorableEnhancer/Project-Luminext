@@ -2,14 +2,14 @@
 
 importer="csv_translation"
 type="Translation"
-uid="uid://xpdlog3a1ocw"
+uid="uid://b61g17f6bjtgs"
 
 [deps]
 
-files=["res://translations/project_luminext_translation.en.translation", "res://translations/project_luminext_translation.fr.translation", "res://translations/project_luminext_translation.pt.translation", "res://translations/project_luminext_translation.ru.translation", "res://translations/project_luminext_translation.ja.translation", "res://translations/project_luminext_translation.it.translation", "res://translations/project_luminext_translation.COLOR TAGS.translation"]
+files=["res://translations/project_luminext_translation.ts.translation", "res://translations/project_luminext_translation.en.translation", "res://translations/project_luminext_translation.locale.translation"]
 
 source_file="res://translations/project_luminext_translation.csv"
-dest_files=["res://translations/project_luminext_translation.en.translation", "res://translations/project_luminext_translation.fr.translation", "res://translations/project_luminext_translation.pt.translation", "res://translations/project_luminext_translation.ru.translation", "res://translations/project_luminext_translation.ja.translation", "res://translations/project_luminext_translation.it.translation", "res://translations/project_luminext_translation.COLOR TAGS.translation"]
+dest_files=["res://translations/project_luminext_translation.ts.translation", "res://translations/project_luminext_translation.en.translation", "res://translations/project_luminext_translation.locale.translation"]
 
 [params]
 

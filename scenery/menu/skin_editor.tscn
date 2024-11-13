@@ -1344,8 +1344,7 @@ offset_top = -624.0
 offset_right = -623.992
 offset_bottom = -701.0
 theme_override_fonts/font = SubResource("73")
-text = "SE_WELCOME
-"
+text = "SE_WELCOME"
 label_settings = SubResource("LabelSettings_vd7m7")
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -3181,11 +3180,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_ANNOUNCE"
+text = "SE_A_ANNOUNCE"
 clip_text = true
 script = ExtResource("22")
 sound_name = "announce"
-description = "SE_ANNOUNCE_DESC"
+description = "SE_A_ANNOUNCE_DESC"
 category = "metadata"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/Announce"]
@@ -3200,7 +3199,7 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
 [node name="Preview" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
@@ -3217,11 +3216,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_PREVIEW"
+text = "SE_A_PREVIEW"
 clip_text = true
 script = ExtResource("22")
 sound_name = "preview"
-description = "SE_PREVIEW_DESC"
+description = "SE_A_PREVIEW_DESC"
 category = "metadata"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/Preview"]
@@ -3236,7 +3235,7 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
 [node name="Ending" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
@@ -3252,11 +3251,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_ENDING"
+text = "SE_A_ENDING"
 clip_text = true
 script = ExtResource("22")
 sound_name = "ending"
-description = "SE_ENDING_DESC"
+description = "SE_A_ENDING_DESC"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/Ending"]
 texture_filter = 1
@@ -3269,7 +3268,7 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "PLAY"
+text = "SE_PLAY"
 clip_text = true
 
 [node name="SquareSound" type="Button" parent="Hide/TabContainer/SE_AUDIO"]
@@ -3286,11 +3285,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_SQUARE_CREATION"
+text = "SE_A_SQUARE"
 clip_text = true
 script = ExtResource("22")
 sound_name = "square"
-description = "SE_SQUARE_CREATION_DESC"
+description = "SE_A_SQUARE_DESC"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/SquareSound"]
 texture_filter = 1
@@ -3335,11 +3334,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_SQUARE_BLAST"
+text = "SE_A_BLAST"
 clip_text = true
 script = ExtResource("22")
 sound_name = "blast"
-description = "SE_SQUARE_BLAST_DESC"
+description = "SE_A_BLAST_DESC"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/BlastSound"]
 texture_filter = 1
@@ -3384,11 +3383,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_SPECIAL_BLAST"
+text = "SE_A_SPECIAL"
 clip_text = true
 script = ExtResource("22")
 sound_name = "special"
-description = "SE_SPECIAL_BLAST_DESC"
+description = "SE_A_SPECIAL_DESC"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/SpecialSound"]
 texture_filter = 1
@@ -3433,11 +3432,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_TIMELINE_SOUND"
+text = "SE_A_TIMELINE"
 clip_text = true
 script = ExtResource("22")
 sound_name = "timeline"
-description = "SE_TIMELINE_SOUND_DESC"
+description = "SE_A_TIMELINE_DESC"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/TimelineSound"]
 texture_filter = 1
@@ -3482,11 +3481,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_BONUS_SOUND"
+text = "SE_A_BONUS"
 clip_text = true
 script = ExtResource("22")
 sound_name = "bonus"
-description = "SE_BONUS_SOUND_DESC"
+description = "SE_A_BONUS_DESC"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/BonusSound"]
 texture_filter = 1
@@ -3531,11 +3530,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_PIECE_MOVE"
+text = "SE_A_MOVE"
 clip_text = true
 script = ExtResource("22")
 sound_name = "move"
-description = "SE_PIECE_MOVE_DESC"
+description = "SE_A_MOVE_DESC"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/MoveSound"]
 texture_filter = 1
@@ -3566,11 +3565,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_ROTATE_LEFT"
+text = "SE_A_ROTATE_LEFT"
 clip_text = true
 script = ExtResource("22")
 sound_name = "rotate_left"
-description = "SE_ROTATE_LEFT_DESC"
+description = "SE_A_ROTATE_LEFT_DESC"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/RotLeftSound"]
 texture_filter = 1
@@ -3601,11 +3600,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_ROTATE_RIGHT"
+text = "SE_A_ROTATE_RIGHT"
 clip_text = true
 script = ExtResource("22")
 sound_name = "rotate_right"
-description = "SE_ROTATE_RIGHT_DESC"
+description = "SE_A_ROTATE_RIGHT_DESC"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/RotRightSound"]
 texture_filter = 1
@@ -3636,11 +3635,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_DASH_LEFT"
+text = "SE_A_LEFT_DASH"
 clip_text = true
 script = ExtResource("22")
 sound_name = "left_dash"
-description = "SE_DASH_LEFT_DESC"
+description = "SE_A_LEFT_DASH_DESC"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/LeftDashSound"]
 texture_filter = 1
@@ -3671,11 +3670,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_DASH_RIGHT"
+text = "SE_A_RIGHT_DASH"
 clip_text = true
 script = ExtResource("22")
 sound_name = "right_dash"
-description = "SE_DASH_RIGHT_DESC"
+description = "SE_A_RIGHT_DASH_DESC"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/RightDashSound"]
 texture_filter = 1
@@ -3706,11 +3705,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_PIECE_DROP"
+text = "SE_A_DROP"
 clip_text = true
 script = ExtResource("22")
 sound_name = "drop"
-description = "SE_PIECE_DROP_DESC"
+description = "SE_A_DROP_DESC"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/DropSound"]
 texture_filter = 1
@@ -3741,11 +3740,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_PIECE_SWAP"
+text = "SE_A_QUEUE_SHIFT"
 clip_text = true
 script = ExtResource("22")
 sound_name = "queue_shift"
-description = "SE_PIECE_SWAP_DESC"
+description = "SE_A_QUEUE_SHIFT_DESC"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/QueueShiftSound"]
 texture_filter = 1
@@ -3776,11 +3775,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_LEVEL_UP"
+text = "SE_A_LEVEL_UP"
 clip_text = true
 script = ExtResource("22")
 sound_name = "level_up"
-description = "SE_LEVEL_UP_DESC"
+description = "SE_A_LEVEL_UP_DESC"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/LevelSound"]
 texture_filter = 1
@@ -3810,11 +3809,11 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/hover = SubResource("28")
 theme_override_styles/normal = SubResource("30")
 button_mask = 3
-text = "SE_SPECIAL_BONUS"
+text = "SE_A_SPECIAL_BONUS"
 clip_text = true
 script = ExtResource("22")
 sound_name = "special_bonus"
-description = "SE_SPECIAL_BONUS_DESC"
+description = "SE_A_SPECIAL_BONUS_DESC"
 
 [node name="Play" type="Button" parent="Hide/TabContainer/SE_AUDIO/SpecialBonusSound"]
 texture_filter = 1
@@ -3944,10 +3943,31 @@ theme_override_constants/separation = 8
 texture_filter = 1
 custom_minimum_size = Vector2(832, 0)
 layout_mode = 2
-text = "More than one sound may be assigned per action, indicated by a number next to an sound play button. 
-If more than one sound is assigned to an action, a random assigned sound will play. 
-You also can remove sounds by right clicking, rest of the sounds will shift to the left. 
-To move between sounds you can use the arrow buttons or type the number and press enter"
+text = "SE_SOUND_TEXT1"
+label_settings = SubResource("LabelSettings_vhifn")
+autowrap_mode = 2
+
+[node name="Label6" type="Label" parent="Hide/TabContainer/SE_AUDIO/V"]
+texture_filter = 1
+custom_minimum_size = Vector2(832, 0)
+layout_mode = 2
+text = "SE_SOUND_TEXT2"
+label_settings = SubResource("LabelSettings_vhifn")
+autowrap_mode = 2
+
+[node name="Label7" type="Label" parent="Hide/TabContainer/SE_AUDIO/V"]
+texture_filter = 1
+custom_minimum_size = Vector2(832, 0)
+layout_mode = 2
+text = "SE_SOUND_TEXT3"
+label_settings = SubResource("LabelSettings_vhifn")
+autowrap_mode = 2
+
+[node name="Label8" type="Label" parent="Hide/TabContainer/SE_AUDIO/V"]
+texture_filter = 1
+custom_minimum_size = Vector2(832, 0)
+layout_mode = 2
+text = "SE_SOUND_TEXT4"
 label_settings = SubResource("LabelSettings_vhifn")
 autowrap_mode = 2
 

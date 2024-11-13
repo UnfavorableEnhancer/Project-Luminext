@@ -354,6 +354,7 @@ offset_right = 555.0
 offset_bottom = 260.0
 text = "SELECT_PLAYLIST"
 label_settings = SubResource("LabelSettings_a372g")
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="Label"]
 layout_mode = 0

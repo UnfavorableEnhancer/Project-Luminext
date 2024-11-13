@@ -1004,6 +1004,7 @@ offset_right = 960.0
 offset_bottom = 68.0
 text = "SELECT_VISUALIZER"
 label_settings = SubResource("LabelSettings_g4n5i")
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="Menu/Visual/Label3"]
 layout_mode = 0
@@ -1022,6 +1023,7 @@ offset_bottom = 68.0
 text = "SHOCKWAVE_FANCY"
 label_settings = SubResource("LabelSettings_g4n5i")
 horizontal_alignment = 2
+uppercase = true
 
 [node name="Slider2" parent="Menu/Visual" node_paths=PackedStringArray("description_node") instance=ExtResource("6_bpuej")]
 modulate = Color(1, 1, 1, 0)
@@ -1053,6 +1055,7 @@ offset_top = -48.0
 offset_right = 976.0
 text = "SELECT COLOR SCHEME"
 label_settings = SubResource("LabelSettings_g4n5i")
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="Menu/Color/Label3"]
 layout_mode = 0
@@ -1070,6 +1073,7 @@ offset_right = 864.0
 text = "RGB"
 label_settings = SubResource("LabelSettings_g4n5i")
 horizontal_alignment = 2
+uppercase = true
 
 [node name="Slider" parent="Menu/Color" instance=ExtResource("6_bpuej")]
 modulate = Color(1, 1, 1, 0)
@@ -1100,6 +1104,7 @@ offset_right = 976.0
 offset_bottom = -12.0
 text = "SELECT_SOUND"
 label_settings = SubResource("LabelSettings_g4n5i")
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="Menu/Soundset/Label3"]
 layout_mode = 0
@@ -1118,6 +1123,7 @@ offset_bottom = -12.0
 text = "DRUMS"
 label_settings = SubResource("LabelSettings_g4n5i")
 horizontal_alignment = 2
+uppercase = true
 
 [node name="Slider" parent="Menu/Soundset" node_paths=PackedStringArray("description_node") instance=ExtResource("6_bpuej")]
 modulate = Color(1, 1, 1, 0)
@@ -1144,6 +1150,7 @@ offset_right = 976.0
 offset_bottom = 312.0
 text = "OTHER_SETTINGS"
 label_settings = SubResource("LabelSettings_g4n5i")
+uppercase = true
 
 [node name="PlayInfinite" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("3_wgmwl")]
 layout_mode = 0

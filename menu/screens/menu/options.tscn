@@ -1009,8 +1009,9 @@ region = Rect2(128, 0, 128, 128)
 atlas = ExtResource("3_6ju14")
 region = Rect2(256, 0, 128, 128)
 
-[sub_resource type="LabelSettings" id="LabelSettings_mjeyf"]
-font = ExtResource("6")
+[sub_resource type="LabelSettings" id="LabelSettings_hce62"]
+font = ExtResource("8")
+font_size = 24
 
 [sub_resource type="AtlasTexture" id="96"]
 atlas = ExtResource("3_6ju14")
@@ -1160,9 +1161,9 @@ region = Rect2(384, 128, 128, 128)
 atlas = ExtResource("1")
 region = Rect2(0, 256, 128, 128)
 
-[sub_resource type="LabelSettings" id="LabelSettings_1w2bb"]
-font = ExtResource("6")
-font_size = 20
+[sub_resource type="LabelSettings" id="LabelSettings_c5fkp"]
+font = ExtResource("8")
+font_size = 28
 
 [sub_resource type="AtlasTexture" id="145"]
 atlas = ExtResource("2")
@@ -1448,7 +1449,7 @@ offset_top = -2.0
 offset_right = 736.0
 offset_bottom = 50.0
 text = "DEFAULT"
-label_settings = SubResource("LabelSettings_mjeyf")
+label_settings = SubResource("LabelSettings_hce62")
 horizontal_alignment = 2
 vertical_alignment = 1
 
@@ -1503,6 +1504,7 @@ text = "ON"
 label_settings = SubResource("LabelSettings_nr4ky")
 horizontal_alignment = 2
 vertical_alignment = 1
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="AUDIO/SCROLL/V/ANNOUNCE"]
 show_behind_parent = true
@@ -1708,6 +1710,7 @@ layout_mode = 2
 theme_override_fonts/font = SubResource("135")
 text = "VS_LABEL1"
 label_settings = SubResource("LabelSettings_xk0on")
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="VIDEO/SCROLL/V/Label"]
 layout_mode = 0
@@ -1860,6 +1863,7 @@ layout_mode = 2
 theme_override_fonts/font = SubResource("135")
 text = "VS_LABEL2"
 label_settings = SubResource("LabelSettings_24oyo")
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="VIDEO/SCROLL/V/Label2"]
 layout_mode = 0
@@ -1972,6 +1976,7 @@ text = "MEDUIM"
 label_settings = SubResource("LabelSettings_x3w21")
 horizontal_alignment = 2
 vertical_alignment = 1
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="VIDEO/SCROLL/V/EFFECTS"]
 show_behind_parent = true
@@ -2021,6 +2026,7 @@ text = "MEDIUM"
 label_settings = SubResource("LabelSettings_x3w21")
 horizontal_alignment = 2
 vertical_alignment = 1
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="VIDEO/SCROLL/V/SQUARES"]
 show_behind_parent = true
@@ -2161,6 +2167,7 @@ custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 text = "VS_LABEL3"
 label_settings = SubResource("LabelSettings_x3w21")
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="VIDEO/SCROLL/V/Label3"]
 layout_mode = 0
@@ -2410,6 +2417,7 @@ offset_right = 428.0
 offset_bottom = 52.0
 text = "KEY_CATEGORY1"
 label_settings = SubResource("LabelSettings_xk0on")
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="CONTROLS/Input/Label"]
 layout_mode = 0
@@ -2655,6 +2663,7 @@ offset_right = 428.0
 offset_bottom = 316.0
 text = "KEY_CATEGORY2"
 label_settings = SubResource("LabelSettings_xk0on")
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="CONTROLS/Input/Label2"]
 layout_mode = 0
@@ -2834,27 +2843,24 @@ modulate = Color(1, 1, 1, 0.5)
 custom_minimum_size = Vector2(1320, 0)
 layout_mode = 2
 text = "LANGUAGE_TEXT1"
-label_settings = SubResource("LabelSettings_1w2bb")
+label_settings = SubResource("LabelSettings_c5fkp")
 autowrap_mode = 2
-uppercase = true
 
 [node name="Text2" type="Label" parent="LANGUAGE/SCROLL/V"]
 modulate = Color(1, 1, 1, 0.5)
 custom_minimum_size = Vector2(1320, 0)
 layout_mode = 2
 text = "LANGUAGE_TEXT2"
-label_settings = SubResource("LabelSettings_1w2bb")
+label_settings = SubResource("LabelSettings_c5fkp")
 autowrap_mode = 2
-uppercase = true
 
 [node name="Text3" type="Label" parent="LANGUAGE/SCROLL/V"]
 modulate = Color(1, 1, 1, 0.5)
 custom_minimum_size = Vector2(1320, 0)
 layout_mode = 2
 text = "LANGUAGE_TEXT3"
-label_settings = SubResource("LabelSettings_1w2bb")
+label_settings = SubResource("LabelSettings_c5fkp")
 autowrap_mode = 2
-uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="LANGUAGE/SCROLL/V"]
 custom_minimum_size = Vector2(1320, 4)
@@ -2867,12 +2873,13 @@ texture = SubResource("145")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="ENGLISH" parent="LANGUAGE/SCROLL/V/Flag" instance=ExtResource("11")]
+[node name="ENGLISH" parent="LANGUAGE/SCROLL/V/Flag" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
 layout_mode = 2
 offset_left = 88.0
 offset_right = 1320.0
 offset_bottom = 48.0
 text = "ENGLISH"
+description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
 description = "SET_LANGUAGE_DESC"
 press_sound_name = "enter"
@@ -2896,12 +2903,13 @@ texture = SubResource("146")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="ITALIAN" parent="LANGUAGE/SCROLL/V/Flag2" instance=ExtResource("11")]
+[node name="ITALIAN" parent="LANGUAGE/SCROLL/V/Flag2" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
 layout_mode = 2
 offset_left = 88.0
 offset_right = 1320.0
 offset_bottom = 48.0
 text = "ITALIAN"
+description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
 description = "SET_LANGUAGE_DESC"
 press_sound_name = "enter"
@@ -2910,6 +2918,7 @@ call_function_name = "_select_language"
 
 [node name="Mark" type="TextureRect" parent="LANGUAGE/SCROLL/V/Flag2" groups=["language_marks"]]
 visible = false
+layout_mode = 0
 offset_left = 1264.0
 offset_top = -1.0
 offset_right = 1312.0
@@ -2920,14 +2929,15 @@ expand_mode = 1
 [node name="Blank" type="TextureRect" parent="LANGUAGE/SCROLL/V"]
 layout_mode = 2
 
-[node name="GITHUB" parent="LANGUAGE/SCROLL/V/Blank" instance=ExtResource("11")]
+[node name="GITHUB" parent="LANGUAGE/SCROLL/V/Blank" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 offset_top = -1.0
 offset_right = 1320.0
 offset_bottom = 47.0
 text = "TRANSLATION_PAGE"
-glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.6875, 0.384033, 0.625858, 1)
 description = "TRANSLATION_PAGE_DESC"
 press_sound_name = "enter"
 call_function_name = "_open_translation_page"
@@ -2985,6 +2995,7 @@ offset_bottom = -36.0
 grow_horizontal = 2
 grow_vertical = 2
 label_settings = SubResource("LabelSettings_bb3qu")
+autowrap_mode = 3
 
 [node name="Detail3" type="Label" parent="Desc"]
 modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
@@ -3133,7 +3144,7 @@ description_node = NodePath("../../Desc/Text")
 glow_color = Color(0.670588, 0.403922, 0.792157, 1)
 description = "LANGUAGE_DESC"
 menu_position = Vector2i(-1, -1)
-press_sound_name = "enter"
+press_sound_name = "confirm"
 is_cancel_button = true
 call_string = "language"
 call_function_name = "_change_tab"
@@ -3384,7 +3395,8 @@ stretch_mode = 6
 
 [node name="Overlay" type="ColorRect" parent="."]
 layout_mode = 0
-offset_right = 1920.0
+offset_left = 2000.0
+offset_right = 3920.0
 offset_bottom = 1080.0
 color = Color(0, 0, 0, 0)
 metadata/_edit_lock_ = true

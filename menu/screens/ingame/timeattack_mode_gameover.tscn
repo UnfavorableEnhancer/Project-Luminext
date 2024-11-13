@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://ds0xug7wdnh5a"]
+[gd_scene load_steps=43 format=3 uid="uid://ds0xug7wdnh5a"]
 
 [ext_resource type="Script" path="res://menu/scripts/screens/timeattack_mode_gameover.gd" id="1_iuoqc"]
 [ext_resource type="Shader" path="res://shaders/pixelize.gdshader" id="2_5rxg2"]
@@ -1783,7 +1783,7 @@ region = Rect2(1536, 512, 256, 256)
 atlas = ExtResource("5_vhgiv")
 region = Rect2(512, 1280, 256, 256)
 
-[sub_resource type="LabelSettings" id="LabelSettings_pjs1e"]
+[sub_resource type="LabelSettings" id="LabelSettings_qndif"]
 font = ExtResource("6_uiabh")
 font_size = 24
 
@@ -1880,6 +1880,10 @@ font_size = 20
 font = ExtResource("3_u31jn")
 font_size = 24
 
+[sub_resource type="LabelSettings" id="LabelSettings_73y5p"]
+font = ExtResource("3_u31jn")
+font_size = 20
+
 [sub_resource type="LabelSettings" id="LabelSettings_fgt5q"]
 font = ExtResource("3_u31jn")
 font_size = 56
@@ -1905,7 +1909,7 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 
 [node name="back" type="ColorRect" parent="."]
-modulate = Color(0, 0, 0, 0)
+modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -1928,7 +1932,7 @@ offset_left = -3.68
 offset_top = 189.64
 offset_right = 1916.32
 offset_bottom = 325.64
-scale = Vector2(1e-05, 1)
+scale = Vector2(2.12874e-08, 1)
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
@@ -1961,10 +1965,10 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 912.0
 scale = Vector2(1, 1e-05)
-text = "RETRY"
+text = "TA_RETRY"
 description_node = NodePath("../Desc")
 glow_color = Color(0.94902, 0.513726, 0.227451, 1)
-description = "Start new time attack attempt."
+description = "TA_RETRY_DESC"
 button_layout = 18
 press_sound_name = "confirm4"
 call_function_name = "_restart"
@@ -1994,10 +1998,10 @@ offset_top = 80.0
 offset_right = 912.0
 offset_bottom = 128.0
 scale = Vector2(1, 1e-05)
-text = "SAVE REPLAY"
+text = "SAVE_REPLAY"
 description_node = NodePath("../Desc")
 glow_color = Color(0.227451, 0.94902, 0.94902, 1)
-description = "Save replay of this time attack attempt to watch later or share with others."
+description = "SAVE_REPLAY_DESC"
 button_layout = 18
 menu_position = Vector2i(0, 1)
 press_sound_name = "confirm2"
@@ -2028,10 +2032,10 @@ offset_top = 144.0
 offset_right = 912.0
 offset_bottom = 192.0
 scale = Vector2(1, 1e-05)
-text = "EXIT TO MENU"
+text = "PAUSE_EXIT"
 description_node = NodePath("../Desc")
 glow_color = Color(0.709804, 0.709804, 0.709804, 1)
-description = "End the game and return to the time attack mode menu."
+description = "TA_PAUSE_EXIT_DESC"
 button_layout = 18
 menu_position = Vector2i(0, 2)
 press_sound_name = "cancel"
@@ -2070,8 +2074,8 @@ offset_left = 16.0
 offset_top = 224.0
 offset_right = 912.0
 offset_bottom = 296.0
-text = "dfdssdfdfdsd"
-label_settings = SubResource("LabelSettings_pjs1e")
+label_settings = SubResource("LabelSettings_qndif")
+horizontal_alignment = 1
 
 [node name="Detail4" type="Label" parent="Menu"]
 modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
@@ -2150,9 +2154,10 @@ columns = 3
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 2
-text = "THIS ATTEMPT"
+text = "TA_THIS_ATTEMPT"
 label_settings = SubResource("LabelSettings_p6al4")
 horizontal_alignment = 2
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="Stats/Legend/1"]
 layout_mode = 0
@@ -2165,9 +2170,10 @@ color = Color(1, 0.705882, 0.141176, 1)
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 2
-text = "2nd ATTEMPT"
+text = "TA_2ATTEMPT"
 label_settings = SubResource("LabelSettings_p6al4")
 horizontal_alignment = 2
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="Stats/Legend/2"]
 layout_mode = 0
@@ -2180,9 +2186,10 @@ color = Color(0.286275, 0.364706, 0.443137, 1)
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 2
-text = "3rd ATTEMPT"
+text = "TA_3ATTEMPT"
 label_settings = SubResource("LabelSettings_p6al4")
 horizontal_alignment = 2
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="Stats/Legend/3"]
 layout_mode = 0
@@ -2195,9 +2202,10 @@ color = Color(0.411765, 0.266667, 0.266667, 1)
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 2
-text = "4th ATTEMPT"
+text = "TA_4ATTEMPT"
 label_settings = SubResource("LabelSettings_p6al4")
 horizontal_alignment = 2
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="Stats/Legend/4"]
 layout_mode = 0
@@ -2210,9 +2218,10 @@ color = Color(0.270588, 0.439216, 0.27451, 1)
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 2
-text = "5th ATTEMPT"
+text = "TA_5ATTEMPT"
 label_settings = SubResource("LabelSettings_p6al4")
 horizontal_alignment = 2
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="Stats/Legend/5"]
 layout_mode = 0
@@ -2224,9 +2233,10 @@ color = Color(0.419608, 0.419608, 0.227451, 1)
 [node name="6" type="Label" parent="Stats/Legend"]
 self_modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 2
-text = "6th ATTEMPT"
+text = "TA_6ATTEMPT"
 label_settings = SubResource("LabelSettings_p6al4")
 horizontal_alignment = 2
+uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="Stats/Legend/6"]
 layout_mode = 0
@@ -2253,6 +2263,7 @@ offset_bottom = 17.0
 text = "TA_SQUARE"
 label_settings = SubResource("LabelSettings_14532")
 vertical_alignment = 2
+uppercase = true
 
 [node name="Mark2" type="Label" parent="Stats/Cumulative"]
 modulate = Color(1, 1, 1, 0.501961)
@@ -2265,6 +2276,7 @@ text = "TA_TIME"
 label_settings = SubResource("LabelSettings_14532")
 horizontal_alignment = 2
 vertical_alignment = 2
+uppercase = true
 
 [node name="Label" type="Label" parent="Stats/Cumulative"]
 modulate = Color(1, 1, 1, 0)
@@ -2275,6 +2287,7 @@ offset_bottom = -10.0
 text = "DELETED_COUNT"
 label_settings = SubResource("LabelSettings_bqme6")
 horizontal_alignment = 2
+uppercase = true
 
 [node name="Graph6" type="Line2D" parent="Stats/Cumulative"]
 visible = false
@@ -2447,6 +2460,7 @@ offset_bottom = 17.0
 text = "TA_SQUARE"
 label_settings = SubResource("LabelSettings_14532")
 vertical_alignment = 2
+uppercase = true
 
 [node name="Mark2" type="Label" parent="Stats/Sweep"]
 modulate = Color(1, 1, 1, 0.501961)
@@ -2459,6 +2473,7 @@ text = "TA_TIME"
 label_settings = SubResource("LabelSettings_14532")
 horizontal_alignment = 2
 vertical_alignment = 2
+uppercase = true
 
 [node name="Graph6" type="Line2D" parent="Stats/Sweep"]
 visible = false
@@ -2566,6 +2581,7 @@ offset_bottom = -10.0
 text = "SQUARES_PER_SWEEP"
 label_settings = SubResource("LabelSettings_bqme6")
 horizontal_alignment = 2
+uppercase = true
 
 [node name="T" type="HBoxContainer" parent="Stats/Sweep"]
 layout_mode = 0
@@ -2661,6 +2677,7 @@ offset_right = 448.0
 offset_bottom = 83.0
 text = "TA_SCORE"
 label_settings = SubResource("LabelSettings_4x21u")
+uppercase = true
 visible_characters = 0
 visible_ratio = 0.0
 
@@ -2674,6 +2691,7 @@ offset_right = 448.0
 offset_bottom = 128.0
 text = "TA_NEW_RECORD"
 label_settings = SubResource("LabelSettings_4x21u")
+uppercase = true
 
 [node name="Line" type="ColorRect" parent="Results"]
 layout_mode = 0
@@ -2699,6 +2717,7 @@ offset_right = 702.0
 offset_bottom = 213.0
 text = "PREV_SCORES"
 label_settings = SubResource("LabelSettings_6o40f")
+uppercase = true
 
 [node name="Scores" type="HBoxContainer" parent="Results"]
 layout_mode = 0
@@ -2758,6 +2777,7 @@ offset_right = 702.0
 offset_bottom = 293.0
 text = "AVERAGE_SQUARES"
 label_settings = SubResource("LabelSettings_6o40f")
+uppercase = true
 visible_characters = 0
 visible_ratio = 0.0
 
@@ -2819,6 +2839,7 @@ offset_right = 702.0
 offset_bottom = 373.0
 text = "TOTAL_PIECES"
 label_settings = SubResource("LabelSettings_6o40f")
+uppercase = true
 visible_characters = 0
 visible_ratio = 0.0
 
@@ -2879,7 +2900,8 @@ offset_top = 440.0
 offset_right = 702.0
 offset_bottom = 489.0
 text = "AVERAGE_ATTEMPTS"
-label_settings = SubResource("LabelSettings_6o40f")
+label_settings = SubResource("LabelSettings_73y5p")
+uppercase = true
 visible_characters = 0
 visible_ratio = 0.0
 
@@ -2903,6 +2925,7 @@ offset_right = 702.0
 offset_bottom = 569.0
 text = "ATTEMPTS_COUNT"
 label_settings = SubResource("LabelSettings_6o40f")
+uppercase = true
 visible_characters = 0
 visible_ratio = 0.0
 
@@ -2917,6 +2940,7 @@ offset_bottom = 675.0
 text = "CURRENT SEED: 61566262620"
 label_settings = SubResource("LabelSettings_2ieu8")
 horizontal_alignment = 2
+uppercase = true
 
 [node name="Attempts" type="Label" parent="Results"]
 modulate = Color(1, 1, 1, 0.501961)

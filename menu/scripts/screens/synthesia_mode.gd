@@ -107,12 +107,12 @@ func _display_dir(dir_path : String) -> void:
 		button.description_node = null
 		button.menu_position = Vector2(0,0)
 		button.glow_color = Color("909090")
-		button.description = "Return back into upper directory"
+		button.description = "BACK_DIR"
 		button.description_node = $Desc/Desc
 		button.button_layout = 2
 		button.call_function_name = "_display_dir"
 		button.call_string = dir_path.erase(dir_path.rfind('/'), 999)
-		button.text = ".. BACK .."
+		button.text = ".. " + tr("BACK") + " .."
 		$Music/List/V.add_child(button)
 
 	var dir : DirAccess = DirAccess.open(dir_path)
@@ -132,7 +132,7 @@ func _display_dir(dir_path : String) -> void:
 
 			if dir.current_is_dir():
 				button.glow_color = Color("a78923")
-				button.description = "Enter to view this directory contents"
+				button.description = "ENTER_DIR"
 				button.description_node = $Desc/Desc
 				button.call_function_name = "_display_dir"
 				button.press_sound_name = "confirm3"
@@ -146,7 +146,7 @@ func _display_dir(dir_path : String) -> void:
 					continue
 
 				button.glow_color = Color("64cacc")
-				button.description = "Start the game with this song"
+				button.description = "ENTER_PLAY"
 				button.description_node = $Desc/Desc
 				button.button_layout = 10
 				button.call_function_name = "_start_game"
@@ -157,7 +157,9 @@ func _display_dir(dir_path : String) -> void:
 			y_pos += 1
 			file_name = dir.get_next()
 		
-		if y_pos > 1: $Music/Help.visible = false
+		if y_pos > 1: 
+			$Music/Help.visible = false
+			$Music/Help2.visible = false
 	else:
 		print("DIR ACCESS ERROR")
 		_display_dir(OS.get_system_dir(OS.SYSTEM_DIR_MUSIC))

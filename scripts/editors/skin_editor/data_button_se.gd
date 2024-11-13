@@ -35,15 +35,16 @@ func _ready() -> void:
 	gui_input.connect(_on_press)
 	mouse_entered.connect(_selected)
 	
-	#text = tr("EDITOR_INSERT") + " " + tr("EDITOR_" + data_name.to_upper())
-	text = data_name.to_upper()
+	text = tr("SE_INSERT") + " " + tr("SE_" + data_name.to_upper())
+	text = text.to_upper()
+	
 
 
 # Remove assigned data
 func _remove_data() -> void:
 	editor.skin_data.stream[data_name] = null
-	#text = tr("EDITOR_INSERT") + " " + tr("EDITOR_" + data_name.to_upper())
-	text = data_name.to_upper()
+	text = tr("SE_INSERT") + " " + tr("SE_" + data_name.to_upper())
+	text = text.to_upper()
 
 
 # Load and display data path or display that data is loaded
@@ -55,7 +56,8 @@ func _load_data() -> void:
 		text = editor.skin_data.stream[data_name]
 		text = text.substr(text.length() - 20)
 	else:
-		text = tr("SE_SOME") + " " + data_name.to_upper()
+		text = tr("SE_SOME") + " " + tr("SE_" + data_name.to_upper())
+		text = text.to_upper()
 
 
 # Called on button press

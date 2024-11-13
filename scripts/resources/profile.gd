@@ -126,6 +126,8 @@ var config : Dictionary = {
 		"TA_ruleset" : TimeAttackMode.TIME_ATTACK_RULESET.STANDARD,
 		"TA_random_mixes" : true,
 
+		"save_score_online" : true,
+
 		"SY_visualizer" : SynthesiaMode.VISUALISER.SHOCKWAVE,
 		"SY_soundset" : SynthesiaMode.SOUND_SET.DRUMS,
 		"SY_endless_song" : false,

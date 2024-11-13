@@ -232,8 +232,7 @@ layout_mode = 0
 offset_top = 312.0
 offset_right = 1920.0
 offset_bottom = 728.0
-text = "MADE_BY
-"
+text = "MADE_BY"
 label_settings = SubResource("LabelSettings_uou4c")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -294,6 +293,10 @@ text = "DISCLAIMER_TEXT2"
 label_settings = SubResource("LabelSettings_bclqd")
 autowrap_mode = 2
 
+[node name="Space3" type="Control" parent="Hide/Disclaimer/V"]
+custom_minimum_size = Vector2(1656, 48)
+layout_mode = 2
+
 [node name="Text3" type="Label" parent="Hide/Disclaimer/V"]
 custom_minimum_size = Vector2(1656, 0)
 layout_mode = 2
@@ -345,6 +348,7 @@ label_settings = SubResource("LabelSettings_s3mvs")
 vertical_alignment = 1
 
 [node name="V" type="VBoxContainer" parent="Hide/Epylepsy"]
+layout_mode = 0
 offset_left = 128.0
 offset_top = 312.0
 offset_right = 1784.0
@@ -392,13 +396,16 @@ metadata/_edit_group_ = true
 [node name="Text" type="Label" parent="Hide/Headphones"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_top = 352.0
-offset_right = 1920.0
-offset_bottom = 784.0
+offset_left = 320.0
+offset_top = 408.0
+offset_right = 1680.0
+offset_bottom = 712.0
 text = "HEADPHONES_TEXT"
 label_settings = SubResource("LabelSettings_n5sj1")
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
+uppercase = true
 
 [node name="Sign" type="TextureRect" parent="Hide/Headphones"]
 modulate = Color(1, 1, 1, 0.164706)

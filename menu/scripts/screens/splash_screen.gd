@@ -22,9 +22,9 @@ var is_exiting : bool = true
 
 func _ready() -> void:
 	Data.menu.screens["foreground"].visible = false
-	$Info/VER.text = tr("VERSION") + Data.VERSION
-	$Info/BUILD.text = tr("BUILD") + Data.BUILD
-	$Info/BUILD.text = tr("POWERED_BY") + "\n GODOT ENGINE " + Data.GODOT_VER
+	$Info/VER.text = tr("VERSION") + " " + Data.VERSION
+	$Info/BUILD.text = tr("BUILD") + " " + Data.BUILD
+	$Info/EDITION.text = tr("POWERED_BY") + "\nGODOT ENGINE " + Data.GODOT_VER
 	
 	Data.input_method_changed.connect(_label)
 	_label()

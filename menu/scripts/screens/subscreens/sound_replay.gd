@@ -33,7 +33,7 @@ func _ready() -> void:
 	cursor_selection_success.connect(_scroll)
 	
 	var skin_files_count : int = Data.skin_list._count_skin_files_amount()
-	$Skins/Info.text = str(skin_files_count) + " SKINS TOTAL"
+	$Skins/Info.text = str(skin_files_count) + " " + tr("SKINS_TOTAL")
 	if skin_files_count != Data.skin_list.files_amount:
 		Data.skin_list.was_parsed = false
 	
@@ -210,7 +210,7 @@ func _display_skin_metadata(metadata : SkinMetadata) -> void:
 		%Name.text = "UNKNOWN SKIN"
 		%Music.text = ""
 		%FileName.text = ""
-		%Info.text = "PLEASE CHECK IF ANY SKIN IS PLACED INSIDE SKINS FOLDER"
+		%Info.text = tr("NO_SKINS2")
 		return
 	
 	%MadeBy.text = "MADE BY : " + metadata.skin_by + " | " + Time.get_datetime_string_from_unix_time(metadata.save_date as int).replace("T"," ")

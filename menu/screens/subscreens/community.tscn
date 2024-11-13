@@ -200,6 +200,90 @@ tracks/13/keys = {
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0, 1)]
 }
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Content/V/Text:visible_ratio")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Content/V/Text2:visible_ratio")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Content/V/Text3:visible_ratio")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Content/V/Text4:visible_ratio")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Content/V/Text5:visible_ratio")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Content/V/Text6:visible_ratio")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("Content/V/Text7:visible_ratio")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
 
 [sub_resource type="Animation" id="5"]
 resource_name = "start"
@@ -379,6 +463,78 @@ tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
 "times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Content/V/Text2:visible_ratio")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 0.3663, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Content/V/Text3:visible_ratio")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 0.4329, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Content/V/Text4:visible_ratio")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0, 0.4995, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Content/V/Text5:visible_ratio")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 0.5661, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Content/V/Text6:visible_ratio")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 0.6327, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("Content/V/Text7:visible_ratio")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0, 0.6993, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 1.0]
@@ -591,6 +747,8 @@ text = "COMMUNITY_TEXT2"
 label_settings = SubResource("LabelSettings_m0dil")
 vertical_alignment = 1
 autowrap_mode = 2
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Text3" type="Label" parent="Content/V"]
 custom_minimum_size = Vector2(1240, 0)
@@ -599,6 +757,8 @@ text = "COMMUNITY_TEXT3"
 label_settings = SubResource("LabelSettings_m0dil")
 vertical_alignment = 1
 autowrap_mode = 2
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Text4" type="Label" parent="Content/V"]
 custom_minimum_size = Vector2(1240, 0)
@@ -607,6 +767,8 @@ text = "COMMUNITY_TEXT4"
 label_settings = SubResource("LabelSettings_m0dil")
 vertical_alignment = 1
 autowrap_mode = 2
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Text5" type="Label" parent="Content/V"]
 custom_minimum_size = Vector2(1240, 0)
@@ -615,6 +777,8 @@ text = "COMMUNITY_TEXT5"
 label_settings = SubResource("LabelSettings_m0dil")
 vertical_alignment = 1
 autowrap_mode = 2
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Text6" type="Label" parent="Content/V"]
 custom_minimum_size = Vector2(1240, 0)
@@ -623,6 +787,8 @@ text = "COMMUNITY_TEXT6"
 label_settings = SubResource("LabelSettings_m0dil")
 vertical_alignment = 1
 autowrap_mode = 2
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Space2" type="Control" parent="Content/V"]
 custom_minimum_size = Vector2(0, 48)
@@ -635,6 +801,8 @@ text = "COMMUNITY_TEXT7"
 label_settings = SubResource("LabelSettings_m0dil")
 vertical_alignment = 1
 autowrap_mode = 2
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Line2" type="ColorRect" parent="Content"]
 custom_minimum_size = Vector2(0, 4)
@@ -653,7 +821,7 @@ offset_bottom = 792.0
 scale = Vector2(1, 1e-05)
 pivot_offset = Vector2(1240, 0)
 text = "COMMUNITY_INVITE1"
-glow_color = Color(0.4, 0.952941, 0.964706, 1)
+glow_color = Color(0.233643, 0.670395, 0.679688, 1)
 press_sound_name = "confirm4"
 call_function_name = "_accept_invite"
 
@@ -666,7 +834,7 @@ offset_bottom = 856.0
 scale = Vector2(1, 1e-05)
 pivot_offset = Vector2(1240, 0)
 text = "COMMUNITY_INVITE2"
-glow_color = Color(0.4, 0.952941, 0.964706, 1)
+glow_color = Color(0.233643, 0.670395, 0.679688, 1)
 menu_position = Vector2i(0, 1)
 press_sound_name = "confirm4"
 call_function_name = "_accept_invite2"

@@ -868,6 +868,7 @@ offset_bottom = 56.0
 text = "END_SCORE"
 label_settings = SubResource("LabelSettings_q2cbg")
 horizontal_alignment = 1
+uppercase = true
 
 [node name="Score" type="Label" parent="Results/Label"]
 unique_name_in_owner = true
@@ -880,6 +881,7 @@ text = "12586"
 label_settings = SubResource("LabelSettings_6vvpi")
 horizontal_alignment = 1
 vertical_alignment = 1
+uppercase = true
 
 [node name="V2" type="VBoxContainer" parent="Results"]
 layout_mode = 0
@@ -895,6 +897,7 @@ modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 text = "END_DELETED"
 label_settings = SubResource("LabelSettings_q2cbg")
+uppercase = true
 
 [node name="BlckDel" type="Label" parent="Results/V2"]
 unique_name_in_owner = true
@@ -902,6 +905,7 @@ modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 text = "BLOCKS"
 label_settings = SubResource("LabelSettings_s018a")
+uppercase = true
 
 [node name="SqrDel" type="Label" parent="Results/V2"]
 unique_name_in_owner = true
@@ -910,6 +914,7 @@ layout_mode = 2
 text = "SQUARES : 2222
 "
 label_settings = SubResource("LabelSettings_s018a")
+uppercase = true
 
 [node name="V" type="VBoxContainer" parent="Results"]
 layout_mode = 0
@@ -928,6 +933,7 @@ text = "REACHED"
 label_settings = SubResource("LabelSettings_q2cbg")
 horizontal_alignment = 2
 vertical_alignment = 2
+uppercase = true
 
 [node name="Lap" type="Label" parent="Results/V"]
 unique_name_in_owner = true
@@ -936,6 +942,7 @@ layout_mode = 2
 text = "LAP : 33"
 label_settings = SubResource("LabelSettings_s018a")
 horizontal_alignment = 2
+uppercase = true
 
 [node name="Stage" type="Label" parent="Results/V"]
 unique_name_in_owner = true
@@ -944,6 +951,7 @@ layout_mode = 2
 text = "sTAGE : 33"
 label_settings = SubResource("LabelSettings_s018a")
 horizontal_alignment = 2
+uppercase = true
 
 [node name="Level" type="Label" parent="Results/V"]
 unique_name_in_owner = true
@@ -952,6 +960,7 @@ layout_mode = 2
 text = "LEVEL : 23"
 label_settings = SubResource("LabelSettings_s018a")
 horizontal_alignment = 2
+uppercase = true
 
 [node name="Label4" type="Label" parent="Results"]
 modulate = Color(1, 1, 1, 0)
@@ -963,6 +972,7 @@ offset_bottom = 294.0
 text = "TIME_SPENT"
 label_settings = SubResource("LabelSettings_q2cbg")
 horizontal_alignment = 1
+uppercase = true
 
 [node name="Time" type="Label" parent="Results/Label4"]
 unique_name_in_owner = true
@@ -975,6 +985,7 @@ offset_bottom = 76.0
 text = "20:30:32"
 label_settings = SubResource("LabelSettings_q2cbg")
 horizontal_alignment = 1
+uppercase = true
 
 [node name="Detail4" type="Label" parent="Results"]
 modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)

@@ -409,7 +409,7 @@ offset_left = 44.0
 offset_top = 820.0
 offset_right = 391.0
 offset_bottom = 839.0
-text = "PROJECT LUMINEXT CREDITS "
+text = "CREDITS_ARROW"
 label_settings = SubResource("LabelSettings_xv3m0")
 uppercase = true
 visible_characters = 0
@@ -518,138 +518,9 @@ custom_minimum_size = Vector2(1224, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Project Luminext
-===========================================================================
+text = "CREDITS.txt is missing...
 
-Project Lead, Programming, Visual/Game Design - unfavorable_enhancer
-
-Some programming help  - Hydrogen
-Some visual design help - GeolyteGM
-
-Menu theme original MIDI composition - Barrels
-Menu theme remix - unfavorable_enhancer
-
-Pre-release versions testing & feedback :
-michaels, Cublex, KurosanLOVE, Kibi Byte, Halexo, GeolyteGM, W3Rn1ckz, RezaTIM, Coffee Hunter, CNS, Barrels, nassau-tk, pj_dnb, Cube3, ShadowFox, Hati Lover, W rythm, henzou13, Tseng Fayt, bintobox, Shotgun_Revolved, INVOKER, ILC, Aspeck, hardcaz, OneZenDarius, OgTheEnigma, RIAT(Rita), Aleph Zero, Xoib, Vivv, macos trash bin, Note, DrThuderous, Skinda, Starcat.
-
-----------------------------------------------------------------------------------------------
-\"VOLUME A\" Skin Pack
-----------------------------------------------------------------------------------------------
-
-Visual design - unfavorable_enhancer, W3Rn1ckz
-Music - W3Rn1ckz, KurosanLOVE
-SFX design - W3Rn1ckz, KurosanLOVE
-Scenery/Animation - unfavorable_enhancer
-Skin mastering - unfavorable_enhancer
-
-===========================================================================
-This project was heavely inspired by Lumines Puzzle Fusion
-Created by those wonderful people
-===========================================================================
-
-Concept - Ryuichi Hattori, Osamu Kodera, Katsumi Yokota
-Art Director - Katsumi Yokota
-Lead Programmer - Osamu Kodera
-Graphic Designers - Noboru Hotta, Kazunori Morisaki, Kimihiro Morishita
-Sound Design & Engineer - Takayuki Nakamura, Katsumi Yokota
-Director - Ryuichi Hattori
-Producer - Tetsuya Mizuguchi
-
-----------------------------------------------------------------------------------------------
-Special thanks to
-----------------------------------------------------------------------------------------------
-
-KurosanLOVE
-W3Rn1ckz
-Starcat
-Enhance inc.
-Godot Engine developers, contributors and community
-Aseprite
-PPSSPP
-Krita
-godot_video_decoder developers and contributors
-EIRTeam
-CNS
-itch.io
-All creators and contributors of awesome Lumines series
-
-And thank you for playing this game
-
-Have a nice day!
-
-
-
-
-
-
-
-
-
-
-
-===========================================================================
-License information
-===========================================================================
-
-This game uses Godot Engine, available under the following license:
-
-Copyright (c) 2014-present Godot Engine contributors. Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-----------------------------------------------------------------------------------------------
-This project uses FFmpeg plugin made by EIRTeam, avaiable under the following license:
-
-Copyright (c) 2018 Álex Román (EIRTeam)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the \"Software\"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-----------------------------------------------------------------------------------------------
-This project uses audio import script made by Gianclgar and avaiable under following license:
-
-Copyright (c) 2020 Gianclgar (Giannino Clemente) gianclgar@gmail.com
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the \"Software\"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-----------------------------------------------------------------------------------------------
-Other third party licenses are avaiable in \"third_party/godot_third_party.txt\" file.
-
+You can find full credits in official GitHub repo.
 
 "
 label_settings = SubResource("LabelSettings_80lia")
