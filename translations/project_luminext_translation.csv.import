@@ -6,10 +6,10 @@ uid="uid://b61g17f6bjtgs"
 
 [deps]
 
-files=["res://translations/project_luminext_translation.ts.translation", "res://translations/project_luminext_translation.en.translation", "res://translations/project_luminext_translation.locale.translation"]
+files=["res://translations/project_luminext_translation.ts.translation", "res://translations/project_luminext_translation.en.translation", "res://translations/project_luminext_translation.it.translation"]
 
 source_file="res://translations/project_luminext_translation.csv"
-dest_files=["res://translations/project_luminext_translation.ts.translation", "res://translations/project_luminext_translation.en.translation", "res://translations/project_luminext_translation.locale.translation"]
+dest_files=["res://translations/project_luminext_translation.ts.translation", "res://translations/project_luminext_translation.en.translation", "res://translations/project_luminext_translation.it.translation"]
 
 [params]
 

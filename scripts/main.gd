@@ -230,15 +230,13 @@ func _start_replay(replay : Replay) -> void:
 			gamemode.current_mix = gamemode_settings["mix"]
 			gamemode.random_mixes = false
 			gamemode.current_seed = gamemode_settings["seed"]
-			gamemode.rng_start_state = gamemode_settings["state"]
-
+			
 		"playlist_mode":
 			gamemode = PlaylistMode.new()
 			gamemode.custom_config_preset = gamemode_settings["ruleset"]
 			first_skin_metadata.path = gamemode_settings["skin_path"]
 			gamemode.rng_start_seed = gamemode_settings["seed"]
-			gamemode.rng_start_state = gamemode_settings["state"]
-
+		
 		_: 
 			print("INVALID REPLAY GAMEMODE")
 			_display_system_message("INVALID REPLAY!")

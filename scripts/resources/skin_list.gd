@@ -142,9 +142,6 @@ func _parse() -> int:
 				#_unlock_addon_skin(skin_metadata.name)
 	
 	print("LOOKING INTO INTERNAL SKIN DIR")
-	print(DirAccess.dir_exists_absolute(Data.BUILD_IN_PATH + Data.SKINS_PATH))
-	print(DirAccess.get_directories_at("res://"))
-	print(DirAccess.get_directories_at("res://internal"))
 	var dir : DirAccess = DirAccess.open(Data.BUILD_IN_PATH + Data.SKINS_PATH)
 	if not dir:
 		print("INTERNAL SKIN DIRECTORY LOADING ERROR! ", error_string(DirAccess.get_open_error()))

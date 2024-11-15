@@ -52,7 +52,6 @@ var statistics : Dictionary = {
 
 var current_attempt : int = 0
 var current_seed : int = 451
-var rng_start_state : int = 0
 
 var hiscore_entry_string : String
 

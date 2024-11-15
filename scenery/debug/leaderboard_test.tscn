@@ -1,0 +1,537 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6vnfus0hhb1s"]
+
+[ext_resource type="Script" path="res://scripts/ranking_manager.gd" id="1_hua6y"]
+
+[sub_resource type="GDScript" id="GDScript_wbmgk"]
+resource_name = "leaderboard_tester"
+script/source = "extends Control
+
+var selected_entry : String = \"\"
+
+var selected_gamemode : String = \"ta_\"
+var selected_ruleset : String = \"std\"
+var selected_time_limit : String = \"60\"
+var selected_leaderboard : String = \"total\"
+
+var is_loading : bool = false
+var is_parsing_successful : bool = false
+
+@onready var ranking_manager : Node = $RankingManager
+
+func _ready() -> void:
+	#var api = \"w78eTh8HLu2R4KmkFoanL7HOuvJNilXA2vS8MSJe\"
+	#var url = \"https://api.silentwolf.com/delete_scores\"
+	#var headers = [\"x-api-key: \" + api, \"x-ws-plugin-version: 0.9.0\", \"Content-Type: application/json\"]
+	#var scores = {
+		#\"scores\" : [{
+			#\"game_id\" : \"projectluminext\",
+			#\"game_version\" : \"1\",
+			#\"score_id\" : \"bdcf6a87-780c-43dc-b888-781722acab1d\",
+			#\"ldboard_name\" : \"test\"
+		#}]
+	#}
+	#await $HTTPRequest.request(url, headers, HTTPClient.METHOD_POST, JSON.stringify(scores))
+	#print(\"SDNJASNDJASN\")
+	
+	pass
+	#await get_tree().create_timer(0.1).timeout
+	#_reload_leaderboard_data()
+
+
+func _load_leaderboard() -> void:
+	for button : Button in $S/RecordsList.get_children():
+		button.queue_free()
+	
+	var leaderboard_name : String = selected_gamemode + selected_leaderboard
+	var ranking_name : String = selected_time_limit + selected_ruleset
+	
+	if not ranking_manager.ranking[leaderboard_name].has(ranking_name):
+		$Loading.text = \"EMPTY\"
+		$Loading.visible = true
+		return
+	
+	$Loading.visible = false
+	
+	var ranking : Dictionary = ranking_manager.ranking[leaderboard_name][ranking_name]
+	for entry : String in ranking.keys():
+		var button : Button = Button.new()
+		button.text = entry + \" | \" + str(ranking[entry][2])
+		button.pressed.connect(_select_entry.bind(entry))
+		$S/RecordsList.add_child(button)
+
+
+func _reload_leaderboard_data() -> void:
+	if is_loading: return
+	is_loading = true
+	$Loading.visible = true
+	$Loading.text = \"LOADING...\"
+	
+	for button : Button in $S/RecordsList.get_children():
+		button.queue_free()
+	
+	is_parsing_successful = await ranking_manager._load_scores()
+	if not is_parsing_successful:
+		$Loading.visible = true
+		$Loading.text = \"FAILED\"
+	else:
+		_load_leaderboard()
+		$Loading.visible = false
+	
+	is_loading = false
+
+
+func _select_entry(entry : String) -> void:
+	var leaderboard_name : String = selected_gamemode + selected_leaderboard
+	var ranking_name : String = selected_time_limit + selected_ruleset
+	var ranking : Dictionary = ranking_manager.ranking[leaderboard_name][ranking_name]
+	
+	selected_entry = entry
+	
+	$V/ID.text = \"Selected entry ID : \" + ranking[entry][4]
+	$V/Name.text = \"Selected entry name : \" + ranking[entry][0]
+	$V/Key.text = \"Selected entry key : \" + ranking[entry][1]
+	$V/Score.text = \"Selected entry score : \" + str(ranking[entry][2])
+	$V/Time.text = \"Selected entry timestamp : \" + Time.get_datetime_string_from_unix_time(ranking[entry][3])
+	
+	if ranking[entry][5].is_empty():
+		$V/Replay.text = \"Has replay data : false\"
+	else:
+		$V/Replay.text = \"Has replay data : true\"
+
+
+func _delete_selected_entry() -> void:
+	for i : String in [\"total\",\"monthly\",\"weekly\"]:
+		var leaderboard_name : String = selected_gamemode + i
+		var ranking_name : String = selected_time_limit + selected_ruleset
+		var ranking : Dictionary = ranking_manager.ranking[leaderboard_name][ranking_name]
+		if not ranking.has(selected_entry):
+			continue
+		var entry_id : String = ranking[selected_entry][4]
+		
+		await ranking_manager._delete_score(entry_id, leaderboard_name)
+	
+	_reload_leaderboard_data()
+
+
+func _on_add_pressed() -> void:
+	var entry_name : String = $AddName.text
+	var entry_key : String = $AddKey.text
+	var score : int = int($AddScore.text)
+	
+	var ranking_name : String = selected_time_limit + selected_ruleset
+	
+	print(\"Adding score : \", score, \" Name : \", entry_name, \" Key : \", entry_key)
+	await ranking_manager._save_score(ranking_name, score, null, entry_name, entry_key)
+	
+	_reload_leaderboard_data()
+
+
+func _on_time_limit_item_selected(index: int) -> void:
+	match index:
+		0: selected_time_limit = \"60\"
+		1: selected_time_limit = \"120\"
+		2: selected_time_limit = \"180\"
+		4: selected_time_limit = \"300\"
+		5: selected_time_limit = \"600\"
+	
+	_load_leaderboard()
+
+
+func _on_ruleset_item_selected(index: int) -> void:
+	match index:
+		0: selected_ruleset = \"std\"
+		1: selected_ruleset = \"cls\"
+		2: selected_ruleset = \"arc\"
+		3: selected_ruleset = \"thr\"
+		4: selected_ruleset = \"hrd\"
+	
+	_load_leaderboard()
+
+
+func _on_leaderboard_item_selected(index: int) -> void:
+	match index:
+		0: selected_leaderboard = \"total\"
+		1: selected_leaderboard = \"monthly\"
+		2: selected_leaderboard = \"weekly\"
+	
+	_load_leaderboard()
+
+
+func _on_gamemode_item_selected(index: int) -> void:
+	match index:
+		0: selected_gamemode = \"ta_\"
+	
+	_load_leaderboard()
+
+
+func _on_make_replay_pressed() -> void:
+	var leaderboard_name : String = selected_gamemode + selected_leaderboard
+	var ranking_name : String = selected_time_limit + selected_ruleset
+	var ranking : Dictionary = ranking_manager.ranking[leaderboard_name][ranking_name]
+	
+	var replay_data : String = ranking[selected_entry][5]
+	if replay_data.is_empty():
+		print(\"ERROR! Empty replay data!\")
+		return
+	
+	var temp_file : FileAccess = FileAccess.open(Data.REPLAYS_PATH + selected_entry + \".rpl\", FileAccess.WRITE)
+	if FileAccess.get_open_error() != OK:
+		print(\"ERROR! Opening online replay failed...\")
+		return
+	
+	var buffer : PackedByteArray = replay_data.to_utf8_buffer()
+	temp_file.store_buffer(buffer)
+	print(\"Stored gotten replay at : \", Data.REPLAYS_PATH + selected_entry + \".rpl\")
+
+
+func _on_general_test_pressed() -> void:
+	var entry_name : String = $AddName.text
+	var entry_key : String = $AddKey.text
+	var score : int = int($AddScore.text)
+	
+	var ranking_name : String = selected_time_limit + selected_ruleset
+	
+	var test_replay : Replay = Replay.new()
+	test_replay._load(Data.REPLAYS_PATH + \"panya.rpl\")
+	
+	print(\"Adding record with replay\")
+	await ranking_manager._save_score(ranking_name, score, test_replay, entry_name, entry_key)
+	
+	_reload_leaderboard_data()
+
+
+func _on_overflow_test_pressed() -> void:
+	var ranking_name : String = selected_time_limit + selected_ruleset
+	
+	print(\"OVERFLOWING \" + ranking_name)
+	
+	for i : int in 150:
+		var timestamp : int = Time.get_ticks_msec()
+		var entry_name : String = \"Dude #\" + str(i)
+		var entry_key : String = str(hash(i))
+		print(\"Adding record : \", entry_name, \" Key : \", entry_key, \" Num : \", i)
+		
+		await ranking_manager._save_score(ranking_name, i, null, entry_name, entry_key)
+		await get_tree().create_timer(0.1).timeout
+		
+		print(\"Took msecs : \", (timestamp - Time.get_ticks_msec() / 1000.0))
+	
+	_reload_leaderboard_data()
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_x4b4p"]
+font_size = 28
+
+[sub_resource type="LabelSettings" id="LabelSettings_xhpsx"]
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_nkedr"]
+font_size = 20
+
+[node name="LeaderboardTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_wbmgk")
+
+[node name="RankingManager" type="Node" parent="."]
+script = ExtResource("1_hua6y")
+
+[node name="Back1" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.152344, 0.152344, 0.152344, 1)
+
+[node name="Back2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 896.0
+offset_bottom = 1024.0
+color = Color(0.242188, 0.242188, 0.242188, 1)
+
+[node name="Line1" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 960.0
+offset_top = 296.0
+offset_right = 1840.0
+offset_bottom = 304.0
+color = Color(0.753906, 0.753906, 0.753906, 1)
+
+[node name="Line2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 960.0
+offset_top = 568.0
+offset_right = 1840.0
+offset_bottom = 576.0
+color = Color(0.753906, 0.753906, 0.753906, 1)
+
+[node name="Line3" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 960.0
+offset_top = 824.0
+offset_right = 1840.0
+offset_bottom = 832.0
+color = Color(0.753906, 0.753906, 0.753906, 1)
+
+[node name="S" type="ScrollContainer" parent="."]
+layout_mode = 2
+offset_left = 72.0
+offset_top = 72.0
+offset_right = 888.0
+offset_bottom = 1016.0
+
+[node name="RecordsList" type="VBoxContainer" parent="S"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Gamemode" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 960.0
+offset_top = 368.0
+offset_right = 1392.0
+offset_bottom = 421.0
+theme_override_font_sizes/font_size = 28
+selected = 0
+item_count = 1
+popup/item_0/text = "Time Attack Mode"
+popup/item_0/id = 0
+
+[node name="Text" type="Label" parent="Gamemode"]
+layout_mode = 0
+offset_top = -48.0
+offset_right = 412.0
+offset_bottom = -3.0
+text = "Selected gamemode:"
+label_settings = SubResource("LabelSettings_x4b4p")
+
+[node name="TimeLimit" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 1408.0
+offset_top = 368.0
+offset_right = 1840.0
+offset_bottom = 421.0
+theme_override_font_sizes/font_size = 28
+selected = 0
+item_count = 5
+popup/item_0/text = "60 sec"
+popup/item_0/id = 0
+popup/item_1/text = "120 sec"
+popup/item_1/id = 1
+popup/item_2/text = "180 sec"
+popup/item_2/id = 2
+popup/item_3/text = "300 sec"
+popup/item_3/id = 3
+popup/item_4/text = "600 sec"
+popup/item_4/id = 4
+
+[node name="Text" type="Label" parent="TimeLimit"]
+layout_mode = 0
+offset_top = -48.0
+offset_right = 412.0
+offset_bottom = -3.0
+text = "Selected time limit:"
+label_settings = SubResource("LabelSettings_x4b4p")
+
+[node name="Ruleset" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 960.0
+offset_top = 488.0
+offset_right = 1392.0
+offset_bottom = 541.0
+theme_override_font_sizes/font_size = 28
+selected = 0
+item_count = 5
+popup/item_0/text = "Standard"
+popup/item_0/id = 0
+popup/item_1/text = "Classic"
+popup/item_1/id = 1
+popup/item_2/text = "Arcade"
+popup/item_2/id = 2
+popup/item_3/text = "3 Color"
+popup/item_3/id = 3
+popup/item_4/text = "Hardcore"
+popup/item_4/id = 4
+
+[node name="Text" type="Label" parent="Ruleset"]
+layout_mode = 0
+offset_top = -48.0
+offset_right = 412.0
+offset_bottom = -3.0
+text = "Selected ruleset:"
+label_settings = SubResource("LabelSettings_x4b4p")
+
+[node name="Leaderboard" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 1408.0
+offset_top = 488.0
+offset_right = 1840.0
+offset_bottom = 541.0
+theme_override_font_sizes/font_size = 28
+selected = 0
+item_count = 3
+popup/item_0/text = "Total"
+popup/item_0/id = 0
+popup/item_1/text = "Monthly"
+popup/item_1/id = 1
+popup/item_2/text = "Weekly"
+popup/item_2/id = 2
+
+[node name="Text" type="Label" parent="Leaderboard"]
+layout_mode = 0
+offset_top = -48.0
+offset_right = 412.0
+offset_bottom = -3.0
+text = "Selected leaderboard:"
+label_settings = SubResource("LabelSettings_x4b4p")
+
+[node name="Loading" type="Label" parent="."]
+visible = false
+layout_mode = 2
+offset_left = 88.0
+offset_top = 952.0
+offset_right = 968.0
+offset_bottom = 1019.0
+text = "LOADING..."
+label_settings = SubResource("LabelSettings_xhpsx")
+
+[node name="V" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 960.0
+offset_top = 64.0
+offset_right = 1840.0
+offset_bottom = 280.0
+theme_override_constants/separation = 8
+
+[node name="ID" type="Label" parent="V"]
+layout_mode = 2
+text = "Selected entry ID : ######"
+label_settings = SubResource("LabelSettings_nkedr")
+
+[node name="Name" type="Label" parent="V"]
+layout_mode = 2
+text = "Selected entry name : ######"
+label_settings = SubResource("LabelSettings_nkedr")
+
+[node name="Key" type="Label" parent="V"]
+layout_mode = 2
+text = "Selected entry key : ######"
+label_settings = SubResource("LabelSettings_nkedr")
+
+[node name="Score" type="Label" parent="V"]
+layout_mode = 2
+text = "Selected entry score : ######"
+label_settings = SubResource("LabelSettings_nkedr")
+
+[node name="Time" type="Label" parent="V"]
+layout_mode = 2
+text = "Selected entry timestamp : ######"
+label_settings = SubResource("LabelSettings_nkedr")
+
+[node name="Replay" type="Label" parent="V"]
+layout_mode = 2
+text = "Has replay data : false"
+label_settings = SubResource("LabelSettings_nkedr")
+
+[node name="MakeReplay" type="Button" parent="."]
+layout_mode = 0
+offset_left = 960.0
+offset_top = 976.0
+offset_right = 1840.0
+offset_bottom = 1024.0
+theme_override_font_sizes/font_size = 28
+text = "Save replay file"
+
+[node name="Reload" type="Button" parent="."]
+layout_mode = 0
+offset_left = 960.0
+offset_top = 912.0
+offset_right = 1840.0
+offset_bottom = 960.0
+theme_override_font_sizes/font_size = 28
+text = "Reload leaderboard"
+
+[node name="Delete" type="Button" parent="."]
+layout_mode = 0
+offset_left = 960.0
+offset_top = 848.0
+offset_right = 1840.0
+offset_bottom = 896.0
+theme_override_font_sizes/font_size = 28
+text = "Delete record"
+
+[node name="GeneralTest" type="Button" parent="."]
+layout_mode = 0
+offset_left = 960.0
+offset_top = 592.0
+offset_right = 1840.0
+offset_bottom = 628.0
+theme_override_font_sizes/font_size = 20
+text = "Start replay upload test"
+
+[node name="OverflowTest" type="Button" parent="."]
+layout_mode = 0
+offset_left = 960.0
+offset_top = 640.0
+offset_right = 1840.0
+offset_bottom = 676.0
+theme_override_font_sizes/font_size = 20
+text = "Start overflow test"
+
+[node name="Add" type="Button" parent="."]
+layout_mode = 0
+offset_left = 960.0
+offset_top = 752.0
+offset_right = 1840.0
+offset_bottom = 800.0
+theme_override_font_sizes/font_size = 28
+text = "Add record"
+
+[node name="AddName" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 960.0
+offset_top = 688.0
+offset_right = 1280.0
+offset_bottom = 736.0
+theme_override_font_sizes/font_size = 20
+placeholder_text = "Enter record name"
+caret_blink = true
+
+[node name="AddKey" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 1296.0
+offset_top = 688.0
+offset_right = 1616.0
+offset_bottom = 736.0
+theme_override_font_sizes/font_size = 20
+placeholder_text = "Enter record key"
+caret_blink = true
+
+[node name="AddScore" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 1632.0
+offset_top = 688.0
+offset_right = 1840.0
+offset_bottom = 736.0
+theme_override_font_sizes/font_size = 20
+placeholder_text = "Enter record score"
+caret_blink = true
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+timeout = 1.0
+
+[connection signal="item_selected" from="Gamemode" to="." method="_on_gamemode_item_selected"]
+[connection signal="item_selected" from="TimeLimit" to="." method="_on_time_limit_item_selected"]
+[connection signal="item_selected" from="Ruleset" to="." method="_on_ruleset_item_selected"]
+[connection signal="item_selected" from="Leaderboard" to="." method="_on_leaderboard_item_selected"]
+[connection signal="pressed" from="MakeReplay" to="." method="_on_make_replay_pressed"]
+[connection signal="pressed" from="Reload" to="." method="_reload_leaderboard_data"]
+[connection signal="pressed" from="Delete" to="." method="_delete_selected_entry"]
+[connection signal="pressed" from="GeneralTest" to="." method="_on_general_test_pressed"]
+[connection signal="pressed" from="OverflowTest" to="." method="_on_overflow_test_pressed"]
+[connection signal="pressed" from="Add" to="." method="_on_add_pressed"]

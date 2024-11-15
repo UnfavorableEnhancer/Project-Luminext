@@ -104,6 +104,7 @@ func _start_recording() -> void:
 
 				gamemode_settings["score"] = 0
 				gamemode_settings["time"] = 0
+				gamemode_settings["seed"] = gamemode.used_rng_seed
 
 				inputs_anim.length = MAX_RECORD_TIME
 			_:

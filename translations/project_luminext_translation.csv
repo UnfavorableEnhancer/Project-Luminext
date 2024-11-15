@@ -1,735 +1,735 @@
-keys,ts,en,locale_name
-LANGUAGE_NAME,TEST,English,Start translating here...
+keys,ts,en,it
+LANGUAGE_NAME,TEST,English,Italiano
 ,,,
 -Startup-,,,
-DISCLAIMER,DISCLAIMER,DISCLAIMER,
-MADE_BY,MADE_BY,This game is made by,
-DISCLAIMER_TEXT,DISCLAIMER_TEXT,"Project Luminext has no relationship with the Lumines™ series, and wasn't endorsed by it's respective owners: Enhance, Resonair and BNEI, nor any of their affiliates.",
-DISCLAIMER_TEXT2,DISCLAIMER_TEXT2,"This game is currently in the active development stage, so any features present here might be subject to change. Visit our official Discord server or project GitHub page to get more info about bug-reporting and contributing to this project.",
-DISCLAIMER_TEXT3,DISCLAIMER_TEXT3,"This is a free community project available for others to use and contribute to, without charge. The source code is open and licensed under the AGPL v3 license.",
-DISCLAIMER_TEXT4,DISCLAIMER_TEXT4,You can contact me at: random.likes.apes@gmail.com,
-WARNING,WARNING,WARNING,
-WARNING_TEXT,WARNING_TEXT,"This game features flashing lights and light patterns which may induce dizzy spells or epileptic seizures for a small percentage of people, even if they have never experienced these problems before.",
-WARNING_TEXT2,WARNING_TEXT2,"If you notice any symptoms of dizziness, discomfort and/or disorientation, stop playing immediately and consult with a doctor before resuming.",
-HEADPHONES_TEXT,HEADPHONES_TEXT,Headphones are highly recommended for the best experience,
-POWERED_BY,POWERED_BY,PROJECT LUMINEXT IS POWERED BY,
-VERSION,VERSION,VER,
-BUILD,BUILD,BUILD,
-PRESS_START,PRESS_START,PRESS START TO ENTER THE GAME,
-PRESS_ENTER,PRESS_ENTER,PRESS ENTER TO START THE GAME,
-PRESS_ESC,PRESS_ESC,OR PRESS ESC TO EXIT,
+DISCLAIMER,DISCLAIMER,DISCLAIMER,AVVISO
+MADE_BY,MADE_BY,This game is made by,Questo gioco è stato creato da
+DISCLAIMER_TEXT,DISCLAIMER_TEXT,"Project Luminext has no relationship with the Lumines™ series, and wasn't endorsed by it's respective owners: Enhance, Resonair and BNEI, nor any of their affiliates.","Project Luminext non ha alcuna relazione con la serie Lumines e non è approvato da i suoi creatori: Enhance, Resonair e BNEI, ne altre enti associate ad esso."
+DISCLAIMER_TEXT2,DISCLAIMER_TEXT2,"This game is currently in the active development stage, so any features present here might be subject to change. Visit our official Discord server or project GitHub page to get more info about bug-reporting and contributing to this project.","Questo gioco è al momento in fase di sviluppo, quindi ogni feature presente potrebbe essere soggetto a cambiamenti. Visita il nostro server Discord ufficiale oppure la pagina project GitHub per ottenere più informazione riguardo al bug-reporting e alla contribuzione di questo progetto."
+DISCLAIMER_TEXT3,DISCLAIMER_TEXT3,"This is a free community project available for others to use and contribute to, without charge. The source code is open and licensed under the AGPL v3 license.","Questo è un progetto della community gratuito disponibile per gli altri da utilizzare e contribuire, senza limitazioni. Il codice è aperto e sotto la licenza di AGPL v3."
+DISCLAIMER_TEXT4,DISCLAIMER_TEXT4,You can contact me at: random.likes.apes@gmail.com,Potete contattarmi tramite mail su: random.likes.apes@gmail.com
+WARNING,WARNING,WARNING,ATTENZIONE
+WARNING_TEXT,WARNING_TEXT,"This game features flashing lights and light patterns which may induce dizzy spells or epileptic seizures for a small percentage of people, even if they have never experienced these problems before.",Questo gioco contiene luci lampeggianti e movimentate che possono causare vertigini o crisi epilettiche ad una piccola percentuale di persone. Anche se non hanno mai contratto questi problemi finora.
+WARNING_TEXT2,WARNING_TEXT2,"If you notice any symptoms of dizziness, discomfort and/or disorientation, stop playing immediately and consult with a doctor before resuming.","Se noti di avere sintomi di nausea, sconforto e stordimento, smettila di giocare e consulta un dottore prima di riiniziare a giocare."
+HEADPHONES_TEXT,HEADPHONES_TEXT,Headphones are highly recommended for the best experience,È altamente raccomandato l'uso delle cuffie per un esperienza migliore.
+POWERED_BY,POWERED_BY,PROJECT LUMINEXT IS POWERED BY,PROJECT LUMINEXT È SVILUPPATO TRAMITE
+VERSION,VERSION,VER,VER
+BUILD,BUILD,BUILD,BUILD
+PRESS_START,PRESS_START,PRESS START TO ENTER THE GAME,Premi START per iniziare
+PRESS_ENTER,PRESS_ENTER,PRESS ENTER TO START THE GAME,Premi ENTER per iniziare
+PRESS_ESC,PRESS_ESC,OR PRESS ESC TO EXIT,O premi ESC per uscire
 ,,,
 -Main menu-,,,
-CHALLENGE_MODE,CHALLENGE_MODE,Challenge mode,
-CHALLENGE_MODE_DESC,CHALLENGE_MODE_DESC,Complete a series of levels and unlock new skins in the process,
-PLAYLIST_MODE,PLAYLIST_MODE,Playlist mode,
-PLAYLIST_MODE_DESC,PLAYLIST_MODE_DESC,Create and play your own skin playlist,
-TIME_ATTACK_MODE,TIME_ATTACK_MODE,Time attack mode,
-TIME_ATTACK_MODE_DESC,TIME_ATTACK_MODE_DESC,Gain as many points as you can within the time limit,
-SYNTHESIA_MODE,SYNTHESIA_MODE,Synthesia mode,
-SYNTHESIA_MODE_DESC,SYNTHESIA_MODE_DESC,Play with your own music,
-TUTORIAL_MODE,TUTORIAL_MODE,Tutorial mode,
-TUTORIAL_MODE_DESC,TUTORIAL_MODE_DESC,Learn about game mechanics and tactics,
-SKIN_EDITOR,SKIN_EDITOR,Skin editor,
-SKIN_EDITOR_DESC,SKIN_EDITOR_DESC,Create your own custom skins,
-ADDON_EDITOR,ADDON_EDITOR,Addon editor,
-ADDON_EDITOR_DESC,ADDON_EDITOR_DESC,"Create your own addons, which can contain a lot of custom content inside",
-SOUND_REPLAY,SOUND_REPLAY,Skin player,
-SOUND_REPLAY_DESC,SOUND_REPLAY_DESC,Load and watch any skin without gameplay. Like a good old screensaver!,
-OPTIONS,OPTIONS,Options,
-OPTIONS_DESC,OPTIONS_DESC,Edit audio/video/control/language settings,
-STATISTICS,STATISTICS,Statistics,
-STATISTICS_DESC,STATISTICS_DESC,View your total statistics,
-REPLAY_PLAYER,REPLAY_PLAYER,Replay player,
-REPLAY_PLAYER_DESC,REPLAY_PLAYER_DESC,Watch your saved game replays,
-SCORE_RANKING,SCORE_RANKING,Score ranking,
-SCORE_RANKING_DESC,SCORE_RANKING_DESC,View all your records in different gamemodes,
-PROFILE_EDIT,PROFILE_EDIT,Profile edit,
-PROFILE_EDIT_DESC,PROFILE_EDIT_DESC,"Change what profile you're using, or create a new one",
-COMMUNITY,COMMUNITY,Community,
-COMMUNITY_DESC,COMMUNITY_DESC,"Learn about this project's community, and how you can contribute to it",
-CREDITS,CREDITS,Credits,
-CREDITS_DESC,CREDITS_DESC,Learn about this game's creators,
-CREDITS_ARROW,CREDITS_ARROW,Project Luminext credits,
-EXIT,EXIT,Exit,
-EXIT_DESC,EXIT_DESC,Exit this game,
-EXIT_DIALOG,EXIT_DIALOG,Are you sure you want to exit from this game?,
-SINGLEPLAYER,SINGLEPLAYER,Singleplayer,
-SINGLEPLAYER_DESC,SINGLEPLAYER_DESC,Select & play singleplayer gamemodes,
-CONTENT,CONTENT,Custom Content,
-CONTENT_DESC,CONTENT_DESC,Create & manage content for this game using various editors,
-PROFILE,PROFILE,Profile,
-PROFILE_DESC,PROFILE_DESC,View/edit your current profile info,
-EXTRAS,EXTRAS,Extras,
-EXTRAS_DESC,EXTRAS_DESC,Miscellaneous menu options,
-MENU,MENU,Menu,
+CHALLENGE_MODE,CHALLENGE_MODE,Challenge mode,Modalità sfida
+CHALLENGE_MODE_DESC,CHALLENGE_MODE_DESC,Complete a series of levels and unlock new skins in the process,Completa una serie di livelli e sblocca nuove skin
+PLAYLIST_MODE,PLAYLIST_MODE,Playlist mode,Modalità playlist
+PLAYLIST_MODE_DESC,PLAYLIST_MODE_DESC,Create and play your own skin playlist,Crea e gioca la tua playlist personalizzata
+TIME_ATTACK_MODE,TIME_ATTACK_MODE,Time attack mode,Modalità sfida a tempo
+TIME_ATTACK_MODE_DESC,TIME_ATTACK_MODE_DESC,Gain as many points as you can within the time limit,Ottieni il punteggio più alto possibile entro il tempo limite
+SYNTHESIA_MODE,SYNTHESIA_MODE,Synthesia mode,Modalità Synthesia
+SYNTHESIA_MODE_DESC,SYNTHESIA_MODE_DESC,Play with your own music,Gioca con la tua musica
+TUTORIAL_MODE,TUTORIAL_MODE,Tutorial mode,Modalità tutorial
+TUTORIAL_MODE_DESC,TUTORIAL_MODE_DESC,Learn about game mechanics and tactics,Vedi come funziona il gioco ed impara delle nuove strategie
+SKIN_EDITOR,SKIN_EDITOR,Skin editor,Skin editor
+SKIN_EDITOR_DESC,SKIN_EDITOR_DESC,Create your own custom skins,Crea le tue skin personalizzate
+ADDON_EDITOR,ADDON_EDITOR,Addon editor,Addon editor
+ADDON_EDITOR_DESC,ADDON_EDITOR_DESC,"Create your own addons, which can contain a lot of custom content inside",Crea le tue addon. Queste possono contenere all'interno un sacco di contenuto customizzato
+SOUND_REPLAY,SOUND_REPLAY,Skin player,Visualizza skin
+SOUND_REPLAY_DESC,SOUND_REPLAY_DESC,Load and watch any skin without gameplay. Like a good old screensaver!,Carica e guarda qualsiasi skin senza giocare. Proprio come in uno screensaver!
+OPTIONS,OPTIONS,Options,Opzioni
+OPTIONS_DESC,OPTIONS_DESC,Edit audio/video/control/language settings,Imposta modifiche audio/video/input
+STATISTICS,STATISTICS,Statistics,Statistiche
+STATISTICS_DESC,STATISTICS_DESC,View your total statistics,Visualizza le tue statistiche
+REPLAY_PLAYER,REPLAY_PLAYER,Replay player,Replay
+REPLAY_PLAYER_DESC,REPLAY_PLAYER_DESC,Watch your saved game replays,Guarda i tuoi replay
+SCORE_RANKING,SCORE_RANKING,Score ranking,Classifica
+SCORE_RANKING_DESC,SCORE_RANKING_DESC,View all your records in different gamemodes,Guarda tutti i tuoi record nelle diverse modalità di gioco
+PROFILE_EDIT,PROFILE_EDIT,Profile edit,Modifica profilo
+PROFILE_EDIT_DESC,PROFILE_EDIT_DESC,"Change what profile you're using, or create a new one",Cambia il tuo profilo o crea uno nuovo
+COMMUNITY,COMMUNITY,Community,Community
+COMMUNITY_DESC,COMMUNITY_DESC,"Learn about this project's community, and how you can contribute to it",Vieni a sapere del nostro progetto e come puoi contribuire ad esso
+CREDITS,CREDITS,Credits,Riconoscimenti
+CREDITS_DESC,CREDITS_DESC,Learn about this game's creators,Vedi gli sviluppatori del gioco
+CREDITS_ARROW,CREDITS_ARROW,Project Luminext credits,Project Luminext: Riconoscimenti
+EXIT,EXIT,Exit,Esci
+EXIT_DESC,EXIT_DESC,Exit this game,Esci dal gioco
+EXIT_DIALOG,EXIT_DIALOG,Are you sure you want to exit from this game?,Sei sicuro di voler uscire?
+SINGLEPLAYER,SINGLEPLAYER,Singleplayer,Singolo
+SINGLEPLAYER_DESC,SINGLEPLAYER_DESC,Select & play singleplayer gamemodes,Seleziona modalità di gioco per un solo giocatore.
+CONTENT,CONTENT,Custom Content,Modding
+CONTENT_DESC,CONTENT_DESC,Create & manage content for this game using various editors,Organizza e crea contenuto per il gioco con i vari editor
+PROFILE,PROFILE,Profile,Profilo
+PROFILE_DESC,PROFILE_DESC,View/edit your current profile info,Vedi/modifica il tuo profilo
+EXTRAS,EXTRAS,Extras,Extra
+EXTRAS_DESC,EXTRAS_DESC,Miscellaneous menu options,Altre informazioni
+MENU,MENU,Menu,Menu
 ,,,
 -Community-,,,
-COMMUNITY_TEXT1,COMMUNITY_TEXT1,"If you liked this game a lot, we invite you to join our official Project Luminext Discord server!",
-COMMUNITY_TEXT2,COMMUNITY_TEXT2,There you'll find:,
-COMMUNITY_TEXT3,COMMUNITY_TEXT3,- Custom skins and other mods made by our community members,
-COMMUNITY_TEXT4,COMMUNITY_TEXT4,- A way to easily do bug-reports and suggestions,
-COMMUNITY_TEXT5,COMMUNITY_TEXT5,- Discussions about game mechanics and what pizza flavour is best,
-COMMUNITY_TEXT6,COMMUNITY_TEXT6,- News about game development progress,
-COMMUNITY_TEXT7,COMMUNITY_TEXT7,"You can also visit our game official GitHub repository, since this project is open-source.",
-COMMUNITY_INVITE1,COMMUNITY_INVITE1,Visit discord server,
-COMMUNITY_INVITE2,COMMUNITY_INVITE2,Visit GitHub repository,
-COMMUNITY_NO_THANKS,COMMUNITY_NO_THANKS,No thanks,
-COMMUNITY_ARROW,COMMUNITY_ARROW,COMMUNITY/MEDIA INFO,
+COMMUNITY_TEXT1,COMMUNITY_TEXT1,"If you liked this game a lot, we invite you to join our official Project Luminext Discord server!","Se ti è piaciuto questo gioco un sacco, ti invitiamo ad unirci al nostro Discord ufficiale del progetto Luminext!"
+COMMUNITY_TEXT2,COMMUNITY_TEXT2,There you'll find:,Puoi trovare:
+COMMUNITY_TEXT3,COMMUNITY_TEXT3,- Custom skins and other mods made by our community members,Skin customizzate e altre mod create dai nostri membri della community
+COMMUNITY_TEXT4,COMMUNITY_TEXT4,- A way to easily do bug-reports and suggestions,Un metodo più facile per fare bug-reporting ed esprimere un'idea
+COMMUNITY_TEXT5,COMMUNITY_TEXT5,- Discussions about game mechanics and what pizza flavour is best,Discussioni riguardo alle meccaniche di gioco e quale pizza è la migliore
+COMMUNITY_TEXT6,COMMUNITY_TEXT6,- News about game development progress,Notizie riguardo allo sviluppo del gioco
+COMMUNITY_TEXT7,COMMUNITY_TEXT7,"You can also visit our game official GitHub repository, since this project is open-source.","Puoi anche visitare i nostri GitHub ufficiali, dato che il nostro progetto è open-source"
+COMMUNITY_INVITE1,COMMUNITY_INVITE1,Visit discord server,Visita il server Discord
+COMMUNITY_INVITE2,COMMUNITY_INVITE2,Visit GitHub repository,Visita la pagina Github
+COMMUNITY_NO_THANKS,COMMUNITY_NO_THANKS,No thanks,No grazie
+COMMUNITY_ARROW,COMMUNITY_ARROW,COMMUNITY/MEDIA INFO,INFO COMMUNITY/MEDIA
 ,,,
 -Replay Player-,,,
-SELECT_REPLAY,SELECT_REPLAY,Select replay to watch,
-REPLAY_PLAYER_ARROW,REPLAY_PLAYER_ARROW,REPLAY LIST,
+SELECT_REPLAY,SELECT_REPLAY,Select replay to watch,Seleziona replay da guardare
+REPLAY_PLAYER_ARROW,REPLAY_PLAYER_ARROW,REPLAY LIST,LISTA REPLAY
 ,,,
 -Login-,-Login-,,
-LOGIN,LOGIN,Login,
-LOGIN_WELCOME1,LOGIN_WELCOME1,Welcome to Project Luminext!,
-LOGIN_WELCOME2,LOGIN_WELCOME2,You must create a new profile in order to continue.,
-LOGIN_DATA_ERROR,LOGIN_DATA_ERROR,"Your previous profile was corrupted, and could not be loaded.",
-LOGIN_PROFILE_MISSING,LOGIN_PROFILE_MISSING,Your previous profile was not found.,
-LOGIN_SAVEDATA_MISSING,LOGIN_SAVEDATA_MISSING,Warning! Previously used profile save data is missing!,
-LOGIN_SAVEDATA_CORRUPT,LOGIN_SAVEDATA_CORRUPT,Warning! Previously used profile save data is corrupted!,
-LOGIN_SELECT_OPTION,LOGIN_SELECT_OPTION,Select option,
-LOGIN_EXIT,LOGIN_EXIT,Exit from the game,
-LOGIN_ARROW,LOGIN_ARROW,LOGIN SCREEN,
+LOGIN,LOGIN,Login,Login
+LOGIN_WELCOME1,LOGIN_WELCOME1,Welcome to Project Luminext!,Benvenuto su Project Luminext!
+LOGIN_WELCOME2,LOGIN_WELCOME2,You must create a new profile in order to continue.,Devi creare un nuovo profilo prima di continuare
+LOGIN_DATA_ERROR,LOGIN_DATA_ERROR,"Your previous profile was corrupted, and could not be loaded.",Il profilo selezionato risulta sconosciuto. I dati sono corrotti
+LOGIN_PROFILE_MISSING,LOGIN_PROFILE_MISSING,Your previous profile was not found.,Il profilo selezionato risulta mancante!
+LOGIN_SAVEDATA_MISSING,LOGIN_SAVEDATA_MISSING,Warning! Previously used profile save data is missing!,Attenzione! Dati di salvataggio per il profilo selezionato risultano mancanti!
+LOGIN_SAVEDATA_CORRUPT,LOGIN_SAVEDATA_CORRUPT,Warning! Previously used profile save data is corrupted!,Attenzione! Dati di salvataggio per il profilo selezionato risultano corrotti!
+LOGIN_SELECT_OPTION,LOGIN_SELECT_OPTION,Select option,Seleziona opzione
+LOGIN_EXIT,LOGIN_EXIT,Exit from the game,Esci dal gioco
+LOGIN_ARROW,LOGIN_ARROW,LOGIN SCREEN,SCHERMATA LOGIN
 ,,,
 -Profile edit-,,,
-PE_CREATE_NEW,PE_CREATE_NEW,Create new profile,
-PE_CREATE_NEW_DESC,PE_CREATE_NEW_DESC,Create brand new profile.,
-PE_CREATE_DIALOG,PE_CREATE_DIALOG,Enter new profile name,
-PE_DELETE,PE_DELETE,Delete profile,
-PE_DELETE_DESC,PE_DELETE_DESC,Delete existing profile.,
-PE_DELETE_DIALOG,PE_DELETE_DIALOG,Are you sure you want to delete this profile?,
-PE_SELECT_OPTION,PE_SELECT_OPTION,Select profile to load,
-PE_DELETE_OPTION,PE_DELETE_OPTION,Select profile to delete,
-PE_ARROW,PE_ARROW,PROFILE SELECT/EDIT MENU,
-PE_NO_PROFILES,PE_NO_PROFILES,NO PROFILES FOUND,
-PE_SELECT,PE_SELECT,Select this profile.,
-PE_MISSING,PE_MISSING,PROFILE IS MISSING!,
-PE_SAVEDATA_MISSING,PE_SAVEDATA_MISSING,PROFILE SAVE DATA IS MISSING!,
-PE_SAVEDATA_CORRUPT,PE_SAVEDATA_CORRUPT,PROFILE SAVE DATA IS CORRUPTED!,
-PE_LOADING_FAILED,PE_LOADING_FAILED,LOADING FAILED,
-PE_CONFIG_MISSING,PE_CONFIG_MISSING,Warning! This profile’s config file is missing. Continue anyways?,
-PE_CANCEL_DELETE,PE_CANCEL_DELETE,Cancel deletion,
-PE_MUST_SELECT,PE_MUST_SELECT,You must select or create a profile in order to continue,
-PE_CURRENT,PE_CURRENT,[CURRENT],
+PE_CREATE_NEW,PE_CREATE_NEW,Create new profile,Crea nuovo profilo
+PE_CREATE_NEW_DESC,PE_CREATE_NEW_DESC,Create brand new profile.,Crea un nuovo profilo
+PE_CREATE_DIALOG,PE_CREATE_DIALOG,Enter new profile name,Inserisci il nome del nuovo profilo
+PE_DELETE,PE_DELETE,Delete profile,Elimina profilo
+PE_DELETE_DESC,PE_DELETE_DESC,Delete existing profile.,Elimina un profilo esistente
+PE_DELETE_DIALOG,PE_DELETE_DIALOG,Are you sure you want to delete this profile?,Sei sicuro di rimuovere questo profilo?
+PE_SELECT_OPTION,PE_SELECT_OPTION,Select profile to load,Seleziona profilo
+PE_DELETE_OPTION,PE_DELETE_OPTION,Select profile to delete,Seleziona profilo da rimuovere
+PE_ARROW,PE_ARROW,PROFILE SELECT/EDIT MENU,SELEZIONE/MODIFICA PROFILO
+PE_NO_PROFILES,PE_NO_PROFILES,NO PROFILES FOUND,NESSUN PROFILO TROVATO
+PE_SELECT,PE_SELECT,Select this profile.,Seleziona questo profilo
+PE_MISSING,PE_MISSING,PROFILE IS MISSING!,PROFILO MANCANTE!
+PE_SAVEDATA_MISSING,PE_SAVEDATA_MISSING,PROFILE SAVE DATA IS MISSING!,DATI DI SALVATAGGIO RISULTANO MANCANTI!
+PE_SAVEDATA_CORRUPT,PE_SAVEDATA_CORRUPT,PROFILE SAVE DATA IS CORRUPTED!,DATI DI SALVATAGGIO SONO CORROTTI!
+PE_LOADING_FAILED,PE_LOADING_FAILED,LOADING FAILED,CARICAMENTO NON RIUSCITO
+PE_CONFIG_MISSING,PE_CONFIG_MISSING,Warning! This profile’s config file is missing. Continue anyways?,Attenzione! Il file config di questo profilo risulta mancante. Continuare?
+PE_CANCEL_DELETE,PE_CANCEL_DELETE,Cancel deletion,Cancella Eliminazione
+PE_MUST_SELECT,PE_MUST_SELECT,You must select or create a profile in order to continue,Devi selezionare o creare un profilo per continuare
+PE_CURRENT,PE_CURRENT,[CURRENT],[SELEZIONATO]
 ,,,
 -Statistics-,,,
-STATS_ARROW,STATS_ARROW,PROFILE STATISTICS DATA,
-STATS_TOTAL_TIME,STATS_TOTAL_TIME,Total time,
-STATS_TOTAL_PLAY_TIME,STATS_TOTAL_PLAY_TIME,Total gameplay time,
-STATS_SCORE,STATS_SCORE,Total score,
-STATS_SQUARES_ERASED,STATS_SQUARES_ERASED,Total squares erased,
-STATS_BLOCKS_ERASED,STATS_BLOCKS_ERASED,Total blocks erased,
-STATS_SPECIAL_BLOCKS_USED,STATS_SPECIAL_BLOCKS_USED,Total special blocks used,
-STATS_PIECE_SWAPS,STATS_PIECE_SWAPS,Total piece swaps used,
-STATS_SQUARE_GROUP,STATS_SQUARE_GROUP,Top erased square group size,
-STATS_SQUARE_PER_SWEEP,STATS_SQUARE_PER_SWEEP,Top square erased per timeline sweep,
-STATS_COMBO,STATS_COMBO,Top combo,
-STATS_SCORE_GAIN,STATS_SCORE_GAIN,Top score gain,
-STATS_GAMEPLAY_TIME,STATS_GAMEPLAY_TIME,Top time spent in single game,
-STATS_4X_BONUSES,STATS_4X_BONUSES,Total 4X bonuses,
-STATS_SINGLE_COLOR,STATS_SINGLE_COLOR,Total single color bonuses,
-STATS_ALL_CLEAR,STATS_ALL_CLEAR,Total all clear bonuses,
-STATS_TA_RETRY,STATS_TA_RETRY,Total time attack mode attempts count,
-STATS_TA_TOP_RETRY,STATS_TA_TOP_RETRY,Top time attack mode attempts streak,
-STATS_TA_TOTAL_TIME,STATS_TA_TOTAL_TIME,Total time spent in time attack mode,
-STATS_TOTAL_SE_TIME,STATS_TOTAL_SE_TIME,Total time spent in skin editor,
-STATS_TOTAL_SE_LOADS,STATS_TOTAL_SE_LOADS,Total skin loads in skin editor,
+STATS_ARROW,STATS_ARROW,PROFILE STATISTICS DATA,STATISTICHE DEL PROFILO
+STATS_TOTAL_TIME,STATS_TOTAL_TIME,Total time,Tempo trascorso
+STATS_TOTAL_PLAY_TIME,STATS_TOTAL_PLAY_TIME,Total gameplay time,Tempo totale di gioco
+STATS_SCORE,STATS_SCORE,Total score,Punteggio totale
+STATS_SQUARES_ERASED,STATS_SQUARES_ERASED,Total squares erased,Quadrati eliminati
+STATS_BLOCKS_ERASED,STATS_BLOCKS_ERASED,Total blocks erased,Blocchi eliminati
+STATS_SPECIAL_BLOCKS_USED,STATS_SPECIAL_BLOCKS_USED,Total special blocks used,Blocchi speciali utilizzati
+STATS_PIECE_SWAPS,STATS_PIECE_SWAPS,Total piece swaps used,Scambi eseguiti
+STATS_SQUARE_GROUP,STATS_SQUARE_GROUP,Top erased square group size,Maggior numero di quadrati eliminati in un passaggio
+STATS_SQUARE_PER_SWEEP,STATS_SQUARE_PER_SWEEP,Top square erased per timeline sweep,Maggior numero di quadrati eliminati per passaggio
+STATS_COMBO,STATS_COMBO,Top combo,Combo più lunga
+STATS_SCORE_GAIN,STATS_SCORE_GAIN,Top score gain,Maggior punteggio ricevuto
+STATS_GAMEPLAY_TIME,STATS_GAMEPLAY_TIME,Top time spent in single game,Maggior tempo trascorso in una singola partita
+STATS_4X_BONUSES,STATS_4X_BONUSES,Total 4X bonuses,Bonus ×4 totali
+STATS_SINGLE_COLOR,STATS_SINGLE_COLOR,Total single color bonuses,Pulizie a singolo colore
+STATS_ALL_CLEAR,STATS_ALL_CLEAR,Total all clear bonuses,Pulizie complete
+STATS_TA_RETRY,STATS_TA_RETRY,Total time attack mode attempts count,Numero di tentativi totali nella modalità a tempo
+STATS_TA_TOP_RETRY,STATS_TA_TOP_RETRY,Top time attack mode attempts streak,Maggior numero di tentativi consecutivi nella modalità a tempo
+STATS_TA_TOTAL_TIME,STATS_TA_TOTAL_TIME,Total time spent in time attack mode,Tempo trascorso nella modalità a tempo
+STATS_TOTAL_SE_TIME,STATS_TOTAL_SE_TIME,Total time spent in skin editor,Tempo trascorso nell'editor
+STATS_TOTAL_SE_LOADS,STATS_TOTAL_SE_LOADS,Total skin loads in skin editor,Caricamenti eseguiti nell'editor
 ,,,
 -Options-,,,
-AUDIO,AUDIO,Audio,
-AUDIO_DESC,AUDIO_DESC,Open audio settings tab.,
-VIDEO,VIDEO,Video,
-VIDEO_DESC,VIDEO_DESC,Open video settings tab.,
-CONTROLS,CONTROLS,Controls,
-CONTROLS_DESC,CONTROLS_DESC,Open control assign tab.,
-LANGUAGE,LANGUAGE,Language,
-LANGUAGE_DESC,LANGUAGE_DESC,Open language select tab.,
-APPLY,APPLY,Apply,
-APPLY_DESC,APPLY_DESC,Apply and save all changes and return to previous menu screen.,
-RESET_CHANGES,RESET_CHANGES,Reset changes,
-RESET_CHANGES_DESC,RESET_CHANGES_DESC,Reset all current tab changes.,
-RESET_TO_STANDARD,RESET_TO_STANDARD,Reset to standard,
-RESET_TO_STANDARD_DESC,RESET_TO_STANDARD_DESC,Reset all current tab settings to standard.,
-CANCEL,CANCEL,Cancel,
-CANCEL_DESC,CANCEL_DESC,Cancel all changes and return to previous menu screen.,
-OPTIONS_ARROW1,OPTIONS_ARROW1,OPTIONS SELECT,
-OPTIONS_ARROW2,OPTIONS_ARROW2,DESCRIPTION,
-OPTIONS_ARROW3,OPTIONS_ARROW3,AUDIO SETTINGS,
-OPTIONS_ARROW4,OPTIONS_ARROW4,VIDEO SETTINGS,
-OPTIONS_ARROW5,OPTIONS_ARROW5,CONTROL ASSIGN,
-OPTIONS_ARROW6,OPTIONS_ARROW6,LANGUAGE SELECT,
+AUDIO,AUDIO,Audio,Audio
+AUDIO_DESC,AUDIO_DESC,Open audio settings tab.,Apri le impostazioni audio
+VIDEO,VIDEO,Video,Video
+VIDEO_DESC,VIDEO_DESC,Open video settings tab.,Apri le impostazioni video
+CONTROLS,CONTROLS,Controls,Controlli
+CONTROLS_DESC,CONTROLS_DESC,Open control assign tab.,Apri le impostazioni controlli
+LANGUAGE,LANGUAGE,Language,Lingua
+LANGUAGE_DESC,LANGUAGE_DESC,Open language select tab.,Apri le impostazioni lingua
+APPLY,APPLY,Apply,Applica
+APPLY_DESC,APPLY_DESC,Apply and save all changes and return to previous menu screen.,Applica e salva tutti i cambiamenti e ritorna al menu precedente
+RESET_CHANGES,RESET_CHANGES,Reset changes,Reimposta
+RESET_CHANGES_DESC,RESET_CHANGES_DESC,Reset all current tab changes.,Resetta tutte le opzioni eseguite a quelle di prima
+RESET_TO_STANDARD,RESET_TO_STANDARD,Reset to standard,Reimposta a standard
+RESET_TO_STANDARD_DESC,RESET_TO_STANDARD_DESC,Reset all current tab settings to standard.,Resetta tutte le impostazioni a quelle standard
+CANCEL,CANCEL,Cancel,Indietro
+CANCEL_DESC,CANCEL_DESC,Cancel all changes and return to previous menu screen.,Annulla tutti i cambiamenti eseguiti e ritorna al menu precedente
+OPTIONS_ARROW1,OPTIONS_ARROW1,OPTIONS SELECT,SELEZIONE OPZIONI
+OPTIONS_ARROW2,OPTIONS_ARROW2,DESCRIPTION,DESCRIZIONE
+OPTIONS_ARROW3,OPTIONS_ARROW3,AUDIO SETTINGS,IMPOSTAZIONI AUDIO
+OPTIONS_ARROW4,OPTIONS_ARROW4,VIDEO SETTINGS,IMPOSTAZIONI VIDEO
+OPTIONS_ARROW5,OPTIONS_ARROW5,CONTROL ASSIGN,ASSEGNA TASTI
+OPTIONS_ARROW6,OPTIONS_ARROW6,LANGUAGE SELECT,SELEZIONE LINGUA
 ,,,
 -Audio settings-,,,
-MUSIC_VOLUME,MUSIC_VOLUME,Music volume,
-MUSIC_VOLUME_DESC,MUSIC_VOLUME_DESC,Change game/menu music volume.,
-SFX_VOLUME,SFX_VOLUME,Sound volume,
-SFX_VOLUME_DESC,SFX_VOLUME_DESC,Change game/menu sound effects volume.,
-AUDIO_DEVICE,AUDIO_DEVICE,Audio device,
-AUDIO_DEVICE_DESC,AUDIO_DEVICE_DESC,Select your output audio device.,
-ANNOUNCER,ANNOUNCER,Announcer,
-ANNOUNCER_DESC,ANNOUNCER_DESC,Change how much you wanna hear our awesome announcer voice.,
-ANNOUNCER1,ANNOUNCER1,OFF,
-ANNOUNCER2,ANNOUNCER2,MENU_ONLY,
-ANNOUNCER3,ANNOUNCER3,GAME_ONLY,
-ANNOUNCER4,ANNOUNCER4,ALL,
-POS_SOUND,POS_SOUND,Positional sound,
-POS_SOUND_DESC,POS_SOUND_DESC,Make all game sound effects appear sounding from source position.,
-SEQ_SOUNDS,SEQ_SOUNDS,Sequential sounds,
-SEQ_SOUNDS_DESC,SEQ_SOUNDS_DESC,"Make some game sound effects, which contain multiple samples, play specific sound on certain events instead of choosing sound randomly (ex. squares explosion sound will be different depending on deleted squares count)",
-SKIN_PREVIEW,SKIN_PREVIEW,Skin preview,
-SKIN_PREVIEW_DESC,SKIN_PREVIEW_DESC,Make skin preview play in menu when skin is selected,
-SYNC_SFX,SYNC_SFX,Sync all sounds,
-SYNC_SFX_DESC,SYNC_SFX_DESC,Make all game sound effects sync to song BPM instead of specific ones,
-DEFAULT,DEFAULT,Default,
+MUSIC_VOLUME,MUSIC_VOLUME,Music volume,Volume musica
+MUSIC_VOLUME_DESC,MUSIC_VOLUME_DESC,Change game/menu music volume.,Cambia il volume della musica
+SFX_VOLUME,SFX_VOLUME,Sound volume,Volume audio
+SFX_VOLUME_DESC,SFX_VOLUME_DESC,Change game/menu sound effects volume.,Cambia il bolume dei suoni
+AUDIO_DEVICE,AUDIO_DEVICE,Audio device,Dispositivo audio
+AUDIO_DEVICE_DESC,AUDIO_DEVICE_DESC,Select your output audio device.,Seleziona il tuo dispositivo output di audio
+ANNOUNCER,ANNOUNCER,Announcer,Annunciatore
+ANNOUNCER_DESC,ANNOUNCER_DESC,Change how much you wanna hear our awesome announcer voice.,Cambia quanto vuoi sentire la voce del nostro grande annunciatore
+ANNOUNCER1,ANNOUNCER1,OFF,OFF
+ANNOUNCER2,ANNOUNCER2,MENU_ONLY,SOLO MENU
+ANNOUNCER3,ANNOUNCER3,GAME_ONLY,SOLO GIOCO
+ANNOUNCER4,ANNOUNCER4,ALL,ON
+POS_SOUND,POS_SOUND,Positional sound,Stereo posizionale
+POS_SOUND_DESC,POS_SOUND_DESC,Make all game sound effects appear sounding from source position.,Rende il volume dei suoni del gioco dipendente dalla loro posizione nello shcermo
+SEQ_SOUNDS,SEQ_SOUNDS,Sequential sounds,Suoni in sequenza
+SEQ_SOUNDS_DESC,SEQ_SOUNDS_DESC,"Make some game sound effects, which contain multiple samples, play specific sound on certain events instead of choosing sound randomly (ex. squares explosion sound will be different depending on deleted squares count)","Fa si che alcuni suoni del gioco, con sample multipli, suonare solo in certi casi anziché casualmente (Es. Il suono dell'esplosione dei quadrati dipende dal numero di quadrati cancellati)"
+SKIN_PREVIEW,SKIN_PREVIEW,Skin preview,Anteprima della skin
+SKIN_PREVIEW_DESC,SKIN_PREVIEW_DESC,Make skin preview play in menu when skin is selected,Abilita l'anteprima della muscia quando la skin è selezionata
+SYNC_SFX,SYNC_SFX,Sync all sounds,Suoni ritmici
+SYNC_SFX_DESC,SYNC_SFX_DESC,Make all game sound effects sync to song BPM instead of specific ones,Fa sì che tutti i suoni sono a ritmo della musica
+DEFAULT,DEFAULT,Default,Default
 ,,,
 -Video settings-,,,
-VS_LABEL1,VS_LABEL1,Display settings,
-VS_LABEL2,VS_LABEL2,Gameplay,
-VS_LABEL3,VS_LABEL3,Tweaks & optimization,
-RESOLUTION,RESOLUTION,Resolution,
-RESOLUTION_DESC,RESOLUTION_DESC,Change game resolution in windowed mode.,
-FULLSCREEN,FULLSCREEN,Fullscreen,
-FULLSCREEN_DESC,FULLSCREEN_DESC,Enable fullscreen mode. Can be toggled anytime by pressing the F11 key.,
-FPS_LIMIT,FPS_LIMIT,FPS Limit,
-FPS_LIMIT_DESC,FPS_LIMIT_DESC,"Limit game FPS to certain value. Helps saving performance since lower FPS limit is, less GPU is being used. You can check current FPS by pressing F1. If you experience stutters, try setting this value slightly higher than your monitor refresh rate.",
-BLOCK_ANIM,BLOCK_ANIM,Block animations,
-BLOCK_ANIM_DESC,BLOCK_ANIM_DESC,Allow each block to play animation depending on current music beat.,
-BLOCK_TRAIL,BLOCK_TRAIL,Block trail,
-BLOCK_TRAIL_DESC,BLOCK_TRAIL_DESC,Enables block and piece trails effects.,
-FX_QUALITY,FX_QUALITY,Effects quality,
-FX_QUALITY_DESC,FX_QUALITY_DESC,Change special in-game effects quality. Decreasing this value might help to improve game field visibility and your device performance.,
-SQUARES_QUALITY,SQUARES_QUALITY,Squares quality,
-SQUARES_QUALITY_DESC,SQUARES_QUALITY_DESC,Change squares animation quality. Decreasing this value might help to improve game field visibility.,
-QUALITY_1,QUALITY_1,Minimal,
-QUALITY_2,QUALITY_2,Low,
-QUALITY_3,QUALITY_3,Medium,
-QUALITY_4,QUALITY_4,High,
-QUALITY_5,QUALITY_5,Excellent,
-BACK_FX,BACK_FX,Background effects,
-BACK_FX_DESC,BACK_FX_DESC,Makes all in-game special effects play on background layer instead of foreground. Enabling this improves game field visibility.,
-EQ_VISUALIZER,EQ_VISUALIZER,Audio visualizer,
-EQ_VISUALIZER_DESC,EQ_VISUALIZER_DESC,Enable in-game background audio visualizer.,
-BACK_MOVE,BACK_MOVE,Background moving,
-BACK_MOVE_DESC,BACK_MOVE_DESC,Makes background moving along current piece position making scenery more dynamic.,
-CLASSIC_BONUS,CLASSIC_BONUS,Classic bonus,
-CLASSIC_BONUS_DESC,CLASSIC_BONUS_DESC,Replace standard bonus animation with classic animation like in Lumines: Puzzle Fusion. Might improve game field visibility.,
-BACK_DARK,BACK_DARK,Background darkening,
-BACK_DARK_DESC,BACK_DARK_DESC,Makes skin background much darker to improve game field visibility.,
-GAME_ASSIST,GAME_ASSIST,Game assist,
-GAME_ASSIST1,GAME_ASSIST1,None,
-GAME_ASSIST1_DESC,GAME_ASSIST1_DESC,There will be no assistance when placing pieces.,
-GAME_ASSIST2,GAME_ASSIST2,Reticle only,
-GAME_ASSIST2_DESC,GAME_ASSIST2_DESC,"The piece holder will show a blue reticle, helping you to better understand your piece’s position in the game field.",
-GAME_ASSIST3,GAME_ASSIST3,Basic ghost,
-GAME_ASSIST3_DESC,GAME_ASSIST3_DESC,"Basic ghost is displayed at place where piece is currently going to be landed, but it ignores block gravity and doesn't show possible squares.",
-GAME_ASSIST4,GAME_ASSIST4,Advanced ghost,
-GAME_ASSIST4_DESC,GAME_ASSIST4_DESC,Advanced ghost is displayed at place where piece is currently going to be landed which shows possible squares and takes block gravity into account.,
-FORCE_STD_BLOCKS,FORCE_STD_BLOCKS,Only standard blocks,
-FORCE_STD_BLOCKS_DESC,FORCE_STD_BLOCKS_DESC,Makes all blocks appear only with standard graphics no matter which skin is currently loaded.,
-REMOVE_VIDEO,REMOVE_VIDEO,Remove video,
-REMOVE_VIDEO_DESC,REMOVE_VIDEO_DESC,Removes video from background if skin has it. Might greatly improve performance. Requires skin restart to take action.,
-REMOVE_SCENE,REMOVE_SCENE,Remove scenery,
-REMOVE_SCENE_DESC,REMOVE_SCENE_DESC,Removes animated background scenery if skin has it. Might improve performance. Requires skin restart to take action.,
+VS_LABEL1,VS_LABEL1,Display settings,Impostazioni display
+VS_LABEL2,VS_LABEL2,Gameplay,Gameplay
+VS_LABEL3,VS_LABEL3,Tweaks & optimization,Accessibilità e ottimizzazione
+RESOLUTION,RESOLUTION,Resolution,Risoluzione
+RESOLUTION_DESC,RESOLUTION_DESC,Change game resolution in windowed mode.,Cambia la risoluzione del gioco quando viene visualizzato in una finestra
+FULLSCREEN,FULLSCREEN,Fullscreen,Fullscreen
+FULLSCREEN_DESC,FULLSCREEN_DESC,Enable fullscreen mode. Can be toggled anytime by pressing the F11 key.,Abilita il fullscreen. Può essere abilitato e disabilitato ogni volta che si preme F11
+FPS_LIMIT,FPS_LIMIT,FPS Limit,Limite FPS
+FPS_LIMIT_DESC,FPS_LIMIT_DESC,"Limit game FPS to certain value. Helps saving performance since lower FPS limit is, less GPU is being used. You can check current FPS by pressing F1. If you experience stutters, try setting this value slightly higher than your monitor refresh rate.","Limita il FPS ad un certo valore. Aiuta a la performance dato che minore il limite del FPS è, minore sarà il GPU usato. Puoi controllare il FPS premendo F2. Se stai incontrando dei problemi, prova ad impostare questo valore leggermente più grande della tua velocità di refresh"
+BLOCK_ANIM,BLOCK_ANIM,Block animations,Animazione blocchi
+BLOCK_ANIM_DESC,BLOCK_ANIM_DESC,Allow each block to play animation depending on current music beat.,Permetti ad ogni blocco di essere animato
+BLOCK_TRAIL,BLOCK_TRAIL,Block trail,Scia dei blocchi
+BLOCK_TRAIL_DESC,BLOCK_TRAIL_DESC,Enables block and piece trails effects.,Abilita la scia dei blocchi e dei pezzi
+FX_QUALITY,FX_QUALITY,Effects quality,Qualità degli effetti
+FX_QUALITY_DESC,FX_QUALITY_DESC,Change special in-game effects quality. Decreasing this value might help to improve game field visibility and your device performance.,Cambia la qualità degli effetti. Una qualità minore potrebbe migliorare la visibilità e la performance del tuo dispositivo
+SQUARES_QUALITY,SQUARES_QUALITY,Squares quality,Qualità dei quadrati
+SQUARES_QUALITY_DESC,SQUARES_QUALITY_DESC,Change squares animation quality. Decreasing this value might help to improve game field visibility.,Cambia la qualità dei quadrati. Una qualità minore potrebbe migliorare la visibilità
+QUALITY_1,QUALITY_1,Minimal,Minimo
+QUALITY_2,QUALITY_2,Low,Bassa
+QUALITY_3,QUALITY_3,Medium,Media
+QUALITY_4,QUALITY_4,High,Alta
+QUALITY_5,QUALITY_5,Excellent,Eccellente
+BACK_FX,BACK_FX,Background effects,Effetti su sfondo
+BACK_FX_DESC,BACK_FX_DESC,Makes all in-game special effects play on background layer instead of foreground. Enabling this improves game field visibility.,"Sposta tutti gli effetti speciali sullo sfondo che sulla griglia, migliorando la visibilità"
+EQ_VISUALIZER,EQ_VISUALIZER,Audio visualizer,Visualizzatore audio
+EQ_VISUALIZER_DESC,EQ_VISUALIZER_DESC,Enable in-game background audio visualizer.,Abilita il visualizzatore audio sullo sfondo
+BACK_MOVE,BACK_MOVE,Background moving,Sfondo dinamico
+BACK_MOVE_DESC,BACK_MOVE_DESC,Makes background moving along current piece position making scenery more dynamic.,"Rende lo sfondo mobile e perciò, segue il movimento del pezzo in mano"
+CLASSIC_BONUS,CLASSIC_BONUS,Classic bonus,Bonus classico
+CLASSIC_BONUS_DESC,CLASSIC_BONUS_DESC,Replace standard bonus animation with classic animation like in Lumines: Puzzle Fusion. Might improve game field visibility.,Rimpiazza la freccia bonus con l'animazione classica di Lumines: Puzzle Fusion. Potrebbe migliorare la visibilità
+BACK_DARK,BACK_DARK,Background darkening,Scurisci sfondo
+BACK_DARK_DESC,BACK_DARK_DESC,Makes skin background much darker to improve game field visibility.,Rende lo sfondo più scuro per migliorare la visibilità
+GAME_ASSIST,GAME_ASSIST,Game assist,Assistenza gioco
+GAME_ASSIST1,GAME_ASSIST1,None,Nessuna
+GAME_ASSIST1_DESC,GAME_ASSIST1_DESC,There will be no assistance when placing pieces.,Nessun aiuto per piazzare i pezzi
+GAME_ASSIST2,GAME_ASSIST2,Reticle only,Solo reticolo
+GAME_ASSIST2_DESC,GAME_ASSIST2_DESC,"The piece holder will show a blue reticle, helping you to better understand your piece’s position in the game field.",Verrà visualizzato un reticolo blu del pezzo in mano che ti aiuterà a capire la sua posizione nel campo di gioco
+GAME_ASSIST3,GAME_ASSIST3,Basic ghost,Fantasma base
+GAME_ASSIST3_DESC,GAME_ASSIST3_DESC,"Basic ghost is displayed at place where piece is currently going to be landed, but it ignores block gravity and doesn't show possible squares.","Fantasma base che mostrerà dove il pezzo atterrerà, Ignora però la gravità e non mostrerà dove è possibile creare dei quadrati"
+GAME_ASSIST4,GAME_ASSIST4,Advanced ghost,Fantasma avanzato
+GAME_ASSIST4_DESC,GAME_ASSIST4_DESC,Advanced ghost is displayed at place where piece is currently going to be landed which shows possible squares and takes block gravity into account.,Fantasma avanzato che mostrerà dove i blocchi del pezzo atterreranno e dove è possibile creare dei quadrati
+FORCE_STD_BLOCKS,FORCE_STD_BLOCKS,Only standard blocks,Solo blocchi standard
+FORCE_STD_BLOCKS_DESC,FORCE_STD_BLOCKS_DESC,Makes all blocks appear only with standard graphics no matter which skin is currently loaded.,"Usa solo i blocchi di grafica standard (Rosso, Bianco, Verde, Viola)"
+REMOVE_VIDEO,REMOVE_VIDEO,Remove video,Rimuovi video
+REMOVE_VIDEO_DESC,REMOVE_VIDEO_DESC,Removes video from background if skin has it. Might greatly improve performance. Requires skin restart to take action.,Rimuove la parte video dello sfondo se la skin c'è l'ha. Migliora la performance e richiede un riavvio della skin per farlo funzionare
+REMOVE_SCENE,REMOVE_SCENE,Remove scenery,Rimuovi scenario
+REMOVE_SCENE_DESC,REMOVE_SCENE_DESC,Removes animated background scenery if skin has it. Might improve performance. Requires skin restart to take action.,Rimuove la parte scenario dello sfondo se la skin c'è l'ha. Potrebbe migliorare la performance e richiede un riavvio della skin per farlo funzionare
 ,,,
 -Control assign-,,,
-KEY_CATEGORY1,KEY_CATEGORY1,GAMEPLAY,
-KEY_CATEGORY2,KEY_CATEGORY2,MENU & UI,
-MOVE_LEFT,MOVE_LEFT,Move left,
-MOVE_LEFT_DESC,MOVE_LEFT_DESC,Assign button to move piece left.,
-MOVE_RIGHT,MOVE_RIGHT,Move right,
-MOVE_RIGHT_DESC,MOVE_RIGHT_DESC,Assign button to move piece right.,
-ROTATE_LEFT,ROTATE_LEFT,Rotate left,
-ROTATE_LEFT_DESC,ROTATE_LEFT_DESC,Assign button to rotate piece left.,
-ROTATE_RIGHT,ROTATE_RIGHT,Rotate right,
-ROTATE_RIGHT_DESC,ROTATE_RIGHT_DESC,Assign button to rotate piece right.,
-QUICK_DROP,QUICK_DROP,Quick drop,
-QUICK_DROP_DESC,QUICK_DROP_DESC,Assign button to drop piece quickly.,
-SWAP_PIECE,SWAP_PIECE,Piece swap,
-SWAP_PIECE_DESC,SWAP_PIECE_DESC,Assign button to swap piece with next in queue.,
-MENU_ACCEPT,MENU_ACCEPT,Accept,
-MENU_ACCEPT_DESC,MENU_ACCEPT_DESC,Assign button to accept.,
-MENU_CANCEL,MENU_CANCEL,Cancel,
-MENU_CANCEL_DESC,MENU_CANCEL_DESC,Assign button to cancel or return to previous menu screen.,
-MENU_EXTRA,MENU_EXTRA,Extra,
-MENU_EXTRA_DESC,MENU_EXTRA,Assign button for extra menu action.,
-KEY_ASSIGN,KEY_ASSIGN,PRESS ANY KEY/GAMEPAD BUTTON TO ASSIGN,
+KEY_CATEGORY1,KEY_CATEGORY1,GAMEPLAY,GAMEPLAY
+KEY_CATEGORY2,KEY_CATEGORY2,MENU & UI,MENU & UI
+MOVE_LEFT,MOVE_LEFT,Move left,Sposta a sinista
+MOVE_LEFT_DESC,MOVE_LEFT_DESC,Assign button to move piece left.,Assegna pulsante per muoversi a sinistra
+MOVE_RIGHT,MOVE_RIGHT,Move right,Sposta a destra
+MOVE_RIGHT_DESC,MOVE_RIGHT_DESC,Assign button to move piece right.,Assegna pulsante per muoversi a destra
+ROTATE_LEFT,ROTATE_LEFT,Rotate left,Ruota a sinistra
+ROTATE_LEFT_DESC,ROTATE_LEFT_DESC,Assign button to rotate piece left.,Assegna pulsante per ruotare il pezzo a sinistra
+ROTATE_RIGHT,ROTATE_RIGHT,Rotate right,Ruota a destra
+ROTATE_RIGHT_DESC,ROTATE_RIGHT_DESC,Assign button to rotate piece right.,Assegna pulsante per ruotare il pezzo a destra
+QUICK_DROP,QUICK_DROP,Quick drop,Quick drop
+QUICK_DROP_DESC,QUICK_DROP_DESC,Assign button to drop piece quickly.,Assegna pulsante per far cadere il pezzo più velocemente
+SWAP_PIECE,SWAP_PIECE,Piece swap,Scambia pezzo
+SWAP_PIECE_DESC,SWAP_PIECE_DESC,Assign button to swap piece with next in queue.,Assegna pulsante per eseguire uno scambio
+MENU_ACCEPT,MENU_ACCEPT,Accept,Accetta
+MENU_ACCEPT_DESC,MENU_ACCEPT_DESC,Assign button to accept.,Assegna pulsante per confermare la selezione
+MENU_CANCEL,MENU_CANCEL,Cancel,Indietro
+MENU_CANCEL_DESC,MENU_CANCEL_DESC,Assign button to cancel or return to previous menu screen.,Assegna pulsante per andare indietro
+MENU_EXTRA,MENU_EXTRA,Extra,Extra
+MENU_EXTRA_DESC,MENU_EXTRA,Assign button for extra menu action.,Assegna pulsante per eseguire un'azione speciale nei menu
+KEY_ASSIGN,KEY_ASSIGN,PRESS ANY KEY/GAMEPAD BUTTON TO ASSIGN,PREMI UN TASTO/BOTTONE QUALSIASI DA ASSEGNARE
 ,,,
 -Language select-,,,
-SET_LANGUAGE_DESC,SET_LANGUAGE_DESC,Select this language.,
-LANGUAGE_TEXT1,LANGUAGE_TEXT1,Project Luminext is a community translated game,
-LANGUAGE_TEXT2,LANGUAGE_TEXT2,Some translations may not be 100% completed,
-LANGUAGE_TEXT3,LANGUAGE_TEXT3,"If you want to help translating this game to your local language or extend/fix current translation, please read translation manual first, which can be accessed by pressing special button below.",
-ENGLISH,ENGLISH,ENGLISH,
-ITALIAN,ITALIAN,ITALIAN,
-TRANSLATION_PAGE,TRANSLATION_PAGE,Read translation manual,
-TRANSLATION_PAGE_DESC,TRANSLATION_PAGE_DESC,Open a GitHub wiki page about how to translate this game properly,
+SET_LANGUAGE_DESC,SET_LANGUAGE_DESC,Select this language.,Seleziona questa lingua
+LANGUAGE_TEXT1,LANGUAGE_TEXT1,Project Luminext is a community translated game,Project Luminext è un gioco tradotto dalla community
+LANGUAGE_TEXT2,LANGUAGE_TEXT2,Some translations may not be 100% completed,Alcune traduzione non sono complete al 100%
+LANGUAGE_TEXT3,LANGUAGE_TEXT3,"If you want to help translating this game to your local language or extend/fix current translation, please read translation manual first, which can be accessed by pressing special button below.","Se vuoi aiutarci a tradurre questo gioco nella tua lingua o espandere/aggiustare una esistente, si prega di leggere il manuale di traduzione che può essere accessibile cliccando sul bottone qui sotto"
+ENGLISH,ENGLISH,ENGLISH,INGLESE
+ITALIAN,ITALIAN,ITALIAN,ITALIANO
+TRANSLATION_PAGE,TRANSLATION_PAGE,Read translation manual,Leggi manuale di traduzione
+TRANSLATION_PAGE_DESC,TRANSLATION_PAGE_DESC,Open a GitHub wiki page about how to translate this game properly,Apri una pagina Github wiki su come tradurre questo gioco
 ,,,
 -Playlist mode menu-,,,
-ENDLESS_RUN,ENDLESS_RUN,Endless run,
-ENDLESS_RUN_DESC,ENDLESS_RUN_DESC,Play current playlist endlessly.,
-SINGLE_RUN,SINGLE_RUN,Single run,
-SINGLE_RUN_DESC,SINGLE_RUN_DESC,Play current playlist until it ends.,
-GAME_CONFIG,GAME_CONFIG,Game configuration,
-GAME_CONFIG_DESC,GAME_CONFIG_DESC,Change gameplay settings.,
-SAVE_PLAYLIST,SAVE_PLAYLIST,Save playlist,
-SAVE_PLAYLIST_DESC,SAVE_PLAYLIST_DESC,Save current playlist.,
-SAVE_PLAYLIST_DIALOG,SAVE_PLAYLIST_DIALOG,Enter playlist name,
-LOAD_PLAYLIST,LOAD_PLAYLIST,Load playlist,
-LOAD_PLAYLIST_DESC,LOAD_PLAYLIST_DESC,Load any saved playlist.,
-NO_SKINS1,NO_SKINS1,No skins found!,
-NO_SKINS2,NO_SKINS2,"Please check if any skin is placed inside ""skins"" folder...",
-PLAYLIST_MODE_ARROW1,PLAYLIST_MODE_ARROW1,MENU / DESCRIPTION,
-PLAYLIST_MODE_ARROW2,PLAYLIST_MODE_ARROW2,SKINS LIST,
-PLAYLIST_MODE_ARROW3,PLAYLIST_MODE_ARROW3,PLAYLIST,
-PLAYLIST_MODE_ARROW4,PLAYLIST_MODE_ARROW4,AUDIO VISUALIZER,
-PLAYLIST_MODE_ARROW5,PLAYLIST_MODE_ARROW5,SKIN METADATA,
-SKINS_TOTAL,SKINS_TOTAL,Skins total,
-SWAP_SKIN,SWAP_SKIN,Select another skin to swap with selected,
-SKIN_SELECT_DESC,SKIN_SELECT_DESC,Add this skin to the playlist,
-SKIN_PLAYLIST_SELECT,SKIN_PLAYLIST_SELECT,Swap this skin with other one in playlist,
-SHUFFLE,SHUFFLE,Shuffle,
-SHUFFLE_1,SHUFFLE_1,Add 1 random skin into playlist.,
-SHUFFLE_5,SHUFFLE_5,Add 5 random skins into playlist.,
-SHUFFLE_10,SHUFFLE_10,Add 10 random skins into playlist.,
-SHUFFLE_ALL,SHUFFLE_ALL,Shuffle all avaiable skins into playlist.,
-ALL,ALL,All,
-CLEAR,CLEAR,Clear,
-CLEAR_DESC,CLEAR,Remove all skins from playlist.,
+ENDLESS_RUN,ENDLESS_RUN,Endless run,Giri infiniti
+ENDLESS_RUN_DESC,ENDLESS_RUN_DESC,Play current playlist endlessly.,Gioca la playlist all'infinito
+SINGLE_RUN,SINGLE_RUN,Single run,Giro singolo
+SINGLE_RUN_DESC,SINGLE_RUN_DESC,Play current playlist until it ends.,Gioca la playlist fino alla fine
+GAME_CONFIG,GAME_CONFIG,Game configuration,Configura gioco
+GAME_CONFIG_DESC,GAME_CONFIG_DESC,Change gameplay settings.,Cambia le impostazioni del gioco
+SAVE_PLAYLIST,SAVE_PLAYLIST,Save playlist,Salva playlist
+SAVE_PLAYLIST_DESC,SAVE_PLAYLIST_DESC,Save current playlist.,Salva la playlist creata
+SAVE_PLAYLIST_DIALOG,SAVE_PLAYLIST_DIALOG,Enter playlist name,Inserisci nome playlist
+LOAD_PLAYLIST,LOAD_PLAYLIST,Load playlist,Carica playlist
+LOAD_PLAYLIST_DESC,LOAD_PLAYLIST_DESC,Load any saved playlist.,Carica una playlist salvata
+NO_SKINS1,NO_SKINS1,No skins found!,Nessuna skin trovata!
+NO_SKINS2,NO_SKINS2,"Please check if any skin is placed inside ""skins"" folder...","Si prega di controllare se le skin sono dentro la cartella ""skin"""
+PLAYLIST_MODE_ARROW1,PLAYLIST_MODE_ARROW1,MENU / DESCRIPTION,MENU / DESCRIZIONE
+PLAYLIST_MODE_ARROW2,PLAYLIST_MODE_ARROW2,SKINS LIST,LISTA DI SKIN
+PLAYLIST_MODE_ARROW3,PLAYLIST_MODE_ARROW3,PLAYLIST,PLAYLIST
+PLAYLIST_MODE_ARROW4,PLAYLIST_MODE_ARROW4,AUDIO VISUALIZER,VISUALIZZATORE AUDIO
+PLAYLIST_MODE_ARROW5,PLAYLIST_MODE_ARROW5,SKIN METADATA,METADATI
+SKINS_TOTAL,SKINS_TOTAL,Skins total,Skin in totali
+SWAP_SKIN,SWAP_SKIN,Select another skin to swap with selected,Seleziona un altra skin da scambiare con quella selezionata
+SKIN_SELECT_DESC,SKIN_SELECT_DESC,Add this skin to the playlist,Aggiungi questa skin alla playlist
+SKIN_PLAYLIST_SELECT,SKIN_PLAYLIST_SELECT,Swap this skin with other one in playlist,Scambia questa skin con una presente nella playlist
+SHUFFLE,SHUFFLE,Shuffle,Shuffle
+SHUFFLE_1,SHUFFLE_1,Add 1 random skin into playlist.,Aggiungi una skin a caso nella playlist
+SHUFFLE_5,SHUFFLE_5,Add 5 random skins into playlist.,Aggiungi 5 skin a caso nella playlist
+SHUFFLE_10,SHUFFLE_10,Add 10 random skins into playlist.,Aggiungi 10 skin a caso nella playlist
+SHUFFLE_ALL,SHUFFLE_ALL,Shuffle all avaiable skins into playlist.,Mischia tutte le skin nella playlist
+ALL,ALL,All,Aggiungi tutte
+CLEAR,CLEAR,Clear,Elimina tutte
+CLEAR_DESC,CLEAR,Remove all skins from playlist.,Rimuovi tutte le skin dalla playlist
 ,,,
 -Game configuration-,,,
-BLOCKS,BLOCKS,Blocks,
-BLOCKS_DESC,BLOCKS_DESC,Open block variants selection tab.,
-GAME_RULES,GAME_RULES,Game rules,
-GAME_RULES_DESC,GAME_RULES_DESC,Open game rules configuration tab.,
-GAME_PARAM,GAME_PARAM,Parameters,
-GAME_PARAM_DESC,GAME_PARAM_DESC,Open game parameters configuration tab.,
-LOAD_PRESET,LOAD_PRESET,Load preset,
-LOAD_PRESET_DESC,LOAD_PRESET_DESC,Load available game configuration preset.,
-SAVE_PRESET,SAVE_PRESET,Save preset,
-SAVE_PRESET_DESC,SAVE_PRESET_DESC,Save current game configuration to load later as preset.,
-SAVE_PRESET_DIALOG,SAVE_PRESET_DIALOG,Enter gameplay configuration preset name,
-GAME_CONFIG_ARROW1,GAME_CONFIG_ARROW1,OPTIONS SELECT,
-GAME_CONFIG_ARROW2,GAME_CONFIG_ARROW2,DESCRIPTION,
-GAME_CONFIG_ARROW3,GAME_CONFIG_ARROW3,BLOCKS SELECTION,
-GAME_CONFIG_ARROW4,GAME_CONFIG_ARROW4,GAME RULES SETUP,
-GAME_CONFIG_ARROW5,GAME_CONFIG_ARROW5,GAMEPLAY PARAMETERS,
+BLOCKS,BLOCKS,Blocks,Blocchi
+BLOCKS_DESC,BLOCKS_DESC,Open block variants selection tab.,Apri la sezione blocchi
+GAME_RULES,GAME_RULES,Game rules,Regole
+GAME_RULES_DESC,GAME_RULES_DESC,Open game rules configuration tab.,Apri la sezione regole
+GAME_PARAM,GAME_PARAM,Parameters,Parametri
+GAME_PARAM_DESC,GAME_PARAM_DESC,Open game parameters configuration tab.,Apri la sezione parametri
+LOAD_PRESET,LOAD_PRESET,Load preset,Carica configurazione
+LOAD_PRESET_DESC,LOAD_PRESET_DESC,Load available game configuration preset.,Carica una configurazione
+SAVE_PRESET,SAVE_PRESET,Save preset,Salva configurazione
+SAVE_PRESET_DESC,SAVE_PRESET_DESC,Save current game configuration to load later as preset.,Salva la configurazione
+SAVE_PRESET_DIALOG,SAVE_PRESET_DIALOG,Enter gameplay configuration preset name,Inserisci nome della configurazione
+GAME_CONFIG_ARROW1,GAME_CONFIG_ARROW1,OPTIONS SELECT,SELEZIONE OPZIONI
+GAME_CONFIG_ARROW2,GAME_CONFIG_ARROW2,DESCRIPTION,DESCRIZIONE
+GAME_CONFIG_ARROW3,GAME_CONFIG_ARROW3,BLOCKS SELECTION,SELEZIONE BLOCCHI
+GAME_CONFIG_ARROW4,GAME_CONFIG_ARROW4,GAME RULES SETUP,REGOLE DI GIOCO
+GAME_CONFIG_ARROW5,GAME_CONFIG_ARROW5,GAMEPLAY PARAMETERS,PARAMETRI GAMEPLAY
 ,,,
 -Blocks selection-,,,
-GC_BS_LABEL1,GC_BS_LABEL1,BLOCK COLORS,
-GC_BS_LABEL2,GC_BS_LABEL2,SPECIAL BLOCKS,
-RED_BLOCK,RED_BLOCK,Red,
-RED_BLOCK_DESC,RED_BLOCK_DESC,Toggle red color blocks.,
-WHITE_BLOCK,WHITE_BLOCK,White,
-WHITE_BLOCK_DESC,WHITE_BLOCK_DESC,Toggle white color blocks.,
-GREEN_BLOCK,GREEN_BLOCK,Green,
-GREEN_BLOCK_DESC,GREEN_BLOCK_DESC,Toggle green color blocks.,
-PURPLE_BLOCK,PURPLE_BLOCK,Purple,
-PURPLE_BLOCK_DESC,PURPLE_BLOCK_DESC,Toggle purple color blocks.,
-SPECIAL_DELAY,SPECIAL_DELAY,Special blocks delay,
-SPECIAL_DELAY_DESC,SPECIAL_DELAY_DESC,Set how much pieces must pass before giving piece with special block.,
-INSTANT_SPECIAL,INSTANT_SPECIAL,Instant special blocks,
-INSTANT_SPECIAL_DESC,INSTANT_SPECIAL_DESC,Makes special blocks work instantly on land like in Lumines Remastered.,
-CHAIN_BLOCK,CHAIN_BLOCK,Chain,
-CHAIN_BLOCK_DESC,CHAIN_BLOCK_DESC,"Toggle ""chain"" special block. This block chains adjacent same-colored blocks and makes them erasable by the timeline.",
-MERGE_BLOCK,MERGE_BLOCK,Merge,
-MERGE_BLOCK_DESC,MERGE_BLOCK_DESC,"Toggle ""merge"" special block. This block turns all blocks in a 3 block radius into the same color.",
-LASER_BLOCK,LASER_BLOCK,Laser,
-LASER_BLOCK_DESC,LASER_BLOCK_DESC,"Toggle ""laser"" special block. When this block is erased by timeline it removes all blocks in 8 directions lines.",
-WIPE_BLOCK,WIPE_BLOCK,Wipe,
-WIPE_BLOCK_DESC,WIPE_BLOCK_DESC,"Toggle ""wipe"" special block. This block makes all blocks in 3 blocks radius erasable be timeline no matter where they are placed.",
-MULTI_BLOCK,MULTI_BLOCK,Multi,
-MULTI_BLOCK_DESC,MULTI_BLOCK_DESC,"Toggle ""multi"" special block. This block can be formed in square with any other block color. It appears 4 times more than other special blocks.",
-DARK_BLOCK,DARK_BLOCK,Dark,
-DARK_BLOCK_DESC,DARK_BLOCK_DESC,"Toggle ""dark"" block. This block frequently appears in pieces and cannot be squared. You can destroy it by erasing adjacent blocks.",
-CHAOS_BLOCK,CHAOS_BLOCK,Chaos,
-CHAOS_BLOCK_DESC,CHAOS_BLOCK_DESC,"Toggle ""chaos"" block. This block changes its color each time the timeline passes.",
+GC_BS_LABEL1,GC_BS_LABEL1,BLOCK COLORS,COLORE BLOCCHI
+GC_BS_LABEL2,GC_BS_LABEL2,SPECIAL BLOCKS,BLOCCHI SPECIALI
+RED_BLOCK,RED_BLOCK,Red,Rosso
+RED_BLOCK_DESC,RED_BLOCK_DESC,Toggle red color blocks.,Imposta blocchi rossi
+WHITE_BLOCK,WHITE_BLOCK,White,Bianco
+WHITE_BLOCK_DESC,WHITE_BLOCK_DESC,Toggle white color blocks.,Imposta blocchi bianchi
+GREEN_BLOCK,GREEN_BLOCK,Green,Verde
+GREEN_BLOCK_DESC,GREEN_BLOCK_DESC,Toggle green color blocks.,Imposta blocchi verdi
+PURPLE_BLOCK,PURPLE_BLOCK,Purple,Viola
+PURPLE_BLOCK_DESC,PURPLE_BLOCK_DESC,Toggle purple color blocks.,Imposta blocchi viola
+SPECIAL_DELAY,SPECIAL_DELAY,Special blocks delay,Frequenza blocchi speciali
+SPECIAL_DELAY_DESC,SPECIAL_DELAY_DESC,Set how much pieces must pass before giving piece with special block.,Imposta quanti pezzi bisogna utilizzare prima di riceverne uno con un blocco speciale
+INSTANT_SPECIAL,INSTANT_SPECIAL,Instant special blocks,Speciale istantaneo
+INSTANT_SPECIAL_DESC,INSTANT_SPECIAL_DESC,Makes special blocks work instantly on land like in Lumines Remastered.,I blocchi speciali si attivano subito quando atterrano. Proprio come in Lumines Remastered
+CHAIN_BLOCK,CHAIN_BLOCK,Chain,Catena
+CHAIN_BLOCK_DESC,CHAIN_BLOCK_DESC,"Toggle ""chain"" special block. This block chains adjacent same-colored blocks and makes them erasable by the timeline.","Imposta il blocco ""catena"". Si collega ad altri blocchi del suo stesso colore, rendendoli eliminabili al passaggio della timeline"
+MERGE_BLOCK,MERGE_BLOCK,Merge,Combina
+MERGE_BLOCK_DESC,MERGE_BLOCK_DESC,"Toggle ""merge"" special block. This block turns all blocks in a 3 block radius into the same color.","Imposta il blocco ""combina"". Trasforma tutti i blocchi in un raggio di 3 celle nel suo stesso colore"
+LASER_BLOCK,LASER_BLOCK,Laser,Laser
+LASER_BLOCK_DESC,LASER_BLOCK_DESC,"Toggle ""laser"" special block. When this block is erased by timeline it removes all blocks in 8 directions lines.","Imposta il blocco ""laser"". Quando questo blocco viene cancellato dalla timeline, rimuove pure tutti i blocchi che incontra in tutte e 8 le direzioni"
+WIPE_BLOCK,WIPE_BLOCK,Wipe,Scanner
+WIPE_BLOCK_DESC,WIPE_BLOCK_DESC,"Toggle ""wipe"" special block. This block makes all blocks in 3 blocks radius erasable be timeline no matter where they are placed.","Imposta il blocco ""scanner"". Fa sì che tutti i blocchi in un raggio di 2 celle del suo stesso colore, diventano cancellabili indipendentemente dal loro piazzamento"
+MULTI_BLOCK,MULTI_BLOCK,Multi,Multi
+MULTI_BLOCK_DESC,MULTI_BLOCK_DESC,"Toggle ""multi"" special block. This block can be formed in square with any other block color. It appears 4 times more than other special blocks.","Imposta il blocco ""multi"". Si può formare un quadrato di qualsiasi colore con questo ed appare 4 volte più del solito rispetto agli altri"
+DARK_BLOCK,DARK_BLOCK,Dark,Scuro
+DARK_BLOCK_DESC,DARK_BLOCK_DESC,"Toggle ""dark"" block. This block frequently appears in pieces and cannot be squared. You can destroy it by erasing adjacent blocks.","Imposta il blocco ""scuro"". Appare spesso nei pezzi e non si possono formare quadrati con esso. Può essere eliminato formando dei quadrati adiacenti"
+CHAOS_BLOCK,CHAOS_BLOCK,Chaos,Caos
+CHAOS_BLOCK_DESC,CHAOS_BLOCK_DESC,"Toggle ""chaos"" block. This block changes its color each time the timeline passes.","Imposta il blocco ""caos"". Questo blocco cambia colore ad ogni passaggio della timeline"
 ,,,
 -Game rules-,,,
-PIECE_SWAP,PIECE_SWAP,Piece swap,
-PIECE_SWAP_DESC,PIECE_SWAP_DESC,"Toggle piece swap mechanic, which allows to replace current piece with next piece in queue.",
-POS_SAVE,POS_SAVE,Position saving,
-POS_SAVE_DESC,POS_SAVE_DESC,"If enabled piece will appear at current holder position, instead of appearing in the center of the game field like in original Lumines.",
-SQUARE_SCORE,SQUARE_SCORE,Square explosion scoring,
-SQUARE_SCORE_DESC,SQUARE_SCORE_DESC,"If enabled, score will also be given for each individual square group explosion",
-COMBO_SYSTEM,COMBO_SYSTEM,Combo system,
-COMBO_SYSTEM_DESC,COMBO_SYSTEM_DESC,"Enables combo meter, which is filled by doing 4x bonuses and it multiplies all incoming score",
-MAX_COMBO,MAX_COMBO,Max combo,
-MAX_COMBO_DESC,MAX_COMBO_DESC,Set maximum combo value which will multiply incoming score.,
-CLASSIC_SCORE,CLASSIC_SCORE,Classic scoring,
-CLASSIC_SCORE_DESC,CLASSIC_SCORE_DESC,Toggle classic scoring system which is similar to Lumines scoring system.,
+PIECE_SWAP,PIECE_SWAP,Piece swap,Scambia pezzo
+PIECE_SWAP_DESC,PIECE_SWAP_DESC,"Toggle piece swap mechanic, which allows to replace current piece with next piece in queue.","Imposta lo scambio pezzo, che permette di rimpiazzare il pezzo in uso con il prossimo della fila"
+POS_SAVE,POS_SAVE,Position saving,Salva posizione
+POS_SAVE_DESC,POS_SAVE_DESC,"If enabled piece will appear at current holder position, instead of appearing in the center of the game field like in original Lumines.","Se attivato, il prossimo pezzo apparira nel punto in cui è caduto il precedente e non al centro"
+SQUARE_SCORE,SQUARE_SCORE,Square explosion scoring,Favorisci esplosione quadrato
+SQUARE_SCORE_DESC,SQUARE_SCORE_DESC,"If enabled, score will also be given for each individual square group explosion","Se attivato, i punti verranno dati quando si fa esplodere uno o più quadrati"
+COMBO_SYSTEM,COMBO_SYSTEM,Combo system,Sistema combo
+COMBO_SYSTEM_DESC,COMBO_SYSTEM_DESC,"Enables combo meter, which is filled by doing 4x bonuses and it multiplies all incoming score","Abilita la barra combo, che si riempe ottenendo bonus ×4 e moltiplica il punteggio seguente"
+MAX_COMBO,MAX_COMBO,Max combo,Combo massima
+MAX_COMBO_DESC,MAX_COMBO_DESC,Set maximum combo value which will multiply incoming score.,Limita quanto la combo può moltiplicare il punteggio.
+CLASSIC_SCORE,CLASSIC_SCORE,Classic scoring,Sistema classico
+CLASSIC_SCORE_DESC,CLASSIC_SCORE_DESC,Toggle classic scoring system which is similar to Lumines scoring system.,Imposta il sistema di punteggio classico che è molto simile a quello del Lumines originale
 ,,,
 -Game parameters-,,,
-SEED,SEED,Seed,
-SEED_DESC,SEED_DESC,Enter seed value which determines all game random events (ex. pieces patterns). If set to 0 seed will be random on each retry.,
-SEED_DIALOG,SEED_DIALOG,Enter seed number,
-PIECE_FALL_SPEED,PIECE_FALL_SPEED,Piece fall speed,
-PIECE_FALL_SPEED_DESC,PIECE_FALL_SPEED_DESC,Set piece fall speed in seconds. If set to 0 piece will drop instantly.,
-PIECE_FALL_DELAY,PIECE_FALL_DELAY,Piece fall delay,
-PIECE_FALL_DELAY_DESC,PIECE_FALL_DELAY_DESC,Set delay in seconds before piece starts falling by itself.,
-QUICK_DROP_SPEED,QUICK_DROP_SPEED,Piece quick drop speed,
-QUICK_DROP_SPEED_DESC,QUICK_DROP_SPEED_DESC,Set piece quick drop speed multiplier.,
-PIECE_DASH_SPEED,PIECE_DASH_SPEED,Piece dash speed,
-PIECE_DASH_SPEED_DESC,PIECE_DASH_SPEED_DESC,Set piece dash speed multiplier.,
-PIECE_DASH_DELAY,PIECE_DASH_DELAY,Piece dash delay,
-PIECE_DASH_DELAY_DESC,PIECE_DASH_DELAY_DESC,Set delay in seconds before piece starts dashing.,
-BLOCK_GRAVITY,BLOCK_GRAVITY,Block gravity,
-BLOCK_GRAVITY_DESC,BLOCK_GRAVITY_DESC,Set block fall speed multiplier.,
-DIFFICUTLY_GROW,DIFFICUTLY_GROW,Difficulty grow speed,
-DIFFICUTLY_GROW_DESC,DIFFICUTLY_GROW_DESC,Set how much per level decreases piece delay and increases piece speed multiplier.,
-LEVEL_LENGTH,LEVEL_LENGTH,Level length,
-LEVEL_LENGTH_DESC,LEVEL_LENGTH_DESC,Set how much squares must be erased before level up.,
-LEVEL_COUNT,LEVEL_COUNT,Level count,
-LEVEL_COUNT_DESC,LEVEL_COUNT_DESC,Set how much levels you need to beat to move onto the next skin.,
-FORCE_BPM,FORCE_BPM,Force BPM,
-FORCE_BPM_DESC,FORCE_BPM_DESC,Force BPM which will be used in all skins. Set to 0 to disable this setting. Requires skin restart to take action.,
+SEED,SEED,Seed,Seed
+SEED_DESC,SEED_DESC,Enter seed value which determines all game random events (ex. pieces patterns). If set to 0 seed will be random on each retry.,"Imposta il valore del seed che determina la casualità del gioco (Es. sequenza pezzi). Se si mette 0, il seed sarà casuale ad ogni partita"
+SEED_DIALOG,SEED_DIALOG,Enter seed number,Inserisci numero Seed
+PIECE_FALL_SPEED,PIECE_FALL_SPEED,Piece fall speed,Velocità caduta pezzi
+PIECE_FALL_SPEED_DESC,PIECE_FALL_SPEED_DESC,Set piece fall speed in seconds. If set to 0 piece will drop instantly.,"Imposta velocità di caduta in secondi. Se impostata a 0, il pezzo atterrerà subito"
+PIECE_FALL_DELAY,PIECE_FALL_DELAY,Piece fall delay,Attivazione caduta pezzi
+PIECE_FALL_DELAY_DESC,PIECE_FALL_DELAY_DESC,Set delay in seconds before piece starts falling by itself.,Imposta il ritardo in secondi prima che il pezzo cade da solo
+QUICK_DROP_SPEED,QUICK_DROP_SPEED,Piece quick drop speed,Velocità quick drop
+QUICK_DROP_SPEED_DESC,QUICK_DROP_SPEED_DESC,Set piece quick drop speed multiplier.,Imposta il moltiplicatore della velocità del quick drop
+PIECE_DASH_SPEED,PIECE_DASH_SPEED,Piece dash speed,Velocità scatto
+PIECE_DASH_SPEED_DESC,PIECE_DASH_SPEED_DESC,Set piece dash speed multiplier.,Imposta il moltiplicatore della velocità dello scatto
+PIECE_DASH_DELAY,PIECE_DASH_DELAY,Piece dash delay,Attivazione scatto
+PIECE_DASH_DELAY_DESC,PIECE_DASH_DELAY_DESC,Set delay in seconds before piece starts dashing.,Imposta il ritardo in secondi prima che il pezzo scatta
+BLOCK_GRAVITY,BLOCK_GRAVITY,Block gravity,Gravità
+BLOCK_GRAVITY_DESC,BLOCK_GRAVITY_DESC,Set block fall speed multiplier.,Imposta il moltiplicatore della veolcità di caduta
+DIFFICUTLY_GROW,DIFFICUTLY_GROW,Difficulty grow speed,Velocità di crescita di difficoltà
+DIFFICUTLY_GROW_DESC,DIFFICUTLY_GROW_DESC,Set how much per level decreases piece delay and increases piece speed multiplier.,Imposta il moltiplicatore di quanto riduce il ritardo e aumenta la velocità del pezzo per livello
+LEVEL_LENGTH,LEVEL_LENGTH,Level length,Lunghezza livello
+LEVEL_LENGTH_DESC,LEVEL_LENGTH_DESC,Set how much squares must be erased before level up.,Imposta quanti quadrati devi cancellare prima di passare al livello successivo
+LEVEL_COUNT,LEVEL_COUNT,Level count,Lunghezza skin
+LEVEL_COUNT_DESC,LEVEL_COUNT_DESC,Set how much levels you need to beat to move onto the next skin.,Imposta quanti livelli devi superare prima di passare alla prossima skin
+FORCE_BPM,FORCE_BPM,Force BPM,Forza BPM
+FORCE_BPM_DESC,FORCE_BPM_DESC,Force BPM which will be used in all skins. Set to 0 to disable this setting. Requires skin restart to take action.,Forza il BPM che verra usato in tutte le skin. Imposta a 0 per disabilitare questa opzione. Richiede un riavvio della skin per farlo funzionare
 ,,,
 -Time attack mode menu-,,,
-SELECT_TIME,SELECT_TIME,Select time,
-60_SEC_DESC,60_SEC_DESC,Set 60 seconds (1 minute) time limit.,
-120_SEC_DESC,120_SEC_DESC,Set 120 seconds (2 minutes) time limit.,
-180_SEC_DESC,180_SEC_DESC,Set 180 seconds (3 minutes) time limit.,
-300_SEC_DESC,300_SEC_DESC,Set 300 seconds (5 minutes) time limit.,
-600_SEC_DESC,600_SEC_DESC,Set 600 seconds (10 minutes) time limit.,
-CUSTOM_SEC_DESC,CUSTOM_SEC_DESC,Set your own time limit. Your record won't be saved.,
-SEC,SEC,sec,
-SELECT_RULESET,SELECT_RULESET,Select ruleset,
-TA_STANDARD,TA_STANDARD,Standard,
-TA_STANDARD_DESC,TA_STANDARD_DESC,"Standard Luminext time attack rules. Features piece position saving, piece swapping, and only the merge special block is available",
-TA_CLASSIC,TA_CLASSIC,Classic,
-TA_CLASSIC_DESC,TA_CLASSIC_DESC,"Classic Lumines time attack rules. No position saving, piece swapping, and only chain special block is available",
-TA_ARCADE,TA_ARCADE,Arcade,
-TA_ARCADE_DESC,TA_ARCADE_DESC,"Same as standard, but all 4 main special blocks + multi blocks are available and will appear frequently.",
-TA_3_COLOR,TA_3_COLOR,3 Color,
-TA_3_COLOR_DESC,TA_3_COLOR_DESC,Same as standard but features 3 block colors instead of 2. The Multi and Wipe special blocks are available,
-TA_EXPERT,TA_EXPERT,Expert,
-TA_EXPERT_DESC,TA_EXPERT_DESC,Hard rules featuring garbage and chaos blocks. Only the laser special block is available,
-TA_CUSTOM,TA_CUSTOM,Custom,
-RANDOM_MIXES,RANDOM_MIXES,Random music mixes,
-RANDOM_MIXES_DESC,RANDOM_MIXES_DESC,Randomize music/scenery mixes to make process less repetitive (Custom time limit always uses standard mix),
-SAVE_ONLINE_SCORE,SAVE_ONLINE_SCORE,Save scores online,
-SAVE_ONLINE_SCORE_DESC,SAVE_ONLINE_SCORE_DESC,"If disabled, scores won't be published to online leaderboards and will only be saved to local leaderboard",
-TA_START,TA_START,Start,
-TA_START_DESC,TA_START_DESC,Start time attack session.,
-TA_HIGHSCORE,TA_HIGHSCORE,HIGHEST SCORE :,
-TA_AVERAGE,TA_AVERAGE,AVERAGE SCORE :,
-TA_ARROW1,TA_ARROW1,GAME SETUP,
-TA_ARROW2,TA_ARROW2,SELECTED MODE STATISTICS,
-TA_ARROW3,TA_ARROW3,DESCRIPTION,
-TA_ARROW4,TA_ARROW4,SCORE RANKING,
-TA_LOCAL,TA_LOCAL,LOCAL,
-TA_LOCAL_DESC,TA_LOCAL_DESC,Show local leaderboard.,
-TA_ONLINE,TA_ONLINE,ONLINE,
-TA_TOTAL,TA_TOTAL,TOTAL,
-TA_TOTAL_DESC,TA_TOTAL_DESC,Show online total leaderboard.,
-TA_MONTHLY,TA_MONTHLY,MONTHLY,
-TA_MONTHLY_DESC,TA_MONTHLY_DESC,Show online monthly leaderboard.,
-TA_WEEKLY,TA_WEEKLY,WEEKLY,
-TA_WEEKLY_DESC,TA_WEEKLY_DESC,Show online weekly leaderboard.,
-TA_RESET_IN,TA_RESET_IN,RESET IN :,
-TA_NOT_AVAIABLE,TA_NOT_AVAIABLE,SCORE RANKING IS NOT AVAIABLE IN CUSTOM SEC MODE...,
-TA_REPLAY_DIALOG,TA_REPLAY_DIALOG,Do you want to play this player record replay?,
+SELECT_TIME,SELECT_TIME,Select time,Seleziona tempo
+60_SEC_DESC,60_SEC_DESC,Set 60 seconds (1 minute) time limit.,Imposta 60 secondi (1 minuto) come tempo
+120_SEC_DESC,120_SEC_DESC,Set 120 seconds (2 minutes) time limit.,Imposta 120 secondi (2 minuti) come tempo
+180_SEC_DESC,180_SEC_DESC,Set 180 seconds (3 minutes) time limit.,Imposta 180 secondi (3 minuti) come tempo
+300_SEC_DESC,300_SEC_DESC,Set 300 seconds (5 minutes) time limit.,Imposta 300 secondi (5 minuti) come tempo
+600_SEC_DESC,600_SEC_DESC,Set 600 seconds (10 minutes) time limit.,Imposta 600 secondi (10 minuti) come tempo
+CUSTOM_SEC_DESC,CUSTOM_SEC_DESC,Set your own time limit. Your record won't be saved.,Imposta il tuo tempo limite. Il tuo record non verrà salvato.
+SEC,SEC,sec,sec
+SELECT_RULESET,SELECT_RULESET,Select ruleset,Seleziona regole
+TA_STANDARD,TA_STANDARD,Standard,Standard
+TA_STANDARD_DESC,TA_STANDARD_DESC,"Standard Luminext time attack rules. Features piece position saving, piece swapping, and only the merge special block is available","Regole standard di Luminext. Include salva posizione, scambio pezzo e solo ""combina"" è disponibile come blocco speciale"
+TA_CLASSIC,TA_CLASSIC,Classic,Classico
+TA_CLASSIC_DESC,TA_CLASSIC_DESC,"Classic Lumines time attack rules. No position saving, piece swapping, and only chain special block is available","Regole classiche di Lumines. Senza salva posizione e scambio e solo ""catena"" come blocco speciale"
+TA_ARCADE,TA_ARCADE,Arcade,Arcade
+TA_ARCADE_DESC,TA_ARCADE_DESC,"Same as standard, but all 4 main special blocks + multi blocks are available and will appear frequently.",Simile a standard ma con tutti e 4 i blocchi speciali e i blocchi multi
+TA_3_COLOR,TA_3_COLOR,3 Color,Tricolore
+TA_3_COLOR_DESC,TA_3_COLOR_DESC,Same as standard but features 3 block colors instead of 2. The Multi and Wipe special blocks are available,"Simile a standard ma con 3 colori invece di 2. In più, blocchi multi e ""scanner"" sono disponibili"
+TA_EXPERT,TA_EXPERT,Expert,Esperto
+TA_EXPERT_DESC,TA_EXPERT_DESC,Hard rules featuring garbage and chaos blocks. Only the laser special block is available,"Regole ristrettive con blocchi scuri e casuali. Inoltre, solo ""laser"" come blocco speciale"
+TA_CUSTOM,TA_CUSTOM,Custom,Custom
+RANDOM_MIXES,RANDOM_MIXES,Random music mixes,Randomizza il Mix
+RANDOM_MIXES_DESC,RANDOM_MIXES_DESC,Randomize music/scenery mixes to make process less repetitive (Custom time limit always uses standard mix),Randomizza la musica e lo scenario per rendere il processo meno ripetitivo (tempo limite personalizzato usa sempre il mix standard)
+SAVE_ONLINE_SCORE,SAVE_ONLINE_SCORE,Save scores online,Salva punteggi online
+SAVE_ONLINE_SCORE_DESC,SAVE_ONLINE_SCORE_DESC,"If disabled, scores won't be published to online leaderboards and will only be saved to local leaderboard","Se disabilitato, i punteggi non verranno pubblicati nella leaderboard online e verranno salvati solo in quella locale"
+TA_START,TA_START,Start,Inizia
+TA_START_DESC,TA_START_DESC,Start time attack session.,Inizia la sessione
+TA_HIGHSCORE,TA_HIGHSCORE,HIGHEST SCORE :,RECORD :
+TA_AVERAGE,TA_AVERAGE,AVERAGE SCORE :,PUNTEGGIO MEDIO :
+TA_ARROW1,TA_ARROW1,GAME SETUP,IMPOSTAZIONE GIOCO
+TA_ARROW2,TA_ARROW2,SELECTED MODE STATISTICS,STATISTICHE DELLA MODALITÀ SELEZIONATA
+TA_ARROW3,TA_ARROW3,DESCRIPTION,DESCRIZIONE
+TA_ARROW4,TA_ARROW4,SCORE RANKING,CLASSIFICA
+TA_LOCAL,TA_LOCAL,LOCAL,LOCALE
+TA_LOCAL_DESC,TA_LOCAL_DESC,Show local leaderboard.,Vedi leaderboard locale
+TA_ONLINE,TA_ONLINE,ONLINE,ONLINE
+TA_TOTAL,TA_TOTAL,TOTAL,MONDIALE
+TA_TOTAL_DESC,TA_TOTAL_DESC,Show online total leaderboard.,Vedi leaderboard online mondiale
+TA_MONTHLY,TA_MONTHLY,MONTHLY,MENSILE
+TA_MONTHLY_DESC,TA_MONTHLY_DESC,Show online monthly leaderboard.,Vedi leaderboard online di questo mese
+TA_WEEKLY,TA_WEEKLY,WEEKLY,SETTIMANALE
+TA_WEEKLY_DESC,TA_WEEKLY_DESC,Show online weekly leaderboard.,Vedi leaderboard online di questa settimana
+TA_RESET_IN,TA_RESET_IN,RESET IN :,RESET IN :
+TA_NOT_AVAIABLE,TA_NOT_AVAIABLE,SCORE RANKING IS NOT AVAIABLE IN CUSTOM SEC MODE...,LEADERBOARD NON DISPONIBILE PER NUMERO DI SECONDI PERSONALIZZATO…
+TA_REPLAY_DIALOG,TA_REPLAY_DIALOG,Do you want to play this player record replay?,Vuoi vedere questo replay del record ottenuto dal giocatore?
 ,,,
 -Synthesia mode menu-,,,
-SELECT_VISUALIZER,SELECT_VISUALIZER,Select visualizer design,
-SHOCKWAVE_FANCY,SHOCKWAVE_FANCY,SHOCKWAVE (FANCY),
-SHOCKWAVE_FANCY_DESC,SHOCKWAVE_FANCY_DESC,Rainbow trippy shockwave which shakes with the beat of music.,
-SHOCKWAVE_SIMPLE,SHOCKWAVE_SIMPLE,SHOCKWAVE (SIMPLE),
-SHOCKWAVE_SIMPLE_DESC,SHOCKWAVE_SIMPLE_DESC,Simplier version of the Shockwave background with better performance.,
-EDEN,EDEN,EDEN,
-EDEN_DESC,EDEN_DESC,Background inspired by the stage select animation from the game Rez.,
-SELECT_SOUND,SELECT_SOUND,Select sound set,
-DRUMS,DRUMS,DRUMS,
-DRUMS_DESC,DRUMS_DESC,Sound set based on various drum sets.,
-RETRO,RETRO,PIXEL,
-RETRO_DESC,RETRO_DESC,Sound set featuring 8-bit samples made with BFXR.,
-SYNTHESIA_HELP1,SYNTHESIA_HELP1,Put some music files into your system music library folder to play.,
-SYNTHESIA_HELP2,SYNTHESIA_HELP2,"Only .ogg, .mp3 and .wav files are supported.",
-OTHER_SETTINGS,OTHER_SETTINGS,Other settings,
-PLAY_INFINITE,PLAY_INFINITE,PLAY INFINITELY,
-PLAY_INFINITE_DESC,PLAY_INFINITE_DESC,Play the song infinitely instead of the game ending when the song ends.,
-PRECISE_BPM,PRECISE_BPM,PRECISE BPM CALCULATION,
-PRECISE_BPM_DESC,PRECISE_BPM_DESC,"Calculate the song’s BPM in the most accurate way. This may take a while, as the entire song will be scanned.",
-SYNTHESIA_ARROW1,SYNTHESIA_ARROW1,MUSIC LIST,
-SYNTHESIA_ARROW2,SYNTHESIA_ARROW2,DESCRIPTION,
-SYNTHESIA_ARROW3,SYNTHESIA_ARROW3,MENU,
-ENTER_DIR,ENTER_DIR,Enter to view this directory contents,
-ENTER_PLAY,ENTER_PLAY,Start the game with this song,
-BACK_DIR,BACK_DIR,Return back into upper directory,
+SELECT_VISUALIZER,SELECT_VISUALIZER,Select visualizer design,Seleziona design del visualizzatore
+SHOCKWAVE_FANCY,SHOCKWAVE_FANCY,SHOCKWAVE (FANCY),SCOSSE (DETTAGLIATO)
+SHOCKWAVE_FANCY_DESC,SHOCKWAVE_FANCY_DESC,Rainbow trippy shockwave which shakes with the beat of music.,Scosse multicolore che si amplificano a ritmo della musica
+SHOCKWAVE_SIMPLE,SHOCKWAVE_SIMPLE,SHOCKWAVE (SIMPLE),SCOSSE (SEMPLICE)
+SHOCKWAVE_SIMPLE_DESC,SHOCKWAVE_SIMPLE_DESC,Simplier version of the Shockwave background with better performance.,Versione semplice dello sfondo a scosse con performance migliore
+EDEN,EDEN,EDEN,EDEN
+EDEN_DESC,EDEN_DESC,Background inspired by the stage select animation from the game Rez.,Sfondo ispirato alla selezione stage di Rez
+SELECT_SOUND,SELECT_SOUND,Select sound set,Seleziona set di suoni
+DRUMS,DRUMS,DRUMS,PERCUSSIONI
+DRUMS_DESC,DRUMS_DESC,Sound set based on various drum sets.,Set basato su diversi set di percussioni elettroniche
+RETRO,RETRO,PIXEL,PIXEL
+RETRO_DESC,RETRO_DESC,Sound set featuring 8-bit samples made with BFXR.,Set di sample 8-bit prodotti con BFXR
+SYNTHESIA_HELP1,SYNTHESIA_HELP1,Put some music files into your system music library folder to play.,Metti un po' di file di musica nella tua libreria musicale del tuo computer da giocare.
+SYNTHESIA_HELP2,SYNTHESIA_HELP2,"Only .ogg, .mp3 and .wav files are supported.",Solo .ogg .mp3 e .wav sono compatibili
+OTHER_SETTINGS,OTHER_SETTINGS,Other settings,Altre impostazioni
+PLAY_INFINITE,PLAY_INFINITE,PLAY INFINITELY,GIOCA INFINITAMENTE
+PLAY_INFINITE_DESC,PLAY_INFINITE_DESC,Play the song infinitely instead of the game ending when the song ends.,Metti in loop la canzone invece di far finire il gioco quando finisce
+PRECISE_BPM,PRECISE_BPM,PRECISE BPM CALCULATION,BPM PRECISO
+PRECISE_BPM_DESC,PRECISE_BPM_DESC,"Calculate the song’s BPM in the most accurate way. This may take a while, as the entire song will be scanned.",Calcola il BPM nel modo più accurato possibile. Potrebbe metterci molto tempo dato che scannerizza l'intera canzone
+SYNTHESIA_ARROW1,SYNTHESIA_ARROW1,MUSIC LIST,LISTA MUSICA
+SYNTHESIA_ARROW2,SYNTHESIA_ARROW2,DESCRIPTION,DESCRIZIONE
+SYNTHESIA_ARROW3,SYNTHESIA_ARROW3,MENU,MENU
+ENTER_DIR,ENTER_DIR,Enter to view this directory contents,Vedi contenuti della directory
+ENTER_PLAY,ENTER_PLAY,Start the game with this song,Inizia la partita con questa canzone
+BACK_DIR,BACK_DIR,Return back into upper directory,Ritorna alla directory precedente
 ,,,
 -Accept dialog-,,,
-SELECT_OPTION,SELECT_OPTION,Select option,
-YES,YES,Yes,
-NO,NO,No,
-DIALOG_ARROW,DIALOG_ARROW,CONFIRMATION DIALOG,
+SELECT_OPTION,SELECT_OPTION,Select option,Seleziona opzione
+YES,YES,Yes,Sì
+NO,NO,No,No
+DIALOG_ARROW,DIALOG_ARROW,CONFIRMATION DIALOG,DIALOGO DI CONFERMA
 ,,,
 -Input dialog-,,,
-INPUT_TEXT,INPUT_TEXT,Input text here,
-INPUT_CANCEL,INPUT_CANCEL,Press ESC to cancel,
-INPUT_ARROW,INPUT_ARROW,TEXT INPUT,
+INPUT_TEXT,INPUT_TEXT,Input text here,Digitare il testo qui
+INPUT_CANCEL,INPUT_CANCEL,Press ESC to cancel,Premere ESC per annullare
+INPUT_ARROW,INPUT_ARROW,TEXT INPUT,INPUT DI TESTO
 ,,,
 -Playlist load-,,,
-SELECT_PLAYLIST,SELECT_PLAYLIST,Select playlist to load,
-PLAYLIST_LOAD_CANCEL,PLAYLIST_LOAD_CANCEL,Cancel and return to the playlist mode menu.,
-PLAYLIST_LOAD_ARROW,PLAYLIST_LOAD_ARROW,PLAYLIST LOAD,
-NO_PLAYLISTS,NO_PLAYLISTS,No playlists found!,
-THIS_PLAYLIST,THIS_PLAYLIST,Load selected playlist.,
-FAILED_PLAYLIST,FAILED_PLAYLIST,LOAD FAILED :,
-CORRUPT_PLAYLIST,CORRUPT_PLAYLIST,INVALID PLAYLIST DATA :,
+SELECT_PLAYLIST,SELECT_PLAYLIST,Select playlist to load,Seleziona playlist da caricare
+PLAYLIST_LOAD_CANCEL,PLAYLIST_LOAD_CANCEL,Cancel and return to the playlist mode menu.,Annulla caricamento e ritorna al menu della playlist
+PLAYLIST_LOAD_ARROW,PLAYLIST_LOAD_ARROW,PLAYLIST LOAD,CARICA PLAYLIST
+NO_PLAYLISTS,NO_PLAYLISTS,No playlists found!,Nessuna playlist trovata!
+THIS_PLAYLIST,THIS_PLAYLIST,Load selected playlist.,Carica playlist selezionata
+FAILED_PLAYLIST,FAILED_PLAYLIST,LOAD FAILED :,CARICAMENTO FALLITO :
+CORRUPT_PLAYLIST,CORRUPT_PLAYLIST,INVALID PLAYLIST DATA :,DATI PLAYLIST INVALIDI :
 ,,,
 -Preset load-,,,
-SELECT_PRESET,SELECT_PRESET,Select gameplay preset to load,
-PRESET_LOAD_CANCEL,PRESET_LOAD_CANCEL,Cancel and return to the game configuration menu.,
-PRESET_LOAD_ARROW,PRESET_LOAD_ARROW,PRESET LOAD,
-NO_PRESETS,NO_PRESETS,No presets found!,
-THIS_PRESET,THIS_PRESET,Load selected preset.,
-FAILED_PRESET,FAILED_PRESET,LOAD FAILED :,
-CORRUPT_PRESET,CORRUPT_PRESET,INVALID PRESET DATA :,
+SELECT_PRESET,SELECT_PRESET,Select gameplay preset to load,Seleziona una configurazione da caricare
+PRESET_LOAD_CANCEL,PRESET_LOAD_CANCEL,Cancel and return to the game configuration menu.,Annulla caricamento e ritorna al menu di configurazione
+PRESET_LOAD_ARROW,PRESET_LOAD_ARROW,PRESET LOAD,CARICA CONFIGURAZIONE
+NO_PRESETS,NO_PRESETS,No presets found!,Nessuna configurazione trovata!
+THIS_PRESET,THIS_PRESET,Load selected preset.,Carica configurazione selezionata
+FAILED_PRESET,FAILED_PRESET,LOAD FAILED :,CARICAMENTO FALLITO :
+CORRUPT_PRESET,CORRUPT_PRESET,INVALID PRESET DATA :,DATI CONFIGURAZIONE INVALIDI :
 ,,,
 -Button layout-,,,
-LAYOUT_SELECT,LAYOUT_SELECT,SELECT,
-LAYOUT_ENTER,LAYOUT_ENTER,ENTER,
-LAYOUT_BACK_TO_PREV,LAYOUT_BACK_TO_PREV,RETURN TO PREVIOUS SCREEN,
-LAYOUT_CHANGE_INPUT,LAYOUT_CHANGE_INPUT,CHANGE INPUT,
-LAYOUT_ADD_SKIN,LAYOUT_ADD_SKIN,ADD THIS SKIN TO A PLAYLIST,
-LAYOUT_PLAY_SKIN,LAYOUT_PLAY_SKIN,PLAY THIS SKIN,
-LAYOUT_SWAP_SKIN,LAYOUT_SWAP_SKIN,SWAP THIS SKIN,
-LAYOUT_REMOVE_SKIN,LAYOUT_REMOVE_SKIN,REMOVE THIS SKIN FROM A PLAYLIST,
-LAYOUT_SLIDER,LAYOUT_SLIDER,CHANGE SLIDER VALUE,
-LAYOUT_EXIT,LAYOUT_EXIT,EXIT FROM THE GAME,
-LAYOUT_TOGGLE,LAYOUT_TOGGLE,TOGGLE ON/OFF,
-LAYOUT_PLAY_SONG,LAYOUT_PLAY_SONG,PLAY WITH THIS SONG,
-LAYOUT_TIME_LIMIT,LAYOUT_TIME_LIMIT,CHOOSE THIS TIME LIMIT,
-LAYOUT_PROFILE,LAYOUT_PROFILE,CHOOSE THIS PROFILE,
-LAYOUT_SCROLL,LAYOUT_SCROLL,SCROLL UP/DOWN,
-LAYOUT_BACK_TO_GAME,LAYOUT_BACK_TO_GAME,RETURN TO THE GAME,
-LAYOUT_BACK_TO_MENU,LAYOUT_BACK_TO_MENU,RETURN TO THE MENU,
+LAYOUT_SELECT,LAYOUT_SELECT,SELECT,SELEZIONA
+LAYOUT_ENTER,LAYOUT_ENTER,ENTER,CONFERMA
+LAYOUT_BACK_TO_PREV,LAYOUT_BACK_TO_PREV,RETURN TO PREVIOUS SCREEN,RITORNA AL MENU PRECEDENTE
+LAYOUT_CHANGE_INPUT,LAYOUT_CHANGE_INPUT,CHANGE INPUT,CAMBIA INPUT
+LAYOUT_ADD_SKIN,LAYOUT_ADD_SKIN,ADD THIS SKIN TO A PLAYLIST,AGGIUNGI QUESTA SKIN ALLA PLAYLIST
+LAYOUT_PLAY_SKIN,LAYOUT_PLAY_SKIN,PLAY THIS SKIN,GIOCA QUESTA SKIN
+LAYOUT_SWAP_SKIN,LAYOUT_SWAP_SKIN,SWAP THIS SKIN,SCAMBIA QUESTA SKIN
+LAYOUT_REMOVE_SKIN,LAYOUT_REMOVE_SKIN,REMOVE THIS SKIN FROM A PLAYLIST,RIMUOVI QUESTA SKIN DALLA PLAYLIST
+LAYOUT_SLIDER,LAYOUT_SLIDER,CHANGE SLIDER VALUE,TRASCINA
+LAYOUT_EXIT,LAYOUT_EXIT,EXIT FROM THE GAME,ESCI DAL GIOCO
+LAYOUT_TOGGLE,LAYOUT_TOGGLE,TOGGLE ON/OFF,ABILITA/DISABILITA
+LAYOUT_PLAY_SONG,LAYOUT_PLAY_SONG,PLAY WITH THIS SONG,GIOCA CON QUESTA CANZONE
+LAYOUT_TIME_LIMIT,LAYOUT_TIME_LIMIT,CHOOSE THIS TIME LIMIT,SELEZIONA QUESTO TEMPO LIMITE
+LAYOUT_PROFILE,LAYOUT_PROFILE,CHOOSE THIS PROFILE,SELEZIONA QUESTO PROFILO
+LAYOUT_SCROLL,LAYOUT_SCROLL,SCROLL UP/DOWN,VAI SU/GIÙ
+LAYOUT_BACK_TO_GAME,LAYOUT_BACK_TO_GAME,RETURN TO THE GAME,RIPRENDI
+LAYOUT_BACK_TO_MENU,LAYOUT_BACK_TO_MENU,RETURN TO THE MENU,RITORNA NEL MENU
 ,,,
 -Menu Misc-,,,
-BACK,BACK,Back,
-BACK_PREV_DESC,BACK_PREV_DESC,Return to previous menu screen.,
-BACK_MENU_DESC,BACK_MENU_DESC,Return to main menu.,
-OK,OK,Ok,
-ON,ON,ON,
-OFF,OFF,OFF,
+BACK,BACK,Back,Indietro
+BACK_PREV_DESC,BACK_PREV_DESC,Return to previous menu screen.,Ritorna al menu precedente
+BACK_MENU_DESC,BACK_MENU_DESC,Return to main menu.,Ritorna al menu principale
+OK,OK,Ok,Ok
+ON,ON,ON,ON
+OFF,OFF,OFF,OFF
 ,,,
 -Game UI-,,,
-SCORE,SCORE,SCORE,
-HI_SCORE,HI_SCORE,HI-SCORE,
-LEVEL,LEVEL,LEVEL,
-TIME,TIME,TIME,
-DELETED,DELETED,DELETED,
-COMBO,COMBO,COMBO,
-BONUS,BONUS,BONUS,
-NEXT,NEXT,NEXT,
+SCORE,SCORE,SCORE,PUNTEGGIO
+HI_SCORE,HI_SCORE,HI-SCORE,RECORD
+LEVEL,LEVEL,LEVEL,LIVELLO
+TIME,TIME,TIME,TEMPO
+DELETED,DELETED,DELETED,ELIMINATO
+COMBO,COMBO,COMBO,COMBO
+BONUS,BONUS,BONUS,BONUS
+NEXT,NEXT,NEXT,PROSSIMO
 ,,,
 -Playlist mode pause-,,,
-PAUSED,PAUSED,PAUSED,
-CONTINUE,CONTINUE,Continue,
-CONTINUE_DESC,CONTINUE_DESC,Continue the game.,
-RESTART,RESTART,Restart,
-RESTART_DESC,RESTART_DESC,Restart the game from the beginning.,
-PAUSE_EXIT,PAUSE_EXIT,Exit to menu,
-PLAYLIST_PAUSE_EXIT_DESC,PLAYLIST_PAUSE_EXIT_DESC,End the game and return to the playlist mode menu.,
-SYNTHESIA_PAUSE_EXIT_DESC,SYNTHESIA_PAUSE_EXIT_DESC,End the game and return to the synthesia mode menu.,
-PAUSE_ARROW,PAUSE_ARROW,PAUSE MENU,
+PAUSED,PAUSED,PAUSED,PAUSA
+CONTINUE,CONTINUE,Continue,Continua
+CONTINUE_DESC,CONTINUE_DESC,Continue the game.,Riprendi la partita
+RESTART,RESTART,Restart,Ricomincia
+RESTART_DESC,RESTART_DESC,Restart the game from the beginning.,Ricomincia dall'inizio
+PAUSE_EXIT,PAUSE_EXIT,Exit to menu,Esci dal menu
+PLAYLIST_PAUSE_EXIT_DESC,PLAYLIST_PAUSE_EXIT_DESC,End the game and return to the playlist mode menu.,Esci dalla partita e ritorna al menu playlist
+SYNTHESIA_PAUSE_EXIT_DESC,SYNTHESIA_PAUSE_EXIT_DESC,End the game and return to the synthesia mode menu.,Esci dalla partita e ritorna al menu synthesia
+PAUSE_ARROW,PAUSE_ARROW,PAUSE MENU,MENU DI PAUSA
 ,,,
 -Time attack pause-,,,
-TA_RETRY,TA_RETRY,Retry,
-TA_RETRY_DESC,TA_RETRY_DESC,Retry time attack attempt.,
-TA_PAUSE_EXIT_DESC,TA_PAUSE_EXIT_DESC,End the game and return to the time attack mode menu.,
+TA_RETRY,TA_RETRY,Retry,Riprova
+TA_RETRY_DESC,TA_RETRY_DESC,Retry time attack attempt.,Riprova tentativo
+TA_PAUSE_EXIT_DESC,TA_PAUSE_EXIT_DESC,End the game and return to the time attack mode menu.,Esci dalla partita e ritorna al menu sfida a tempo
 ,,,
 -Playlist mode gameover-,,,
-GAMEOVER,GAMEOVER,GAME OVER,
-END_SCORE,END_SCORE,Score,
-END_DELETED,END_DELETED,Deleted,
-BLOCKS,BLOCKS,Blocks,
-SQAURES,SQAURES,Squares,
-REACHED,REACHED,Reached,
-LAP,LAP,Lap,
-STAGE,STAGE,Stage,
-END_LEVEL,END_LEVEL,Level,
-TIME_SPENT,TIME_SPENT,Time spent,
-PLAYLIST_END_ARROW1,PLAYLIST_END_ARROW1,RESULTS SCREEN,
-PLAYLIST_END_ARROW2,PLAYLIST_END_ARROW2,GAME OVER MENU,
-SAVE_REPLAY,SAVE_REPLAY,Save replay,
-SAVE_REPLAY_DIALOG,SAVE_REPLAY_DIALOG,Enter replay name,
-SAVE_REPLAY_DESC,SAVE_REPLAY_DESC,Save replay of this game to watch later or share with others.,
-SAVE_REPLAY_ERROR1,SAVE_REPLAY_ERROR1,Play single standard skin to enable replay recording.,
-SAVE_REPLAY_ERROR2,SAVE_REPLAY_ERROR2,Game rules were changed during replay recording.,
-SAVE_REPLAY_ERROR3,SAVE_REPLAY_ERROR3,Replay recording time exceeded.,
-SAVE_REPLAY_ERROR4,SAVE_REPLAY_ERROR4,This gamemode is not supported for replay recording.,
+GAMEOVER,GAMEOVER,GAME OVER,GAME OVER
+END_SCORE,END_SCORE,Score,Punteggio
+END_DELETED,END_DELETED,Deleted,Eliminato
+BLOCKS,BLOCKS,Blocks,Blocchi
+SQAURES,SQAURES,Squares,Quadrati
+REACHED,REACHED,Reached,Raggiunto
+LAP,LAP,Lap,Giro
+STAGE,STAGE,Stage,Stage
+END_LEVEL,END_LEVEL,Level,Livello
+TIME_SPENT,TIME_SPENT,Time spent,Tempo speso
+PLAYLIST_END_ARROW1,PLAYLIST_END_ARROW1,RESULTS SCREEN,RISULTATI
+PLAYLIST_END_ARROW2,PLAYLIST_END_ARROW2,GAME OVER MENU,MENU DI GAME OVER
+SAVE_REPLAY,SAVE_REPLAY,Save replay,Salva replay
+SAVE_REPLAY_DIALOG,SAVE_REPLAY_DIALOG,Enter replay name,Inserisci nome replay
+SAVE_REPLAY_DESC,SAVE_REPLAY_DESC,Save replay of this game to watch later or share with others.,Salva replay di questo gioco da guardare più tardi o condividere con gli altri
+SAVE_REPLAY_ERROR1,SAVE_REPLAY_ERROR1,Play single standard skin to enable replay recording.,Gioca una skin standard per iniziare a registrare
+SAVE_REPLAY_ERROR2,SAVE_REPLAY_ERROR2,Game rules were changed during replay recording.,Le regole di gioco sono state cambiate durante la registrazione del replay
+SAVE_REPLAY_ERROR3,SAVE_REPLAY_ERROR3,Replay recording time exceeded.,Tempo massimo di registrazione raggiunto
+SAVE_REPLAY_ERROR4,SAVE_REPLAY_ERROR4,This gamemode is not supported for replay recording.,Questa modalità non è compatibile per la registrazione di un replay
 ,,,
 -Time attack gameover-,,,
-TA_RESULTS,TA_RESULTS,TIME ATTACK RESULTS,
-TA_FAILED,TA_FAILED,TIME ATTACK FAILED!,
-DELETED_COUNT,DELETED_COUNT,Deleted squares count,
-SQUARES_PER_SWEEP,SQUARES_PER_SWEEP,Squares per sweep,
-TA_SQUARE,TA_SQUARE,Square,
-TA_TIME,TA_TIME,Time,
-TA_THIS_ATTEMPT,TA_THIS_ATTEMPT,This attempt,
-TA_2ATTEMPT,TA_2ATTEMPT,2nd attempt,
-TA_3ATTEMPT,TA_3ATTEMPT,3rd attempt,
-TA_4ATTEMPT,TA_4ATTEMPT,4th attempt,
-TA_5ATTEMPT,TA_5ATTEMPT,5th attempt,
-TA_6ATTEMPT,TA_6ATTEMPT,6th attempt,
-TA_NEW_RECORD,TA_NEW_RECORD,NEW RECORD!,
-TA_SCORE,TA_SCORE,Score :,
-PREV_SCORES,PREV_SCORES,Previous scores:,
-AVERAGE_SQUARES,AVERAGE_SQUARES,Average squares per sweep:,
-TOTAL_PIECES,TOTAL_PIECES,Total pieces used:,
-AVERAGE_ATTEMPTS,AVERAGE_ATTEMPTS,Average score:,
-ATTEMPTS_COUNT,ATTEMPTS_COUNT,Current attempts count:,
-CURRENT_SEED,CURRENT_SEED,Current attempt seed:,
-TA_END_ARROW1,TA_END_ARROW1,MENU | DESCRIPTION,
-TA_END_ARROW2,TA_END_ARROW2,STATISTICS GRAPHS,
-TA_RESULTS,TA_RESULTS,RESULTS,
+TA_RESULTS,TA_RESULTS,TIME ATTACK RESULTS,RISULTATI DELLA SFIDA A TEMPO
+TA_FAILED,TA_FAILED,TIME ATTACK FAILED!,TENTATIVO NON RIUSCITO!
+DELETED_COUNT,DELETED_COUNT,Deleted squares count,Quadrati cancellati
+SQUARES_PER_SWEEP,SQUARES_PER_SWEEP,Squares per sweep,Quadrati per passaggio
+TA_SQUARE,TA_SQUARE,Square,Quadrati
+TA_TIME,TA_TIME,Time,Tempo
+TA_THIS_ATTEMPT,TA_THIS_ATTEMPT,This attempt,Questo tentativo
+TA_2ATTEMPT,TA_2ATTEMPT,2nd attempt,2° tentativo
+TA_3ATTEMPT,TA_3ATTEMPT,3rd attempt,3° tentativo
+TA_4ATTEMPT,TA_4ATTEMPT,4th attempt,4° tentativo
+TA_5ATTEMPT,TA_5ATTEMPT,5th attempt,5° Tentativo
+TA_6ATTEMPT,TA_6ATTEMPT,6th attempt,6° Tentativo
+TA_NEW_RECORD,TA_NEW_RECORD,NEW RECORD!,NUOVO RECORD!
+TA_SCORE,TA_SCORE,Score :,Punteggio
+PREV_SCORES,PREV_SCORES,Previous scores:,Punteggi precedenti:
+AVERAGE_SQUARES,AVERAGE_SQUARES,Average squares per sweep:,Quadrati per passaggio in media:
+TOTAL_PIECES,TOTAL_PIECES,Total pieces used:,Pezzi utilizzati in totale:
+AVERAGE_ATTEMPTS,AVERAGE_ATTEMPTS,Average score:,Punteggio medio:
+ATTEMPTS_COUNT,ATTEMPTS_COUNT,Current attempts count:,Numero tentativi:
+CURRENT_SEED,CURRENT_SEED,Current attempt seed:,Seed di questo tentativo:
+TA_END_ARROW1,TA_END_ARROW1,MENU | DESCRIPTION,MENU | DESCRIZIONE
+TA_END_ARROW2,TA_END_ARROW2,STATISTICS GRAPHS,DIAGRAMMI CARTESIANI
+TA_RESULTS,TA_RESULTS,RESULTS,RISULTATI
 ,,,
 -Skin editor-,,,
-SE_WELCOME,SE_WELCOME,"Welcome to the Project Luminext skin editor! If you come here by mistake, press the cancel button to exit. Check the Project Luminext GitHub wiki to find a skin making manual and an asset source archive",
-SE_METADATA,SE_METADATA,METADATA,
-SE_COVER,SE_COVER,COVER ART,
-SE_COVER_DESC,SE_COVER_DESC,Skin cover art. Size : 512x512.,
-SE_LABEL,SE_LABEL,LABEL ART,
-SE_LABEL_DESC,SE_LABEL_DESC,Skin label art. Size: 512x128.,
-SE_NAME,SE_NAME,SKIN NAME,
-SE_NAME_DESC,SE_NAME_DESC,Skin name. This will also be the name of the .skn file.,
-SE_ALBUM,SE_ALBUM,ALBUM,
-SE_ALBUM_DESC,SE_ALBUM_DESC,Skin album. Will be used to put this skin in own category (album) inside skin list.,
-SE_ARTIST,SE_ARTIST,MUSIC ARTIST,
-SE_ARTIST_DESC,SE_ARTIST_DESC,Music artist.,
-SE_NUMBER,SE_NUMBER,NUMBER IN ALBUM :,
-SE_NUMBER_DESC,SE_NUMBER_DESC,Number in album. Used to sort skins inside each album.,
-SE_BPM,SE_BPM,BPM :,
-SE_BPM_DESC,SE_BPM_DESC,Skin/song BPM. Defines timeline and some animations speed. Can be fractional number like: 145.23.,
-SE_MUSIC_LOOP,SE_MUSIC_LOOP,MUSIC LOOPING,
-SE_MUSIC_LOOP_DESC,SE_MUSIC_LOOP_DESC,Makes music loop around current music sample (2 bars) when no square is erased yet.,
-SE_NO_BACK_MOVE,SE_NO_BACK_MOVE,NO BACKGROUND MOVEMENT,
-SE_NO_BACK_MOVE_DESC,SE_NO_BACK_MOVE_DESC,Disable background movement option for this skin.,
-SE_ZOOM_BACK,SE_ZOOM_BACK,ZOOM BACKGROUND,
-SE_ZOOM_BACK_DESC,SE_ZOOM_BACK_DESC,"Increase background scale when background movement option is enabled, so you can hide out of bounds things.",
-SE_RANDOM_BONUS,SE_RANDOM_BONUS,RANDOM BONUS ANIMATION,
-SE_RANDOM_BONUS_DESC,SE_RANDOM_BONUS_DESC,Do random scenery bonus animations from start instead of sequential.,
-SE_EDIT_HISTORY,SE_EDIT_HISTORY,SKIN EDIT HISTORY,
-SE_EDIT_HISTORY_DESC,SE_EDIT_HISTORY_DESC,Shows every saved skin edit date and editor name.,
-SE_ABOUT,SE_ABOUT,ABOUT INFO,
-SE_ABOUT_DESC,SE_ABOUT_DESC,Skin description/about text. Write here whatever you want.,
-SE_VISUALS,SE_VISUALS,VISUALS,
-SE_SPRITES,SE_SPRITES,SPRITES,
-SE_RED_DESC,SE_RED_DESC,"Red block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_WHITE_DESC,SE_WHITE_DESC,"White block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_GREEN_DESC,SE_GREEN_DESC,"Green block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_PURPLE_DESC,SE_PURPLE_DESC,"Purple block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_RED_SPEC_DESC,SE_RED_SPEC_DESC,"Red special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_WHITE_SPEC_DESC,SE_WHITE_SPEC_DESC,"White special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_GREEN_SPEC_DESC,SE_GREEN_SPEC_DESC,"Green special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_PURPLE_SPEC_DESC,SE_PURPLE_SPEC_DESC,"Purple special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_RED_SQR_DESC,SE_RED_SQR_DESC,"Red square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_WHITE_SQR_DESC,SE_WHITE_SQR_DESC,"White square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_GREEN_SQR_DESC,SE_GREEN_SQR_DESC,"Green square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_PURPLE_SQR_DESC,SE_PURPLE_SQR_DESC,"Purple square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_CHAIN_DESC,SE_CHAIN_DESC,"Chain special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_MERGE_DESC,SE_MERGE_DESC,"Merge special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_LASER_DESC,SE_LASER_DESC,"Laser special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_WIPE_DESC,SE_WIPE_DESC,"Wipe special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_ERASED_DESC,SE_ERASED_DESC,Erased block texture. Size: 64x64.,
-SE_DEATH_ANIM_DESC,SE_DEATH_ANIM_DESC,"Block explosion animation. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_LIGHT_DESC,SE_LIGHT_DESC,Block highlight texture which is used by some special blocks (ex. chain). Size: 64x64,
-SE_MULTI_DESC,SE_MULTI_DESC,"Multi block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_DARK_DESC,SE_DARK_DESC,"Dark block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.",
-SE_EXPLO1_DESC,SE_EXPLO1_DESC,Square explosion star texture. Size: 165x165.,
-SE_EXPLO2_DESC,SE_EXPLO2_DESC,Square explosion spark texture. Size: 250x250.,
-SE_BONUS_ARROW,SE_BONUS_ARROW,BONUS ARROW,
-SE_BONUS_ARROW_DESC,SE_BONUS_ARROW_DESC,Bonus arrow texture. Size: 775x550.,
-SE_2X_DESC,SE_2X_DESC,2x combo number texture appearing in bonus animation. Size: 350x190.,
-SE_3X_DESC,SE_3X_DESC,3x combo number texture appearing in bonus animation. Size: 350x190.,
-SE_4X_DESC,SE_4X_DESC,4x combo number texture appearing in bonus animation. Size: 350x190.,
-SE_FX_COLOR,SE_FX_COLOR,EFFECTS COLORS,
-SE_RED_FX_DESC,SE_RED_FX_DESC,Red blocks effects color.,
-SE_WHITE_FX_DESC,SE_WHITE_FX_DESC,White blocks effects color.,
-SE_GREEN_FX_DESC,SE_GREEN_FX_DESC,Green blocks effects color.,
-SE_PURPLE_FX_DESC,SE_PURPLE_FX_DESC,Purple blocks effects color.,
-SE_BLOCK_ANIM,SE_BLOCK_ANIM,BLOCKS ANIMATION,
-SE_BLOCK_ANIM_DESC,SE_BLOCK_ANIM_DESC,Select block animation timings preset.,
-SE_RED_FPS,SE_RED_FPS,RED ANIMATION FPS,
-SE_RED_FPS_DESC,SE_RED_FPS_DESC,Set red colored regular block and square animation FPS.,
-SE_WHITE_FPS,SE_WHITE_FPS,WHITE ANIMATION FPS,
-SE_WHITE_FPS_DESC,SE_WHITE_FPS_DESC,Set white colored regular block and square animation FPS.,
-SE_GREEN_FPS,SE_GREEN_FPS,GREEN ANIMATION FPS,
-SE_GREEN_FPS_DESC,SE_GREEN_FPS_DESC,Set green colored regular block and square animation FPS.,
-SE_PURPLE_FPS,SE_PURPLE_FPS,PURPLE ANIMATION FPS,
-SE_PURPLE_FPS_DESC,SE_PURPLE_FPS_DESC,Set purple colored regular block and square animation FPS.,
-SE_BACK,SE_BACK,BACKGROUND,
-SE_BACK_DESC,SE_BACK_DESC,Static background image. Size : 1920x1080.,
-SE_UI_COLOR,SE_UI_COLOR,UI COLOR,
-SE_UI_COLOR_DESC,SE_UI_COLOR_DESC,Change game UI color.,
-SE_TIMELINE,SE_TIMELINE,TIMELINE COLOR,
-SE_TIMELINE_DESC,SE_TIMELINE_DESC,Change timeline color.,
-SE_VISUALIZER,SE_VISUALIZER,VISUALIZER COLOR,
-SE_VISUALIZER_DESC,SE_VISUALIZER_DESC,Change background audio visualizer color,
-SE_UI_DESIGN_DESC,SE_UI_DESIGN_DESC,Select UI design.,
-SE_VIDEO,SE_VIDEO,Video,
-SE_VIDEO_DESC,SE_VIDEO_DESC,Insert video to use it as skin background. Supported formats: .webm; .mp4; .ogv.,
-SE_SCENE,SE_SCENE,Scene,
-SE_SCENE_DESC,SE_SCENE_DESC,Insert packed godot scenery to use it as skin background. Please read skin making manual on Project Luminext GitHub wiki for more info!,
-SE_SCENE_PATH,SE_SCENE_PATH,SCENE PATH,
-SE_SCENE_PATH_DESC,SE_SCENE_PATH_DESC,Scene path in project folder. Must be entered in order for scene to be loaded.,
-SE_AUDIO,SE_AUDIO,AUDIO,
-SE_A_SQUARE,SE_SQUARE_CREATION,SQUARE CREATION,
-SE_A_SQUARE_DESC,SE_SQUARE_CREATION_DESC,Played when square is created.,
-SE_A_BLAST,SE_SQUARE_BLAST,SQUARE BLAST,
-SE_A_BLAST_DESC,SE_SQUARE_BLAST_DESC,Played when square is erased by the timeline.,
-SE_A_SPECIAL,SE_SPECIAL_BLAST,SPECIAL BLOCK BLAST,
-SE_A_SPECIAL_DESC,SE_SPECIAL_BLAST_DESC,Played when special block is erased by the timeline.,
-SE_A_TIMELINE,SE_TIMELINE_SOUND,TIMELINE ERASING BLOCKS,
-SE_A_TIMELINE_DESC,SE_TIMELINE_SOUND_DESC,Played when the timeline starts deleting blocks and squares.,
-SE_A_BONUS,SE_BONUS_SOUND,4X BONUS SOUND,
-SE_A_BONUS_DESC,SE_BONUS_SOUND_DESC,Played when 4 and more squares were erased in current timeline sweep. (4x bonus),
-SE_A_MOVE,SE_PIECE_MOVE,PIECE MOVE,
-SE_A_MOVE_DESC,SE_PIECE_MOVE_DESC,Played when piece is moved,
-SE_A_ROTATE_LEFT,SE_ROTATE_LEFT,ROTATE LEFT,
-SE_A_ROTATE_LEFT_DESC,SE_ROTATE_LEFT_DESC,Played when piece is rotated left,
-SE_A_ROTATE_RIGHT,SE_ROTATE_RIGHT,ROTATE RIGHT,
-SE_A_ROTATE_RIGHT_DESC,SE_ROTATE_RIGHT_DESC,Played when piece is rotated right,
-SE_A_LEFT_DASH,SE_DASH_LEFT,DASH LEFT,
-SE_A_LEFT_DASH_DESC,SE_DASH_LEFT_DESC,Played when piece dashes left,
-SE_A_RIGHT_DASH,SE_DASH_RIGHT,DASH RIGHT,
-SE_A_RIGHT_DASH_DESC,SE_DASH_RIGHT_DESC,Played when piece dashes right,
-SE_A_DROP,SE_PIECE_DROP,PIECE DROP,
-SE_A_DROP_DESC,SE_PIECE_DROP_DESC,Played when piece has landed,
-SE_A_QUEUE_SHIFT,SE_PIECE_SWAP,PIECE SWAP,
-SE_A_QUEUE_SHIFT_DESC,SE_PIECE_SWAP_DESC,Played when piece is swapped,
-SE_A_LEVEL_UP,SE_LEVEL_UP,LEVEL UP!,
-SE_A_LEVEL_UP_DESC,SE_LEVEL_UP_DESC,Played when level up occurs,
-SE_A_SPECIAL_BONUS,SE_SPECIAL_BONUS,SPECIAL BONUS,
-SE_A_SPECIAL_BONUS_DESC,SE_SPECIAL_BONUS_DESC,Played when special bonus (single color/all clear) occurs,
-SE_PLAY,SE_PLAY,PLAY,
-SE_SOUND_TEXT1,SE_SOUND_TEXT1,"More than one sound may be assigned per action, indicated by a number next to an sound play button.",
-SE_SOUND_TEXT2,SE_SOUND_TEXT2,"If more than one sound is assigned to an action, a random assigned sound will play.",
-SE_SOUND_TEXT3,SE_SOUND_TEXT3,"You also can remove sounds by right clicking, rest of the sounds will shift to the left.",
-SE_SOUND_TEXT4,SE_SOUND_TEXT4,To move between sounds you can use the arrow buttons or type the number and press enter.,
-SE_MUSIC,SE_MUSIC,MUSIC,
-SE_MUSIC_DESC,SE_MUSIC_DESC,Main skin music. Supported formats: .ogg; .mp3; .wav,
-SE_A_ANNOUNCE,SE_ANNOUNCE,ANNOUNCE,
-SE_A_ANNOUNCE_DESC,SE_ANNOUNCE_DESC,Played when this skin is loaded and is ready to start,
-SE_A_PREVIEW,SE_PREVIEW,PREVIEW,
-SE_A_PREVIEW_DESC,SE_PREVIEW_DESC,Played when this skin is highlighted in the Playlist menu,
-SE_A_ENDING,SE_ENDING,ENDING,
-SE_A_ENDING_DESC,SE_ENDING_DESC,"Played when the skin transition starts, so this would be the last skin sample",
-SE_SOME,SE_SOME,SOME,
-SE_INSERT,SE_INPUT,INSERT,
-SE_RESET,SE_RESET,RESET,
-SE_RESET_DESC,SE_RESET_DESC,Reset current skin to standard one.,
-SE_PLAYTEST,SE_PLAYTEST,PLAYTEST,
-SE_PLAYTEST_DESC,SE_PLAYTEST_DESC,Start skin playtest session.,
-SE_LOAD,SE_LOAD,LOAD,
-SE_LOAD_DESC,SE_LOAD_DESC,Load skin file to edit.,
-SE_SAVE,SE_SAVE,SAVE,
-SE_SAVE_DESC,SE_SAVE_DESC,"Save current skin. Skin will be saved to your ""skins"" directory.",
-SE_EXIT_DESC,SE_EXIT_DESC,Return back to main menu,
-SE_UNSAVED_CONTINUE,SE_UNSAVED_CONTINUE,This skin has unsaved changes and you must save it now in order to continue. Proceed?,
-SE_UNSAVED_EXIT,SE_UNSAVED_EXIT,This skin has unsaved changes. Are you sure you want to exit?,
-SE_UNSAVED_RESET,SE_UNSAVED_RESET,This skin has unsaved changes. Are you sure you want to reset everything?,
-SE_RESET_DIALOG,SE_RESET_DIALOG,Are you sure you want to reset everything?,
-SE_SAVE_DIALOG,SE_SAVE_DIALOG,Are you sure you want to save this skin?,
+SE_WELCOME,SE_WELCOME,"Welcome to the Project Luminext skin editor! If you come here by mistake, press the cancel button to exit. Check the Project Luminext GitHub wiki to find a skin making manual and an asset source archive","Benvenuto nell'editor di skin di Project Luminext! Se sei arrivato qui per sbaglio, premi CANC per uscire. Vedi la pagina Github wiki per utilizzare il manuale di creazione skin e usare assets dall'archivio."
+SE_METADATA,SE_METADATA,METADATA,METADATI
+SE_COVER,SE_COVER,COVER ART,COPERTINA
+SE_COVER_DESC,SE_COVER_DESC,Skin cover art. Size : 512x512.,Copertina della skin. Dimensione: 512×512
+SE_LABEL,SE_LABEL,LABEL ART,ETICHETTA
+SE_LABEL_DESC,SE_LABEL_DESC,Skin label art. Size: 512x128.,Etichetta della skin. Dimensione: 512×64
+SE_NAME,SE_NAME,SKIN NAME,NOME SKIN
+SE_NAME_DESC,SE_NAME_DESC,Skin name. This will also be the name of the .skn file.,Nome della skin. Verrà usato per fare il nome del file
+SE_ALBUM,SE_ALBUM,ALBUM,ALBUM
+SE_ALBUM_DESC,SE_ALBUM_DESC,Skin album. Will be used to put this skin in own category (album) inside skin list.,Album della skin. Verrà usato per mettere la skin nell'album digitato dentro la lista
+SE_ARTIST,SE_ARTIST,MUSIC ARTIST,ARTISTA
+SE_ARTIST_DESC,SE_ARTIST_DESC,Music artist.,Artista musicale
+SE_NUMBER,SE_NUMBER,NUMBER IN ALBUM :,NUMERO NELL'ALBUM
+SE_NUMBER_DESC,SE_NUMBER_DESC,Number in album. Used to sort skins inside each album.,Ordine nell'album
+SE_BPM,SE_BPM,BPM :,BPM:
+SE_BPM_DESC,SE_BPM_DESC,Skin/song BPM. Defines timeline and some animations speed. Can be fractional number like: 145.23.,"Definisce la velocità della timeline e delle animazioni. Può essere frazionario come: 145,23"
+SE_MUSIC_LOOP,SE_MUSIC_LOOP,MUSIC LOOPING,LOOP MUSICA
+SE_MUSIC_LOOP_DESC,SE_MUSIC_LOOP_DESC,Makes music loop around current music sample (2 bars) when no square is erased yet.,Sospende la musica in un loop ad ogni passaggio se nessun quadrato è stato rimosso
+SE_NO_BACK_MOVE,SE_NO_BACK_MOVE,NO BACKGROUND MOVEMENT,SFONDO STATICO
+SE_NO_BACK_MOVE_DESC,SE_NO_BACK_MOVE_DESC,Disable background movement option for this skin.,Disabilita lo sfondo in movimento per questa skin
+SE_ZOOM_BACK,SE_ZOOM_BACK,ZOOM BACKGROUND,SFONDO ZOOMATO
+SE_ZOOM_BACK_DESC,SE_ZOOM_BACK_DESC,"Increase background scale when background movement option is enabled, so you can hide out of bounds things.","Aumenta la scala dello sfondo, nascondendo ciò che è al di fuori dello schermo (Funziona solo se Sfondo statico e messo su OFF)"
+SE_RANDOM_BONUS,SE_RANDOM_BONUS,RANDOM BONUS ANIMATION,ANIMAZIONE BONUS CASUALE
+SE_RANDOM_BONUS_DESC,SE_RANDOM_BONUS_DESC,Do random scenery bonus animations from start instead of sequential.,Rendi casuale le animazioni del bonus anziché in sequenza
+SE_EDIT_HISTORY,SE_EDIT_HISTORY,SKIN EDIT HISTORY,STORIA MODIFICHE
+SE_EDIT_HISTORY_DESC,SE_EDIT_HISTORY_DESC,Shows every saved skin edit date and editor name.,Mostra ogni salvataggio della skin nell'editor e il suo nome
+SE_ABOUT,SE_ABOUT,ABOUT INFO,INFO
+SE_ABOUT_DESC,SE_ABOUT_DESC,Skin description/about text. Write here whatever you want.,Descrizione riguardo alla skin. Scrivi quello che vuoi qui
+SE_VISUALS,SE_VISUALS,VISUALS,VISUALI
+SE_SPRITES,SE_SPRITES,SPRITES,SPRITES
+SE_RED_DESC,SE_RED_DESC,"Red block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture del blocco rosso. Dimensioni: 64×64. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_WHITE_DESC,SE_WHITE_DESC,"White block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture del blocco bianco. Dimensioni: 64×64. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_GREEN_DESC,SE_GREEN_DESC,"Green block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture del blocco verde. Dimensioni: 64×64. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_PURPLE_DESC,SE_PURPLE_DESC,"Purple block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture del blocco viola. Dimensioni: 64×64. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_RED_SPEC_DESC,SE_RED_SPEC_DESC,"Red special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture del blocco rosso speciale. Dimensioni: 64×64. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_WHITE_SPEC_DESC,SE_WHITE_SPEC_DESC,"White special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture del blocco bianco speciale. Dimensioni: 64×64. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_GREEN_SPEC_DESC,SE_GREEN_SPEC_DESC,"Green special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture del blocco verde speciale. Dimensioni: 64×64. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_PURPLE_SPEC_DESC,SE_PURPLE_SPEC_DESC,"Purple special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture del blocco viola speciale. Dimensioni: 64×64. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_RED_SQR_DESC,SE_RED_SQR_DESC,"Red square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture del quadrato rosso. Dimensioni: 128×128. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_WHITE_SQR_DESC,SE_WHITE_SQR_DESC,"White square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture del quadrato bianco. Dimensioni: 128×128. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_GREEN_SQR_DESC,SE_GREEN_SQR_DESC,"Green square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture del quadrato verde. Dimensioni: 128×128. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_PURPLE_SQR_DESC,SE_PURPLE_SQR_DESC,"Purple square texture. Size: 128x128. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture del quadrato viola. Dimensioni: 128×128. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_CHAIN_DESC,SE_CHAIN_DESC,"Chain special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture della decorazione del blocco ""Catena"". Dimensioni: 64×64. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_MERGE_DESC,SE_MERGE_DESC,"Merge special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture della decorazione del blocco ""Combina"". Dimensioni: 64×64. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_LASER_DESC,SE_LASER_DESC,"Laser special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture della decorazione del blocco ""Laser"". Dimensioni: 64×64. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_WIPE_DESC,SE_WIPE_DESC,"Wipe special block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture della decorazione del blocco ""Scanner"". Dimensioni: 64×64. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_ERASED_DESC,SE_ERASED_DESC,Erased block texture. Size: 64x64.,Texture del blocco in eliminazione. Dimensioni: 64×64.
+SE_DEATH_ANIM_DESC,SE_DEATH_ANIM_DESC,"Block explosion animation. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Animazione di eliminazione blocco. Dimensioni: 64×64. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_LIGHT_DESC,SE_LIGHT_DESC,Block highlight texture which is used by some special blocks (ex. chain). Size: 64x64,Texture d'illuminazione blocco. Utilizzati dai blocchi speciali (Es. catena). Dimensioni: 64×64
+SE_MULTI_DESC,SE_MULTI_DESC,"Multi block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture del blocco multi. Dimensioni: 64×64. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Larghezza immagine/Altezza immagine"
+SE_DARK_DESC,SE_DARK_DESC,"Dark block texture. Size: 64x64. If horizontal sprite sheet is imported, texture will be animated. Amount of frames is calculated like this: image_length/image_height.","Texture del blocco scuro. Dimensioni: 64×64. Se viene importato uno sprite sheet orizzontale, la texture sarà animata. Il numero di frame segue la formula: Lunghezza immagine/Altezza immagine"
+SE_EXPLO1_DESC,SE_EXPLO1_DESC,Square explosion star texture. Size: 165x165.,Texture della esplosione a stella. Dimensioni: 165×165
+SE_EXPLO2_DESC,SE_EXPLO2_DESC,Square explosion spark texture. Size: 250x250.,Texture della esplosione a scintilla. Dimensioni: 250×250
+SE_BONUS_ARROW,SE_BONUS_ARROW,BONUS ARROW,FRECCIA BONUS
+SE_BONUS_ARROW_DESC,SE_BONUS_ARROW_DESC,Bonus arrow texture. Size: 775x550.,Texture della freccia bonus. Dimensione: 775×550
+SE_2X_DESC,SE_2X_DESC,2x combo number texture appearing in bonus animation. Size: 350x190.,Texture del numero ×2 nell'animazione bonus. Dimensioni 350×190
+SE_3X_DESC,SE_3X_DESC,3x combo number texture appearing in bonus animation. Size: 350x190.,Texture del numero ×3 nell'animazione bonus. Dimensioni 350×190
+SE_4X_DESC,SE_4X_DESC,4x combo number texture appearing in bonus animation. Size: 350x190.,Texture del numero ×4 nell'animazione bonus. Dimensioni 350×190
+SE_FX_COLOR,SE_FX_COLOR,EFFECTS COLORS,EFFETTI COLORI
+SE_RED_FX_DESC,SE_RED_FX_DESC,Red blocks effects color.,Colore degli effetti nei blocchi rossi
+SE_WHITE_FX_DESC,SE_WHITE_FX_DESC,White blocks effects color.,Colore degli effetti nei blocchi bianchi
+SE_GREEN_FX_DESC,SE_GREEN_FX_DESC,Green blocks effects color.,Colore degli effetti nei blocchi verdi
+SE_PURPLE_FX_DESC,SE_PURPLE_FX_DESC,Purple blocks effects color.,Colore degli effetti nei blocchi viola
+SE_BLOCK_ANIM,SE_BLOCK_ANIM,BLOCKS ANIMATION,ANIMAZIONE BLOCCHI
+SE_BLOCK_ANIM_DESC,SE_BLOCK_ANIM_DESC,Select block animation timings preset.,Seleziona un set di tempismo per le animazioni
+SE_RED_FPS,SE_RED_FPS,RED ANIMATION FPS,ANIMAZIONE ROSSO IN FPS
+SE_RED_FPS_DESC,SE_RED_FPS_DESC,Set red colored regular block and square animation FPS.,Animazione del blocco rosso in FPS
+SE_WHITE_FPS,SE_WHITE_FPS,WHITE ANIMATION FPS,ANIMAZIONE BIANCO IN FPS
+SE_WHITE_FPS_DESC,SE_WHITE_FPS_DESC,Set white colored regular block and square animation FPS.,Animazione del blocco bianco in FPS
+SE_GREEN_FPS,SE_GREEN_FPS,GREEN ANIMATION FPS,ANIMAZIONE VERDE IN FPS
+SE_GREEN_FPS_DESC,SE_GREEN_FPS_DESC,Set green colored regular block and square animation FPS.,Animazione del blocco verde in FPS
+SE_PURPLE_FPS,SE_PURPLE_FPS,PURPLE ANIMATION FPS,ANIMAZIONE VIOLA IN FPS
+SE_PURPLE_FPS_DESC,SE_PURPLE_FPS_DESC,Set purple colored regular block and square animation FPS.,Animazione del blocco viola in FPS
+SE_BACK,SE_BACK,BACKGROUND,SFONDO
+SE_BACK_DESC,SE_BACK_DESC,Static background image. Size : 1920x1080.,Immagine di sfondo statica. Dimensioni: 1920×1080
+SE_UI_COLOR,SE_UI_COLOR,UI COLOR,COLORE UI
+SE_UI_COLOR_DESC,SE_UI_COLOR_DESC,Change game UI color.,Cambia il colore dell'UI di gioco
+SE_TIMELINE,SE_TIMELINE,TIMELINE COLOR,COLORE TIMELINE
+SE_TIMELINE_DESC,SE_TIMELINE_DESC,Change timeline color.,Cambia il colore della timeline
+SE_VISUALIZER,SE_VISUALIZER,VISUALIZER COLOR,COLORE VISUALIZZATORE
+SE_VISUALIZER_DESC,SE_VISUALIZER_DESC,Change background audio visualizer color,Cambia il colore del visualizzatore audio
+SE_UI_DESIGN_DESC,SE_UI_DESIGN_DESC,Select UI design.,Seleziona design dell'UI
+SE_VIDEO,SE_VIDEO,Video,Video
+SE_VIDEO_DESC,SE_VIDEO_DESC,Insert video to use it as skin background. Supported formats: .webm; .mp4; .ogv.,Inserisci video da usare come sfondo sulla skin. Formati compatibili: .webm; .mp4; .ogv
+SE_SCENE,SE_SCENE,Scene,Scenario
+SE_SCENE_DESC,SE_SCENE_DESC,Insert packed godot scenery to use it as skin background. Please read skin making manual on Project Luminext GitHub wiki for more info!,Inserisci uno scenario Godot impacchettato (PackedScenery) da usare come sfondo per la skin. Si prega di leggere il manuale di crezione skin nella pagina Github wiki di Project Luminext per maggior informazioni!
+SE_SCENE_PATH,SE_SCENE_PATH,SCENE PATH,PERCORSO SCENA
+SE_SCENE_PATH_DESC,SE_SCENE_PATH_DESC,Scene path in project folder. Must be entered in order for scene to be loaded.,Percorso della scena Godot nella cartella di lavoro. È necessario inserirlo se si vuole farlo funzionare
+SE_AUDIO,SE_AUDIO,AUDIO,AUDIO
+SE_A_SQUARE,SE_SQUARE_CREATION,SQUARE CREATION,CREAZIONE QUADRATO
+SE_A_SQUARE_DESC,SE_SQUARE_CREATION_DESC,Played when square is created.,Suona quando un quadrato viene creato
+SE_A_BLAST,SE_SQUARE_BLAST,SQUARE BLAST,ESPLOSIONE
+SE_A_BLAST_DESC,SE_SQUARE_BLAST_DESC,Played when square is erased by the timeline.,Suona quando un quadrato viene cancellato dalla timeline
+SE_A_SPECIAL,SE_SPECIAL_BLAST,SPECIAL BLOCK BLAST,ESPLOSIONE SPECIALE
+SE_A_SPECIAL_DESC,SE_SPECIAL_BLAST_DESC,Played when special block is erased by the timeline.,Suona quando un blocco speciale viene cancellato dalla timeline
+SE_A_TIMELINE,SE_TIMELINE_SOUND,TIMELINE ERASING BLOCKS,TIMELINE
+SE_A_TIMELINE_DESC,SE_TIMELINE_SOUND_DESC,Played when the timeline starts deleting blocks and squares.,Suona quando la timeline comincia a cancellare i blocchi e i quadrati
+SE_A_BONUS,SE_BONUS_SOUND,4X BONUS SOUND,BONUS
+SE_A_BONUS_DESC,SE_BONUS_SOUND_DESC,Played when 4 and more squares were erased in current timeline sweep. (4x bonus),Suona quando 4 o più quadrati vengono cancellati in una misura
+SE_A_MOVE,SE_PIECE_MOVE,PIECE MOVE,SPOSTA
+SE_A_MOVE_DESC,SE_PIECE_MOVE_DESC,Played when piece is moved,Suona quando si muove il pezzo
+SE_A_ROTATE_LEFT,SE_ROTATE_LEFT,ROTATE LEFT,RUOTA SINISTRA
+SE_A_ROTATE_LEFT_DESC,SE_ROTATE_LEFT_DESC,Played when piece is rotated left,Suona quando si ruota il pezzo a sinistra
+SE_A_ROTATE_RIGHT,SE_ROTATE_RIGHT,ROTATE RIGHT,RUOTA DESTRA
+SE_A_ROTATE_RIGHT_DESC,SE_ROTATE_RIGHT_DESC,Played when piece is rotated right,Suona quando si ruota il pezzo a destra
+SE_A_LEFT_DASH,SE_DASH_LEFT,DASH LEFT,SCATTO SINISTRA
+SE_A_LEFT_DASH_DESC,SE_DASH_LEFT_DESC,Played when piece dashes left,Suona quando si fa scattare il pezzo a sinistra
+SE_A_RIGHT_DASH,SE_DASH_RIGHT,DASH RIGHT,SCATTO DESTRA
+SE_A_RIGHT_DASH_DESC,SE_DASH_RIGHT_DESC,Played when piece dashes right,Suona quando si fa scattare il pezzo a destra
+SE_A_DROP,SE_PIECE_DROP,PIECE DROP,ATTERRA
+SE_A_DROP_DESC,SE_PIECE_DROP_DESC,Played when piece has landed,Suona quando il pezzo atterra
+SE_A_QUEUE_SHIFT,SE_PIECE_SWAP,PIECE SWAP,SCAMBIO
+SE_A_QUEUE_SHIFT_DESC,SE_PIECE_SWAP_DESC,Played when piece is swapped,Suona quando si esegue uno scambio
+SE_A_LEVEL_UP,SE_LEVEL_UP,LEVEL UP!,PROSSIMO LIVELLO!
+SE_A_LEVEL_UP_DESC,SE_LEVEL_UP_DESC,Played when level up occurs,Suona quando si sale di livello
+SE_A_SPECIAL_BONUS,SE_SPECIAL_BONUS,SPECIAL BONUS,BONUS SPECIALE
+SE_A_SPECIAL_BONUS_DESC,SE_SPECIAL_BONUS_DESC,Played when special bonus (single color/all clear) occurs,Suona quando occorre un bonus speciale (Pulizia a singolo colore/completa)
+SE_PLAY,SE_PLAY,PLAY,PLAY
+SE_SOUND_TEXT1,SE_SOUND_TEXT1,"More than one sound may be assigned per action, indicated by a number next to an sound play button.","Più di un suono può essere inserito per azione, indicato da un numero vicino al bottone ""Play""."
+SE_SOUND_TEXT2,SE_SOUND_TEXT2,"If more than one sound is assigned to an action, a random assigned sound will play.","Se più di un suono viene utilizzato per una azione, un suono casuale verrà riprodotto per quella."
+SE_SOUND_TEXT3,SE_SOUND_TEXT3,"You also can remove sounds by right clicking, rest of the sounds will shift to the left.","Puoi anche rimuovere suoni cliccando col tasto destro, il resto dei suoni verrà spostato alla sinistra."
+SE_SOUND_TEXT4,SE_SOUND_TEXT4,To move between sounds you can use the arrow buttons or type the number and press enter.,Per muoversi attraversi i suoni puoi utilizzare le freccette oppure digitare il numero e premere ENTER.
+SE_MUSIC,SE_MUSIC,MUSIC,MUSICA
+SE_MUSIC_DESC,SE_MUSIC_DESC,Main skin music. Supported formats: .ogg; .mp3; .wav,Musica per la skin. Formati compatibili: .ogg; .mp3; .wav
+SE_A_ANNOUNCE,SE_ANNOUNCE,ANNOUNCE,ANNUNCIO
+SE_A_ANNOUNCE_DESC,SE_ANNOUNCE_DESC,Played when this skin is loaded and is ready to start,Suona quando questa skin è caricata ed è pronta ad iniziare
+SE_A_PREVIEW,SE_PREVIEW,PREVIEW,ANTEPRIMA
+SE_A_PREVIEW_DESC,SE_PREVIEW_DESC,Played when this skin is highlighted in the Playlist menu,Suona quando questa skin viene selezionata nel menu della modalità playlist
+SE_A_ENDING,SE_ENDING,ENDING,FINE
+SE_A_ENDING_DESC,SE_ENDING_DESC,"Played when the skin transition starts, so this would be the last skin sample",Suona quando inizia la transizione da questa skin a un'altra. Quindi questo sarà l'ultimo sample della skin
+SE_SOME,SE_SOME,SOME,MESSO
+SE_INSERT,SE_INPUT,INSERT,INPUT
+SE_RESET,SE_RESET,RESET,RESET
+SE_RESET_DESC,SE_RESET_DESC,Reset current skin to standard one.,Resetta la skin a quella standard
+SE_PLAYTEST,SE_PLAYTEST,PLAYTEST,PROVA
+SE_PLAYTEST_DESC,SE_PLAYTEST_DESC,Start skin playtest session.,Inizia la sezione di playtesting
+SE_LOAD,SE_LOAD,LOAD,CARICA
+SE_LOAD_DESC,SE_LOAD_DESC,Load skin file to edit.,Carica il file di skin da modificare
+SE_SAVE,SE_SAVE,SAVE,SALVA
+SE_SAVE_DESC,SE_SAVE_DESC,"Save current skin. Skin will be saved to your ""skins"" directory.","Salva la skin che verra aggiunta nella cartella ""Skins"""
+SE_EXIT_DESC,SE_EXIT_DESC,Return back to main menu,Ritorna al menu principale
+SE_UNSAVED_CONTINUE,SE_UNSAVED_CONTINUE,This skin has unsaved changes and you must save it now in order to continue. Proceed?,Questa skin ha delle modifiche non salvatie e devi salvarla ora per continuare. Procedere con l'operazione?
+SE_UNSAVED_EXIT,SE_UNSAVED_EXIT,This skin has unsaved changes. Are you sure you want to exit?,Questa skin ha delle modifiche non salvate. Sei sicuro di voler uscire?
+SE_UNSAVED_RESET,SE_UNSAVED_RESET,This skin has unsaved changes. Are you sure you want to reset everything?,Questa skin ha delle modifiche non salvate. Sei sicuro di voler resettare tutto?
+SE_RESET_DIALOG,SE_RESET_DIALOG,Are you sure you want to reset everything?,Sei sicuro di voler resettare tutto?
+SE_SAVE_DIALOG,SE_SAVE_DIALOG,Are you sure you want to save this skin?,Sei sicuro di voler salvare questa skin?

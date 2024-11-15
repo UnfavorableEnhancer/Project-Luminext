@@ -52,8 +52,9 @@ var combo : int = 0 # Counts how many 4X bonuses were in row
 var max_combo : int = 32 # Max combo which can multiply incoming score
 
 var bpm_multiplyer : float = 1.0 # Multiplyer used to balance score gain with defferent BPMs (Formula : (BPM/120)^2) (For now unused)
-var rng_start_seed : int = -1 # Stores start seed of rng, if custom seed is loaded, to bring rng back after reset
-var rng_start_state : int = -1 # Stores start state of rng, if custom seed is loaded, to bring rng back after reset
+
+var rng_start_seed : int = -1 # Seed which will be used by rng on game start
+var used_rng_seed : int = -1  # Currently used rng seed value
 
 var level_count : int = 1 
 var max_level_count : int = 4
@@ -109,11 +110,10 @@ func _sync_settings() -> void:
 
 	if not Data.profile.config["gameplay"]["combo_system"] : game.foreground.ui_elements["combo"]._set_combo(-42) 
 	
-	if rng_start_seed != Data.profile.config["gameplay"]["seed"] and not game.is_playing_replay:
+	if Data.profile.config["gameplay"]["seed"] > 0 and not game.is_playing_replay:
 		rng_start_seed = Data.profile.config["gameplay"]["seed"]
-		rng_start_state = -1
 
-	
+
 func _prereset() -> void:
 	level_count = 1
 	score = 0
@@ -131,23 +131,16 @@ func _prereset() -> void:
 	scoreboard._set_value(0,"score")
 	scoreboard._set_value(0,"deleted_squares")
 	scoreboard._set_value(0,"deleted_blocks")
-
+	
 	game.foreground.ui_elements["combo"]._set_combo(-42)
 	game.foreground.ui_elements["bonus"]._reset()
-
-	_sync_settings()
-
-	var current_seed : int = randi()
-	game.rng.seed = current_seed if rng_start_seed < 1 else rng_start_seed
 	
-	#game.replay.gamemode_settings["seed"] = game.rng.seed
-	#game.replay.gamemode_settings["state"] = game.rng.state
-
-	if rng_start_seed > 0:
-		if game.rng.state == -1: rng_start_state = game.rng.state
-		else: game.rng.state = rng_start_state
-	else:
-		rng_start_state = -1
+	_sync_settings()
+	
+	if rng_start_seed > 0 : used_rng_seed = rng_start_seed
+	else : used_rng_seed = randi()
+	
+	game.rng.seed = used_rng_seed
 
 
 # Called on game reset
