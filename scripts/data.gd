@@ -166,10 +166,11 @@ func _ready() -> void:
 	add_child(total_time_timer)
 	total_time_timer.start(1.0)
 
-	await get_tree().create_timer(0.1).timeout
-	ranking_manager = Node.new()
-	ranking_manager.set_script(load("res://scripts/ranking_manager.gd"))
-	add_child(ranking_manager)
+	if FileAccess.file_exists("res://addons/silent_wolf/silent_wolf.gd"):
+		await get_tree().create_timer(0.1).timeout
+		ranking_manager = Node.new()
+		ranking_manager.set_script(load("res://scripts/ranking_manager.gd"))
+		add_child(ranking_manager)
 
 
 # Converts int (secs) to (hh:mm:ss) time format

@@ -3,6 +3,9 @@
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="1_7eynp"]
 [ext_resource type="Script" path="res://menu/scripts/objects/ranking_bar.gd" id="1_gl121"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ooinb"]
+blend_mode = 1
+
 [sub_resource type="LabelSettings" id="LabelSettings_dc7gr"]
 font = ExtResource("1_7eynp")
 
@@ -12,34 +15,47 @@ font_size = 12
 
 [sub_resource type="LabelSettings" id="LabelSettings_rquhu"]
 font = ExtResource("1_7eynp")
+font_size = 14
 
 [sub_resource type="LabelSettings" id="LabelSettings_bkw0w"]
 font = ExtResource("1_7eynp")
-font_size = 24
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ooinb"]
-blend_mode = 1
+font_size = 26
 
 [node name="Rankingbar" type="Button"]
 self_modulate = Color(1, 1, 1, 0.5)
-custom_minimum_size = Vector2(960, 40)
-offset_right = 760.0
+custom_minimum_size = Vector2(944, 40)
+offset_right = 800.0
 offset_bottom = 40.0
 mouse_filter = 2
 script = ExtResource("1_gl121")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Back" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0.5)
-layout_mode = 0
-offset_right = 960.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-color = Color(0.270588, 0.278431, 0.270588, 1)
+color = Color(0.24, 0.24, 0.24, 0.75)
+
+[node name="Glow" type="ColorRect" parent="Back"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0.501961)
+material = SubResource("CanvasItemMaterial_ooinb")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="H" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 16.0
-offset_right = 512.0
+offset_right = 544.0
 offset_bottom = 40.0
 mouse_filter = 2
 theme_override_constants/separation = 16
@@ -63,7 +79,7 @@ modulate = Color(1, 1, 1, 0.25)
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "#889999"
+text = "#88999999"
 label_settings = SubResource("LabelSettings_vokin")
 vertical_alignment = 2
 clip_text = true
@@ -72,10 +88,12 @@ uppercase = true
 [node name="Date" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0.5)
 layout_mode = 2
-offset_left = 494.0
+offset_left = 496.0
 offset_top = 11.0
-offset_right = 787.0
+offset_right = 773.0
 offset_bottom = 29.0
+grow_horizontal = 0
+grow_vertical = 2
 size_flags_horizontal = 3
 text = "20:20:30 12.12.2024"
 label_settings = SubResource("LabelSettings_rquhu")
@@ -86,16 +104,21 @@ uppercase = true
 [node name="ColorRect2" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(2, 0)
 layout_mode = 2
-offset_left = 803.0
-offset_right = 805.0
+offset_left = 789.0
+offset_right = 791.0
 offset_bottom = 40.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="Result" type="Label" parent="."]
 layout_mode = 2
-offset_left = 808.0
+offset_left = 794.0
 offset_top = 4.0
-offset_right = 950.0
+offset_right = 936.0
 offset_bottom = 36.0
+grow_horizontal = 0
+grow_vertical = 2
 text = "9999"
 label_settings = SubResource("LabelSettings_bkw0w")
 horizontal_alignment = 1
@@ -105,19 +128,9 @@ uppercase = true
 [node name="ColorRect3" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(2, 0)
 layout_mode = 2
-offset_left = 949.0
-offset_right = 951.0
+offset_left = 935.0
+offset_right = 937.0
 offset_bottom = 40.0
-
-[node name="Glow" type="ColorRect" parent="."]
-modulate = Color(0, 0, 0, 0)
-self_modulate = Color(1, 1, 1, 0.501961)
-material = SubResource("CanvasItemMaterial_ooinb")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
+grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
-metadata/_edit_lock_ = true

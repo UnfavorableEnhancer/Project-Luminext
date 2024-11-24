@@ -38,7 +38,7 @@ signal cursor_selection_fail(cursor : Vector2, direction : int) # Called on any 
 enum CURSOR_DIRECTION {HERE,LEFT,RIGHT,UP,DOWN} # Movement sides for cursor
 
 const CURSOR_DASH_DELAY : float = 0.2 # How many ticks wait before cursor dash
-var BUTTON_SEARCH_SPREAD : Array = [-1,0,1] # Spread in which we try to find selectable button
+var BUTTON_SEARCH_SPREAD : Array = [-2,-1,1,2] # Spread in which we try to find selectable button
 var BUTTON_SEARCH_DISTANCE : int = 5 # How far we search for far away selectable, when cursor tries to move into void
 
 @onready var menu : Control = Data.menu
@@ -154,23 +154,29 @@ func _move_cursor(direction : int = CURSOR_DIRECTION.HERE, one_shot : bool = fal
 				_move_cursor()
 				return true
 		
-		elif selectables.has(Vector2i(cursor.x, 0)):
-			cursor = Vector2i(cursor.x, 0)
-			_move_cursor()
-			return true
+		#elif selectables.has(Vector2i(cursor.x, 0)):
+			#cursor = Vector2i(cursor.x, 0)
+			#_move_cursor()
+			#return true
 		
-	if direction == CURSOR_DIRECTION.UP or direction == CURSOR_DIRECTION.DOWN:
-		# If there's no selectable object at this coordinates, try to select first element in row
-		if selectables.has(Vector2i(0,cursor.y)):
-			cursor = Vector2i(0,cursor.y)
-			_move_cursor()
-			return true
+	#if direction == CURSOR_DIRECTION.UP or direction == CURSOR_DIRECTION.DOWN:
+		## If there's no selectable object at this coordinates, try to select first element in row
+		#if selectables.has(Vector2i(0,cursor.y)):
+			#cursor = Vector2i(0,cursor.y)
+			#_move_cursor()
+			#return true
 	
+	var origin_position : Vector2i = cursor
 	for i : int in BUTTON_SEARCH_SPREAD:
+		cursor = origin_position
+		
 		if direction == CURSOR_DIRECTION.RIGHT or direction == CURSOR_DIRECTION.LEFT:
 			cursor.y += i
 		elif direction == CURSOR_DIRECTION.UP or direction == CURSOR_DIRECTION.DOWN:
 			cursor.x += i
+			
+		if _move_cursor(CURSOR_DIRECTION.HERE,true) == true : return true
+		
 		# Try to find selectable object in that direction, by recursing current function
 		for ii : int in BUTTON_SEARCH_DISTANCE:
 			if _move_cursor(direction,true) == true : return true

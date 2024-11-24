@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://drw8tynskp6ct"]
+[gd_scene load_steps=40 format=3 uid="uid://drw8tynskp6ct"]
 
 [ext_resource type="Script" path="res://menu/scripts/screens/time_attack_mode.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://160thw0yemok" path="res://menu/objects/slider.tscn" id="2"]
@@ -485,74 +485,14 @@ tracks/38/keys = {
 tracks/39/type = "value"
 tracks/39/imported = false
 tracks/39/enabled = true
-tracks/39/path = NodePath("Ranking/Monthly:scale")
+tracks/39/path = NodePath("Ranking/Local:scale")
 tracks/39/interp = 1
 tracks/39/loop_wrap = true
 tracks/39/keys = {
-"times": PackedFloat32Array(0.0750001, 0.1875, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0, 0), Vector2(0, 0)]
-}
-tracks/40/type = "value"
-tracks/40/imported = false
-tracks/40/enabled = true
-tracks/40/path = NodePath("Ranking/Weekly:scale")
-tracks/40/interp = 1
-tracks/40/loop_wrap = true
-tracks/40/keys = {
-"times": PackedFloat32Array(0.0375001, 0.15, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0, 0), Vector2(0, 0)]
-}
-tracks/41/type = "value"
-tracks/41/imported = false
-tracks/41/enabled = true
-tracks/41/path = NodePath("Ranking/Local:scale")
-tracks/41/interp = 1
-tracks/41/loop_wrap = true
-tracks/41/keys = {
 "times": PackedFloat32Array(1.3411e-07, 0.1125, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0, 0), Vector2(0, 0)]
-}
-tracks/42/type = "value"
-tracks/42/imported = false
-tracks/42/enabled = true
-tracks/42/path = NodePath("Ranking/Detail5:visible_ratio")
-tracks/42/interp = 1
-tracks/42/loop_wrap = true
-tracks/42/keys = {
-"times": PackedFloat32Array(0.075, 0.225, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [1.0, 0.0, 0.0]
-}
-tracks/43/type = "value"
-tracks/43/imported = false
-tracks/43/enabled = true
-tracks/43/path = NodePath("Ranking/ColorRect:scale")
-tracks/43/interp = 1
-tracks/43/loop_wrap = true
-tracks/43/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
-}
-tracks/44/type = "value"
-tracks/44/imported = false
-tracks/44/enabled = true
-tracks/44/path = NodePath("Ranking/Detail5/Icon:modulate")
-tracks/44/interp = 1
-tracks/44/loop_wrap = true
-tracks/44/keys = {
-"times": PackedFloat32Array(0, 0.1125, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="17"]
@@ -1029,74 +969,14 @@ tracks/38/keys = {
 tracks/39/type = "value"
 tracks/39/imported = false
 tracks/39/enabled = true
-tracks/39/path = NodePath("Ranking/Monthly:scale")
+tracks/39/path = NodePath("Ranking/Local:scale")
 tracks/39/interp = 1
 tracks/39/loop_wrap = true
 tracks/39/keys = {
-"times": PackedFloat32Array(0, 0.75, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0), Vector2(1, 1)]
-}
-tracks/40/type = "value"
-tracks/40/imported = false
-tracks/40/enabled = true
-tracks/40/path = NodePath("Ranking/Weekly:scale")
-tracks/40/interp = 1
-tracks/40/loop_wrap = true
-tracks/40/keys = {
-"times": PackedFloat32Array(0, 0.8, 0.95),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0), Vector2(1, 1)]
-}
-tracks/41/type = "value"
-tracks/41/imported = false
-tracks/41/enabled = true
-tracks/41/path = NodePath("Ranking/Local:scale")
-tracks/41/interp = 1
-tracks/41/loop_wrap = true
-tracks/41/keys = {
 "times": PackedFloat32Array(0, 0.85, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(1, 1)]
-}
-tracks/42/type = "value"
-tracks/42/imported = false
-tracks/42/enabled = true
-tracks/42/path = NodePath("Ranking/Detail5:visible_ratio")
-tracks/42/interp = 1
-tracks/42/loop_wrap = true
-tracks/42/keys = {
-"times": PackedFloat32Array(0, 0.7, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, 0.0, 1.0]
-}
-tracks/43/type = "value"
-tracks/43/imported = false
-tracks/43/enabled = true
-tracks/43/path = NodePath("Ranking/ColorRect:scale")
-tracks/43/interp = 1
-tracks/43/loop_wrap = true
-tracks/43/keys = {
-"times": PackedFloat32Array(0, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
-}
-tracks/44/type = "value"
-tracks/44/imported = false
-tracks/44/enabled = true
-tracks/44/path = NodePath("Ranking/Detail5/Icon:modulate")
-tracks/44/interp = 1
-tracks/44/loop_wrap = true
-tracks/44/keys = {
-"times": PackedFloat32Array(0, 0.85, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u4fqk"]
@@ -1603,16 +1483,9 @@ VScrollBar/styles/grabber_highlight = SubResource("132")
 VScrollBar/styles/grabber_pressed = SubResource("133")
 VScrollBar/styles/scroll = SubResource("134")
 
-[sub_resource type="LabelSettings" id="LabelSettings_nadkk"]
-font = ExtResource("11")
-font_size = 18
-
 [sub_resource type="LabelSettings" id="LabelSettings_4w6n7"]
 font = ExtResource("11")
 font_size = 20
-
-[sub_resource type="LabelSettings" id="LabelSettings_rmhpe"]
-font = ExtResource("11")
 
 [sub_resource type="LabelSettings" id="LabelSettings_ur7mf"]
 font = ExtResource("11")
@@ -2322,14 +2195,14 @@ offset_left = 16.0
 offset_top = 80.0
 offset_right = 976.0
 offset_bottom = 680.0
-color = Color(0.867, 0.329, 0.329, 0.1)
+color = Color(0.679688, 0.679688, 0.679688, 0.1)
 metadata/_edit_lock_ = true
 
 [node name="Total" parent="Ranking" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
-offset_right = 176.0
+offset_right = 480.0
 scale = Vector2(1e-05, 1e-05)
 description_node = NodePath("../../Desc/Desc")
 glow_color = Color(0.79123, 0.374054, 0.804688, 1)
@@ -2339,101 +2212,50 @@ press_sound_name = "confirm4"
 call_string = "total"
 call_function_name = "_display_ranking"
 
-[node name="L" type="Label" parent="Ranking/Total"]
-layout_mode = 0
-offset_right = 160.0
-offset_bottom = 48.0
-text = "TA_TOTAL"
-label_settings = SubResource("LabelSettings_g4n5i")
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
-metadata/_edit_lock_ = true
-
-[node name="Monthly" parent="Ranking" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
-layout_mode = 0
-offset_left = 192.0
-offset_top = 16.0
-offset_right = 392.0
-scale = Vector2(1e-05, 1e-05)
-description_node = NodePath("../../Desc/Desc")
-glow_color = Color(0.867188, 0.328583, 0.328583, 1)
-description = "TA_MONTHLY_DESC"
-menu_position = Vector2i(4, 0)
-press_sound_name = "confirm4"
-call_string = "monthly"
-call_function_name = "_display_ranking"
-
-[node name="L" type="Label" parent="Ranking/Monthly"]
-layout_mode = 0
-offset_right = 200.0
-offset_bottom = 48.0
-text = "TA_MONTHLY"
-label_settings = SubResource("LabelSettings_g4n5i")
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
-metadata/_edit_lock_ = true
-
-[node name="Weekly" parent="Ranking" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
-layout_mode = 0
-offset_left = 408.0
-offset_top = 16.0
-offset_right = 584.0
-scale = Vector2(1e-05, 1e-05)
-description_node = NodePath("../../Desc/Desc")
-glow_color = Color(0.362411, 0.792969, 0.601236, 1)
-description = "TA_WEEKLY_DESC"
-menu_position = Vector2i(5, 0)
-press_sound_name = "confirm4"
-call_string = "weekly"
-call_function_name = "_display_ranking"
-
-[node name="L" type="Label" parent="Ranking/Weekly"]
-layout_mode = 0
-offset_right = 176.0
-offset_bottom = 48.0
-text = "TA_WEEKLY"
-label_settings = SubResource("LabelSettings_g4n5i")
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
-metadata/_edit_lock_ = true
-
 [node name="Local" parent="Ranking" node_paths=PackedStringArray("description_node") instance=ExtResource("4")]
 layout_mode = 0
-offset_left = 808.0
+offset_left = 496.0
 offset_top = 16.0
 offset_right = 976.0
 scale = Vector2(1e-05, 1e-05)
 description_node = NodePath("../../Desc/Desc")
 glow_color = Color(0.792969, 0.705512, 0.362411, 1)
 description = "TA_LOCAL_DESC"
-menu_position = Vector2i(6, 0)
+menu_position = Vector2i(4, 0)
 press_sound_name = "confirm4"
 call_string = "local"
 call_function_name = "_display_ranking"
 
-[node name="L" type="Label" parent="Ranking/Local"]
+[node name="L" type="Label" parent="Ranking"]
 layout_mode = 0
-offset_right = 168.0
-offset_bottom = 48.0
-text = "TA_LOCAL"
+offset_left = 40.0
+offset_top = 16.0
+offset_right = 472.0
+offset_bottom = 64.0
+text = "TA_ONLINE"
 label_settings = SubResource("LabelSettings_g4n5i")
-horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
-metadata/_edit_lock_ = true
+
+[node name="L2" type="Label" parent="Ranking"]
+layout_mode = 0
+offset_left = 520.0
+offset_top = 16.0
+offset_right = 968.0
+offset_bottom = 64.0
+text = "TA_LOCAL"
+label_settings = SubResource("LabelSettings_g4n5i")
+vertical_alignment = 1
+uppercase = true
 
 [node name="S" type="ScrollContainer" parent="Ranking"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 80.0
+offset_left = 24.0
+offset_top = 88.0
 offset_right = 1008.0
 offset_bottom = 680.0
 theme = SubResource("87")
 horizontal_scroll_mode = 0
-metadata/_edit_lock_ = true
 
 [node name="V" type="VBoxContainer" parent="Ranking/S"]
 layout_mode = 2
@@ -2447,7 +2269,6 @@ offset_left = 44.0
 offset_top = 692.0
 offset_right = 420.0
 offset_bottom = 711.0
-text = "TA_ARROW4"
 label_settings = SubResource("LabelSettings_lwkt4")
 uppercase = true
 visible_characters = 0
@@ -2465,33 +2286,6 @@ expand_mode = 1
 flip_h = true
 flip_v = true
 
-[node name="Detail5" type="Label" parent="Ranking"]
-modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
-texture_filter = 1
-layout_mode = 0
-offset_left = 632.0
-offset_top = 16.0
-offset_right = 780.0
-offset_bottom = 64.0
-text = "TA_ONLINE"
-label_settings = SubResource("LabelSettings_nadkk")
-vertical_alignment = 1
-uppercase = true
-visible_characters = 0
-visible_ratio = 0.0
-
-[node name="Icon" type="TextureRect" parent="Ranking/Detail5"]
-modulate = Color(1, 1, 1, 0)
-texture_filter = 2
-layout_mode = 0
-offset_left = -32.0
-offset_top = 10.0
-offset_right = -4.0
-offset_bottom = 38.0
-texture = SubResource("AtlasTexture_1fbr7")
-expand_mode = 1
-flip_v = true
-
 [node name="Deny" type="Label" parent="Ranking"]
 visible = false
 modulate = Color(1, 1, 1, 0.5)
@@ -2504,28 +2298,6 @@ offset_bottom = 144.0
 text = "TA_NOT_AVAIABLE"
 label_settings = SubResource("LabelSettings_4w6n7")
 uppercase = true
-
-[node name="Timer" type="Label" parent="Ranking"]
-modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
-layout_mode = 0
-offset_left = 676.0
-offset_top = 692.0
-offset_right = 976.0
-offset_bottom = 710.0
-text = "RESET IN : 999:99:99"
-label_settings = SubResource("LabelSettings_rmhpe")
-horizontal_alignment = 2
-vertical_alignment = 1
-uppercase = true
-
-[node name="ColorRect" type="ColorRect" parent="Ranking"]
-layout_mode = 0
-offset_left = 788.0
-offset_top = 16.0
-offset_right = 792.0
-offset_bottom = 64.0
-scale = Vector2(1, 1e-05)
-color = Color(0.639, 0.639, 0.639, 0.308)
 
 [node name="Playerdata" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)

@@ -54,6 +54,7 @@ func _ready() -> void:
 	$Timer.start(1.0)
 	
 	$ProfileLayout/Name.text = Data.profile.name
+	$ProfileLayout/GameVer.text = "PROJECT LUMINEXT\nV" + Data.VERSION
 
 
 func _raise() -> void:

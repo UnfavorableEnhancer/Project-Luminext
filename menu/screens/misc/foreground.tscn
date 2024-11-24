@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxg5e4iwo6hfc"]
+[gd_scene load_steps=8 format=3 uid="uid://cxg5e4iwo6hfc"]
 
 [ext_resource type="Script" path="res://menu/scripts/screens/foreground.gd" id="2"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="5"]
@@ -93,6 +93,10 @@ _data = {
 [sub_resource type="LabelSettings" id="LabelSettings_75ns1"]
 font = ExtResource("5")
 
+[sub_resource type="LabelSettings" id="LabelSettings_nq0lg"]
+font = ExtResource("5")
+font_size = 14
+
 [node name="Foreground" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -143,6 +147,16 @@ uppercase = true
 layout_mode = 2
 text = "+REVENANT+"
 label_settings = SubResource("LabelSettings_75ns1")
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+
+[node name="GameVer" type="Label" parent="ProfileLayout"]
+modulate = Color(1, 1, 1, 0.4)
+layout_mode = 2
+text = "PROJECT LUMINEXT 
+V0.1.1"
+label_settings = SubResource("LabelSettings_nq0lg")
 horizontal_alignment = 2
 vertical_alignment = 1
 uppercase = true

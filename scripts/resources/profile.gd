@@ -343,10 +343,12 @@ func _load_progress() -> int:
 			for key : String in progress[category].keys():
 				if loaded_progress[category].has(key):
 					progress[category][key] = loaded_progress[category][key]
-				elif category == "misc" and not loaded_progress.has("key"):
-					progress["misc"]["key"] = str(hash(name) + randi())
-					
+	
 	file.close()
+	
+	if progress["misc"]["key"] == "0451" : 
+		progress["misc"]["key"] = str(hash(name) + randi())
+		_save_progress()
 	
 	progress_changed.emit()
 	print("OK")

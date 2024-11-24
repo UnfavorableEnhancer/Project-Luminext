@@ -25,7 +25,7 @@ signal replay_loaded
 
 const SCREENSHOT_TIME : float = 10.0
 const TICK : float = 1.0 / 120.0
-const ALLOWED_SKINS : Array[String] = ["grandmother clock", "The Years Will Pass", "Jades", "Panya Malathai", "Protocol"]
+const ALLOWED_SKINS : Array[String] = ["grandmother clock", "The Years Will Pass", "Jades", "Panya Malathai", "Protocol", "Disk Sector"]
 const MAX_RECORD_TIME : float = 14400 # 4 Hours
 
 enum INVALID {OK, NON_STANDARD_SKIN, UNSUPPORTED_PLAYLIST, GAME_RULES_CHANGED, RECORD_TIME_EXCEEDED, UNSUPPORTED_GAMEMODE}
@@ -229,6 +229,8 @@ func _save(save_name : String = "", path : String = "", raw_data : bool = false)
 	if path.is_empty():
 		path = Data.REPLAYS_PATH + save_name + ".rpl"
 		path = path.replace(" ","_").to_lower()
+	else:
+		path = path + save_name + ".rpl"
 	
 	game_version = Data.VERSION
 

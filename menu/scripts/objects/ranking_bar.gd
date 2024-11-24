@@ -22,7 +22,7 @@ var pos : int = 1
 var score : int = 1
 var datetime : int = 1
 var author : String = "MISSING_NO"
-var author_id : String = "????"
+var author_id : String = ""
 
 var time_attack_screen : MenuScreen = null
 
@@ -34,12 +34,13 @@ func _ready() -> void:
 	
 	$H/Num.text = str(pos)
 	$H/Name.text = author
-	$H/ID.text = "#" + str(hash(author_id))
+	if author_id.is_empty() : $H/ID.text = ""
+	else : $H/ID.text = "#" + str(hash(author_id)).left(8)
 	var datetime_str : String = Time.get_datetime_string_from_unix_time(datetime).replace("-",".")
 	$Date.text = datetime_str.split("T")[1] + "  " + datetime_str.split("T")[0]
 	$Result.text = str(score)
 	
-	create_tween().tween_property($Glow,"modulate",Color("00000000"),0.2).from(Color("2fffb640"))
+	create_tween().tween_property($Back/Glow,"modulate:a",0.0,0.2).from(0.5)
 
 
 func _selected() -> void:
@@ -49,8 +50,9 @@ func _selected() -> void:
 	if is_instance_valid(foreground_screen):
 		foreground_screen._show_button_layout(0)
 	
-	create_tween().tween_property($Glow,"modulate",Color("2fffb640"),0.1).from(Color("00000000"))
+	$Back.color = Color("ab2966bf")
+	create_tween().tween_property($Back/Glow,"modulate:a",0.0,0.2).from(0.5)
 
 
 func _deselected() -> void:
-	create_tween().tween_property($Glow,"modulate",Color("00000000"),0.1)
+	$Back.color = Color(0.24,0.24,0.24,0.75)

@@ -19,23 +19,8 @@ var is_parsing_successful : bool = false
 @onready var ranking_manager : Node = $RankingManager
 
 func _ready() -> void:
-	#var api = \"w78eTh8HLu2R4KmkFoanL7HOuvJNilXA2vS8MSJe\"
-	#var url = \"https://api.silentwolf.com/delete_scores\"
-	#var headers = [\"x-api-key: \" + api, \"x-ws-plugin-version: 0.9.0\", \"Content-Type: application/json\"]
-	#var scores = {
-		#\"scores\" : [{
-			#\"game_id\" : \"projectluminext\",
-			#\"game_version\" : \"1\",
-			#\"score_id\" : \"bdcf6a87-780c-43dc-b888-781722acab1d\",
-			#\"ldboard_name\" : \"test\"
-		#}]
-	#}
-	#await $HTTPRequest.request(url, headers, HTTPClient.METHOD_POST, JSON.stringify(scores))
-	#print(\"SDNJASNDJASN\")
-	
-	pass
-	#await get_tree().create_timer(0.1).timeout
-	#_reload_leaderboard_data()
+	await get_tree().create_timer(0.1).timeout
+	_reload_leaderboard_data()
 
 
 func _load_leaderboard() -> void:
@@ -100,15 +85,12 @@ func _select_entry(entry : String) -> void:
 
 
 func _delete_selected_entry() -> void:
-	for i : String in [\"total\",\"monthly\",\"weekly\"]:
-		var leaderboard_name : String = selected_gamemode + i
-		var ranking_name : String = selected_time_limit + selected_ruleset
-		var ranking : Dictionary = ranking_manager.ranking[leaderboard_name][ranking_name]
-		if not ranking.has(selected_entry):
-			continue
-		var entry_id : String = ranking[selected_entry][4]
-		
-		await ranking_manager._delete_score(entry_id, leaderboard_name)
+	var leaderboard_name : String = selected_gamemode + \"total\"
+	var ranking_name : String = selected_time_limit + selected_ruleset
+	var ranking : Dictionary = ranking_manager.ranking[leaderboard_name][ranking_name]
+	var entry_id : String = ranking[selected_entry][4]
+	
+	await ranking_manager._delete_score(entry_id)
 	
 	_reload_leaderboard_data()
 

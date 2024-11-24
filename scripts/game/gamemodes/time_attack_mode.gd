@@ -288,9 +288,20 @@ func _game_over() -> void:
 		statistics["square_cumulative"][arrays_size - 1].append(score)
 		statistics["square_per_sweep"][arrays_size - 1].append(current_sqr_count)
 		statistics["attempt_scores"].append(score)
-
+		
 		if Data.global_settings.has(hiscore_entry_string + "_ranking"):
 			Data.global_settings[hiscore_entry_string + "_ranking"].append([Data.profile.name, score, Time.get_unix_time_from_system()])
+		
+		if Data.ranking_manager != null and Data.profile.config["misc"]["save_score_online"] and time_limit in [60,120,180,300,600]:
+			var online_string : String = str(time_limit)
+			match ruleset:
+				TIME_ATTACK_RULESET.STANDARD: online_string += "std" 
+				TIME_ATTACK_RULESET.CLASSIC: online_string += "cls" 
+				TIME_ATTACK_RULESET.ARCADE: online_string += "arc" 
+				TIME_ATTACK_RULESET.COLOR_3: online_string += "thr" 
+				TIME_ATTACK_RULESET.HARDCORE: online_string += "hrd" 
+			
+			Data.ranking_manager._save_score(online_string, score)
 		
 		is_first_run = false
 
