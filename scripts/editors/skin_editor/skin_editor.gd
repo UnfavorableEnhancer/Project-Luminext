@@ -379,7 +379,6 @@ func _open_file_dialog(reason : String) -> void:
 		"video" : 
 			file_dialog.add_filter("*.mp4", "MP4 h263/h264 Video File")
 			file_dialog.add_filter("*.webm", "WebM VP8/VP9 Video File")
-			file_dialog.add_filter("*.ogv", "OGV Theora Video File")
 		"scene" :
 			file_dialog.add_filter("*.pck", "Godot Package File")
 			file_dialog.add_filter("*.zip", "ZIP Archive File")

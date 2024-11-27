@@ -40,7 +40,7 @@ By using two methods above you not just definetely get listened but help us more
 ### Making custom content
 Currently the following types of mods are possible to create: *custom skins* and *core mods*
 
-You can find info about making both in our wiki here: *under_construction*
+You can find info about making both in our wiki here: https://github.com/UnfavorableEnhancer/Project-Luminext/wiki
 
 Your finished work should be uploaded to our [official Discord server](https://discord.gg/yTQ6nnHDzR) "mod-release" forum and follow mod publication rules which are also described there.
 *Other ways are highly not recommended and we're not taking any responsibility for them.*
@@ -53,11 +53,10 @@ All source code contributors, would get an special discord role and get credited
 
 ## Building
 To run the project you only need to download standard [Godot Engine 4.3 (without C# support)](https://godotengine.org/download)
-For skin custom scenery making purposes I recommend to use my build of Godot Engine 4.3 editor, which fixes animation snapping bug. [You can download it here.](https://github.com/UnfavorableEnhancer/godot)
 
 Then you can just drag & drop cloned project folder to godot project manager and you're ready to go!
 
-*Note: Online leaderboards aren't avaiable in cloned project due to missing plugin and API key. Project uses SilentWolf plugin for online leaderboards and it currently has undefined license, so we can't include it here. Only official builds feature online leaderboards.*
+*Note: Online leaderboards aren't avaiable in cloned project due to missing plugin and API key for security purposes. Only official builds feature online leaderboards support.*
 
 Currently those platfroms are supported:
 - Windows - To change exported game exe icon and metadata you'll need to use WindowsSDK rcedit.exe or Resource Hacker.

@@ -118,11 +118,18 @@ func _change_style(style : int = 0, skin_data : SkinData = null) -> void:
 	$V/H/icon.label_settings.shadow_size = small_letter_settings[2]
 	$V/H/icon.label_settings.shadow_offset = small_letter_settings[3]
 	
-	$V/Label1.texture = load("res://images/game/foreground/scoreboard/designs/" + folder_name + "/level.png")
-	$V/Label2.texture = load("res://images/game/foreground/scoreboard/designs/" + folder_name + "/hi-score.png")
-	$V/Label3.texture = load("res://images/game/foreground/scoreboard/designs/" + folder_name + "/score.png")
-	$V/Label4.texture = load("res://images/game/foreground/scoreboard/designs/" + folder_name + "/deleted.png")
-	$V/Label5.texture = load("res://images/game/foreground/scoreboard/designs/" + folder_name + "/time.png")
+	var base_path : String = ""
+	match Data.profile.config["misc"]["language"]:
+		"it" : base_path = "res://images/game/foreground/scoreboard/designs_it/"
+		"pt" : base_path = "res://images/game/foreground/scoreboard/designs_pt/"
+		_: base_path = "res://images/game/foreground/scoreboard/designs/"
+	
+	
+	$V/Label1.texture = load(base_path + folder_name + "/level.png")
+	$V/Label2.texture = load(base_path + folder_name + "/hi-score.png")
+	$V/Label3.texture = load(base_path + folder_name + "/score.png")
+	$V/Label4.texture = load(base_path + folder_name + "/deleted.png")
+	$V/Label5.texture = load(base_path + folder_name + "/time.png")
 	
 	for separate : int in 4:
 		get_node("V/sep" + str(separate+1)).custom_minimum_size.y = separators[separate]

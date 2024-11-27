@@ -28,6 +28,7 @@ Translations
 
 Ryuto Setsujin - English text correction
 Barrels - Italian translation
+W rythm - Portuguese translation
 
 ===========================================================================
 This project was heavely inspired by Lumines Puzzle Fusion

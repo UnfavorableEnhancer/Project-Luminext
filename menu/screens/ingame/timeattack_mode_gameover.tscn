@@ -1909,7 +1909,7 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 
 [node name="back" type="ColorRect" parent="."]
-modulate = Color(1, 1, 1, 0.501961)
+modulate = Color(0, 0, 0, 0)
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -1932,7 +1932,7 @@ offset_left = -3.68
 offset_top = 189.64
 offset_right = 1916.32
 offset_bottom = 325.64
-scale = Vector2(2.12874e-08, 1)
+scale = Vector2(1e-05, 1)
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
@@ -2682,6 +2682,7 @@ visible_characters = 0
 visible_ratio = 0.0
 
 [node name="NewRecord" type="Label" parent="Results"]
+visible = false
 modulate = Color(0.235294, 1, 0.678431, 1)
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2

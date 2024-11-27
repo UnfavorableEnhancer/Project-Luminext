@@ -1,0 +1,20 @@
+SCORE	PUNTEGGIO	PONTOS
+HI-SCORE	RECORD	RECORDE
+LEVEL	LIVELLO	NÍVEL
+TIME	TEMPO	TEMPO
+DELETED	ELIMINATO
+COMBO	COMBO	COMBO
+BONUS	BONUS	BÓNUS
+NEXT	PROSSIMO	PROXÍMO
+
+Black - Uses "Source Sans Pro" font
+Clean - Uses "Lumifont" font
+Standard - Uses "Lumifont" font
+Square - Uses "Lumifont" font
+Pixel - Uses "Public Pixel" font
+Shinin - Handmade
+Comic - Uses "Bad Comic" font
+Modern - Uses "Xolonium" font
+Techno - Uses "Trigram" font
+Vector - Uses "Robtronika" font
+Live - Uses "Roboto" font

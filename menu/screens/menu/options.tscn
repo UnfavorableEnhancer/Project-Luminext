@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://6uirnlwcpt7s"]
+[gd_scene load_steps=87 format=3 uid="uid://6uirnlwcpt7s"]
 
 [ext_resource type="Texture2D" uid="uid://clbyjed38caju" path="res://menu/images/controls.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://bruo4pkdqcre4" path="res://menu/images/flags.png" id="2"]
@@ -1172,6 +1172,10 @@ region = Rect2(0, 0, 160, 106)
 [sub_resource type="AtlasTexture" id="146"]
 atlas = ExtResource("2")
 region = Rect2(160, 107, 160, 107)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5n373"]
+atlas = ExtResource("2")
+region = Rect2(160, 321, 160, 107)
 
 [sub_resource type="LabelSettings" id="LabelSettings_bb3qu"]
 font = ExtResource("8")
@@ -2908,7 +2912,7 @@ layout_mode = 2
 offset_left = 88.0
 offset_right = 1320.0
 offset_bottom = 48.0
-text = "ITALIAN"
+text = "ITALIAN [Italiano]"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
 description = "SET_LANGUAGE_DESC"
@@ -2917,6 +2921,36 @@ call_string = "it"
 call_function_name = "_select_language"
 
 [node name="Mark" type="TextureRect" parent="LANGUAGE/SCROLL/V/Flag2" groups=["language_marks"]]
+visible = false
+layout_mode = 0
+offset_left = 1264.0
+offset_top = -1.0
+offset_right = 1312.0
+offset_bottom = 47.0
+texture = SubResource("AtlasTexture_1fbr7")
+expand_mode = 1
+
+[node name="Flag3" type="TextureRect" parent="LANGUAGE/SCROLL/V"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+texture = SubResource("AtlasTexture_5n373")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ITALIAN" parent="LANGUAGE/SCROLL/V/Flag3" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+layout_mode = 2
+offset_left = 88.0
+offset_right = 1320.0
+offset_bottom = 48.0
+text = "PORTUGUESE [Português]"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "SET_LANGUAGE_DESC"
+press_sound_name = "enter"
+call_string = "pt"
+call_function_name = "_select_language"
+
+[node name="Mark" type="TextureRect" parent="LANGUAGE/SCROLL/V/Flag3" groups=["language_marks"]]
 visible = false
 layout_mode = 0
 offset_left = 1264.0

@@ -22,8 +22,8 @@ extends MenuScreen
 func _ready() -> void:
 	menu.screens["foreground"]._raise()
 	
-	if FileAccess.file_exists("CREDITS.txt"):
-		var file : FileAccess = FileAccess.open("CREDITS.txt",FileAccess.READ)
+	if FileAccess.file_exists("res://CREDITS.txt"):
+		var file : FileAccess = FileAccess.open("res://CREDITS.txt",FileAccess.READ)
 		$Content/Scroll/CreditsText.text = file.get_as_text()
 	
 	await menu.all_screens_added

@@ -1699,6 +1699,7 @@ offset_right = 456.0
 offset_bottom = 624.0
 label_settings = SubResource("LabelSettings_m0ric")
 horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="ColorRect" type="ColorRect" parent="Menu"]
 layout_mode = 0
@@ -1873,6 +1874,7 @@ text = "1"
 label_settings = SubResource("LabelSettings_sc4du")
 horizontal_alignment = 1
 vertical_alignment = 1
+text_overrun_behavior = 3
 uppercase = true
 metadata/_edit_lock_ = true
 
@@ -1899,6 +1901,7 @@ text = "5"
 label_settings = SubResource("LabelSettings_sc4du")
 horizontal_alignment = 1
 vertical_alignment = 1
+text_overrun_behavior = 3
 uppercase = true
 metadata/_edit_lock_ = true
 
@@ -1925,6 +1928,7 @@ text = "10"
 label_settings = SubResource("LabelSettings_sc4du")
 horizontal_alignment = 1
 vertical_alignment = 1
+text_overrun_behavior = 3
 uppercase = true
 metadata/_edit_lock_ = true
 
@@ -1951,6 +1955,7 @@ text = "ALL"
 label_settings = SubResource("LabelSettings_otxua")
 horizontal_alignment = 1
 vertical_alignment = 1
+text_overrun_behavior = 3
 uppercase = true
 metadata/_edit_lock_ = true
 
@@ -2040,6 +2045,7 @@ offset_bottom = 56.0
 text = "CLEAR"
 label_settings = SubResource("LabelSettings_butdo")
 vertical_alignment = 1
+text_overrun_behavior = 3
 uppercase = true
 
 [node name="Icon" type="TextureRect" parent="Playlist/CLEAR"]
@@ -2347,12 +2353,13 @@ color = Color(0, 0, 0, 0.768627)
 [node name="Text" type="Label" parent="Swap"]
 layout_mode = 0
 offset_left = 1056.0
-offset_top = 368.0
-offset_right = 1704.0
-offset_bottom = 440.0
+offset_top = 320.0
+offset_right = 1528.0
+offset_bottom = 480.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = SubResource("112")
 text = "SWAP_SKIN"
 label_settings = SubResource("LabelSettings_tt5hb")
 vertical_alignment = 1
+autowrap_mode = 2
 uppercase = true

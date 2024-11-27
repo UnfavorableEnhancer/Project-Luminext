@@ -25,7 +25,8 @@ signal replay_loaded
 
 const SCREENSHOT_TIME : float = 10.0
 const TICK : float = 1.0 / 120.0
-const ALLOWED_SKINS : Array[String] = ["grandmother clock", "The Years Will Pass", "Jades", "Panya Malathai", "Protocol", "Disk Sector"]
+const ALLOWED_SKINS : Array[String] = ["grandmother clock", 
+"The Years Will Pass", "Jades", "Panya Malathai", "Protocol", "Disk Sector"]
 const MAX_RECORD_TIME : float = 14400 # 4 Hours
 
 enum INVALID {OK, NON_STANDARD_SKIN, UNSUPPORTED_PLAYLIST, GAME_RULES_CHANGED, RECORD_TIME_EXCEEDED, UNSUPPORTED_GAMEMODE}
@@ -36,6 +37,8 @@ var author : String = "MISSING_NO"
 var date : String = "??:??:??"
 var preview_image : Texture = null
 var gamemode_settings : Dictionary = {} # Contains all gamemode info which is required to play replay back
+
+var screenshot_timer : Timer = null
 
 var emulated_inputs : Dictionary = {
 	&"move_left" : false,
@@ -49,6 +52,7 @@ var current_tick : int = 0
 var piece : Piece = null
 var queue_shift_call : Callable
 var timeline_call : Callable
+var music_sync_call : Callable
 
 var is_recording : bool = false
 var is_paused : bool = false
@@ -118,13 +122,13 @@ func _start_recording() -> void:
 
 	preview_image = null
 
-	var timer : Timer = Timer.new()
-	timer.timeout.connect(_take_screenshot)
-	timer.timeout.connect(timer.queue_free)
-	Data.game.paused.connect(timer.set_paused)
-	timer.one_shot = true
-	add_child(timer)
-	timer.start(SCREENSHOT_TIME + randf_range(-5.0,5.0))
+	screenshot_timer = Timer.new()
+	screenshot_timer.timeout.connect(_take_screenshot)
+	screenshot_timer.timeout.connect(screenshot_timer.queue_free)
+	Data.game.paused.connect(screenshot_timer.set_paused)
+	screenshot_timer.one_shot = true
+	add_child(screenshot_timer)
+	screenshot_timer.start(SCREENSHOT_TIME + randf_range(-5.0,5.0))
 	is_recording = true
 
 
@@ -134,7 +138,25 @@ func _pause(on : bool) -> void:
 		else : play()
 	
 	is_paused = on
-  
+ 
+
+func _reset_replay() -> void:
+	is_recording = false
+	is_playback = false
+	is_paused = false
+	
+	if is_instance_valid(screenshot_timer): screenshot_timer.queue_free()
+	
+	seek(0)
+	
+	emulated_inputs = {
+		&"move_left" : false,
+		&"move_right" : false,
+		&"quick_drop" : false
+	}
+	current_tick = 0
+	piece = null
+
 
 func _stop_recording() -> void:
 	if current_tick > MAX_RECORD_TIME * 120 : is_valid = INVALID.RECORD_TIME_EXCEEDED
@@ -190,6 +212,7 @@ func _take_screenshot() -> void:
 
 func _spawn_timeline() -> void:
 	timeline_call.call()
+	music_sync_call.call(current_animation_position)
 
 
 func _queue_shift() -> void:
@@ -210,6 +233,7 @@ func _start_playback() -> void:
 	print("STARTED REPLAY PLAYBACK")
 	queue_shift_call = Data.game.piece_queue._shift_queue
 	timeline_call = Data.game._start_timeline
+	music_sync_call = Data.game.skin._sync_music
 	get_animation_library("").add_animation("replay", inputs_anim)
 	play("replay")
 	is_playback = true

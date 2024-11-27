@@ -265,10 +265,11 @@ func _set_language_icon() -> void:
 	match Data.profile.config["misc"]["language"]:
 		"en" : $LANGUAGE/SCROLL/V/Flag/Mark.visible = true
 		"it" : $LANGUAGE/SCROLL/V/Flag2/Mark.visible = true
+		"pt" : $LANGUAGE/SCROLL/V/Flag3/Mark.visible = true
 
 
 func _open_translation_page() -> void:
-	pass
+	OS.shell_open("https://github.com/UnfavorableEnhancer/Project-Luminext/wiki/Translating-this-game")
 
 
 func _exit_with_apply() -> void:

@@ -65,6 +65,8 @@ var is_paused : bool = false
 var is_music_playing : bool = false
 var is_music_looping : bool = false # If this is true, current music sample will loop
 
+var clutch : bool = false # I still have no idea why scene syncing stucks on skin start so here's clutch
+
 
 func _ready() -> void:
 	set_physics_process(false)
@@ -112,8 +114,7 @@ func _load_video() -> void:
 	else: cached_video_name = "video." + skin_data.stream["video_format"]
 	
 	var stream : VideoStream
-	if extension == "ogv" : stream = VideoStreamTheora.new()
-	else : stream = FFmpegVideoStream.new()
+	stream = FFmpegVideoStream.new()
 
 	stream.file = Data.CACHE_PATH + cached_video_name
 	video_player.stream = stream
@@ -135,6 +136,7 @@ func _load_godot_scene() -> void:
 	scene.position = Vector2(-960,-540) # Center scene
 	$Back.add_child(scene)
 	scene_player = $Back/Scene/A
+	scene_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_PHYSICS
 	scene_player.current_animation = "main"
 
 	print("SCENE LOADED!")
@@ -148,6 +150,8 @@ func _reset() -> void:
 	scene_sample_start_position = 0
 	is_music_playing = false
 	set_physics_process(false)
+	
+	clutch = false
 
 	if music_player != null: 
 		music_player.stop()
@@ -258,14 +262,24 @@ func _physics_process(_delta : float) -> void:
 		half_beat.emit()
 
 
+# Used by replays to sync recorded timeline starts and music playback
+func _sync_music(time : float) -> void:
+	if not music_player : return
+	
+	time = wrapf(time,0,music_player.stream.get_length())
+	music_player.seek(time)
+
+
 # Syncs scenery playback position to music
 func _sync() -> void:
 	if is_paused: return
 	if music_player == null: return
 	var music_position : float = music_player.get_playback_position()
-
-	#if scene_player != null:
-		#scene_player.seek(wrapf(music_position, 0, scene_player.current_animation_length) ,true)
+	
+	if scene_player != null and clutch:
+		scene_player.seek(wrapf(music_position, 0, scene_player.current_animation_length) ,true)
+	
+	clutch = true
 
 
 # Used by "beater" to emulate beat signals callback

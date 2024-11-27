@@ -445,7 +445,7 @@ color = Color(1, 0.333, 0.333, 0.75)
 
 [node name="Text" type="Label" parent="Label"]
 layout_mode = 0
-offset_left = 688.0
+offset_left = 86.0
 offset_right = 1118.0
 offset_bottom = 72.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
