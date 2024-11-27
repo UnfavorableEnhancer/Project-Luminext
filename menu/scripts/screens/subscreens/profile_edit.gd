@@ -51,9 +51,9 @@ func _display_profile_list() -> void:
 	
 	if profiles.is_empty() : 
 		$V/Text.text = tr("PE_NO_PROFILES")
-		$V/Delete._disabled(true)
+		$V/Menu/Delete._disabled(true)
 	elif profiles.size() < 2:
-		$V/Delete._disabled(true)
+		$V/Menu/Delete._disabled(true)
 
 	var tween : Tween = create_tween()
 	tween.tween_interval(0.75)

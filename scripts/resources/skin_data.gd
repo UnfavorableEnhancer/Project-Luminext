@@ -548,7 +548,7 @@ func _cache_godot_scene() -> void:
 	file.store_buffer(stream["scene"])
 	file.close()
 	
-	var success : bool = ProjectSettings.load_resource_pack(Data.CACHE_PATH + cached_scene_name, false)
+	var success : bool = ProjectSettings.load_resource_pack(Data.CACHE_PATH + cached_scene_name, true)
 	if not success: 
 		print("SCENE PACK LOAD ERROR!")
 		return

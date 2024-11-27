@@ -108,7 +108,6 @@ func _sync_settings() -> void:
 func _load_video() -> void:
 	if not skin_data.video_is_cached: return
 
-	var extension : String = skin_data.stream["video_format"]
 	var cached_video_name : String
 	if Data.use_second_cache: cached_video_name = "video2." + skin_data.stream["video_format"]
 	else: cached_video_name = "video." + skin_data.stream["video_format"]

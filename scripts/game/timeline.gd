@@ -197,10 +197,10 @@ func _end(quiet : bool = false) -> void:
 	is_dying = true
 	is_paused = true
 	
+	if not scanned_blocks.is_empty() and x_pos > 1: _delete_scanned()
+	
 	finished.emit()
 	position = Vector2(1444,204)
-	
-	if not scanned_blocks.is_empty() and x_pos > 1: _delete_scanned()
 	
 	$Color/Arrow.visible = false
 	$Color/Line.visible = false

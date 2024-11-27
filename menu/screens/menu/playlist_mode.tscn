@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://m0bs1xvtbnm2"]
+[gd_scene load_steps=52 format=3 uid="uid://m0bs1xvtbnm2"]
 
 [ext_resource type="Script" path="res://menu/scripts/screens/playlist_mode.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="3_lt37c"]
@@ -9,79 +9,127 @@
 [ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="10"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="11"]
 
-[sub_resource type="Animation" id="Animation_tyj1h"]
-length = 0.001
+[sub_resource type="Curve" id="Curve_xbj4o"]
+max_value = 3.0
+_data = [Vector2(0, 2.08686), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_bpgqx"]
+max_value = 1.5
+_data = [Vector2(0, 1.15385), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Gradient" id="Gradient_lx77f"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.504808, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_ka1vx"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_trjbt"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.100962, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_6wld4"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.105769, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Shader" id="Shader_e0km8"]
+code = "/*
+	Mosaic shader for 2D canvas item by Yui Kinomoto @arlez80
+	2DCanvas Item用モザイクシェーダー by あるる（きのもと 結衣）
+
+	size = tile size
+
+	MIT License
+*/
+shader_type canvas_item;
+render_mode blend_add;
+
+uniform float size = 10.0;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, repeat_disable, filter_nearest;
+
+void fragment( )
+{
+	vec2 p = floor( FRAGCOORD.xy / size ) * size;
+	vec2 quat_x = vec2( size / 4.0, 0 );
+	vec2 quat_y = vec2( 0, quat_x.x );
+	COLOR = vec4( (
+		texelFetch( SCREEN_TEXTURE, ivec2( p ), 0 ).xyz
+	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_x ), 0 ).xyz
+	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_x * 2.0 ), 0 ).xyz
+	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_x * 3.0 ), 0 ).xyz
+	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y ), 0 ).xyz
+	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y + quat_x ), 0 ).xyz
+	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y + quat_x * 2.0 ), 0 ).xyz
+	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y + quat_x * 3.0 ), 0 ).xyz
+	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 2.0 ), 0 ).xyz
+	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 2.0 + quat_x ), 0 ).xyz
+	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 2.0 + quat_x * 2.0 ), 0 ).xyz
+	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 2.0 + quat_x * 3.0 ), 0 ).xyz
+	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 3.0 ), 0 ).xyz
+	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 3.0 + quat_x ), 0 ).xyz
+	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 3.0 + quat_x * 2.0 ), 0 ).xyz
+	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 3.0 + quat_x * 3.0 ), 0 ).xyz
+	) / 16.0, 1.0 );
+	
+	COLOR.a = step(0.25
+	, COLOR.b);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aumhc"]
+shader = SubResource("Shader_e0km8")
+shader_parameter/size = 32.0
+
+[sub_resource type="Animation" id="Animation_lt6x8"]
+resource_name = "wave"
+length = 5.0
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Skins/ColorRect:scale")
+tracks/0/path = NodePath("../Backanim/Wave:position")
 tracks/0/interp = 1
-tracks/0/loop_wrap = true
+tracks/0/loop_wrap = false
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(960, 544), Vector2(2100, 544)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Skins/ColorRect/H/RAND1:scale")
+tracks/1/path = NodePath("../Backanim/Wave2:position")
 tracks/1/interp = 1
-tracks/1/loop_wrap = true
+tracks/1/loop_wrap = false
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(960, 544), Vector2(-152, 544)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Skins/ColorRect/H/RAND5:scale")
+tracks/2/path = NodePath("../Backanim/Wave3:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Skins/ColorRect/H/RAND10:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Skins/ColorRect/H/RANDALL:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Playlist/CLEAR:scale")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nc3oq"]
+_data = {
+"wave": SubResource("Animation_lt6x8")
 }
 
 [sub_resource type="Animation" id="Animation_1ukwn"]
@@ -511,47 +559,47 @@ tracks/34/keys = {
 tracks/35/type = "value"
 tracks/35/imported = false
 tracks/35/enabled = true
-tracks/35/path = NodePath("Background:modulate")
+tracks/35/path = NodePath("Data/Detail5:visible_ratio")
 tracks/35/interp = 1
 tracks/35/loop_wrap = true
 tracks/35/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(0.835294, 0.92549, 0.917647, 0.709804), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
-}
-tracks/36/type = "value"
-tracks/36/imported = false
-tracks/36/enabled = true
-tracks/36/path = NodePath("Data/Detail5:visible_ratio")
-tracks/36/interp = 1
-tracks/36/loop_wrap = true
-tracks/36/keys = {
 "times": PackedFloat32Array(0, 0.1125, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [1.0, 0.0, 0.0]
 }
-tracks/37/type = "value"
-tracks/37/imported = false
-tracks/37/enabled = true
-tracks/37/path = NodePath("Skins/ColorRect:scale")
-tracks/37/interp = 1
-tracks/37/loop_wrap = true
-tracks/37/keys = {
+tracks/36/type = "value"
+tracks/36/imported = false
+tracks/36/enabled = true
+tracks/36/path = NodePath("Skins/ColorRect:scale")
+tracks/36/interp = 1
+tracks/36/loop_wrap = true
+tracks/36/keys = {
 "times": PackedFloat32Array(0.3, 0.45, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
 }
+tracks/37/type = "value"
+tracks/37/imported = false
+tracks/37/enabled = true
+tracks/37/path = NodePath("Skins/ColorRect/H/RAND1:scale")
+tracks/37/interp = 1
+tracks/37/loop_wrap = true
+tracks/37/keys = {
+"times": PackedFloat32Array(0.1875, 0.3, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
+}
 tracks/38/type = "value"
 tracks/38/imported = false
 tracks/38/enabled = true
-tracks/38/path = NodePath("Skins/ColorRect/H/RAND1:scale")
+tracks/38/path = NodePath("Skins/ColorRect/H/RAND5:scale")
 tracks/38/interp = 1
 tracks/38/loop_wrap = true
 tracks/38/keys = {
-"times": PackedFloat32Array(0.1875, 0.3, 0.75),
+"times": PackedFloat32Array(0.15, 0.2625, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
@@ -559,11 +607,11 @@ tracks/38/keys = {
 tracks/39/type = "value"
 tracks/39/imported = false
 tracks/39/enabled = true
-tracks/39/path = NodePath("Skins/ColorRect/H/RAND5:scale")
+tracks/39/path = NodePath("Skins/ColorRect/H/RAND10:scale")
 tracks/39/interp = 1
 tracks/39/loop_wrap = true
 tracks/39/keys = {
-"times": PackedFloat32Array(0.15, 0.2625, 0.75),
+"times": PackedFloat32Array(0.1125, 0.225, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
@@ -571,11 +619,11 @@ tracks/39/keys = {
 tracks/40/type = "value"
 tracks/40/imported = false
 tracks/40/enabled = true
-tracks/40/path = NodePath("Skins/ColorRect/H/RAND10:scale")
+tracks/40/path = NodePath("Skins/ColorRect/H/RANDALL:scale")
 tracks/40/interp = 1
 tracks/40/loop_wrap = true
 tracks/40/keys = {
-"times": PackedFloat32Array(0.1125, 0.225, 0.75),
+"times": PackedFloat32Array(0.0750001, 0.1875, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
@@ -583,26 +631,26 @@ tracks/40/keys = {
 tracks/41/type = "value"
 tracks/41/imported = false
 tracks/41/enabled = true
-tracks/41/path = NodePath("Skins/ColorRect/H/RANDALL:scale")
+tracks/41/path = NodePath("Playlist/CLEAR:scale")
 tracks/41/interp = 1
 tracks/41/loop_wrap = true
 tracks/41/keys = {
-"times": PackedFloat32Array(0.0750001, 0.1875, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
-}
-tracks/42/type = "value"
-tracks/42/imported = false
-tracks/42/enabled = true
-tracks/42/path = NodePath("Playlist/CLEAR:scale")
-tracks/42/interp = 1
-tracks/42/loop_wrap = true
-tracks/42/keys = {
 "times": PackedFloat32Array(0, 0.1125, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/42/type = "value"
+tracks/42/imported = false
+tracks/42/enabled = true
+tracks/42/path = NodePath("Background:modulate")
+tracks/42/interp = 1
+tracks/42/loop_wrap = true
+tracks/42/keys = {
+"times": PackedFloat32Array(0, 0.2625),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.835, 0.925, 0.918, 0.5), Color(0.835, 0.925, 0.918, 0)]
 }
 
 [sub_resource type="Animation" id="17"]
@@ -1019,47 +1067,47 @@ tracks/33/keys = {
 tracks/34/type = "value"
 tracks/34/imported = false
 tracks/34/enabled = true
-tracks/34/path = NodePath("Background:modulate")
+tracks/34/path = NodePath("Data/Detail5:visible_ratio")
 tracks/34/interp = 1
 tracks/34/loop_wrap = true
 tracks/34/keys = {
-"times": PackedFloat32Array(0, 0.6, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(0.835294, 0.92549, 0.917647, 0.709804)]
-}
-tracks/35/type = "value"
-tracks/35/imported = false
-tracks/35/enabled = true
-tracks/35/path = NodePath("Data/Detail5:visible_ratio")
-tracks/35/interp = 1
-tracks/35/loop_wrap = true
-tracks/35/keys = {
 "times": PackedFloat32Array(0, 0.85, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 1.0]
 }
-tracks/36/type = "value"
-tracks/36/imported = false
-tracks/36/enabled = true
-tracks/36/path = NodePath("Skins/ColorRect:scale")
-tracks/36/interp = 1
-tracks/36/loop_wrap = true
-tracks/36/keys = {
+tracks/35/type = "value"
+tracks/35/imported = false
+tracks/35/enabled = true
+tracks/35/path = NodePath("Skins/ColorRect:scale")
+tracks/35/interp = 1
+tracks/35/loop_wrap = true
+tracks/35/keys = {
 "times": PackedFloat32Array(0, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
 }
+tracks/36/type = "value"
+tracks/36/imported = false
+tracks/36/enabled = true
+tracks/36/path = NodePath("Skins/ColorRect/H/RAND1:scale")
+tracks/36/interp = 1
+tracks/36/loop_wrap = true
+tracks/36/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(0, 1), Vector2(1, 1)]
+}
 tracks/37/type = "value"
 tracks/37/imported = false
 tracks/37/enabled = true
-tracks/37/path = NodePath("Skins/ColorRect/H/RAND1:scale")
+tracks/37/path = NodePath("Skins/ColorRect/H/RAND5:scale")
 tracks/37/interp = 1
 tracks/37/loop_wrap = true
 tracks/37/keys = {
-"times": PackedFloat32Array(0, 0.6, 0.75),
+"times": PackedFloat32Array(0, 0.65, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 1), Vector2(0, 1), Vector2(1, 1)]
@@ -1067,11 +1115,11 @@ tracks/37/keys = {
 tracks/38/type = "value"
 tracks/38/imported = false
 tracks/38/enabled = true
-tracks/38/path = NodePath("Skins/ColorRect/H/RAND5:scale")
+tracks/38/path = NodePath("Skins/ColorRect/H/RAND10:scale")
 tracks/38/interp = 1
 tracks/38/loop_wrap = true
 tracks/38/keys = {
-"times": PackedFloat32Array(0, 0.65, 0.8),
+"times": PackedFloat32Array(0, 0.7, 0.85),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 1), Vector2(0, 1), Vector2(1, 1)]
@@ -1079,11 +1127,11 @@ tracks/38/keys = {
 tracks/39/type = "value"
 tracks/39/imported = false
 tracks/39/enabled = true
-tracks/39/path = NodePath("Skins/ColorRect/H/RAND10:scale")
+tracks/39/path = NodePath("Skins/ColorRect/H/RANDALL:scale")
 tracks/39/interp = 1
 tracks/39/loop_wrap = true
 tracks/39/keys = {
-"times": PackedFloat32Array(0, 0.7, 0.85),
+"times": PackedFloat32Array(0, 0.75, 0.9),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 1), Vector2(0, 1), Vector2(1, 1)]
@@ -1091,160 +1139,36 @@ tracks/39/keys = {
 tracks/40/type = "value"
 tracks/40/imported = false
 tracks/40/enabled = true
-tracks/40/path = NodePath("Skins/ColorRect/H/RANDALL:scale")
+tracks/40/path = NodePath("Playlist/CLEAR:scale")
 tracks/40/interp = 1
 tracks/40/loop_wrap = true
 tracks/40/keys = {
-"times": PackedFloat32Array(0, 0.75, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 1), Vector2(0, 1), Vector2(1, 1)]
-}
-tracks/41/type = "value"
-tracks/41/imported = false
-tracks/41/enabled = true
-tracks/41/path = NodePath("Playlist/CLEAR:scale")
-tracks/41/interp = 1
-tracks/41/loop_wrap = true
-tracks/41/keys = {
 "times": PackedFloat32Array(0, 0.85, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
 }
+tracks/41/type = "value"
+tracks/41/imported = false
+tracks/41/enabled = true
+tracks/41/path = NodePath("Background:modulate")
+tracks/41/interp = 1
+tracks/41/loop_wrap = true
+tracks/41/keys = {
+"times": PackedFloat32Array(0, 0.65, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.835, 0.925, 0.918, 5.96046e-08), Color(0.835, 0.925, 0.918, 0), Color(0.835, 0.925, 0.918, 0.5)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gmogj"]
 _data = {
-"RESET": SubResource("Animation_tyj1h"),
 "end": SubResource("Animation_1ukwn"),
 "start": SubResource("17")
 }
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wr3pb"]
-blend_mode = 1
-
-[sub_resource type="Curve" id="Curve_xbj4o"]
-max_value = 3.0
-_data = [Vector2(0, 2.08686), 0.0, 0.0, 0, 0]
-point_count = 1
-
-[sub_resource type="Curve" id="Curve_bpgqx"]
-max_value = 1.5
-_data = [Vector2(0, 1.15385), 0.0, 0.0, 0, 0]
-point_count = 1
-
-[sub_resource type="Gradient" id="Gradient_lx77f"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0.504808, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="Curve" id="Curve_ka1vx"]
-min_value = -1.0
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_trjbt"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0.100962, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="Gradient" id="Gradient_6wld4"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0.105769, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="Shader" id="Shader_e0km8"]
-code = "/*
-	Mosaic shader for 2D canvas item by Yui Kinomoto @arlez80
-	2DCanvas Item用モザイクシェーダー by あるる（きのもと 結衣）
-
-	size = tile size
-
-	MIT License
-*/
-shader_type canvas_item;
-render_mode blend_add;
-
-uniform float size = 10.0;
-uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, repeat_disable, filter_nearest;
-
-void fragment( )
-{
-	vec2 p = floor( FRAGCOORD.xy / size ) * size;
-	vec2 quat_x = vec2( size / 4.0, 0 );
-	vec2 quat_y = vec2( 0, quat_x.x );
-	COLOR = vec4( (
-		texelFetch( SCREEN_TEXTURE, ivec2( p ), 0 ).xyz
-	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_x ), 0 ).xyz
-	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_x * 2.0 ), 0 ).xyz
-	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_x * 3.0 ), 0 ).xyz
-	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y ), 0 ).xyz
-	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y + quat_x ), 0 ).xyz
-	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y + quat_x * 2.0 ), 0 ).xyz
-	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y + quat_x * 3.0 ), 0 ).xyz
-	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 2.0 ), 0 ).xyz
-	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 2.0 + quat_x ), 0 ).xyz
-	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 2.0 + quat_x * 2.0 ), 0 ).xyz
-	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 2.0 + quat_x * 3.0 ), 0 ).xyz
-	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 3.0 ), 0 ).xyz
-	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 3.0 + quat_x ), 0 ).xyz
-	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 3.0 + quat_x * 2.0 ), 0 ).xyz
-	+	texelFetch( SCREEN_TEXTURE, ivec2( p + quat_y * 3.0 + quat_x * 3.0 ), 0 ).xyz
-	) / 16.0, 1.0 );
-	
-	COLOR.a = step(0.25
-	, COLOR.b);
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_aumhc"]
-shader = SubResource("Shader_e0km8")
-shader_parameter/size = 32.0
-
-[sub_resource type="Animation" id="Animation_lt6x8"]
-resource_name = "wave"
-length = 5.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SubViewportContainer/SubViewport/Wave:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(960, 544), Vector2(2100, 544)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SubViewportContainer/SubViewport/Wave2:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(960, 544), Vector2(-152, 544)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("SubViewportContainer/SubViewport/Wave3:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_nc3oq"]
-_data = {
-"wave": SubResource("Animation_lt6x8")
-}
+[sub_resource type="ViewportTexture" id="ViewportTexture_cluoo"]
+viewport_path = NodePath("Backanim")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ysfjs"]
 atlas = ExtResource("3_lt37c")
@@ -1378,44 +1302,13 @@ grow_vertical = 2
 pivot_offset = Vector2(-752, -492)
 script = ExtResource("1")
 
-[node name="A" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_gmogj")
-}
-
-[node name="back" type="ColorRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = -40.0
-offset_top = -32.0
-offset_right = 1968.0
-offset_bottom = 1120.0
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="Background" type="Control" parent="."]
-modulate = Color(1, 1, 1, 0)
-z_index = -2
-material = SubResource("CanvasItemMaterial_wr3pb")
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="Background"]
-modulate = Color(1, 1, 1, 0.5)
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="Background/SubViewportContainer"]
+[node name="Backanim" type="SubViewport" parent="."]
 disable_3d = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1920, 1080)
-render_target_update_mode = 4
 
-[node name="Wave" type="CPUParticles2D" parent="Background/SubViewportContainer/SubViewport"]
+[node name="Wave" type="CPUParticles2D" parent="Backanim"]
 modulate = Color(0.670588, 0.670588, 0.670588, 0.698039)
 position = Vector2(960, 544)
 amount = 152
@@ -1434,7 +1327,7 @@ color_ramp = SubResource("Gradient_lx77f")
 color_initial_ramp = SubResource("Gradient_lx77f")
 hue_variation_curve = SubResource("Curve_ka1vx")
 
-[node name="Wave2" type="CPUParticles2D" parent="Background/SubViewportContainer/SubViewport"]
+[node name="Wave2" type="CPUParticles2D" parent="Backanim"]
 modulate = Color(0.670588, 0.670588, 0.670588, 0.698039)
 position = Vector2(960, 544)
 amount = 152
@@ -1453,7 +1346,7 @@ color_ramp = SubResource("Gradient_lx77f")
 color_initial_ramp = SubResource("Gradient_lx77f")
 hue_variation_curve = SubResource("Curve_ka1vx")
 
-[node name="Wave3" type="CPUParticles2D" parent="Background/SubViewportContainer/SubViewport"]
+[node name="Wave3" type="CPUParticles2D" parent="Backanim"]
 position = Vector2(960, 544)
 amount = 196
 lifetime = 3.0
@@ -1471,17 +1364,37 @@ color_ramp = SubResource("Gradient_trjbt")
 color_initial_ramp = SubResource("Gradient_6wld4")
 hue_variation_curve = SubResource("Curve_ka1vx")
 
-[node name="Pixelizer" type="ColorRect" parent="Background/SubViewportContainer/SubViewport"]
+[node name="Pixelizer" type="ColorRect" parent="Backanim"]
 material = SubResource("ShaderMaterial_aumhc")
 offset_right = 1920.0
 offset_bottom = 1080.0
 
-[node name="SplashAnim" type="AnimationPlayer" parent="Background"]
+[node name="SplashAnim" type="AnimationPlayer" parent="Backanim"]
 reset_on_save = false
 libraries = {
 "": SubResource("AnimationLibrary_nc3oq")
 }
 autoplay = "wave"
+
+[node name="A" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gmogj")
+}
+
+[node name="back" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -40.0
+offset_top = -32.0
+offset_right = 1968.0
+offset_bottom = 1120.0
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="Background" type="Sprite2D" parent="."]
+modulate = Color(0.835, 0.925, 0.918, 5.96046e-08)
+self_modulate = Color(0.78125, 0.78125, 0.78125, 1)
+position = Vector2(960, 540)
+texture = SubResource("ViewportTexture_cluoo")
 
 [node name="Menu" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -1814,6 +1727,7 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 1120.0
 offset_bottom = 72.0
+scale = Vector2(1, 1e-05)
 color = Color(0.235, 0.235, 0.235, 0.5)
 
 [node name="Label2" type="Label" parent="Skins/ColorRect"]
@@ -1857,6 +1771,7 @@ layout_mode = 2
 offset_left = 160.0
 offset_right = 256.0
 offset_bottom = 56.0
+scale = Vector2(1e-05, 1)
 description_node = NodePath("../../../../Menu/Desc")
 glow_color = Color(0.835938, 0.398376, 0.521441, 1)
 description = "SHUFFLE_1"
@@ -1884,6 +1799,7 @@ layout_mode = 2
 offset_left = 272.0
 offset_right = 368.0
 offset_bottom = 56.0
+scale = Vector2(1e-05, 1)
 description_node = NodePath("../../../../Menu/Desc")
 glow_color = Color(0.835938, 0.398376, 0.521441, 1)
 description = "SHUFFLE_5"
@@ -1911,6 +1827,7 @@ layout_mode = 2
 offset_left = 384.0
 offset_right = 480.0
 offset_bottom = 56.0
+scale = Vector2(1e-05, 1)
 description_node = NodePath("../../../../Menu/Desc")
 glow_color = Color(0.835938, 0.398376, 0.521441, 1)
 description = "SHUFFLE_10"
@@ -1938,6 +1855,7 @@ layout_mode = 2
 offset_left = 496.0
 offset_right = 592.0
 offset_bottom = 56.0
+scale = Vector2(1e-05, 1)
 description_node = NodePath("../../../../Menu/Desc")
 glow_color = Color(0.835938, 0.398376, 0.521441, 1)
 description = "SHUFFLE_ALL"
@@ -2029,6 +1947,7 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 248.0
 offset_bottom = 72.0
+scale = Vector2(1, 1e-05)
 description_node = NodePath("../../Menu/Desc")
 glow_color = Color(0.213623, 0.546875, 0.250072, 1)
 description = "CLEAR_DESC"

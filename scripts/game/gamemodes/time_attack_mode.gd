@@ -183,9 +183,11 @@ func _reset() -> void:
 		else:
 			if current_mix == -1 : current_mix = 1
 	
-	game.skin.skin_data.stream["music"] = load("res://internal/music/" + str(time_limit) + "sec_ta_mix" + str(current_mix) + ".ogg")
+		game.skin.skin_data.stream["music"] = load("res://internal/music/" + str(time_limit) + "sec_ta_mix" + str(current_mix) + ".ogg")
+		game.skin.scene_player.play(str(time_limit) + "sec" + str(current_mix))
+	else:
+		game.skin.scene_player.play("main")
 
-	game.skin.scene_player.play(str(time_limit) + "sec" + str(current_mix))
 	await get_tree().create_timer(0.05).timeout
 	game.skin.scene_player.pause()
 

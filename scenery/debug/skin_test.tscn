@@ -12,13 +12,6 @@ var is_ending : bool = false
 var skin_data : SkinData = null
 
 func _ready() -> void:
-	if skin_data == null and not skin_path.is_empty():
-		skin_data = Data.blank_skin._clone()
-		skin_data._load_from_path(Data.SKINS_PATH + skin_path + \".skn\")
-	
-	skin_data.metadata.settings[\"looping\"] = false
-	
-	$Skin.skin_data = skin_data
 	$Skin._start()
 	
 	var tween : Tween = create_tween().set_loops(5)
@@ -29,6 +22,17 @@ func _ready() -> void:
 	tween = create_tween()
 	tween.tween_property($Label, \"modulate\", Color(1.0,0.0,0.0,0.0), 0.25)
 	tween.tween_callback($Label.queue_free)
+
+
+func _add_skin(skin_data : SkinData, skin_path : String = \"\") -> void:
+	if skin_data == null and not skin_path.is_empty():
+		skin_data = Data.blank_skin._clone()
+		skin_data._load_from_path(Data.SKINS_PATH + skin_path + \".skn\")
+	
+	$Skin.skin_data = skin_data
+	
+	skin_data.metadata.settings[\"looping\"] = false
+	skin_data.metadata.settings[\"no_shaking\"] = true
 
 
 func _input(event : InputEvent) -> void:
