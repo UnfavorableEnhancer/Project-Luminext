@@ -1,0 +1,298 @@
+[gd_scene load_steps=4 format=3 uid="uid://bil3snukcnxf6"]
+
+[sub_resource type="GDScript" id="GDScript_1kqqq"]
+script/source = "# Project Luminext - an advanced open-source Lumines spiritual successor
+# Copyright (C) <2024> <unfavorable_enhancer>
+# Contact : <random.likes.apes@gmail.com>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+extends Control
+
+#-----------------------------------------------------------------------
+# This tool is intended for debugging/testing purposes and is for personal use only. 
+# Do not use decompiled copyrighted assets in other projects without explicit 
+# permission from copyright owner or if copyrighted content license prohibits it.
+#
+# Version 7 skin data \".ogg\" files will export in \".res\" format which can
+# be decompiled with \"gdsdecomp\" tool
+#-----------------------------------------------------------------------
+
+func _ready() -> void:
+	_init_file_explorer()
+
+
+func _init_file_explorer() -> void:
+	var file_dialog : FileDialog = $FileExplorer
+	file_dialog.clear_filters()
+	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
+	
+	file_dialog.add_filter(\"*.skn\", \"Luminext Skin File\")
+	$FileExplorer.current_path = Data.SKINS_PATH
+	$FileExplorer.popup_centered()
+	
+	$Status.text = \"Select file to rip\"
+
+
+func _on_file_explorer_file_selected(path: String) -> void:
+	$Status.text = \"Ripping skin contents...\"
+	_rip_skin_data(path)
+
+
+func _rip_skin_data(skin_path : String) -> void:
+	print(\"started ripping skin at path : \", skin_path)
+	var skin_data : SkinData = SkinData.new()
+	print(\"loading std textures\")
+	skin_data._load_standard_textures()
+	print(\"loading skin data\")
+	if skin_data._load_from_path(skin_path) != OK:
+		print(\"failed\")
+		$Status.text = \"Failed to load skin file! Select file to rip\"
+		_init_file_explorer()
+		return
+	
+	var metadata : SkinMetadata = skin_data.metadata
+	var export_path : String = \"skin_rip/\" + metadata.name + \"/\"
+	if not DirAccess.dir_exists_absolute(export_path):
+		DirAccess.make_dir_recursive_absolute(export_path)
+		DirAccess.make_dir_recursive_absolute(export_path + \"textures/\")
+		DirAccess.make_dir_recursive_absolute(export_path + \"sfx/\")
+	
+	print(\"exporting metadata\")
+	var metadata_txt_file : FileAccess = FileAccess.open(export_path + \"metadata.txt\", FileAccess.WRITE)
+	metadata_txt_file.store_line(\"SKN Version : \" + str(metadata.version))
+	metadata_txt_file.store_line(\"MD5 Hash : \" + metadata.metadata_hash)
+	metadata_txt_file.store_line(\"Id : \" + metadata.id)
+	
+	metadata_txt_file.store_line(\"\")
+	metadata_txt_file.store_line(\"Name : \" + metadata.name)
+	metadata_txt_file.store_line(\"Artist : \" + metadata.artist)
+	metadata_txt_file.store_line(\"Album : \" + metadata.album)
+	metadata_txt_file.store_line(\"Number : \" + str(metadata.number))
+	metadata_txt_file.store_line(\"BPM : \" + str(metadata.bpm))
+	metadata_txt_file.store_line(\"Skin by : \" + metadata.skin_by)
+	@warning_ignore(\"narrowing_conversion\")
+	metadata_txt_file.store_line(\"Last edit time : \" + Time.get_datetime_string_from_unix_time(metadata.save_date))
+	
+	metadata_txt_file.store_line(\"\")
+	metadata_txt_file.store_line(\"Info : \")
+	metadata_txt_file.store_string(metadata.info)
+	
+	metadata_txt_file.store_line(\"\")
+	metadata_txt_file.store_line(\"Settings\")
+	metadata_txt_file.store_line(\"No background shaking : ON\" if metadata.settings[\"no_shaking\"] else \"Background shaking : OFF\")
+	metadata_txt_file.store_line(\"Background zooming : ON\" if metadata.settings[\"zoom_background\"] else \"Background zooming : OFF\")
+	metadata_txt_file.store_line(\"Music looping : ON\" if metadata.settings[\"looping\"] else \"Music looping : OFF\")
+	metadata_txt_file.store_line(\"Random bonus animation : ON\" if metadata.settings[\"random_bonus\"] else \"Random bonus animation : OFF\")
+	
+	metadata_txt_file.store_line(\"\")
+	metadata_txt_file.store_line(\"Visual Data\")
+	metadata_txt_file.store_line(\"Red FX color : #\" + skin_data.textures[\"red_fx\"].to_html())
+	metadata_txt_file.store_line(\"White FX color : #\" + skin_data.textures[\"white_fx\"].to_html())
+	metadata_txt_file.store_line(\"Green FX color : #\" + skin_data.textures[\"green_fx\"].to_html())
+	metadata_txt_file.store_line(\"Purple FX color : #\" + skin_data.textures[\"purple_fx\"].to_html())
+	
+	metadata_txt_file.store_line(\"\")
+	metadata_txt_file.store_line(\"EQ visualizer color : #\" + skin_data.textures[\"eq_visualizer_color\"].to_html())
+	metadata_txt_file.store_line(\"Timeline color : #\" + skin_data.textures[\"timeline_color\"].to_html())
+	metadata_txt_file.store_line(\"UI color : #\" + skin_data.textures[\"ui_color\"].to_html())
+	match skin_data.textures[\"ui_design\"]:
+		SkinData.UI_DESIGN.STANDARD : metadata_txt_file.store_line(\"UI design : Standard\")
+		SkinData.UI_DESIGN.SHININ : metadata_txt_file.store_line(\"UI design : Shinin'\")
+		SkinData.UI_DESIGN.SQUARE : metadata_txt_file.store_line(\"UI design : Square\")
+		SkinData.UI_DESIGN.MODERN : metadata_txt_file.store_line(\"UI design : Modern\")
+		SkinData.UI_DESIGN.LIVE : metadata_txt_file.store_line(\"UI design : Live\")
+		SkinData.UI_DESIGN.PIXEL : metadata_txt_file.store_line(\"UI design : Pixel\")
+		SkinData.UI_DESIGN.BLACK : metadata_txt_file.store_line(\"UI design : Black\")
+		SkinData.UI_DESIGN.COMIC : metadata_txt_file.store_line(\"UI design : Comic\")
+		SkinData.UI_DESIGN.CLEAN : metadata_txt_file.store_line(\"UI design : Clean\")
+		SkinData.UI_DESIGN.VECTOR : metadata_txt_file.store_line(\"UI design : Vector\")
+		SkinData.UI_DESIGN.TECHNO : metadata_txt_file.store_line(\"UI design : Techno\")
+		_ : metadata_txt_file.store_line(\"UI design : Unknown\")
+	
+	metadata_txt_file.store_line(\"\")
+	match _get_animation_preset_index(skin_data):
+		SkinData.BLOCK_ANIM_PATTERN.EACH_BEAT : metadata_txt_file.store_line(\"Block animation pattern : Each beat\")
+		SkinData.BLOCK_ANIM_PATTERN.EACH_2BEATS : metadata_txt_file.store_line(\"Block animation pattern : Each 2 beats\")
+		SkinData.BLOCK_ANIM_PATTERN.EACH_BAR : metadata_txt_file.store_line(\"Block animation pattern : Each bar\")
+		SkinData.BLOCK_ANIM_PATTERN.EACH_HALF_BEAT : metadata_txt_file.store_line(\"Block animation pattern : Each half-beat\")
+		SkinData.BLOCK_ANIM_PATTERN.COLOR_ORDER : metadata_txt_file.store_line(\"Block animation pattern : Color order\")
+		SkinData.BLOCK_ANIM_PATTERN.CONSTANT_LOOPING : metadata_txt_file.store_line(\"Block animation pattern : Looping\")
+		_ : metadata_txt_file.store_line(\"Block animation pattern : Unknown\")
+	
+	metadata_txt_file.store_line(\"\")
+	metadata_txt_file.store_line(\"Miscellaneous\")
+	if skin_data.stream.has(\"scene_path\"):
+		metadata_txt_file.store_line(\"Godot scene path : \" + skin_data.stream[\"scene_path\"])
+	
+	metadata_txt_file.store_line(\"\")
+	metadata_txt_file.store_line(\"Edit History\")
+	var edit_history : PackedStringArray = skin_data.stream[\"edit_history\"]
+	var entry : int = 0
+	while entry < edit_history.size():
+		var timestamp : String = edit_history[entry]
+		timestamp = Time.get_datetime_string_from_unix_time(int(timestamp))
+		timestamp.replace(\"T\", \" \")
+		entry += 1
+		var author : String = edit_history[entry]
+		metadata_txt_file.store_line(timestamp + \" - \" + author)
+		entry += 1
+	
+	metadata_txt_file.close()
+	print(\"done\")
+	
+	print(\"exporting sounds\")
+	for multi_sound_name : String in [\"bonus\", \"square\", \"special\", \"timeline\", \"blast\"]:
+		var sample_array : Array = skin_data.sounds[multi_sound_name]
+		for i : int in sample_array.size() - 1:
+			print(\"exporting sound : \", multi_sound_name + str(i + 1))
+			var sample : AudioStream = sample_array[i]
+			_export_sound(sample, export_path + \"sfx/\" + multi_sound_name + str(i + 1))
+	
+	for single_sound_name : String in [\"move\",\"rotate_left\",\"rotate_right\",\"left_dash\",\"right_dash\",\"drop\",\"queue_shift\",\"level_up\",\"special_bonus\",\"ending\"]:
+		if skin_data.sounds[single_sound_name] == null : continue
+		print(\"exporting sound : \", single_sound_name)
+		var sample : AudioStream = skin_data.sounds[single_sound_name]
+		_export_sound(sample, export_path + \"sfx/\" + single_sound_name)
+	
+	print(\"exporting textures\")
+	for sprite_sheet_name : String in [\"block\", \"special\", \"square\"]:
+		print(\"exporting sprite sheet : \", sprite_sheet_name)
+		var sprite_sheet : SpriteFrames = skin_data.textures[sprite_sheet_name]
+		for animation_name : String in sprite_sheet.get_animation_names():
+			print(\"exporting animation : \", animation_name)
+			var frame_count : int = sprite_sheet.get_frame_count(animation_name)
+			if frame_count <= 0: continue
+			
+			#var sample_image : Image = sprite_sheet.get_frame_texture(animation_name, 0).get_image()
+			#var format : int = sample_image.get_format()
+			#var height : int = sample_image.get_height()
+			#var rect : Rect2i = sample_image.get_used_rect()
+			#var result_image : Image = Image.create_empty(height * frame_count, height, false, format)
+			
+			for i : int in frame_count:
+				var frame_texture : Texture = sprite_sheet.get_frame_texture(animation_name, i)
+				var frame_image : Image = frame_texture.get_image()
+				frame_image.save_png(export_path + \"textures/\" + sprite_sheet_name + \"_\" + animation_name + \"_\" + str(i) + \".png\")
+	
+	for texture_name : String in [\"erase\",\"select\",\"multi_mark\",\"effect_1\",\"effect_2\",\"arrow_1\",\"arrow_2\",\"arrow_3\",\"arrow_4\",\"2_tex\",\"3_tex\",\"4_tex\",\"back\"]:
+		print(\"exporting texture : \", texture_name)
+		var image : Image = skin_data.textures[texture_name].get_image()
+		image.save_png(export_path + \"textures/\" + texture_name + \".png\")
+	
+	print(\"exporting stream data\")
+	if skin_data.stream[\"music\"] != null:
+		print(\"exporting music\")
+		var music : AudioStream = skin_data.stream[\"music\"]
+		_export_sound(music, export_path + \"music\")
+	
+	if skin_data.stream[\"video\"] != null:
+		print(\"exporting video\")
+		var video_format : String = skin_data.stream[\"video_format\"]
+		var video_file : FileAccess = FileAccess.open(export_path + \"video.\" + video_format, FileAccess.WRITE)
+		video_file.store_buffer(skin_data.stream[\"video\"])
+		video_file.close()
+		
+	if skin_data.stream[\"scene\"] != null:
+		print(\"exporting godot scene\")
+		var scene_format : String = skin_data.stream[\"scene_format\"]
+		var scene_file : FileAccess = FileAccess.open(export_path + \"scene.\" + scene_format, FileAccess.WRITE)
+		scene_file.store_buffer(skin_data.stream[\"scene\"])
+		scene_file.close()
+	
+	print(\"finished!\")
+	
+	await get_tree().create_timer(1.0).timeout
+	_init_file_explorer()
+
+
+func _export_sound(sample : AudioStream, to_path : String) -> void:
+	if sample is AudioStreamOggVorbis:
+		print(\"ogg detected\")
+		print(error_string(ResourceSaver.save(sample, to_path + \".res\", ResourceSaver.FLAG_CHANGE_PATH)))
+	
+	elif sample is AudioStreamMP3:
+		print(\"mp3 detected\")
+		var sound_file : FileAccess = FileAccess.open(to_path + \".mp3\", FileAccess.WRITE)
+		var bytes : PackedByteArray = sample.data
+		sound_file.store_buffer(bytes)
+		sound_file.close()
+	
+	elif sample is AudioStreamWAV:
+		print(\"wav detected\")
+		sample.save_to_wav(to_path + \".wav\")
+	
+	else:
+		print(\"error! unknown format\")
+
+
+func _get_animation_preset_index(skin_data : SkinData) -> int:
+	var animation_offset : int = skin_data.textures[\"red_anim\"][0]
+	var animation_beat : int = skin_data.textures[\"red_anim\"][1]
+	
+	if animation_beat == 2 and animation_offset == 0: return SkinData.BLOCK_ANIM_PATTERN.EACH_BEAT
+	if animation_beat == 4 and animation_offset == 0: return SkinData.BLOCK_ANIM_PATTERN.EACH_2BEATS
+	if animation_beat == 8 and animation_offset == 0: return SkinData.BLOCK_ANIM_PATTERN.EACH_BAR
+	if animation_beat == 1 and animation_offset == 0: return SkinData.BLOCK_ANIM_PATTERN.EACH_HALF_BEAT
+	if skin_data.textures[\"purple_anim\"][0] == 6 : return SkinData.BLOCK_ANIM_PATTERN.COLOR_ORDER
+	if animation_beat == 0 and animation_offset == 0: return  SkinData.BLOCK_ANIM_PATTERN.CONSTANT_LOOPING
+	
+	return 0 
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_ovpew"]
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_abvkh"]
+font_size = 24
+font_color = Color(0.542969, 0.542969, 0.542969, 1)
+
+[node name="SkinRipper" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_1kqqq")
+
+[node name="FileExplorer" type="FileDialog" parent="."]
+initial_position = 1
+size = Vector2i(1000, 700)
+visible = true
+
+[node name="Status" type="Label" parent="."]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 28.0
+offset_right = 847.0
+offset_bottom = 127.0
+text = "Select skin file to rip"
+label_settings = SubResource("LabelSettings_ovpew")
+
+[node name="Info" type="Label" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 984.0
+offset_right = 1880.0
+offset_bottom = 1056.0
+text = "This tool is intended for debugging/testing purposes and is for personal use only.
+Do not use decompiled copyrighted assets in other projects without explicit permission from copyright owner or if copyrighted content license prohibits it."
+label_settings = SubResource("LabelSettings_abvkh")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[connection signal="file_selected" from="FileExplorer" to="." method="_on_file_explorer_file_selected"]

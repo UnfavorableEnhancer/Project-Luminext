@@ -451,7 +451,6 @@ func _save(path : String = "") -> int:
 # This function loads SkinData from file
 # If 'file' is passed, this FileAccess instance would be used to load SkinData (with possibly different file path and file cursor position)
 func _load_from_path(path : String, file : FileAccess = null) -> int:
-	
 	print("")
 	print("SKIN LOADING STARTED...")
 	if file == null:

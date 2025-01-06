@@ -49,6 +49,7 @@ Special thanks to
 
 KurosanLOVE
 W3Rn1ckz
+DeBisco
 Starcat
 Enhance inc.
 Godot Engine developers, contributors and community
