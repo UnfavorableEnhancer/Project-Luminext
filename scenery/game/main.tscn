@@ -3,10 +3,11 @@
 [ext_resource type="Script" path="res://scripts/main.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenery/menu/menu.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://01vihxako5y1" path="res://scenery/system_message.tscn" id="3"]
-[ext_resource type="PackedScene" uid="uid://dw0iu31f3tl2y" path="res://scenery/debug/debuger.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://dnd0ru7cnoax2" path="res://scenery/debug/console.tscn" id="5_sydi2"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1")
+menu_starting_screen_name = "main_menu"
 
 [node name="Menu" parent="." instance=ExtResource("2")]
 layout_mode = 3
@@ -20,4 +21,4 @@ color = Color(0, 0, 0, 1)
 
 [node name="SysMes" parent="." instance=ExtResource("3")]
 
-[node name="Debug" parent="." instance=ExtResource("4")]
+[node name="Console" parent="." instance=ExtResource("5_sydi2")]

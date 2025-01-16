@@ -45,8 +45,11 @@ var is_paused : bool = false
 var is_game_over : bool = false
 var is_changing_skins_now : bool = false
 
-var is_input_locked : bool = false # If true, none of the inputs works with current piece
-var is_manual_timeline : bool = false # Is timeline spawned manually (Used in replays playback)
+var is_piece_noclip_mode : bool = false # When active current piece ignores collisions with other blocks, it only collides with floor
+var is_paint_mode : bool = false # When active user can draw blocks on field with mouse
+var is_input_locked : bool = false # When active none of the inputs works with current piece
+var is_manual_timeline : bool = false # When active stops timeline creation when skin music sample ends
+var is_adding_pieces_to_queue : bool = true # When active game generates new piece and appends it to queue each time queue size is less than 3
 
 var all_blocks : Dictionary = {} # All blocks on the game field | [position : Vector2i] = Block
 var blocks : Dictionary = {} # All blocks on the game field | [position : Vector2i] = Block
@@ -97,6 +100,9 @@ func _ready() -> void:
 	_add_fx("blast", Vector2(0,0), "rsquare")
 	_add_fx("square", Vector2(0,0), "rsquare")
 
+	Data.console.opened.connect(_pause.bind(true,false,false))
+	Data.console.closed.connect(_pause.bind(false,false,false))
+
 
 # Resets game back to initial state and starts it again
 func _reset() -> void:
@@ -136,7 +142,7 @@ func _reset() -> void:
 
 	if is_playing_replay: 
 		replay._start_playback()
-		_start_timeline()
+		_create_timeline()
 	else: 
 		replay._start_recording()
 	
@@ -291,7 +297,7 @@ func _change_skin(skin_path : String = "", quick : bool = false) -> void:
 		print("SKIN CHANGE SUCCESS!")
 		is_changing_skins_now = false
 		skin_change_status = SKIN_CHANGE_STATUS.SUCCESS
-		if not is_manual_timeline : skin.sample_ended.disconnect(_start_timeline)
+		skin.sample_ended.disconnect(_start_timeline)
 		_replace_skin(skin_data, true)
 		skin_change_ended.emit()
 		return
@@ -309,7 +315,7 @@ func _change_skin(skin_path : String = "", quick : bool = false) -> void:
 	_play_announce(skin_data)
 	
 	# Disconnect timeline so it won't spawn twice when new skin appear
-	if not is_manual_timeline : skin.sample_ended.disconnect(_start_timeline)
+	skin.sample_ended.disconnect(_start_timeline)
 
 	await skin.sample_ended
 
@@ -354,7 +360,7 @@ func _add_skin(skin_data : SkinData) -> void:
 	skin = new_skin
 	
 	skin.half_beat.connect(_add_sounds_from_queue)
-	if not is_manual_timeline : skin.sample_ended.connect(_start_timeline)
+	skin.sample_ended.connect(_start_timeline)
 	
 	add_child(new_skin)
 
@@ -366,9 +372,17 @@ func ___BLOCKS_MANAGEMENT___() -> void: return
 
 
 # Give piece from queue to the player's hand
-func _give_new_piece(piece_start_pos : Vector2i = Vector2i(8,-1), piece_data : PieceData = null) -> void:
-	if piece != null : piece._end()
-	if piece_data == null: piece_data = piece_queue._get_piece()
+func _give_new_piece(piece_start_pos : Vector2i = Vector2i(8,-1), piece_data : PieceData = null, is_signal : bool = false) -> void:
+	if piece != null : 
+		piece._end()
+		piece = null
+	if piece_data == null:
+		if is_signal:
+			piece_queue.piece_appended.disconnect(_give_new_piece.bind(piece_start_pos,null,true))
+		if piece_queue.queue.size() < 1:
+			piece_queue.piece_appended.connect(_give_new_piece.bind(piece_start_pos,null,true))
+			return
+		piece_data = piece_queue._get_piece()
 	
 	piece = Piece.new()
 	piece.grid_position = piece_start_pos
@@ -436,6 +450,19 @@ func _move_blocks(delay : float = 0.0) -> void:
 		for y : int in range(9,-1,-1):
 			var block : Block = blocks.get(Vector2i(x,y), null)
 			if block != null: block._fall()
+
+
+# Removes all placed blocks from the field
+func _clear_field() -> void:
+	for block : Variant in blocks.values():
+		if not is_instance_valid(block) : continue
+		block._free()
+	for square : Variant in squares.values():
+		if not is_instance_valid(square) : continue
+		square.queue_free()
+
+	delete.clear()
+	squares.clear()
 
 
 #================================================================================================
@@ -606,8 +633,13 @@ func _create_square(in_position : Vector2i, squared_blocks : Array) -> bool:
 	return true
 
 
-# This function starts new timeline from begining, and removes current one
 func _start_timeline() -> void:
+	if not is_manual_timeline:
+		_create_timeline()
+
+
+# This function starts new timeline from begining, and removes current one
+func _create_timeline() -> void:
 	replay._record_timeline_start()
 	if timeline != null : timeline._end()
 	

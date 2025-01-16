@@ -34,6 +34,8 @@ var ruleset : int = TIME_ATTACK_RULESET.STANDARD
 var random_mixes : bool = false # Allows this gamemode to change skin animation and music mix on each retry
 var current_mix : int = -1
 
+var is_cheater : bool = false
+
 var time_attack_timer : Timer
 var stat_timer : Timer
 var stat_disable_timer : Timer
@@ -79,6 +81,7 @@ func _ready() -> void:
 
 	game.timeline_started.connect(_connect_timeline)
 	game.new_piece_is_given.connect(_count_pieces)
+	Data.console.opened.connect(func() -> void : is_cheater = true)
 
 	config_backup = GameConfigPreset.new()
 	config_backup._store_current_config()
@@ -282,7 +285,7 @@ func _game_over() -> void:
 	game.replay.gamemode_settings["score"] = str(score)
 
 	var arrays_size : int = statistics["square_cumulative"].size()
-	if time_attack_timer.time_left > 0:
+	if time_attack_timer.time_left > 0 or is_cheater:
 		statistics["square_cumulative"].pop_back()
 		statistics["square_per_sweep"].pop_back()
 		statistics["pieces_used_count"].pop_back()
@@ -317,6 +320,8 @@ func _game_over() -> void:
 		if Data.profile.progress["time_attack_hiscore"].has(hiscore_entry_string):
 			if score > Data.profile.progress["time_attack_hiscore"][hiscore_entry_string]: 
 				Data.profile.progress["time_attack_hiscore"][hiscore_entry_string] = score
+
+	is_cheater = false
 
 
 func _end() -> void:

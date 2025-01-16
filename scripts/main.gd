@@ -26,7 +26,6 @@ extends Node
 #-----------------------------------------------------------------------
 
 
-
 @onready var messager : Control = $SysMes # System message display node
 @onready var black : ColorRect = $Black # Black overlay node
 
@@ -41,13 +40,14 @@ var loading_screen : MenuScreen = null # Active loading screen reference
 # Called on game boot. This is where game starts...
 func _ready() -> void:
 	print(OS.get_cmdline_args())
-
 	get_window().move_to_center()
-	await get_tree().create_timer(0.25).timeout
+
+	await get_tree().create_timer(0.1).timeout
 
 	# Store node references into Data singletone, to allow acessing them in any script file
 	Data.main = self
 	Data.menu = $Menu
+	Data.console = $Console
 
 	_load_mods()
 	
@@ -62,8 +62,19 @@ func _ready() -> void:
 		
 		var skin_meta : SkinMetadata = SkinMetadata.new()
 		skin_meta.path = (Data.SKINS_PATH + playtest_skin_path + ".skn").to_lower()
-		
 		_start_game(skin_meta, gamemode)
+
+
+func _reset() -> void:
+	is_loading = false
+	if is_instance_valid(loading_screen):
+		loading_screen.queue_free()
+		loading_screen = null
+
+	if Data.game != null: Data.game.queue_free()
+	Data.use_second_cache = false
+	
+	_load_menu(true)
 
 
 # Loads all .pck files stored in Data.MODS_PATH

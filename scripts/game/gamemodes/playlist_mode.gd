@@ -230,9 +230,7 @@ func _next_skin() -> void:
 	if is_single_skin_mode or current_playlist == null:
 		return
 	
-	playlist_pos += 1
-	
-	scoreboard._set_value([playlist_pos + 1, level_count, current_lap], "level")
+	_set_playlist_position(playlist_pos + 1)
 
 	var is_playlist_ended : bool = playlist_pos > current_playlist.skins.size() - 1
 
@@ -272,9 +270,9 @@ func _update_time() -> void:
 
 
 # Checks game field for any special bonuses (single color, all clear)
-func _check_for_special_bonus(deleted_blocks_count : int) -> void:
+func _check_for_special_bonus(deleted_blocks_count : int, force_all_clear : bool = false) -> void:
 	# All clear bonus
-	if game.blocks.is_empty() :
+	if game.blocks.is_empty() or force_all_clear:
 		var increase_amount : int
 
 		if Data.profile.config["gameplay"]["classic_scoring"]:
@@ -331,11 +329,8 @@ func _add_score_by_squares(deleted_squares_count : int) -> void:
 
 	_increase_score_value(deleted_squares_count, SCORE_ADDITION_TYPE.DELETED_SQUARES)
 	
-	left_before_level_up -= deleted_squares_count
-	if left_before_level_up < 0: _level_up()
+	_add_level_progress(deleted_squares_count)
 	
-	game.foreground.ui_elements["progress"]._change_progress(1.0 - float(left_before_level_up) / float(next_level_req))
-
 	var result_score : int = 0
 	if Data.profile.config["gameplay"]["classic_scoring"] :
 		result_score = 40 * deleted_squares_count * clamp(combo, 1, max_combo) as int
@@ -349,18 +344,33 @@ func _add_score_by_squares(deleted_squares_count : int) -> void:
 	_increase_score_value(result_score, SCORE_ADDITION_TYPE.SCORE)
 
 
+func _add_level_progress(progress : int) -> void:
+	left_before_level_up -= progress
+	if left_before_level_up < 0: _level_up()
+	
+	game.foreground.ui_elements["progress"]._change_progress(1.0 - float(left_before_level_up) / float(next_level_req))
+
+
+func _set_level(level : int) -> void:
+	level_count = level
+	scoreboard._set_value([playlist_pos, level_count, current_lap], "level")
+
+
+func _set_playlist_position(pos : int) -> void:
+	playlist_pos = pos
+	scoreboard._set_value([pos, level_count, current_lap], "level")
+
+
 # Called on each timeline pass. Checks if >4 squares was erased so 4x bonus could be triggered.
-func _check_bonus() -> void:
-	var deleted_squares_count : int = game.timeline.total_deleted_squares_count
+func _check_bonus(deleted_squares_count : int = -1) -> void:
+	if deleted_squares_count < 0:
+		deleted_squares_count = game.timeline.total_deleted_squares_count
 	
 	if deleted_squares_count > Data.profile.progress["stats"]["top_square_per_sweep"]:
 		Data.profile.progress["stats"]["top_square_per_sweep"] = deleted_squares_count
 	
 	if not Data.profile.config["gameplay"]["give_score_for_square"]:
-		left_before_level_up -= deleted_squares_count
-		if left_before_level_up < 0: _level_up()
-
-		game.foreground.ui_elements["progress"]._change_progress(1.0 - float(left_before_level_up) / float(next_level_req))
+		_add_level_progress(deleted_squares_count)
 
 	if Data.profile.config["gameplay"]["combo_system"]:
 		if deleted_squares_count < 4: combo = 0
@@ -451,7 +461,3 @@ func _increase_score_value(add : int, which : int) -> void:
 			deleted_blocks += add
 			create_tween().tween_method(scoreboard._set_value.bind("deleted_blocks"), deleted_blocks - add, deleted_blocks, COUNTER_GROW_SPEED)
 			Data.profile.progress["stats"]["total_blocks_erased"] += add
-
-
-func _input(event : InputEvent) -> void:
-	if event.is_action_pressed("debug_skip_skin") : _next_skin()

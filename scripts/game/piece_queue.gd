@@ -25,6 +25,7 @@ extends ScrollContainer
 #-----------------------------------------------------------------------
 
 signal piece_swap # Emitted when piece swap occurs
+signal piece_appended # Emitted when queue gets new piece
 
 const QUEUE_SPEED : float = 0.15 # How fast queue moves pieces in seconds
 
@@ -47,15 +48,21 @@ func _sync_settings() -> void:
 # Clears queue and fills it with new pieces
 func _reset() -> void:
 	_sync_settings()
+	_clear()
 
+	if Data.game.is_adding_pieces_to_queue:
+		for i : int in 4: _append_piece()
+
+
+func _clear() -> void:
 	queue.clear()
 	for piece : PieceData in queue_node.get_children(): piece.queue_free()
-	for i : int in 4: _append_piece()
 
 
 # Returns last piece in queue, and moves all pieces up
 func _get_piece() -> PieceData:
-	if queue.size() != 4: _append_piece()
+	if Data.game.is_adding_pieces_to_queue:
+		if queue.size() != 4: _append_piece()
 	
 	var come_in_piece : PieceData = queue.pop_front()
 	
@@ -79,6 +86,8 @@ func _shift_queue() -> void:
 	var game_piece : Piece = Data.game.piece
 	if game_piece == null or game_piece.is_quick_dropping: return
 	
+	if queue.size() < 1: return
+
 	Data.profile.progress["stats"]["total_piece_swaps"] += 1
 	piece_swap.emit()
 	
@@ -111,7 +120,7 @@ func _remove_end_piece(piece_data : PieceData, delay : float) -> void:
 	is_shifting = false
 
 
-# Returns clone of passed piece data. Needed if passed piece data is going to be deleted, but we still need it
+# Returns clone of piece data
 func _clone_piece(piece : PieceData) -> PieceData:
 	var clone_piece : PieceData = PieceData.new()
 	clone_piece.blocks = piece.blocks
@@ -133,6 +142,7 @@ func _append_piece(piece_data : PieceData = null) -> void:
 	queue.append(piece_data)
 	queue_node.add_child(piece_data)
 	piece_data._render()
+	piece_appended.emit()
 
 	
 

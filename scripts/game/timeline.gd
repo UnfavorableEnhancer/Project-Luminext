@@ -45,6 +45,7 @@ var scanned_squares : Array = [] # All squares currently scanned by timeline
 #var tween : Tween
 var speed : float = 1088.0 / 120.0 / 4.0
 
+
 # Starts timeline from begining
 func _ready() -> void:
 	position = Vector2(356,204)

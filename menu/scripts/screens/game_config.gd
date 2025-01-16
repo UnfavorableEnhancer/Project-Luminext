@@ -98,7 +98,7 @@ func _change_tab(to_tab : String) -> void:
 
 
 func _change_option(value : float, setting_name : String) -> void:
-	Data.profile._assign_setting(setting_name, value)
+	Data.profile._assign_value_to_setting(setting_name, value)
 
 
 func _set_selectables(tab : int) -> void:

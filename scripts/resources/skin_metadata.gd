@@ -21,7 +21,7 @@ class_name SkinMetadata
 
 # Class intended for holding skin metadata
 
-const ID_SIZE : int = 32
+const ID_SIZE : int = 12
 
 var version : int = SkinData.VERSION # Skin version
 
@@ -86,6 +86,7 @@ func _load(file : FileAccess) -> int:
 	skin_by = file.get_pascal_string()
 
 	id = file.get_pascal_string()
+	if id.length() > ID_SIZE : id = id.left(ID_SIZE)
 	save_date = file.get_double()
 
 	# Since store_16 is unable to store signed numbers, we use number 65500 to represent -1 and below (its gonna be loaded somewhere at the end of album anyway)
@@ -143,7 +144,7 @@ func _generate_id() -> void:
 
 	var hash_buffer : PackedByteArray = (name + artist + album + skin_by + str(save_date)).md5_buffer()
 	for byte : int in hash_buffer:
-		var mod_byte : float = byte * randf_range(0.1,2048)
+		var mod_byte : float = byte * randf_range(0.1,10)
 		id += str(roundi(mod_byte))
 		if id.length() > ID_SIZE: break 
 	

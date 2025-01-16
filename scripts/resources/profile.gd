@@ -59,7 +59,8 @@ const AUDIO_BUS_MINIMUM_DB : float = -29 # Minimum db value when bus is still on
 
 var name : String = "guest"
 var status : int = STATUS.OK
-var is_guest_profile : bool = true # Guest profiles are quite limited, they cannot save data and participate in leaderboards
+
+var backup_game_config : GameConfigPreset = null # Used by some gamemodes which forces own gameplay settings, so after gameover original settings could be restored
 
 var has_changes_in_config : bool = false
 var has_changes_in_progress : bool = false
@@ -256,11 +257,10 @@ var progress : Dictionary = {
 
 # Loads whole profile with its config and progress files
 func _load_profile(profile_name : String) -> int:
-	print("")
-	print("LOADING PROFILE ", profile_name)
+	Data.console._log("", true)
+	Data.console._log("Loading profile : " + profile_name, true)
 	name = profile_name
 	status = STATUS.OK
-	is_guest_profile = false
 
 	_load_config()
 	_load_progress()
@@ -270,27 +270,26 @@ func _load_profile(profile_name : String) -> int:
 	Data._save_global_settings()
 
 	profile_loaded.emit()
-	print("PROFILE LOADED!")
+	Data.console._log("Profile load finished!", true)
 	
 	return OK
 
 
 # Creates new blank profile with standard settings
 func _create_profile(profile_name : String) -> int:
-	print("")
-	print("CREATING PROFILE WITH NAME ", profile_name)
+	Data.console._log("", true)
+	Data.console._log("Creating profile : " + profile_name, true)
 	name = profile_name
-	is_guest_profile = false
 	progress["misc"]["key"] = str(hash(profile_name) + randi())
 
 	var err : int = _save_progress()
 	if err != OK:
-		print("PROFILE CREATION FAILED!")
+		Data.console._log("Profile creation failed!", true)
 		return err
 
 	err = _save_config()
 	if err != OK:
-		print("PROFILE CREATION FAILED!")
+		Data.console._log("Profile creation failed!", true)
 		return err
 	
 	# Store this profile as last used in global variables file
@@ -298,42 +297,47 @@ func _create_profile(profile_name : String) -> int:
 	Data._save_global_settings()
 
 	profile_loaded.emit()
-	print("PROFILE CREATED!")
+	Data.console._log("Profile creation finished!", true)
 
 	return OK
 
 
 func _delete_profile(profile_name : String) -> void:
+	Data.console._log("", true)
+	Data.console._log("Deleting profile : " + profile_name, true)
 	if FileAccess.file_exists(Data.PROFILES_PATH + profile_name + ".json"):
-		print("DELETED CONFIG OF PROFILE : ", profile_name)
-		DirAccess.remove_absolute(Data.PROFILES_PATH + profile_name + ".json")
+		if DirAccess.remove_absolute(Data.PROFILES_PATH + profile_name + ".json") == OK:
+			Data.console._log("Deleted config for profile : " + profile_name, true)
+		else:
+			Data.console._log("CONFIG DELETION FAILED! ERROR : " + error_string(DirAccess.get_open_error()), true)
 	
 	if FileAccess.file_exists(Data.PROFILES_PATH + profile_name + ".dat"):
-		print("DELETED SAVE DATA OF PROFILE : ", profile_name)
-		DirAccess.remove_absolute(Data.PROFILES_PATH + profile_name + ".dat")
+		if DirAccess.remove_absolute(Data.PROFILES_PATH + profile_name + ".dat") == OK:
+			Data.console._log("Deleted savedata for profile : " + profile_name, true)
+		else:
+			Data.console._log("SAVEDATA DELETION FAILED! ERROR : " + error_string(DirAccess.get_open_error()), true)
 
 
 # Loads progress file
-func _load_progress() -> int:
-	print("LOADING PROGRESS")
+func _load_progress(path : String = Data.PROFILES_PATH + name + ".dat") -> int:
+	Data.console._log("", true)
+	Data.console._log("Loading savedata at path : " + path, true)
 	
-	if not FileAccess.file_exists(Data.PROFILES_PATH + name + ".dat"):
-		print("ERROR! PROGRESS IS MISSING AT PATH : ", Data.PROFILES_PATH + name + ".dat")
+	if not FileAccess.file_exists(path):
+		Data.console._log("ERROR! SAVEDATA IS MISSING IN THIS PATH", true)
 		status = STATUS.PROGRESS_MISSING
 		return STATUS.PROGRESS_MISSING
 	
 	# Yeah I know that I just left encrypted file key in open-source project code. But it's intended to prevent regular user from changing the file, not a hacker ;)
-	var file : FileAccess = FileAccess.open_encrypted_with_pass(Data.PROFILES_PATH + name + ".dat", FileAccess.READ, "0451")
+	var file : FileAccess = FileAccess.open_encrypted_with_pass(path, FileAccess.READ, "0451")
 	if not file:
-		file.close()
-		print("PROGRESS FILE LOAD ERROR! : ", error_string(FileAccess.get_open_error()))
+		Data.console._log("SAVEDATA LOADING ERROR : " + error_string(FileAccess.get_open_error()), true)
 		status = STATUS.PROGRESS_FAIL
 		return STATUS.PROGRESS_FAIL
 	
 	var loaded_progress : Variant = file.get_var()
 	if loaded_progress == null or loaded_progress is not Dictionary or not loaded_progress.has("time_attack_hiscore"): 
-		file.close()
-		print("PROGRESS FILE PARSE ERROR! INVALID FORMAT")
+		Data.console._log("SAVEDATA PARSE ERROR! INVALID FORMAT", true)
 		status = STATUS.PROGRESS_FAIL
 		return STATUS.PROGRESS_FAIL
 	
@@ -351,50 +355,49 @@ func _load_progress() -> int:
 		_save_progress()
 	
 	progress_changed.emit()
-	print("OK")
+	Data.console._log("Savedata loaded successfully!", true)
 
 	return OK
 
 
 # Saves progress to an encrypted .dat file
-func _save_progress() -> int:
-	if is_guest_profile : return ERR_DOES_NOT_EXIST
-
-	print("SAVING PROGRESS")
+func _save_progress(path : String = Data.PROFILES_PATH + name + ".dat") -> int:
+	Data.console._log("", true)
+	Data.console._log("Saving savedata", true)
 	
-	var file : FileAccess = FileAccess.open_encrypted_with_pass(Data.PROFILES_PATH + name + ".dat", FileAccess.WRITE, "0451")
+	var file : FileAccess = FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE, "0451")
 	if not file:
-		file.close()
-		print("PROGRESS FILE SAVE ERROR! : ", error_string(FileAccess.get_open_error()))
+		Data.console._log("SAVEDATA SAVE ERROR : " + error_string(FileAccess.get_open_error()), true)
 		return FileAccess.get_open_error()
 
 	file.store_var(progress)
 	file.close()
 
 	has_changes_in_progress = false
-	print("OK")
+	Data.console._log("Savedata saved successfully!", true)
 
 	return OK
 
 
 # Loads config file and setup all settings
-func _load_config() -> int:
-	print("LOADING CONFIG")
+func _load_config(path : String = Data.PROFILES_PATH + name + ".json") -> int:
+	Data.console._log("", true)
+	Data.console._log("Loading config at path : " + path, true)
 	
-	if not FileAccess.file_exists(Data.PROFILES_PATH + name + ".json"):
-		print("ERROR! CONFIG IS MISSING AT PATH : ", Data.PROFILES_PATH + name + ".json")
+	if not FileAccess.file_exists(path):
+		Data.console._log("ERROR! CONFIG IS MISSING IN THIS PATH", true)
 		status = STATUS.CONFIG_MISSING
 		return STATUS.CONFIG_MISSING
 		
-	var file : FileAccess = FileAccess.open(Data.PROFILES_PATH + name + ".json", FileAccess.READ)
+	var file : FileAccess = FileAccess.open(path, FileAccess.READ)
 	if not file:
-		print("CONFIG FILE LOAD ERROR! : ", error_string(FileAccess.get_open_error()))
+		Data.console._log("CONFIG LOADING ERROR : " + error_string(FileAccess.get_open_error()), true)
 		status = STATUS.CONFIG_FAIL
 		return STATUS.CONFIG_FAIL
 	
 	var parse_result : Variant = JSON.parse_string(file.get_as_text())
 	if parse_result == null:
-		print("CONFIG FILE READ ERROR! UNKNOWN FORMAT")
+		Data.console._log("CONFIG PARSE ERROR! INVALID FORMAT", true)
 		status = STATUS.CONFIG_FAIL
 		return STATUS.CONFIG_FAIL
 
@@ -408,28 +411,26 @@ func _load_config() -> int:
 	file.close()
 	
 	_apply_setting("all")
-	print("OK")
+	Data.console._log("Config loaded successfully!", true)
 
 	return OK
 
 
 # Saves config to an .json file
-func _save_config() -> int:
-	if is_guest_profile : return ERR_DOES_NOT_EXIST
-
-	print("SAVING CONFIG")
+func _save_config(path : String = Data.PROFILES_PATH + name + ".json") -> int:
+	Data.console._log("", true)
+	Data.console._log("Saving config", true)
 	
-	var file : FileAccess = FileAccess.open(Data.PROFILES_PATH + name + ".json", FileAccess.WRITE)
+	var file : FileAccess = FileAccess.open(path, FileAccess.WRITE)
 	if not file:
-		file.close()
-		print("CONFIG SAVE ERROR! : ", error_string(FileAccess.get_open_error()))
+		Data.console._log("CONFIG SAVE ERROR : " + error_string(FileAccess.get_open_error()), true)
 		return FileAccess.get_open_error()
 	
 	file.store_string(JSON.stringify(config, "\t"))
 	file.close() 
 	
 	has_changes_in_config = false
-	print("OK")
+	Data.console._log("Config saved successfully!", true)
 	return OK
 
 
@@ -518,7 +519,7 @@ func _return_setting_value_string(setting_name : String, value : Variant) -> Str
 
 
 # Assigns some value to specified setting name in corresponing config sub-category
-func _assign_setting(setting_name : String, value : Variant, setting_category : int = SETTING_TYPE.UNKNOWN) -> void:
+func _assign_value_to_setting(setting_name : String, value : Variant, setting_category : int = SETTING_TYPE.UNKNOWN) -> void:
 	if setting_category == SETTING_TYPE.GAMEPLAY or setting_name in config["gameplay"].keys():
 		config["gameplay"][setting_name] = value
 	
@@ -554,6 +555,16 @@ func _assign_setting(setting_name : String, value : Variant, setting_category : 
 
 	has_changes_in_config = true
 	setting_changed.emit(setting_name)
+
+
+func _backup_game_settings() -> void:
+	backup_game_config = GameConfigPreset.new()
+	backup_game_config._store_current_config()
+
+
+func _restore_game_settings_backup() -> void:
+	if backup_game_config != null:
+		backup_game_config._apply_preset()
 
 
 # Applies specified config setting

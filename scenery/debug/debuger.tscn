@@ -1,10 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw0iu31f3tl2y"]
+[gd_scene load_steps=7 format=3 uid="uid://dw0iu31f3tl2y"]
 
 [ext_resource type="Script" path="res://scripts/debuger.gd" id="1"]
-[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2"]
+[ext_resource type="FontFile" uid="uid://cklk4kjp10w3h" path="res://fonts/console/visitor1.ttf" id="2_26b0l"]
+[ext_resource type="FontFile" uid="uid://dxy0iebux22yo" path="res://fonts/console/whitrabt.ttf" id="3_e3dig"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_04nb1"]
-font = ExtResource("2")
+[sub_resource type="LabelSettings" id="LabelSettings_fvp6a"]
+font = ExtResource("2_26b0l")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_8kmyt"]
+font = ExtResource("3_e3dig")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_axjfj"]
+font = ExtResource("3_e3dig")
 font_size = 20
 
 [node name="Debug" type="Control"]
@@ -17,17 +26,405 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="FPS" type="ColorRect" parent="."]
 layout_mode = 0
-offset_right = 208.0
+offset_left = 1736.0
+offset_right = 1920.0
 offset_bottom = 40.0
+mouse_filter = 2
 color = Color(0, 0, 0, 0.75)
 
-[node name="FPS" type="Label" parent="."]
+[node name="Text" type="Label" parent="FPS"]
 layout_mode = 0
-offset_right = 208.0
+offset_right = 176.0
 offset_bottom = 40.0
 text = "FPS : ???"
-label_settings = SubResource("LabelSettings_04nb1")
-horizontal_alignment = 1
+label_settings = SubResource("LabelSettings_fvp6a")
+horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="Menu" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Back" type="ColorRect" parent="Menu"]
+layout_mode = 0
+offset_left = 1152.0
+offset_top = 688.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="V" type="VBoxContainer" parent="Menu"]
+layout_mode = 0
+offset_left = 1168.0
+offset_top = 700.0
+offset_right = 1904.0
+offset_bottom = 1064.0
+mouse_filter = 2
+
+[node name="Debug" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "MENU DEBUG"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="Line" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "-----------------------------------------------------"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="CurScr" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "Current screen name : "
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="PrevScr" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "Previous screen name : "
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="Locked" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "Is locked : false"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="AddScr" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "Currently adding screens amount : 0"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="RemScr" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "Currently removing screens amount : 0"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="Music" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "Current music sample name : "
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="Line2" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "-----------------------------------------------------"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="Cursor" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "Cursor : X = 0, Y = 0"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="LastCur" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "Last cursor direction : HERE"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="Lock" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "Input lock : LEFT = 0, RIGHT = 0, UP = 0, DOWN = 0"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="Dash" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "Input dash hold : 0.0"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="CurSel" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "Currently selected : "
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="PreSel" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "Previously selected : "
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="Cancel" type="Label" parent="Menu/V"]
+layout_mode = 2
+text = "Cancel object position : X = 0, Y = 0"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="Game" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Back" type="ColorRect" parent="Game"]
+layout_mode = 0
+offset_top = 336.0
+offset_right = 632.0
+offset_bottom = 1080.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="V" type="VBoxContainer" parent="Game"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 352.0
+offset_right = 622.0
+offset_bottom = 1068.0
+mouse_filter = 2
+
+[node name="Debug" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "GAME DEBUG"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="Line" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "-----------------------------------------------------"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="State" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "State : Playing"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="SkinChg" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Is skin changing : false"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="Sound" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Sounds in sound queue : 0"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="BlkCnt" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Total blocks amount : 0"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="SqrCnt" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Total squares amount : 0"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="DelCnt" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Total soon to delete blocks amount : 0"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="Line2" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "-----------------------------------------------------"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="PPos" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Piece position : X = 0, Y = 0"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="FallSpd" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Piece fall speed : 1.0"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="FallSpd2" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Current piece fall timer : 1.0"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="FallDelay" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Piece fall delay : 1.0"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="FallDelay2" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Current piece delay timer : 1.0"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="DashT" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Piece dash timer : 1.0"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="Dash" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Piece dash state : NONE"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="QDropT" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Piece quick drop timer : 1.0"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="QDrop" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Can quick drop piece : false"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="SpecDelay" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Before special block left : 999"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="Line3" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "-----------------------------------------------------"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="TPos" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Timeline position : X = 0 "
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="TSpeed" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Timeline speed : "
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="TSqr" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Current scanned squares count : 0"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="TBlk" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Current scanned blocks count : 0"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="TTSqr" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Total scanned squares count : 0"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="TGrp" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Current scanned square group size : 0"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="TBeat" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "Is timeline doing beat : false"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="Line4" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "-----------------------------------------------------"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="Gamemode1" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "......"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="Gamemode2" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "......"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="Gamemode3" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "......"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="Gamemode4" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "......"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="Gamemode5" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "......"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="Gamemode6" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "......"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="Gamemode7" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "......"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="Gamemode8" type="Label" parent="Game/V"]
+layout_mode = 2
+text = "......"
+label_settings = SubResource("LabelSettings_axjfj")
+
+[node name="Skin" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Back" type="ColorRect" parent="Skin"]
+layout_mode = 0
+offset_right = 768.0
+offset_bottom = 280.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="V" type="VBoxContainer" parent="Skin"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 752.0
+offset_bottom = 265.0
+mouse_filter = 2
+
+[node name="Debug" type="Label" parent="Skin/V"]
+layout_mode = 2
+text = "SKIN DEBUG"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="Line" type="Label" parent="Skin/V"]
+layout_mode = 2
+text = "-----------------------------------------------------"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="Name" type="Label" parent="Skin/V"]
+layout_mode = 2
+text = "Name : SHININ'"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="State" type="Label" parent="Skin/V"]
+layout_mode = 2
+text = "State : Playing"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="BPM" type="Label" parent="Skin/V"]
+layout_mode = 2
+text = "BPM : 120"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="Beat" type="Label" parent="Skin/V"]
+layout_mode = 2
+text = "Current beat : 0"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="HBeat" type="Label" parent="Skin/V"]
+layout_mode = 2
+text = "Current half-beat : 0"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="Pos" type="Label" parent="Skin/V"]
+layout_mode = 2
+text = "Playback position : 0.0 "
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="SMPos" type="Label" parent="Skin/V"]
+layout_mode = 2
+text = "Last music sample start position :"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="SSPos" type="Label" parent="Skin/V"]
+layout_mode = 2
+text = "Last scene sample start position :"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="Loop" type="Label" parent="Skin/V"]
+layout_mode = 2
+text = "Is currently looping : false"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="DebugTimer" type="Timer" parent="."]
+wait_time = 0.25
+
+[connection signal="timeout" from="DebugTimer" to="." method="_debug_check"]

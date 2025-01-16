@@ -52,14 +52,19 @@ var skins : Dictionary = {
 var files_amount : int = 0 # Total amount of skin files inside skin folder and all loaded addons
 var skins_amount : int = 0 # Total amount of successfully parsed skin files
 
+# List of all loaded skins id's and their respective keys in 'skins' Dictionary. Used to easily get access to any loaded skin.
+var id_links : Dictionary= {
+#	"skin_id" : "skin_MD5_hash"
+} 
+
 # List of all loaded skins MD5 hashes and their respective keys in 'skins' Dictionary. Used to easily get access to any loaded skin.
 var hash_links : Dictionary = {
-#	"skin_MD5_hash_StringName" : ["skin_album",skin_number,"skin_name"]
+#	"skin_MD5_hash" : ["skin_album",skin_number,"skin_name"]
 } 
 
 # List of all loaded skins paths and their respective keys in 'skins' Dictionary. Used to easily get access to any loaded skin by playlists.
 var path_links : Dictionary = {
-#	"skin_path" : "skin_MD5_hash_StringName"
+#	"skin_path" : "skin_MD5_hash"
 } 
 
 # List of unlock conditions and their respectively locked skins names
@@ -264,6 +269,12 @@ func _get_skin_metadata_by_hash(MD5_hash_string : StringName) -> SkinMetadata:
 	if not FileAccess.file_exists(metadata.path) : return null
 	
 	return metadata
+
+
+func _get_skin_metadata_by_id(skin_id : StringName) -> SkinMetadata:
+	if not id_links.has(skin_id): return null
+	var skin_hash : StringName = id_links[skin_id]
+	return _get_skin_metadata_by_hash(skin_hash)
 
 
 func _get_skin_metadata_by_file_path(skin_file_path : String) -> SkinMetadata:

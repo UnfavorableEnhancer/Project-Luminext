@@ -88,7 +88,7 @@ func _toggled(on : bool) -> void:
 	$IO.text = tr("ON") if is_toggled else tr("OFF")
 
 	if is_setting_button:
-		Data.profile._assign_setting(call_string, on)
+		Data.profile._assign_value_to_setting(call_string, on)
 
 
 func _set_toggle_by_data(data_dict : Dictionary) -> void:

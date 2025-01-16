@@ -232,7 +232,7 @@ func _release_action(action_name : StringName) -> void:
 func _start_playback() -> void:
 	print("STARTED REPLAY PLAYBACK")
 	queue_shift_call = Data.game.piece_queue._shift_queue
-	timeline_call = Data.game._start_timeline
+	timeline_call = Data.game._create_timeline
 	music_sync_call = Data.game.skin._sync_music
 	get_animation_library("").add_animation("replay", inputs_anim)
 	play("replay")

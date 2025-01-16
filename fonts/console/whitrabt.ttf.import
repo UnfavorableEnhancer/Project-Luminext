@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://ic6qif5auc3g"
-path="res://.godot/imported/Welbut_.ttf-aee4ccec5bdac49a4662ad4e3574afda.fontdata"
+uid="uid://dxy0iebux22yo"
+path="res://.godot/imported/whitrabt.ttf-6ccbb3961fde418010ec8dd16204f935.fontdata"
 
 [deps]
 
-source_file="res://fonts/Welbut_.ttf"
-dest_files=["res://.godot/imported/Welbut_.ttf-aee4ccec5bdac49a4662ad4e3574afda.fontdata"]
+source_file="res://fonts/console/whitrabt.ttf"
+dest_files=["res://.godot/imported/whitrabt.ttf-6ccbb3961fde418010ec8dd16204f935.fontdata"]
 
 [params]
 

@@ -108,7 +108,7 @@ func _change_tab(to_tab : String) -> void:
 
 
 func _change_option(value : float, setting_name : String) -> void:
-	Data.profile._assign_setting(setting_name, value)
+	Data.profile._assign_value_to_setting(setting_name, value)
 	
 	if current_tab == OPTIONS_TABS.AUDIO:
 		if setting_name == "music_volume" or setting_name == "sound_volume" : Data.profile._apply_setting(setting_name)
@@ -255,7 +255,7 @@ func _load_icon_for_action(action : String) -> void:
 
 
 func _select_language(locale_name : String) -> void:
-	Data.profile._assign_setting("language", locale_name, Profile.SETTING_TYPE.MISC)
+	Data.profile._assign_value_to_setting("language", locale_name, Profile.SETTING_TYPE.MISC)
 	_set_language_icon()
 
 

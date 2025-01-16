@@ -53,19 +53,19 @@ enum LOADING_STATUS {
 
 enum PARSE {PROFILES, PLAYLISTS, PRESETS, ADDONS, MODS, REPLAYS}
 
-const VERSION : String = "0.1.1.1" # Current game version
-const BUILD : String = "28.11.2024" # Latest build date
-const GODOT_VER : String = "4.3.rc1 (custom)" # Latest build date
+const VERSION : String = "0.1.2" # Current game version
+const BUILD : String = "17.01.2024" # Latest build date
 
-const SKINS_PATH : String = "skins/" # Path to the skins folder
-const PLAYLISTS_PATH : String = "playlists/" # Path to the saved playlists folder
-const ADDONS_PATH : String = "addons/" # Path to the addons folder (currently unused)
+const SKINS_PATH : String = "content/skins/" # Path to the skins folder
+const PLAYLISTS_PATH : String = "content/playlists/" # Path to the saved playlists folder
+const ADDONS_PATH : String = "content/addons/" # Path to the addons folder (currently unused)
 const PROFILES_PATH : String = "profiles/" # Path to the profiles folder
-const PRESETS_PATH : String = "presets/" # Path to the game presets folder
-const MODS_PATH : String = "mods/" # Path to the .pck mods folder
-const SCREENSHOTS_PATH : String = "screenshots/" # Path to the game screenshots folder
-const LOGS_PATH : String = "logs/" # Path to the game logs folder
-const REPLAYS_PATH : String = "replays/" # Path to the game logs folder
+const PRESETS_PATH : String = "content/presets/" # Path to the game presets folder
+const MODS_PATH : String = "content/mods/" # Path to the .pck mods folder
+const SCREENSHOTS_PATH : String = "export/screenshots/" # Path to the game screenshots folder
+const LOGS_PATH : String = "export/logs/" # Path to the game logs folder
+const REPLAYS_PATH : String = "export/replays/" # Path to the game logs folder
+const GRAPHS_PATH : String = "export/graphs/" # Path to the graphs folder
 
 const BUILD_IN_PATH : String = "res://internal/" # Path to the build-in game content (which is exported with entiere project)
 const GLOBAL_DATA_PATH : String = "user://global.json" # Path to the global data json
@@ -75,12 +75,13 @@ const MENU_PATH : String = "res://menu" # Path to the menu files, where all menu
 var main : Node # Main node, which holds everything
 var game : Node2D # Currently playing game node
 var menu : Control # Currently loaded menu node
+var console : Control # Console node which is used to input debug commands
 
-var ranking_manager : Node = null
+var ranking_manager : Node = null # Ranking manager is used for online score ranking if avaiable
 
 var skin_list : SkinList = SkinList.new() # All skins list
 var playlist : SkinPlaylist = SkinPlaylist.new() # Skins playlist is stored here for ease access and to make it persistent
-var profile : Profile = Profile.new()
+var profile : Profile = Profile.new() # Current player profile
 
 var blank_skin : SkinData = null # Loaded on game boot and is meant to be cloned where needed to speed up loading times
 
@@ -126,34 +127,15 @@ var use_second_cache : bool = false # If true game will use second name for cach
 var current_input_mode : int = INPUT_MODE.KEYBOARD
 
 
-# Called by main on game boot
+# Called on game boot
 func _ready() -> void:
 	PortableCompressedTexture2D.set_keep_all_compressed_buffers(true)
 	_load_global_settings()
 
 	for path : String in [SKINS_PATH, PLAYLISTS_PATH, PROFILES_PATH, PRESETS_PATH, CACHE_PATH, SCREENSHOTS_PATH, LOGS_PATH, REPLAYS_PATH]:
 		if not DirAccess.dir_exists_absolute(path):
-			DirAccess.make_dir_absolute(path)
+			DirAccess.make_dir_recursive_absolute(path)
 
-	if global_settings["last_used_profile"].is_empty():
-		if _parse(PARSE.PROFILES).size() > 0:
-			profile.status = Profile.STATUS.GLOBAL_DATA_ERROR
-		else:
-			profile.status = Profile.STATUS.NO_PROFILES_EXIST
-	else:
-		profile._load_profile(global_settings["last_used_profile"])
-
-	profile._apply_setting("all")
-
-	if profile.status == Profile.STATUS.PROFILE_IS_MISSING:
-		print("WARNING! LAST USED PROFILE IS MISSING! APPLYING STANDARD SETTINGS")
-	
-	if profile.status == Profile.STATUS.CONFIG_FAIL:
-		print("WARNING! LAST PROFILE CONFIG DATA IS MISSING! APPLYING STANDARD SETTINGS")
-	
-	if profile.status == Profile.STATUS.PROGRESS_FAIL:
-		print("WARNING! LAST PROFILE PROGRESS DATA IS MISSING!")
-	
 	skin_list._check_parse()
 	skin_list._parse_threaded()
 
@@ -166,11 +148,38 @@ func _ready() -> void:
 	add_child(total_time_timer)
 	total_time_timer.start(1.0)
 
+	await get_tree().create_timer(0.15).timeout
+
+	_load_latest_profile()
+
 	if FileAccess.file_exists("res://addons/silent_wolf/silent_wolf.gd"):
-		await get_tree().create_timer(0.1).timeout
 		ranking_manager = Node.new()
 		ranking_manager.set_script(load("res://scripts/ranking_manager.gd"))
 		add_child(ranking_manager)
+
+
+func _load_latest_profile() -> void:
+	console._log("", true)
+	console._log("Loading latest used profile", true)
+	if global_settings["last_used_profile"].is_empty():
+		if _parse(PARSE.PROFILES).size() > 0:
+			console._log("GLOBAL DATA LOADING ERROR! LATEST USED PROFILE IS UNKNOWN...", true)
+			profile.status = Profile.STATUS.GLOBAL_DATA_ERROR
+		else:
+			console._log("NO AVAIABLE PROFILES EXIST...", true)
+			profile.status = Profile.STATUS.NO_PROFILES_EXIST
+	else:
+		profile._load_profile(global_settings["last_used_profile"])
+	
+	if profile.status == Profile.STATUS.PROFILE_IS_MISSING:
+		console._log("LAST USED PROFILE IS MISSING! APPLYING STANDARD SETTINGS...", true)
+	elif profile.status == Profile.STATUS.CONFIG_FAIL:
+		console._log("LAST USED PROFILE CONFIG IS MISSING! APPLYING STANDARD SETTINGS...", true)
+	elif profile.status == Profile.STATUS.PROGRESS_FAIL:
+		console._log("WARNING! LAST USED PROFILE SAVE DATA IS MISSING!", true)
+	
+	console._log("Finished loading latest used profile", true)
+	profile._apply_setting("all")
 
 
 # Converts int (secs) to (hh:mm:ss) time format

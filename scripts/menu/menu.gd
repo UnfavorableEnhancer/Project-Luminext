@@ -58,6 +58,7 @@ var currently_adding_screens_amount : int = 0 # Number of currently adding scree
 var currently_removing_screens_amount : int = 0 # Number of currently removing screens
 
 var music_player : AudioStreamPlayer = null # Music player node
+var current_music_sample_name : String = ""
 var is_music_playing : bool = false
 
 @onready var preview_player : AudioStreamPlayer = $Preview # Skin preview player node
@@ -76,6 +77,9 @@ func _boot(force_screen : String = "") -> void:
 	_add_screen("background")
 	_add_screen("foreground","null")
 	
+	Data.console.opened.connect(func() -> void: keep_locked = true; is_locked = true)
+	Data.console.closed.connect(func() -> void: keep_locked = false; is_locked = false)
+
 	if not force_screen.is_empty():
 		_add_screen(force_screen)
 		return
@@ -229,7 +233,7 @@ func _sound(sound_name : String, stream : AudioStream = null, start_immidiately 
 # Starts looping menu music sample
 # Music files inside "menu/music" should be "ogg" or "mp3" **with "looping" set to false**, and have same file names as corresponding menu screens
 func _change_music(music_sample_name : String = "", change_speed : float = 1.0) -> void:
-	if music_sample_name != "" and not loaded_music_data.has(music_sample_name):
+	if music_sample_name != "nothing" and not loaded_music_data.has(music_sample_name):
 		music_player = null
 		return
 	
@@ -239,7 +243,8 @@ func _change_music(music_sample_name : String = "", change_speed : float = 1.0) 
 		tween.tween_callback(music_player.queue_free)
 		is_music_playing = false
 	
-	if music_sample_name == "":
+	current_music_sample_name = music_sample_name
+	if music_sample_name == "nothing":
 		return
 	
 	if current_screen_name == "":
@@ -416,15 +421,31 @@ func _create_button_icon(action : String, button_size : Vector2 = Vector2(42,42)
 # Resets menu to its initial state
 func _reset() -> void:
 	# Free all menu screens
-	for menu_screen : Node in get_children():
+	for node : Node in get_children():
 		# There's also a preview player node don't remove it
-		if menu_screen == preview_player: continue
-		menu_screen.queue_free()
+		if node == preview_player: continue
+		node.queue_free()
 	
 	# Reset all vars
 	is_locked = false
+	keep_locked = false
+	currently_adding_screens_amount = 0
+	currently_removing_screens_amount = 0
+	current_screen = null
 	current_screen_name = ""
+
 	loaded_screens_data.clear()
 	loaded_music_data.clear()
 	loaded_sounds_data.clear()
-	music_player = null
+	screens.clear()
+	custom_data.clear()
+
+	if is_instance_valid(preview_tween):
+		preview_tween.kill()
+		preview_tween = null
+
+	current_music_sample_name = ""
+	is_music_playing = false
+	if music_player != null:
+		music_player.queue_free()
+		music_player = null
