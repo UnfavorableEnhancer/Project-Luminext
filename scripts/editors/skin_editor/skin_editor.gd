@@ -59,7 +59,7 @@ func _ready() -> void:
 
 	if Data.menu.is_music_playing:
 		Data.menu.custom_data["last_music_pos"] = Data.menu.music_player.get_playback_position()
-		Data.menu._change_music("")
+		Data.menu._change_music("nothing")
 	
 	%FileExplorer.close_requested.connect(func() -> void: selected_path = "cancel")
 	%FileExplorer.canceled.connect(func() -> void: selected_path = "cancel")

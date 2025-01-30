@@ -74,7 +74,9 @@ func _get_piece() -> PieceData:
 
 
 func _input(event : InputEvent) -> void:
-	if event.is_action_pressed(&"side_ability") and not Data.game.is_paused:
+	if Data.game.is_paused : return
+	if Data.game.input_lock[&"side_ability"] : return
+	if event.is_action_pressed(&"side_ability"):
 		Data.game.replay._record_side_ability()
 		_shift_queue()
 

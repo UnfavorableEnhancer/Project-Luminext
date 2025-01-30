@@ -47,14 +47,24 @@ var is_changing_skins_now : bool = false
 
 var is_piece_noclip_mode : bool = false # When active current piece ignores collisions with other blocks, it only collides with floor
 var is_paint_mode : bool = false # When active user can draw blocks on field with mouse
-var is_input_locked : bool = false # When active none of the inputs works with current piece
 var is_manual_timeline : bool = false # When active stops timeline creation when skin music sample ends
 var is_adding_pieces_to_queue : bool = true # When active game generates new piece and appends it to queue each time queue size is less than 3
+
+ # What inputs are locked for current piece
+var input_lock : Dictionary = {
+	&"move_left" : false,
+	&"move_right" : false,
+	&"rotate_left" : false,
+	&"rotate_right" : false,
+	&"quick_drop" : false,
+	&"side_ability" : false
+}
 
 var all_blocks : Dictionary = {} # All blocks on the game field | [position : Vector2i] = Block
 var blocks : Dictionary = {} # All blocks on the game field | [position : Vector2i] = Block
 var delete : Dictionary = {} # Ready to be deleted by timeline blocks | [position : Vector2i] = Block
 var squares : Dictionary = {} # All squares on the game field | [position : Vector2i] = FX
+var ghosts : Array = [] # All ghosts on the game field
 
 var gamemode : Gamemode = null # Current gamemode, which defines game rules
 var skin : Node2D = null # Currently loaded skin instance
@@ -130,15 +140,15 @@ func _reset() -> void:
 	
 	if is_playing_replay:
 		is_manual_timeline = true
-		skin.sample_ended.disconnect(_start_timeline)
-		is_input_locked = true
+		for i : StringName in input_lock.keys() : input_lock[i] = true
+
+	gamemode._reset()
+	await gamemode.reset_complete
+	print("RESETTTED")
 
 	piece = null
 	piece_queue._reset()
 	_give_new_piece()
-	
-	gamemode._reset()
-	await gamemode.reset_complete
 
 	if is_playing_replay: 
 		replay._start_playback()
@@ -372,16 +382,18 @@ func ___BLOCKS_MANAGEMENT___() -> void: return
 
 
 # Give piece from queue to the player's hand
-func _give_new_piece(piece_start_pos : Vector2i = Vector2i(8,-1), piece_data : PieceData = null, is_signal : bool = false) -> void:
+func _give_new_piece(piece_start_pos : Vector2i = Vector2i(8,-1), piece_data : PieceData = null, is_waited_for_new_piece : bool = false) -> void:
 	if piece != null : 
 		piece._end()
 		piece = null
 	if piece_data == null:
-		if is_signal:
+		if is_waited_for_new_piece:
 			piece_queue.piece_appended.disconnect(_give_new_piece.bind(piece_start_pos,null,true))
 		if piece_queue.queue.size() < 1:
+			# Wait for new piece to come into queue
 			piece_queue.piece_appended.connect(_give_new_piece.bind(piece_start_pos,null,true))
 			return
+
 		piece_data = piece_queue._get_piece()
 	
 	piece = Piece.new()
@@ -418,7 +430,7 @@ func _replace_current_piece(piece_data : PieceData) -> void:
 
 
 # Adds block to the game field
-func _add_block(to_position : Vector2i, color : int, special : StringName) -> void:
+func _add_block(to_position : Vector2i, color : int, special : StringName, smooth : bool = false) -> void:
 	if to_position.y < 0 or to_position.y > 9: return
 	var block : Block = null
 	
@@ -440,6 +452,48 @@ func _add_block(to_position : Vector2i, color : int, special : StringName) -> vo
 	
 	field.add_child(block)
 	block._render()
+
+	if smooth: create_tween().tween_property(block, "modulate", Color(1,1,1,1), 0.25).from(Color(0,0,0,0))
+
+
+func _add_ghost(to_position : Vector2i, color : int, special : StringName, smooth : bool = false) -> void:
+	if to_position.y < 0 or to_position.y > 9: return
+	
+	if special == &"square":
+		var ghost_square : ColorRect = ColorRect.new()
+
+		match color:
+			BlockBase.BLOCK_COLOR.RED : ghost_square.color = skin.skin_data.textures["red_fx"]
+			BlockBase.BLOCK_COLOR.WHITE : ghost_square.color = skin.skin_data.textures["red_fx"]
+			BlockBase.BLOCK_COLOR.GREEN : ghost_square.color = skin.skin_data.textures["red_fx"]
+			BlockBase.BLOCK_COLOR.PURPLE : ghost_square.color = skin.skin_data.textures["red_fx"]
+			BlockBase.BLOCK_COLOR.MULTI : ghost_square.color = skin.skin_data.textures["red_fx"]
+		
+		ghost_square.color.a = 0.5
+		ghost_square.position = Vector2(to_position.x * 68 - 34, to_position.y * 68 + 32) 
+		ghosts.append(ghost_square)
+
+		if smooth:
+			create_tween().tween_property(ghost_square, "modulate", Color(1,1,1,0.5), 0.25).from(Color(0,0,0,0))
+	else:
+		var ghost_block : BlockBase = BlockBase.new()
+			
+		ghost_block.position = Vector2(to_position.x * 68 - 34, to_position.y * 68 + 32) 
+		ghost_block.color = color
+		ghost_block.special = special
+		ghost_block.is_ghost = true
+		
+		field.add_child(ghost_block)
+		ghosts.append(ghost_block)
+		ghost_block._render()
+
+		if smooth:
+			create_tween().tween_property(ghost_block, "modulate", Color(1,1,1,0.5), 0.25).from(Color(0,0,0,0))
+
+
+func _clear_ghosts() -> void:
+	for i : int in ghosts.size():
+		ghosts.pop_back().queue_free()
 
 
 # Turns on all placed blocks gravity

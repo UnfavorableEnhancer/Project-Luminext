@@ -22,6 +22,7 @@ class_name Piece
 
 signal piece_moved(position : Vector2) # Emitted when piece moves
 signal piece_rotated(side : int) # Emitted when piece rotates
+signal piece_dashed(side : int) # Emitted when piece dashes
 signal piece_quick_drop(position : Vector2) # Emitted when piece quick drops
 signal piece_landed # Emitted when piece lands and ends its job
 
@@ -87,15 +88,15 @@ func _ready() -> void:
 	position = Vector2(grid_position.x * 68, grid_position.y * 68 - 2)
 	piece_moved.emit(position)
 	
-	if Input.is_action_pressed("move_right") or emulated_inputs["move_right"]: 
+	if (Input.is_action_pressed("move_right") or emulated_inputs["move_right"]) and not Data.game.input_lock[&"move_right"]:
 		dash_left = dash_delay
 		current_dash_side = MOVE.RIGHT
-	elif Input.is_action_pressed("move_left") or emulated_inputs["move_left"]: 
+	elif (Input.is_action_pressed("move_left") or emulated_inputs["move_left"]) and not Data.game.input_lock[&"move_left"]:
 		dash_left = dash_delay
 		current_dash_side = MOVE.LEFT
 
 	# Prevent from instant quick droping on piece spawn
-	if Input.is_action_pressed("quick_drop") or emulated_inputs["quick_drop"]:
+	if (Input.is_action_pressed("quick_drop") or emulated_inputs["quick_drop"]) and not Data.game.input_lock[&"quick_drop"]:
 		is_quick_dropping = true
 		_toggle_trail(true)
 		can_be_quick_dropped = false
@@ -122,37 +123,37 @@ func _render() -> void:
 
 # Single input handler
 func _input(event : InputEvent) -> void:
-	if Data.game.is_paused or Data.game.is_input_locked or is_dying: return
+	if Data.game.is_paused or is_dying: return
 	
-	if event.is_action_pressed(&"move_right"):
+	if event.is_action_pressed(&"move_right") and not Data.game.input_lock[&"move_right"]:
 		replay._record_action_press(&"move_right")
 		_move_piece(MOVE.RIGHT)
 		if is_dashing : _reset_dash() 
 		dash_left = dash_delay
 		current_dash_side = MOVE.RIGHT
-	elif event.is_action_pressed(&"move_left"): 
+	elif event.is_action_pressed(&"move_left") and not Data.game.input_lock[&"move_left"]:
 		replay._record_action_press(&"move_left")
 		_move_piece(MOVE.LEFT)
 		if is_dashing : _reset_dash() 
 		dash_left = dash_delay
 		current_dash_side = MOVE.LEFT
-	elif event.is_action_pressed(&"quick_drop"):
+	elif event.is_action_pressed(&"quick_drop") and not Data.game.input_lock[&"quick_drop"]:
 		replay._record_action_press(&"quick_drop")
 		is_quick_dropping = true
 		_toggle_trail(true)
-	elif event.is_action_pressed(&"rotate_right"): 
+	elif event.is_action_pressed(&"rotate_right") and not Data.game.input_lock[&"rotate_right"]:
 		replay._record_action_press(&"rotate_right")
 		_rotate_piece(MOVE.RIGHT)
-	elif event.is_action_pressed(&"rotate_left"): 
+	elif event.is_action_pressed(&"rotate_left") and not Data.game.input_lock[&"rotate_left"]:
 		replay._record_action_press(&"rotate_left")
 		_rotate_piece(MOVE.LEFT)
-	elif event.is_action_released(&"move_right"):
+	elif event.is_action_released(&"move_right") and not Data.game.input_lock[&"move_right"]:
 		replay._record_action_release(&"move_right")
 		if current_dash_side == MOVE.RIGHT: _reset_dash()
-	elif event.is_action_released(&"move_left"):
+	elif event.is_action_released(&"move_left") and not Data.game.input_lock[&"move_left"]:
 		replay._record_action_release(&"move_left")
 		if current_dash_side == MOVE.LEFT: _reset_dash()
-	elif event.is_action_released(&"quick_drop"):
+	elif event.is_action_released(&"quick_drop") and not Data.game.input_lock[&"quick_drop"]:
 		replay._record_action_release(&"quick_drop")
 		is_quick_dropping = false
 		position.y = grid_position.y * 68 - 2
@@ -443,8 +444,12 @@ func _dash_piece() -> void:
 	_toggle_trail(true)
 	
 	if not is_dashing:
-		if (current_dash_side == MOVE.RIGHT): Data.game._add_sound(&'right_dash',Vector2(position.x+300,position.y+320),false,false)
-		else: Data.game._add_sound(&'left_dash',Vector2(position.x+300,position.y+320),false,false)
+		if (current_dash_side == MOVE.RIGHT): 
+			Data.game._add_sound(&'right_dash',Vector2(position.x+300,position.y+320),false,false)
+			piece_dashed.emit(MOVE.RIGHT)
+		else: 
+			Data.game._add_sound(&'left_dash',Vector2(position.x+300,position.y+320),false,false)
+			piece_dashed.emit(MOVE.LEFT)
 	
 	is_dashing = true
 	piece_moved.emit(position)
@@ -490,6 +495,8 @@ func _place_piece() -> void:
 
 # Properly removes piece from field
 func _end() -> void:
+	Data.game.piece = null
+	
 	for block : BlockBase in blocks.values() : 
 		block.self_modulate.a = 0.0
 		if block.has_node("Special") : block.get_node("Special").self_modulate.a = 0.0

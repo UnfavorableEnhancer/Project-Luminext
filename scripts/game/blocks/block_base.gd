@@ -56,6 +56,7 @@ var is_trail_enabled : bool = false # If true, trail will be added on block spaw
 
 var is_refreshing : bool = false # Is block currently changing its visuals
 var is_standard_graphics : bool = false # True if block uses standard graphics
+var is_ghost : bool = false # Ghost blocks are transparent and intended for visualization only
 
 var color : int = BLOCK_COLOR.RED # Current block color which is used in making squares
 var special : StringName # Block special ability name
@@ -148,6 +149,10 @@ func _render() -> void:
 		is_standard_graphics = false
 		sprite_frames = Data.game.skin.skin_data.textures["block"]
 	
+	if is_ghost:
+		modulate.a = 0.5
+		z_index = -1
+
 	match color:
 		BLOCK_COLOR.RED : animation = &"red"
 		BLOCK_COLOR.WHITE : animation = &"white"
@@ -215,6 +220,7 @@ static func _look(side : int, from_position : Vector2i) -> Vector2i:
 # Called by call_group function and is used to simultaneously play specified color animation
 func _play(anim_color : int = color) -> void:
 	if animation == &"die" : return
+	if is_ghost : return
 	
 	if anim_color == BLOCK_COLOR.SPECIAL and special_sprite != null:
 		set_frame_and_progress(0,0)

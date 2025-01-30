@@ -1,0 +1,642 @@
+[gd_scene load_steps=18 format=3 uid="uid://cg1bsnvy8w0o8"]
+
+[ext_resource type="Script" path="res://menu/scripts/screens/playlist_mode_pause.gd" id="1_k2321"]
+[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2_knq2e"]
+[ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://menu/objects/regular_button.tscn" id="3_273wp"]
+[ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="4_f7hbc"]
+[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="5_6il7l"]
+
+[sub_resource type="Animation" id="Animation_rcpkl"]
+resource_name = "end"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top/Label2:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.15, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Menu:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Menu/CONTINUE:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.175, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Menu/RESTART:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.15, 0.225, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Menu/OPTIONS:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.125, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Menu/GAMEPLAY:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.1, 0.175, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Menu/EXIT:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.075, 0.15, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Menu/ColorRect:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.175, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Menu/Detail4:visible_ratio")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.175, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 0.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Menu:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Top/Text:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="14"]
+resource_name = "start"
+length = 0.75
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top/Label2:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Menu:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Menu/CONTINUE:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Menu/RESTART:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Menu/OPTIONS:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Menu/GAMEPLAY:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.55),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Menu/EXIT:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Menu/ColorRect:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(0, 1), Vector2(1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Menu/Detail4:visible_ratio")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Menu:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Top/Text:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i76yb"]
+_data = {
+"end": SubResource("Animation_rcpkl"),
+"start": SubResource("14")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_ydym4"]
+font = ExtResource("2_knq2e")
+font_size = 64
+
+[sub_resource type="AtlasTexture" id="138"]
+atlas = ExtResource("4_f7hbc")
+region = Rect2(1536, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="141"]
+atlas = ExtResource("4_f7hbc")
+region = Rect2(0, 1280, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxygu"]
+atlas = ExtResource("4_f7hbc")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_enssr"]
+atlas = ExtResource("4_f7hbc")
+region = Rect2(256, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="139"]
+atlas = ExtResource("4_f7hbc")
+region = Rect2(512, 1280, 256, 256)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pjs1e"]
+font = ExtResource("5_6il7l")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_e0wsm"]
+font = ExtResource("2_knq2e")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fbr7"]
+atlas = ExtResource("4_f7hbc")
+region = Rect2(512, 1280, 256, 256)
+
+[node name="Pause" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_k2321")
+
+[node name="A" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i76yb")
+}
+
+[node name="Top" type="Control" parent="."]
+anchors_preset = 0
+offset_top = -121.0
+offset_right = 40.0
+offset_bottom = -81.0
+
+[node name="Label2" type="ColorRect" parent="Top"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.092
+anchor_top = 0.059
+anchor_right = 0.092
+anchor_bottom = 0.059
+offset_left = -3.68
+offset_top = 213.64
+offset_right = 1916.32
+offset_bottom = 333.64
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Text" type="Label" parent="Top"]
+layout_mode = 0
+offset_top = 216.0
+offset_right = 1920.0
+offset_bottom = 336.0
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_ydym4")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Menu" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 272.0
+offset_right = 1480.0
+offset_bottom = 864.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="CONTINUE" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("3_273wp")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 1024.0
+text = "CONTINUE"
+description_node = NodePath("../Desc")
+glow_color = Color(0.212646, 0.643791, 0.8125, 1)
+description = "CONTINUE_DESC"
+button_layout = 17
+press_sound_name = "confirm4"
+is_cancel_button = true
+call_function_name = "_continue"
+
+[node name="Icon2" type="TextureRect" parent="Menu/CONTINUE"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -24.0
+offset_right = -8.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("138")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RESTART" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("3_273wp")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 80.0
+offset_right = 1024.0
+offset_bottom = 128.0
+text = "RESTART"
+description_node = NodePath("../Desc")
+glow_color = Color(0.94902, 0.513726, 0.227451, 1)
+description = "RESTART_DESC"
+button_layout = 17
+menu_position = Vector2i(0, 1)
+press_sound_name = "confirm2"
+call_function_name = "_restart"
+
+[node name="Icon2" type="TextureRect" parent="Menu/RESTART"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -24.0
+offset_right = -8.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("141")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="OPTIONS" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("3_273wp")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 272.0
+offset_right = 1024.0
+offset_bottom = 320.0
+text = "OPTIONS"
+description_node = NodePath("../Desc")
+glow_color = Color(0.243137, 0.984314, 0.603922, 1)
+description = "OPTIONS_DESC"
+button_layout = 17
+menu_position = Vector2i(0, 4)
+work_mode = 1
+press_sound_name = "confirm"
+call_string = "options"
+
+[node name="Icon2" type="TextureRect" parent="Menu/OPTIONS"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -24.0
+offset_right = -8.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_bxygu")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="OPTIONS2" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("3_273wp")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 144.0
+offset_right = 1024.0
+offset_bottom = 192.0
+text = "PRACTICE_PATTERN"
+description_node = NodePath("../Desc")
+glow_color = Color(0.243137, 0.984314, 0.603922, 1)
+description = "PRACTICE_PATTERN_DESC"
+button_layout = 17
+menu_position = Vector2i(0, 2)
+work_mode = 1
+press_sound_name = "confirm"
+call_string = "pattern_select"
+
+[node name="Icon2" type="TextureRect" parent="Menu/OPTIONS2"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -24.0
+offset_right = -8.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_bxygu")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="OPTIONS3" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("3_273wp")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 208.0
+offset_right = 1024.0
+offset_bottom = 256.0
+text = "RESTART_TUTORIAL"
+description_node = NodePath("../Desc")
+glow_color = Color(0.243137, 0.984314, 0.603922, 1)
+description = "RESTART_TUTORIAL_DESC"
+button_layout = 17
+menu_position = Vector2i(0, 3)
+press_sound_name = "confirm"
+call_function_name = "_restart_tutorial"
+
+[node name="Icon2" type="TextureRect" parent="Menu/OPTIONS3"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -24.0
+offset_right = -8.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_bxygu")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GAMEPLAY" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("3_273wp")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 336.0
+offset_right = 1024.0
+offset_bottom = 384.0
+text = "GAME_CONFIG"
+description_node = NodePath("../Desc")
+glow_color = Color(0.219608, 0.380392, 0.929412, 1)
+description = "GAME_CONFIG"
+button_layout = 17
+menu_position = Vector2i(0, 5)
+work_mode = 1
+press_sound_name = "confirm"
+call_string = "game_config"
+
+[node name="Icon2" type="TextureRect" parent="Menu/GAMEPLAY"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -24.0
+offset_right = -8.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_enssr")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="EXIT" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("3_273wp")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 400.0
+offset_right = 1024.0
+offset_bottom = 448.0
+text = "PAUSE_EXIT"
+description_node = NodePath("../Desc")
+glow_color = Color(0.709804, 0.709804, 0.709804, 1)
+description = "PRACTICE_PAUSE_EXIT_DESC"
+button_layout = 17
+menu_position = Vector2i(0, 6)
+press_sound_name = "cancel"
+call_function_name = "_end"
+
+[node name="Icon2" type="TextureRect" parent="Menu/EXIT"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -24.0
+offset_right = -8.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("139")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ColorRect" type="ColorRect" parent="Menu"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 464.0
+offset_right = 1024.0
+offset_bottom = 468.0
+
+[node name="Desc" type="Label" parent="Menu"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 476.0
+offset_right = 1024.0
+offset_bottom = 552.0
+label_settings = SubResource("LabelSettings_pjs1e")
+horizontal_alignment = 1
+
+[node name="Detail4" type="Label" parent="Menu"]
+modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
+texture_filter = 1
+layout_mode = 0
+offset_left = 44.0
+offset_top = 564.0
+offset_right = 391.0
+offset_bottom = 583.0
+text = "PAUSE_ARROW"
+label_settings = SubResource("LabelSettings_e0wsm")
+uppercase = true
+
+[node name="Icon" type="TextureRect" parent="Menu/Detail4"]
+texture_filter = 2
+layout_mode = 0
+offset_left = -33.0
+offset_top = -2.0
+offset_right = -11.0
+offset_bottom = 20.0
+texture = SubResource("AtlasTexture_1fbr7")
+expand_mode = 1

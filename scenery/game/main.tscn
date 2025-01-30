@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://qj3qi0seh5qt"]
+[gd_scene load_steps=4 format=3 uid="uid://qj3qi0seh5qt"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenery/menu/menu.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://01vihxako5y1" path="res://scenery/system_message.tscn" id="3"]
-[ext_resource type="PackedScene" uid="uid://dnd0ru7cnoax2" path="res://scenery/debug/console.tscn" id="5_sydi2"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1")
@@ -20,5 +19,3 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="SysMes" parent="." instance=ExtResource("3")]
-
-[node name="Console" parent="." instance=ExtResource("5_sydi2")]

@@ -207,6 +207,7 @@ func _end(quiet : bool = false) -> void:
 	$Color/Line.visible = false
 	$Number.visible = false
 	
+	Data.game.timeline = null
 	if quiet:
 		queue_free()
 		return

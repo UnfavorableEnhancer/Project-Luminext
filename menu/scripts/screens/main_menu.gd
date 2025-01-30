@@ -179,6 +179,21 @@ func _hide_tab() -> void:
 		delay += 0.05
 
 
+func _start_practice() -> void:
+	print("PRACTICE")
+	
+	var pc_skin_metadata : SkinMetadata = SkinMetadata.new()
+	pc_skin_metadata.path = Data.BUILD_IN_PATH + Data.SKINS_PATH + "holding_patterns.skn"
+	
+	if Data.menu.is_music_playing:
+		Data.menu.custom_data["last_music_pos"] = Data.menu.music_player.get_playback_position()
+	
+	var gamemode : PracticeMode = PracticeMode.new()
+	gamemode.start_tutorial = true
+	
+	Data.main._start_game(pc_skin_metadata, gamemode)
+
+
 func _input(event : InputEvent) -> void:
 	super(event)
 	

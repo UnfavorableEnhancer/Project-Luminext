@@ -1,0 +1,81 @@
+[gd_scene load_steps=4 format=3 uid="uid://brfogw4f8r2g0"]
+
+[ext_resource type="Script" path="res://scripts/game/foreground/practice_ui.gd" id="1_3d3ea"]
+[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="3_g2jsu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fhkct"]
+font = ExtResource("3_g2jsu")
+font_size = 56
+
+[node name="ReplayUI" type="Node2D"]
+script = ExtResource("1_3d3ea")
+
+[node name="Message" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 892.0
+offset_right = 40.0
+offset_bottom = 932.0
+
+[node name="Back" type="ColorRect" parent="Message"]
+layout_mode = 0
+offset_top = 44.0
+offset_right = 1920.0
+offset_bottom = 188.0
+color = Color(0, 0, 0, 0.8)
+
+[node name="Line" type="ColorRect" parent="Message"]
+layout_mode = 0
+offset_left = 1920.0
+offset_top = 44.0
+offset_right = 3840.0
+offset_bottom = 48.0
+rotation = -3.14159
+
+[node name="Line2" type="ColorRect" parent="Message"]
+layout_mode = 0
+offset_left = 1920.0
+offset_top = 188.0
+offset_right = 3840.0
+offset_bottom = 192.0
+rotation = 3.14159
+
+[node name="TextBox1" type="HBoxContainer" parent="Message"]
+layout_mode = 0
+offset_top = 60.0
+offset_right = 1920.0
+offset_bottom = 108.0
+alignment = 1
+
+[node name="TextBox2" type="HBoxContainer" parent="Message"]
+layout_mode = 0
+offset_top = 116.0
+offset_right = 1920.0
+offset_bottom = 164.0
+alignment = 1
+
+[node name="Intro" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_group_ = true
+
+[node name="Text1" type="Label" parent="Intro"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 464.0
+offset_right = 1760.0
+offset_bottom = 528.0
+text = "Project Luminext is the block-staking puzzle game"
+label_settings = SubResource("LabelSettings_fhkct")
+
+[node name="Text2" type="Label" parent="Intro"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 548.0
+offset_right = 1760.0
+offset_bottom = 612.0
+text = "imagine some pathos phrase pls..."
+label_settings = SubResource("LabelSettings_fhkct")

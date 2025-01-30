@@ -116,7 +116,7 @@ func _close() -> void:
 	is_moving = false
 
 
-func _command_input(text : String) -> void:
+func _command_input(text : String, silent : bool = false) -> void:
 	if is_moving : return
 	
 	text = text.to_lower()
@@ -124,8 +124,9 @@ func _command_input(text : String) -> void:
 	if input.is_empty() : return
 	
 	var command : String = input[0]
-	_output(text)
-	command_buffer.append(text)
+	if not silent:
+		_output(text)
+		command_buffer.append(text)
 	$C/LineEdit.text = ""
 	
 	match command:
@@ -571,7 +572,7 @@ func _command_input(text : String) -> void:
 			if not is_instance_valid(Data.game) : _output("Error! Game is not loaded"); return
 			if not is_instance_valid(Data.game.timeline) : _output("Error! Timeline is not found"); return
 			Data.game.timeline._pause(true)
-		
+		# Resumes current timeline
 		"tlresume" :
 			if not is_instance_valid(Data.game) : _output("Error! Game is not loaded"); return
 			if not is_instance_valid(Data.game.timeline) : _output("Error! Timeline is not found"); return
@@ -613,11 +614,11 @@ func _command_input(text : String) -> void:
 			var piece_data : PieceData = PieceData.new()
 			var i : int = 1
 			for block_pos : Vector2i in [Vector2i(0,0),Vector2i(1,0),Vector2i(0,1),Vector2i(1,1)]:
-				var color : int = int(input[i].substr(0,2))
+				var color : int = int(input[i].substr(1,1))
 				if color > 5 : _output("Error! Invalid block type. Enter 'blktypes' to get list of all avaiable block types"); return
 
 				var special : StringName = ""
-				match int(input[i].substr(2)):
+				match int(input[i].substr(0,1)):
 					1 : special = &"chain"
 					2 : special = &"merge"
 					3 : special = &"laser"
@@ -984,7 +985,7 @@ func _example(command : String) -> void:
 		"pspeed" : _output("Example : pspeed 0.52")
 		"pdelay" : _output("Example : pdelay 1.13")
 		"pdash" : _output("Example : pdash 0.33")
-		"qappend" : _output("Example : qappend 0 1 1 0 (Will append checkered red-white piece)")
+		"qappend" : _output("Example : qappend 00 01 01 00 (Will append checkered red-white piece)")
 		"lvladd" : _output("Example : lvladd 20")
 		"lvlset" : _output("Example : lvlset 14")
 		"bonus" : 

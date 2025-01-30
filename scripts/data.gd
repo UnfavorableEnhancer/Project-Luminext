@@ -136,6 +136,9 @@ func _ready() -> void:
 		if not DirAccess.dir_exists_absolute(path):
 			DirAccess.make_dir_recursive_absolute(path)
 
+	console = load("res://scenery/debug/console.tscn").instantiate()
+	add_child(console)
+
 	skin_list._check_parse()
 	skin_list._parse_threaded()
 
@@ -149,6 +152,8 @@ func _ready() -> void:
 	total_time_timer.start(1.0)
 
 	await get_tree().create_timer(0.15).timeout
+	
+	get_parent().move_child(self, 2)
 
 	_load_latest_profile()
 

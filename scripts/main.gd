@@ -47,7 +47,6 @@ func _ready() -> void:
 	# Store node references into Data singletone, to allow acessing them in any script file
 	Data.main = self
 	Data.menu = $Menu
-	Data.console = $Console
 
 	_load_mods()
 	
