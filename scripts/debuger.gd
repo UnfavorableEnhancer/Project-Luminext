@@ -139,6 +139,26 @@ func _process(_delta : float) -> void:
 				$Game/V/Gamemode5.text = "Statistics collect timer : " + str(gamemode.stat_timer.time_left)
 				$Game/V/Gamemode6.text = "Statistics collect stop timer : " + str(gamemode.stat_disable_timer.time_left)
 				$Game/V/Gamemode7.text = "Current music mix № : " + str(gamemode.current_mix)
+			if gamemode is PracticeMode:
+				$Game/V/Gamemode1.text = "CURRENT GAMEMODE : PRACTICE MODE"
+				$Game/V/Gamemode2.text = "Seed : " + str(Data.game.rng.seed)
+				$Game/V/Gamemode3.text = "Squares left for level up : " + str(gamemode.left_before_level_up)
+				$Game/V/Gamemode4.text = "Next level requirement : " + str(gamemode.next_level_req)
+				match gamemode.tutorial_stage:
+					PracticeMode.TUTORIAL_STAGE.NONE : $Game/V/Gamemode5.text = "Tutorial stage : NONE"
+					PracticeMode.TUTORIAL_STAGE.INTRO : $Game/V/Gamemode5.text = "Tutorial stage : INTRO"
+					PracticeMode.TUTORIAL_STAGE.MOVE_PIECE : $Game/V/Gamemode5.text = "Tutorial stage : MOVE_PIECE"
+					PracticeMode.TUTORIAL_STAGE.DASH_PIECE : $Game/V/Gamemode5.text = "Tutorial stage : DASH_PIECE"
+					PracticeMode.TUTORIAL_STAGE.ROTATE_PIECE : $Game/V/Gamemode5.text = "Tutorial stage : ROTATE_PIECE"
+					PracticeMode.TUTORIAL_STAGE.PIECE_FALLING : $Game/V/Gamemode5.text = "Tutorial stage : PIECE_FALLING"
+					PracticeMode.TUTORIAL_STAGE.QUICK_DROP : $Game/V/Gamemode5.text = "Tutorial stage : QUICK_DROP"
+					PracticeMode.TUTORIAL_STAGE.SQUARE_BUILDING : $Game/V/Gamemode5.text = "Tutorial stage : SQUARE_BUILDING"
+					PracticeMode.TUTORIAL_STAGE.TIMELINE : $Game/V/Gamemode5.text = "Tutorial stage : TIMELINE"
+					PracticeMode.TUTORIAL_STAGE.ADJACENCY : $Game/V/Gamemode5.text = "Tutorial stage : ADJACENCY"
+					PracticeMode.TUTORIAL_STAGE.BONUS : $Game/V/Gamemode5.text = "Tutorial stage : BONUS"
+					PracticeMode.TUTORIAL_STAGE.QUEUE_SHIFT : $Game/V/Gamemode5.text = "Tutorial stage : QUEUE_SHIFT"
+					PracticeMode.TUTORIAL_STAGE.CHAIN_BLOCK : $Game/V/Gamemode5.text = "Tutorial stage : CHAIN_BLOCK"
+					PracticeMode.TUTORIAL_STAGE.GAME_OVER : $Game/V/Gamemode5.text = "Tutorial stage : GAME_OVER"
 	
 	if is_skin_debug_active:
 		if not is_instance_valid(Data.game) or not is_instance_valid(Data.game.skin) : return

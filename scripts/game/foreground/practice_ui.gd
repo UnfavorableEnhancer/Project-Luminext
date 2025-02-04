@@ -19,7 +19,7 @@
 extends UIElement
 
 const LABEL_FONT : FontFile = preload("res://fonts/sani_trixie_sans.ttf")
-const BUTTON_ICON_SIZE : Vector2 = Vector2(48,48)
+const BUTTON_ICON_SIZE : Vector2 = Vector2(64,64)
 
 signal intro_finished
 signal outro_finished
@@ -32,7 +32,9 @@ func _ready() -> void:
 	$Message/Back.scale.x = 0.0
 	$Message/Line.scale.x = 0.0
 	$Message/Line2.scale.x = 0.0
-	_reset_message()
+	$Mission/Line2.scale.x = 0.0
+	$Mission/Line2.scale.x = 0.0
+	$Mission/Line2.scale.x = 0.0
 	
 	label_settings = LabelSettings.new()
 	label_settings.font = LABEL_FONT
@@ -88,6 +90,11 @@ func _init_message() -> void:
 	tween.tween_property($Message/Back, "scale:x", 1.0, 0.5).from(0.0)
 	tween.tween_property($Message/Line, "scale:x", 1.0, 0.5).from(0.0)
 	tween.tween_property($Message/Line2, "scale:x", 1.0, 0.5).from(0.0)
+	
+	tween.tween_property($Mission, "modulate:a", 1.0, 0.5).from(0.0)
+	tween.tween_property($Mission/Back, "scale:x", 1.0, 0.5).from(0.0)
+	tween.tween_property($Mission/Line, "scale:x", 1.0, 0.5).from(0.0)
+	tween.tween_property($Mission/Line2, "scale:x", 1.0, 0.5).from(0.0)
 
 
 func _reset_message() -> void:
@@ -105,14 +112,26 @@ func _reset_message() -> void:
 	message_resetted.emit()
 
 
-func _highlight_line(index : int, red : bool = false) -> void:
-	var line : HBoxContainer = get_node("Message/TextBox" + str(index))
+func _highlight_mission(text : String, red : bool = false) -> void:
+	var line : Label = get_node("Mission/Text")
+	line.text = text
+	
 	if red : 
 		create_tween().tween_property(line, "modulate", Color.WHITE, 0.5).from(Color.RED)
 		Data.menu._sound("cancel")
 	else : 
 		create_tween().tween_property(line, "modulate", Color.WHITE, 0.5).from(Color("00ffa5"))
 		Data.menu._sound("confirm4")
+
+
+func _update_mission_text(text : String, speed : float = 0.5) -> void:
+	var line : Label = get_node("Mission/Text")
+	line.text = text
+	create_tween().tween_property(line, "modulate:a", 1.0, speed).from(0.0)
+
+
+func _close_mission() -> void:
+	create_tween().tween_property(get_node("Mission/Text"), "modulate:a", 0.0, 0.5).from(1.0)
 
 
 func _add_text_to_line(index : int, text : String) -> Label:
@@ -131,6 +150,7 @@ func _add_button_icon_to_line(index : int, button_name : String) -> void:
 	var line : HBoxContainer = get_node("Message/TextBox" + str(index))
 	var icon : TextureRect = Data.menu._create_button_icon(button_name, BUTTON_ICON_SIZE)
 	icon.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	icon.custom_minimum_size = BUTTON_ICON_SIZE
 	line.add_child(icon)
 	
 	create_tween().tween_property(icon, "modulate:a", 1.0, 0.25).from(0.0).set_ease(Tween.EASE_IN)

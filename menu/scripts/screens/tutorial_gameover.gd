@@ -41,6 +41,7 @@ func _ready() -> void:
 	tween.parallel().tween_property(get_node("Outro/Text2"), "modulate:a", 0.0, 0.5)
 	tween.parallel().tween_property(get_node("Outro/Text3"), "modulate:a", 0.0, 0.5)
 	tween.parallel().tween_property(get_node("Outro/Text4"), "modulate:a", 0.0, 0.5)
+	tween.tween_interval(0.7)
 	
 	await tween.finished
 	

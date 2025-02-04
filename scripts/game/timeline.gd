@@ -193,7 +193,7 @@ func _beat() -> void:
 
 
 # Removes timeline
-func _end(quiet : bool = false) -> void:
+func _end(quiet : bool = false, at_end : bool = true) -> void:
 	if is_dying : return
 	is_dying = true
 	is_paused = true
@@ -201,7 +201,7 @@ func _end(quiet : bool = false) -> void:
 	if not scanned_blocks.is_empty() and x_pos > 1: _delete_scanned()
 	
 	finished.emit()
-	position = Vector2(1444,204)
+	if at_end : position = Vector2(1444,204)
 	
 	$Color/Arrow.visible = false
 	$Color/Line.visible = false

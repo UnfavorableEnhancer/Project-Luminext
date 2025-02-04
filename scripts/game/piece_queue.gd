@@ -67,7 +67,7 @@ func _get_piece() -> PieceData:
 	var come_in_piece : PieceData = queue.pop_front()
 	
 	before_special_left -= 1
-
+	
 	_remove_end_piece(come_in_piece, QUEUE_SPEED)
 	# We return clone piece data, since its gonna be removed soon by previous function
 	return _clone_piece(come_in_piece)
@@ -140,12 +140,15 @@ func _append_piece(piece_data : PieceData = null) -> void:
 		piece_data._generate(do_special)
 		if do_special: before_special_left = Data.profile.config["gameplay"]["special_block_delay"] 
 	
+	
 	piece_data.position = Vector2(72, 74 + queue.size() * 164)
 	queue.append(piece_data)
+	
+	# Avoid animation glitch if game waits for new piece and queue is empty
+	if Data.game.piece == null and queue.size() == 1:
+		piece_data.visible = false
+	else:
+		piece_data._render()
+	
 	queue_node.add_child(piece_data)
-	piece_data._render()
 	piece_appended.emit()
-
-	
-
-	

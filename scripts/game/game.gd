@@ -382,18 +382,18 @@ func ___BLOCKS_MANAGEMENT___() -> void: return
 
 
 # Give piece from queue to the player's hand
-func _give_new_piece(piece_start_pos : Vector2i = Vector2i(8,-1), piece_data : PieceData = null, is_waited_for_new_piece : bool = false) -> void:
+func _give_new_piece(piece_start_pos : Vector2i = Vector2i(8,-1), piece_data : PieceData = null, has_waited_for_new_piece : bool = false) -> void:
 	if piece != null : 
 		piece._end()
 		piece = null
 	if piece_data == null:
-		if is_waited_for_new_piece:
+		if has_waited_for_new_piece:
 			piece_queue.piece_appended.disconnect(_give_new_piece.bind(piece_start_pos,null,true))
 		if piece_queue.queue.size() < 1:
 			# Wait for new piece to come into queue
 			piece_queue.piece_appended.connect(_give_new_piece.bind(piece_start_pos,null,true))
 			return
-
+		
 		piece_data = piece_queue._get_piece()
 	
 	piece = Piece.new()

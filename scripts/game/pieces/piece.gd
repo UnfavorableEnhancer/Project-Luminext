@@ -21,6 +21,7 @@ extends Node2D
 class_name Piece
 
 signal piece_moved(position : Vector2) # Emitted when piece moves
+signal piece_moved_side(side : int) # Emitted when piece moves
 signal piece_rotated(side : int) # Emitted when piece rotates
 signal piece_dashed(side : int) # Emitted when piece dashes
 signal piece_quick_drop(position : Vector2) # Emitted when piece quick drops
@@ -404,6 +405,7 @@ func _move_piece(side : int) -> void:
 	Data.game._add_sound(&'move',Vector2(position.x+300,position.y+320),false,false)
 	
 	piece_moved.emit(position)
+	piece_moved_side.emit(side)
 
 
 # Drops piece down by one block

@@ -412,7 +412,7 @@ func _create_button_icon(action : String, button_size : Vector2 = Vector2(42,42)
 	# If its single arrow button, rotate it depending on direction
 	match action_index:
 		JOY_BUTTON_DPAD_DOWN, KEY_DOWN, 1003 : icon.rotation_degrees = 90
-		JOY_BUTTON_DPAD_LEFT, KEY_LEFT : icon.rotation_degrees = 180
+		JOY_BUTTON_DPAD_LEFT, KEY_LEFT : icon.flip_h = true
 		JOY_BUTTON_DPAD_UP, KEY_UP : icon.rotation_degrees = 270
 	
 	return icon
