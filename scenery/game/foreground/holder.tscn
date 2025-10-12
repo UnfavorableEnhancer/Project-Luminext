@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://c2v5heexucgfj"]
 
-[ext_resource type="Script" path="res://scripts/game/foreground/holder.gd" id="1"]
+[ext_resource type="Script" uid="uid://ca6x2lbogqvwc" path="res://scripts/game/luminext/foreground/holder.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://blvul42mf7ykq" path="res://images/game/foreground/base.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://2veldywoc63s" path="res://images/game/foreground/holder/standard/holder.png" id="2_5054u"]
-[ext_resource type="Texture2D" uid="uid://7ebr4j8hxgfw" path="res://images/game/foreground/holder/standard/arrow.png" id="4_b3tel"]
-[ext_resource type="Texture2D" uid="uid://bv08p852okbuw" path="res://images/game/foreground/holder/standard/next.png" id="5_8572a"]
+[ext_resource type="Texture2D" uid="uid://2veldywoc63s" path="res://images/game/foreground/holder/clean/holder.png" id="2_5054u"]
+[ext_resource type="Texture2D" uid="uid://7ebr4j8hxgfw" path="res://images/game/foreground/holder/clean/arrow.png" id="4_b3tel"]
+[ext_resource type="Texture2D" uid="uid://bv08p852okbuw" path="res://images/game/foreground/holder/clean/next.png" id="5_8572a"]
 
 [sub_resource type="AtlasTexture" id="1"]
 atlas = ExtResource("2")
@@ -26,9 +26,10 @@ script = ExtResource("1")
 texture = ExtResource("2_5054u")
 
 [node name="Trail" type="CPUParticles2D" parent="Thing/Holder"]
+position = Vector2(-2, -2)
 amount = 48
-lifetime = 0.1
 texture = SubResource("1")
+lifetime = 0.1
 gravity = Vector2(0, 0)
 color_ramp = SubResource("3")
 

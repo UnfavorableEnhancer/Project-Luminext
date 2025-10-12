@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c0f04oiutqk2g"]
 
-[ext_resource type="Script" path="res://menu/scripts/objects/menu_button_2.gd" id="1"]
+[ext_resource type="Script" uid="uid://p3ip50t3v51t" path="res://menu/scripts/objects/menu_button_2.gd" id="1"]
 
 [node name="Button" type="Button"]
 self_modulate = Color(1, 1, 1, 0)

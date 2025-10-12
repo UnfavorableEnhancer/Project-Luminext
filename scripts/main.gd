@@ -1,5 +1,5 @@
-# Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Project Luminext - an ultimate block-stacking puzzle game
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,513 +18,243 @@
 
 extends Node
 
-#-----------------------------------------------------------------------
-# Main game script
-# 
-# Initiates the game, loads menu from .pck file, toggles loading animation
-# could display some system message which overlay everything.
-#-----------------------------------------------------------------------
+class_name Main
+
+##-----------------------------------------------------------------------
+## Boots up the game and loads all needed systems
+##-----------------------------------------------------------------------
+
+enum INPUT_MODE {KEYBOARD, MOUSE, GAMEPAD}
+
+signal total_time_tick  ## Emitted on each total time timer timeout
+signal input_method_changed ## Emitted when input method changes from keyboard to gamepad, to mouse and etc.
+
+const DARKEN_Z_INDEX : int = 1000
+const LOADING_Z_INDEX : int = 1001
+const SYSTEM_MESSAGE_Z_INDEX : int = 1002
+
+var menu : Menu ## Menu instance
+var game : GameCore ## Game instance
+
+static var current_input_mode : int = INPUT_MODE.KEYBOARD ## Current input device
+
+@onready var darken : ColorRect = $CanvasLayer/Darken ## Dark overlay node used to cover everything
+@onready var loading_screen : LoadingScreen = $CanvasLayer/LoadingScreen ## Loading screen overlay node used to cover everything
+@onready var system_messager : SystemMessager = $CanvasLayer/SystemMessager ## SystemMessager
+
+@export var start_menu_screen : String = "" ## Menu screen name which will be loaded instead of going thru standard boot sequence
+@export var start_single_skin_path : String = "" ## Path to the skin which must be started with playlist mode on game boot
+@export var start_skin_player_path : String = "" ## Path to the skin which must be started with skin player on game boot
+@export var start_replay_path : String = "" ## Path to the replay which must be started with replay player on game boot
 
 
-@onready var messager : Control = $SysMes # System message display node
-@onready var black : ColorRect = $Black # Black overlay node
-
-var is_loading : bool = false # True when loading something
-var loading_screen : MenuScreen = null # Active loading screen reference
-
-@export_category("Debug")
-@export var menu_starting_screen_name : String = "" # Screen from which menu will boot, leave empty to start standard menu boot sequence
-@export var playtest_skin_path : String = "" # Path to the skin for quick playtest (relative to Data.SKINS_PATH), leave empty to load into menu instead
-
-
-# Called on game boot. This is where game starts...
+## Called on boot
 func _ready() -> void:
-	print(OS.get_cmdline_args())
 	get_window().move_to_center()
-
 	await get_tree().create_timer(0.1).timeout
 
-	# Store node references into Data singletone, to allow acessing them in any script file
-	Data.main = self
-	Data.menu = $Menu
-
-	_load_mods()
+	$TotalTime.timeout.connect(total_time_tick.emit)
+	$TotalTime.start(1.0)
 	
-	var start_boot_seq : bool = playtest_skin_path.is_empty()
-	_load_menu(start_boot_seq, menu_starting_screen_name)
+	PortableCompressedTexture2D.set_keep_all_compressed_buffers(true)
+	Console.command_entered.connect(_execute_console_command)
+
+	darken.modulate.a = 0.0
+	loading_screen._load()
+
+	darken.z_as_relative = false
+	darken.z_index = DARKEN_Z_INDEX
+	loading_screen.z_as_relative = false
+	loading_screen.z_index = LOADING_Z_INDEX
+	system_messager.z_as_relative = false
+	system_messager.z_index = SYSTEM_MESSAGE_Z_INDEX
 	
-	if not playtest_skin_path.is_empty():
-		var gamemode : Gamemode = PlaylistMode.new()
-		gamemode.is_single_run = false
-		gamemode.is_single_skin_mode = true
-		gamemode.current_playlist = Data.playlist
-		
-		var skin_meta : SkinMetadata = SkinMetadata.new()
-		skin_meta.path = (Data.SKINS_PATH + playtest_skin_path + ".skn").to_lower()
-		_start_game(skin_meta, gamemode)
+	menu = Menu.new()
+	menu.main = self
+	menu.name = "Menu"
+	add_child(menu)
+	move_child(menu,0) # Move menu node to top of the tree to make it overlayable by other things
+	
+	_parse_start_arguments()
+	
+	_reset()
 
 
+## Parse command line arguments
+func _parse_start_arguments() -> void:
+	var start_arguments : Dictionary
+	for argument : String in OS.get_cmdline_args():
+		if argument.contains("="):
+			var key_value : PackedStringArray = argument.split("=")
+			start_arguments[key_value[0].trim_prefix("--")] = key_value[1]
+		else:
+			start_arguments[argument.trim_prefix("--")] = ""
+	
+	if start_arguments.has("menuboot") : start_menu_screen = start_arguments["startscreen"]
+	if start_arguments.has("playtest") : start_single_skin_path = start_arguments["playtest"]
+	if start_arguments.has("skintest") : start_skin_player_path = start_arguments["skintest"]
+	if start_arguments.has("replay") : start_replay_path = start_arguments["replay"]
+
+
+## Resets game and starts boot sequence
 func _reset() -> void:
-	is_loading = false
-	if is_instance_valid(loading_screen):
-		loading_screen.queue_free()
-		loading_screen = null
-
-	if Data.game != null: Data.game.queue_free()
+	if game != null: game.queue_free()
 	Data.use_second_cache = false
 	
-	_load_menu(true)
+	Data._load()
 
+	Player.global._load()
+	Player._load_latest()
 
-# Loads all .pck files stored in Data.MODS_PATH
-func _load_mods() -> void:
-	var mods_paths : Array = Data._parse(Data.PARSE.MODS)
-	for path : String in mods_paths:
-		print("LOADING MOD : " + path)
-		var success : bool = ProjectSettings.load_resource_pack(path)
-		if success: print("SUCCESS!")
-		else: print("FAILED!")
+	menu._load()
 
+	if not start_single_skin_path.is_empty():
+		var playlist : SkinPlaylist = SkinPlaylist.new()
+		playlist._add_path_to_playlist(start_single_skin_path)
 
-# Loads menu assets from Data.MENU_PATH
-# - 'boot_sequence' - set to true to start menu boot sequence after loading is finished
-# - 'load_from_folder' - set to true to load menu from "menu" folder inside project root dir
-# - 'start_screen_name' - menu screen name which menu will enter on boot
-func _load_menu(boot_sequence : bool = true, start_screen_name : String = "") -> void:
-	if is_loading : return
-	is_loading = true
+		var gamecore : LuminextGame = LuminextGame.new()
 	
-	Data.menu._reset()
+		var gamemode : Gamemode = PlaylistMode.new()
+		gamemode.is_single_skin_mode = true
+		gamemode.is_single_run = false
+		gamemode.current_playlist = playlist
+
+		_start_game(gamecore, gamemode)
+
+	elif not start_skin_player_path.is_empty():
+		var gamecore : GameCore = GameCore.new()
 	
-	print("")
-	print("MENU LOADING STARTED!")
+		# TODO
+		#var gamemode : Gamemode = PlaylistMode.new()
+		#gamemode.is_single_skin_mode = true
+		#gamemode.is_single_run = false
+		#gamemode.current_playlist = playlist
+
+		#_start_game(gamecore, gamemode)
 	
-	if not DirAccess.dir_exists_absolute(Data.MENU_PATH):
-		_display_system_message("""ERROR!\n\n"menu.pck" is missing!\nPlease make sure that you have it inside game folder""")
-		await get_tree().create_timer(4.0).timeout
-		get_tree().quit()
-		return
-	
-	print("LOADING SCREENS...")
-	
-	var dir : DirAccess = DirAccess.open("res://menu/screens")
-	if not dir:
-		_display_system_message("""MENU LOADING ERROR!\n\nINVALID FOLDER STRUCTURE\nPLEASE REPLACE THIS "menu.pck" """)
-		await get_tree().create_timer(4.0).timeout
-		get_tree().quit()
-		return
-	
-	dir.list_dir_begin()
-	var file_name : String = dir.get_next()
-	while file_name != "":
-		print(file_name)
-		
-		if dir.current_is_dir():
-			var dir2 : DirAccess = DirAccess.open("res://menu/screens/" + file_name)
-			if not dir2:
-				print("DIR OPEN ERROR : ", error_string(DirAccess.get_open_error()))
-				continue
-			
-			dir2.list_dir_begin()
-			var file_name2 : String = dir2.get_next()
-			
-			while file_name2 != "":
-				print(file_name2)
-				
-				if not dir2.current_is_dir() and file_name2.get_slice(".", 1) == "tscn":
-					print("SCREEN FOUND : " + file_name2)
-					var screen_name : String = file_name2.get_slice(".", 0)
-					Data.menu.loaded_screens_data[screen_name] = "res://menu/screens/" + file_name + "/" + screen_name + ".tscn"
-				
-				file_name2 = dir2.get_next()
-		
-		elif file_name.ends_with("tscn.remap"):
-			print("SCREEN FOUND : " + file_name)
-			var screen_name : String = file_name.get_slice(".", 0)
-			Data.menu.loaded_screens_data[screen_name] = "res://menu/screens/" + screen_name + ".tscn"
-		
-		file_name = dir.get_next()
-	
-	dir.list_dir_end()
-	
-	# Force some of the screens so they would be loaded anyway
-	Data.menu.loaded_screens_data["skin_editor"] = "res://scenery/menu/skin_editor.tscn"
-	Data.menu.loaded_screens_data["addon_editor"] = "res://scenery/menu/addon_editor.tscn"
-	Data.menu.loaded_screens_data["startup"] = "res://scenery/menu/startup.tscn"
-	Data.menu.loaded_screens_data["gameplay_edit"] = "res://scenery/menu/gameplay_edit.tscn"
-	
-	print("DONE")
-	
-	print("LOADING MENU MUSIC...")
-	
-	dir = DirAccess.open("res://menu/music") 
-	if dir:
-		dir.list_dir_begin()
-		file_name = dir.get_next()
-		
-		while file_name != "":
-			print(file_name)
-			
-			# We use String.slice() to get file extension since sound data inside .pck file is present as .import files
-			var file_type : String = file_name.get_slice(".", 1)
-			
-			if not dir.current_is_dir() and file_type in ["mp3","ogg","wav"]:
-				print("MUSIC FOUND : " + file_name)
-				var music_name : String = file_name.get_slice(".", 0)
-				Data.menu.loaded_music_data[music_name] = load("res://menu/music/" + music_name + "." + file_type)
-			
-			file_name = dir.get_next()
+	elif not start_replay_path.is_empty():
+		var replay : Replay = Replay.new()
+
 	else:
-		print("FAILED")
-	
-	dir.list_dir_end()
-	print("DONE")
-	
-	print("LOADING SYSTEM SOUNDS...")
-	
-	dir = DirAccess.open("res://menu/sounds") 
-	if dir:
-		dir.list_dir_begin()
-		file_name = dir.get_next()
-		
-		while file_name != "":
-			print(file_name)
-			
-			# We use String.slice() to get file extension since sound data inside .pck file is present as .import files
-			var file_type : String = file_name.get_slice(".", 1)
-			
-			if not dir.current_is_dir() and file_type in ["ogg","wav","mp3"]:
-				print("SOUND FOUND : " + file_name)
-				var sound_name : String = file_name.get_slice(".", 0)
-				Data.menu.loaded_sounds_data[sound_name] = load("res://menu/sounds/" + sound_name + "." + file_type)
-			
-			file_name = dir.get_next()
-	else:
-		print("FAILED")
-	
-	dir.list_dir_end()
-	print("DONE")
-	
-	print("MENU LOADING FINISHED!")
-	is_loading = false
-	
-	# Make black overlay invisible
-	black.color = Color(0,0,0,0)
-	
-	# Start intro sequence if desired
-	if boot_sequence: Data.menu._boot(start_screen_name)
+		menu._boot(start_menu_screen)
 
 
+## Plays passed replay (TODO)
 func _start_replay(replay : Replay) -> void:
-	var gamemode : Gamemode = null
-	var first_skin_metadata : SkinMetadata = SkinMetadata.new()
-	var gamemode_settings : Dictionary = replay.gamemode_settings
-
-	if not gamemode_settings.has("name"):
-		print("INVALID REPLAY LOADING")
-		_display_system_message("REPLAY LOADING FAILED!")
-		return
-	
-	match gamemode_settings["name"]:
-		"time_attack_mode":
-			gamemode = TimeAttackMode.new()
-
-			var selected_time : int = gamemode_settings["time_limit"]
-			if selected_time < 300:
-				first_skin_metadata.path = Data.BUILD_IN_PATH + Data.SKINS_PATH + "grandmother_clock.skn"
-			if selected_time >= 300:
-				first_skin_metadata.path = Data.BUILD_IN_PATH + Data.SKINS_PATH + "the_years_will_pass.skn"
-			
-			gamemode.time_limit = selected_time
-			gamemode.ruleset = gamemode_settings["ruleset"]
-			gamemode.current_mix = gamemode_settings["mix"]
-			gamemode.random_mixes = false
-			gamemode.current_seed = gamemode_settings["seed"]
-			
-		"playlist_mode":
-			gamemode = PlaylistMode.new()
-			gamemode.custom_config_preset = gamemode_settings["ruleset"]
-			first_skin_metadata.path = gamemode_settings["skin_path"]
-			gamemode.rng_start_seed = gamemode_settings["seed"]
-		
-		_: 
-			print("INVALID REPLAY GAMEMODE")
-			_display_system_message("INVALID REPLAY!")
-			return
-	
-	_start_game(first_skin_metadata, gamemode, replay)
+	Console._log("Starting the replay playback")
+	pass
 
 
-# Starts the game of LUMINEXT
-func _start_game(first_skin : Variant, gamemode : Gamemode, replay : Replay = null) -> void:
-	# Check if at least one color is enabled
-	var color_check : bool = false
-	for color : String in ["red","white","green","purple"]:
-		if Data.profile.config["gameplay"][color]: color_check = true; break
+## Starts the passed gamecore with passed gamemode
+func _start_game(gamecore : GameCore, gamemode : Gamemode) -> void:
+	Console._space()
+	Console._log("Starting the game")
+	Console._log("Gamecore name : " + gamecore.gamecore_name)
+	Console._log("Gamemode name : " + gamemode.gamemode_name)
 
-	if not color_check:
-		print("NO COLORS AVAIABLE!")
-		_display_system_message("WARNING! NO BLOCK COLORS ENABLED!\nPLEASE TOGGLE ON SOME COLORS IN GAME CONFIGURATION")
-		return
-	
-	if first_skin == null:
-		print("SKIN LOADING ERROR! NO SKIN SPECIFIED!") 
-		_display_system_message("SKIN LOADING ERROR!\nNO SKIN SPECIFIED!")
-		return
-
-	if gamemode == null:
-		print("SKIN LOADING ERROR! NO GAMEMODE LOADED!") 
-		_display_system_message("SKIN LOADING ERROR!\nINVALID GAMEMODE!")
-		return
-	
-	if is_loading : return
-	is_loading = true
-
-	print("")
-	print("STARTING GAME...")
-
-	Data.menu._exit()
-
-	# Start "blackout" and loading animations
-	create_tween().tween_property(black,"color",Color(0,0,0,1),1.0)
+	_toggle_darken(true)
 	_toggle_loading(true)
-	
-	var skin_data : SkinData
 
-	if first_skin is SkinMetadata: 
-		if not FileAccess.file_exists(first_skin.path):
-			print("SKIN LOADING ERROR! INVALID SKIN PATH : ", first_skin.path) 
-			_display_system_message("SKIN LOADING ERROR!\nINVALID SKIN PATH:\n\n" + first_skin.path)
-			return
-		skin_data = SkinData.new()
+	menu._exit()
+	await get_tree().create_timer(1.0).timeout
 
-		var thread : Thread = Thread.new()
-		var err : int = 0
-		
-		# If skin is inside addon file (which extension is "add"), to load it we must use different function
-		if first_skin.path.get_extension() == "add":
-			err = thread.start(skin_data._load_from_addon.bind(first_skin))
-		else:
-			err = thread.start(skin_data._load_from_path.bind(first_skin.path))
-		
-		await skin_data.skin_loaded
-		await get_tree().create_timer(0.01).timeout
-		var result : int = thread.wait_to_finish()
-		
-		if result != OK or err != OK:
-			print("THREAD ERROR : " + error_string(err))
-			print("SKIN LOADING ERROR : " + error_string(result))
-			_display_system_message("SKIN LOADING ERROR!\n" + error_string(result) + "\n" + first_skin.path)
-			
-			await get_tree().create_timer(2).timeout
-			
-			# Return to menu
-			create_tween().tween_property(black,"color",Color(0,0,0,0),1.0)
-			_toggle_loading(false)
-			Data.menu._return_from_game()
-			return
-	
-	elif first_skin is SkinData: 
-		skin_data = first_skin
-	else:
-		print("SKIN LOADING ERROR! UNKNOWN SKIN FORMAT") 
-		_display_system_message("SKIN LOADING ERROR!\nUNKNOWN SKIN FORMAT")
-		return
+	if menu.currently_removing_screens_amount > 0:
+		await menu.all_screens_removed
 
-	# Allow gamemode to preprocess some heavy stuff if it has such
-	if gamemode.use_preprocess:
-		var thread : Thread = Thread.new()
-		var err : int = thread.start(gamemode._preprocess)
-		await gamemode.preprocess_finished
-		await get_tree().create_timer(0.01).timeout
-		var result : int = thread.wait_to_finish()
-
-		if result != OK or err != OK:
-			print("GAMEMODE PREPROCESS ERROR CODE : " + str(err))
-			_display_system_message(gamemode.error_text)
-			
-			await get_tree().create_timer(2).timeout
-			
-			# Return to menu
-			create_tween().tween_property(black,"color",Color(0,0,0,0),1.0)
-			_toggle_loading(false)
-			Data.menu._return_from_game()
-			return
-	
-	if Data.menu.currently_removing_screens_amount > 0:
-		await Data.menu.all_screens_removed
-	
-	await get_tree().create_timer(0.25).timeout
-
-	var game : Node2D = load("res://scenery/game/game.tscn").instantiate()
-	Data.game = game
+	game = gamecore
 	game.gamemode = gamemode
-	game._add_skin(skin_data)
 	
+	game.menu = menu
+	game.main = self
+
 	add_child(game)
-	if replay != null : 
-		game.replay.inputs_anim = replay.inputs_anim
-		game.is_playing_replay = true
-	game.add_child(gamemode)
-	# Move game node up to make it overlayable by menu
-	move_child(game,0)
-	
-	_toggle_loading(false)
-	print("GAME BOOT FINISHED!")
-	
+	move_child(game,0) # Move game node to top of the tree to make it overlayable by menu and other things
 	game._reset()
-	
-	create_tween().tween_property(black,"color",Color(0,0,0,0),1.0)
-	is_loading = false
 
 
-# Starts the skin debug test
-func _test_skin(skin_metadata : SkinMetadata) -> void:
-	# Check if at least one color is enabled
-	if skin_metadata == null or not FileAccess.file_exists(skin_metadata.path):
-		print("SKIN LOADING ERROR! INVALID SKIN PATH!" + skin_metadata.path) 
-		_display_system_message("SKIN LOADING ERROR!\nINVALID SKIN PATH!\n\n" + skin_metadata.path)
-		return
+func _input(event : InputEvent) -> void:
+	# Determine current input mode
+	if event is InputEventMouse:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		if current_input_mode != INPUT_MODE.GAMEPAD:
+			current_input_mode = INPUT_MODE.MOUSE
+			input_method_changed.emit()
+	elif event is InputEventJoypadButton:
+		current_input_mode = INPUT_MODE.GAMEPAD
+		input_method_changed.emit()
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	elif event is InputEventKey:
+		current_input_mode = INPUT_MODE.KEYBOARD
+		input_method_changed.emit()
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
-	if is_loading : return
-	is_loading = true
-
-	print("")
-	print("STARTING SKIN TEST...")
-
-	Data.menu._exit()
-
-	# Start "blackout" and loading animations
-	create_tween().tween_property(black,"color",Color(0,0,0,1),1.0)
-	_toggle_loading(true)
+	# Toggle fullscreen
+	if event.is_action_pressed("toggle_fullscreen"):
+		if not Player.config.video["fullscreen"]:
+			get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN
+			Player.config.video["fullscreen"] = true
+		else:
+			get_window().mode = Window.MODE_WINDOWED
+			await get_tree().create_timer(0.1).timeout
+			get_window().move_to_center()
+			Player.config.video["fullscreen"] = false
 	
-	var skin_data : SkinData
-
-	skin_data = Data.blank_skin._clone()
-	skin_data.io_progress.connect(_change_loading_message)
-
-	var thread : Thread = Thread.new()
-	var err : int = 0
-
-	# If skin is inside addon file (which extension is "add"), to load it we must use different function
-	if skin_metadata.path.get_extension() == "add":
-		err = thread.start(skin_data._load_from_addon.bind(skin_metadata))
-	else:
-		err = thread.start(skin_data._load_from_path.bind(skin_metadata.path))
-	
-	await skin_data.skin_loaded
-	await get_tree().create_timer(0.01).timeout
-	var result : int = thread.wait_to_finish()
-	
-	if result != OK or err != OK:
-		print("THREAD ERROR : " + error_string(err))
-		print("SKIN LOADING ERROR : " + error_string(result))
-		_display_system_message("SKIN LOADING ERROR!\n" + error_string(result) + "\n" + skin_metadata.path)
-		
-		await get_tree().create_timer(2).timeout
-		
-		# Return to menu
-		create_tween().tween_property(black,"color",Color(0,0,0,0),1.0)
-		_toggle_loading(false)
-		Data.menu._return_from_game()
-		return
-	
-	if Data.menu.currently_removing_screens_amount > 0:
-		await Data.menu.all_screens_removed
-	
-	await get_tree().create_timer(0.25).timeout
-	
-	var skin_test : Node2D = load("res://scenery/debug/skin_test.tscn").instantiate()
-	
-	skin_test._add_skin(skin_data)
-	add_child(skin_test)
-	print("SKIN TEST BOOT FINISHED!")
-	
-	_toggle_loading(false)
-	create_tween().tween_property(black,"color",Color(0,0,0,0),1.0)
-	is_loading = false
+	# Take screenshot
+	if event.is_action_pressed("screenshot"):
+		_take_screenshot()
 
 
-# Toggles loading animation. Menu must be loaded first in order to work.
+## Takes screenshot and saves it as .png in SCREENSHOTS_PATH
+func _take_screenshot() -> void:
+	var prefix : String = "LUMINEXT"
+
+	if game == null : prefix = menu.current_screen_name.to_upper().replace(" ","_")
+	else : prefix = game.gamemode.gamemode_name.to_upper()
+
+	var date : String = Time.get_date_string_from_system().replace(".","_") 
+	var time : String = Time.get_time_string_from_system().replace(":","-")
+
+	var screenshot_path : String = Data.SCREENSHOTS_PATH + prefix + "_" + date + "_" + time + ".png"
+	var image : Image = get_viewport().get_texture().get_image() # We get what our player sees
+	image.save_png(screenshot_path)
+
+	Console._log("Saved screenshot at path : " + screenshot_path)
+
+
+## Converts int (secs) to (hh:mm:ss) time format
+static func _to_time(time : int) -> String:
+	var hour : int = int(time / 3600.0)
+	var hour_str : String = str(hour) + ":"
+	if time < 3600 : hour_str = ""
+	
+	var minute : String = str(int(time / 60.0) - 60 * hour) + ":"
+	if int(time / 60.0 - 60 * hour) < 10 : minute = "0" + str(int(time / 60.0) - 60 * hour) + ":"
+
+	var secs : String = str(time % 60)
+	if time % 60 < 10 : secs = "0" + str(time % 60)
+	
+	return hour_str + minute + secs
+
+
+## Sets dark overlay opacity
+func _toggle_darken(on : bool) -> void:
+	if on : create_tween().tween_property(darken, "modulate:a", 1.0, 1.0)
+	else : create_tween().tween_property(darken, "modulate:a", 0.0, 1.0)
+
+
+## Toggles loading screen
 func _toggle_loading(on : bool) -> void:
-	if Data.menu.loaded_screens_data.has("loading"):
-		if on and loading_screen == null:
-			loading_screen = load(Data.menu.loaded_screens_data["loading"]).instantiate()
-			add_child(loading_screen)
-			loading_screen.get_node("A").play("start")
-		elif not on and loading_screen != null:
-			loading_screen.get_node("A").play("end")
-			await loading_screen.get_node("A").animation_finished
-			loading_screen.queue_free()
-			loading_screen = null
+	loading_screen._toggle_loading(on)
 
 
-func _change_loading_message(message : int) -> void:
-	if not loading_screen: return
-
-	var message_text : String = ""
-
-	match message:
-		Data.LOADING_STATUS.SKIN_LOAD_START: message_text = "LOADING SKIN..."
-		Data.LOADING_STATUS.SKIN_SAVE_START: message_text = "SAVING SKIN..."
-		Data.LOADING_STATUS.METADATA_LOAD: message_text = "LOADING METADATA..."
-		Data.LOADING_STATUS.METADATA_SAVE: message_text = "SAVING METADATA..."
-		Data.LOADING_STATUS.AUDIO_PREPARE: message_text = "PREPARING MUSIC..."
-		Data.LOADING_STATUS.AUDIO_LOAD: message_text = "LOADING SOUNDS..."
-		Data.LOADING_STATUS.AUDIO_SAVE: message_text = "SAVING SOUNDS..."
-		Data.LOADING_STATUS.TEXTURES_LOAD: message_text = "LOADING TEXTURES..."
-		Data.LOADING_STATUS.TEXTURES_SAVE: message_text = "SAVING TEXTURES..."
-		Data.LOADING_STATUS.STREAM_LOAD: message_text = "LOADING SCENERY/VIDEO & MUSIC..."
-		Data.LOADING_STATUS.STREAM_SAVE: message_text = "SAVING SCENERY/VIDEO & MUSIC..."
-		Data.LOADING_STATUS.VIDEO_PREPARE: message_text = "PREPARING VIDEO..."
-		Data.LOADING_STATUS.SCENE_PREPARE: message_text = "PREPARING SCENERY..."
-		Data.LOADING_STATUS.CALCULATING_BPM: message_text = "CALCULATING SONG BPM..."
-		Data.LOADING_STATUS.SAVING_REPLAY: message_text = "SAVING REPLAY..."
-		Data.LOADING_STATUS.FINISH: message_text = "PLEASE WAIT"
-
-	loading_screen._set_text(message_text)
+## Sets loading screen message type to one from [LoadingScreen.LOADING_STATUS]
+func _set_loading_message(message_type : int) -> void:
+	loading_screen._set_message(message_type)
 
 
-# Shows system message which overlays everything
+## Displays some system message which overlays everything
 func _display_system_message(text : String) -> void:
-	messager._show_message(text)
-
-
-# Cleans cache to free user memory
-func _clean_skn_cache() -> void:
-	print("CLEANING UP CACHE")
-	var dir : DirAccess = DirAccess.open(Data.CACHE_PATH)
-	
-	if dir:
-		dir.list_dir_begin()
-		
-		var path : String = dir.get_next()
-		while path != "":
-			print("CLEANING : ", path)
-			if not dir.current_is_dir(): dir.remove(path)
-			path = dir.get_next()
-		
-		dir.list_dir_end()
-
-	print("CACHE CLEANED!")
-
-
-# Copies logs from "user://logs" to Data.LOGS_PATH
-func _copy_logs() -> void:
-	print("COPYING LOGS")
-	var log_names : PackedStringArray = DirAccess.get_files_at("user://logs/")
-
-	for log_name : String in log_names:
-		print(log_name)
-		var file : FileAccess = FileAccess.open("user://logs/" + log_name, FileAccess.READ)
-		var log_text : String = file.get_as_text()
-		file.close()
-		file = FileAccess.open(Data.LOGS_PATH + log_name, FileAccess.WRITE)
-		file.store_string(log_text)
-		file.close()
-
-	print("LOGS SAVED")
-
+	system_messager._show_message(text)
 
 
 func _notification(what : int) -> void:
@@ -532,21 +262,74 @@ func _notification(what : int) -> void:
 		_exit(true)
 
 
-# This function ends this programm properly.
+## Cleans cache to free user memory
+func _clean_skn_cache() -> void:
+	Console._log("Clearing cache")
+	
+	for cached_file : String in DirAccess.get_files_at(Data.CACHE_PATH):
+		DirAccess.remove_absolute(Data.CACHE_PATH + cached_file)
+
+	Console._log("Cache cleared!")
+
+
+## Finishes all processes, saves all nessesary things and closes the game[br]
+## If [b]'quick'[/b] is true closes game immidiately, without blackout animation
 func _exit(quick : bool = false) -> void:
-	print("")
-	print("EXITING...")
+	Console._space()
+	Console._log("Closing the game...")
+	Console._log("Have a nice day!")
+	Console._copy_logs()
 
 	_clean_skn_cache()
-	_copy_logs()
+	
+	Player.global._save()
+	Player._save()
 	
 	if not quick:
-		create_tween().tween_property(black,"color",Color(0,0,0,1),1.0)
+		create_tween().tween_property(darken,"color",Color(0,0,0,1),1.0)
 
-		Data.menu.is_locked = true
-		if Data.menu.is_music_playing:
-			create_tween().tween_property(Data.menu.music_player,"volume_db",-40.0,1.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
+		menu.is_locked = true
+		if menu.is_music_playing:
+			create_tween().tween_property(menu.music_player,"volume_db",-99.0,1.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
 
 		await get_tree().create_timer(1.25).timeout
-		get_tree().quit()
+		
 	
+	get_tree().quit()
+
+
+## Executes entered into Console command
+func _execute_console_command(command : String, arguments : PackedStringArray) -> void:
+	match command:
+		# Resets the game completely
+		"reset" : 
+			_reset()
+		
+		# Ends game
+		"exit" : 
+			_exit()
+		
+		# Starts the skin debug with specified screen
+		"skntest" :
+			if arguments.size() < 1: Console._output("Error! Skin path or id is not entered"); return
+			if is_instance_valid(game) : Console._output("Error! Game is already loaded"); return
+			
+			var metadata : SkinMetadata
+			if arguments[0].is_relative_path() : metadata = Data.skin_list._get_skin_by_path(arguments[0])
+			else : metadata = Data.skin_list._get_skin_by_id(arguments[0])
+			
+			if metadata == null: Console._output("Error! This skin doesn't exist"); return
+			
+			# TODO
+			#_start_game()
+		
+		# Starts specified replay
+		"replay" :
+			if arguments.size() < 1: Console._output("Error! Replay path is not entered"); return
+			if is_instance_valid(game) : Console._output("Error! Game is already loaded"); return
+
+			var replay : Replay = Replay.new()
+			replay._load(arguments[0])
+
+			# TODO
+			#_start_game()

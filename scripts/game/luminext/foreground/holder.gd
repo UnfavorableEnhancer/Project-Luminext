@@ -1,0 +1,153 @@
+# Project Luminext - an advanced open-source Lumines spiritual successor
+# Copyright (C) <2024> <unfavorable_enhancer>
+# Contact : <random.likes.apes@gmail.com>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+extends UIElement
+
+##-----------------------------------------------------------------------
+## Current piece holder visuals, also displays place reticle
+##-----------------------------------------------------------------------
+
+const X_OFFSET : float = LuminextGame.FIELD_X_OFFSET ## Base offset of this [UIElement] in X coordinate
+const Y_OFFSET : float = LuminextGame.FIELD_Y_OFFSET - 72.0 ## Base offset of this [UIElement] in Y coordinate
+
+var arrow_texture : Texture = null ## Arrow texture used for move and rotation animations
+
+
+func _ready() -> void:
+	Player.config.changed.connect(_sync_settings)
+	_sync_settings()
+
+
+func _sync_settings() -> void:
+	if Player.config.video["block_trail"] : $Thing/Holder/Trail.emitting = true
+	else : $Thing/Holder/Trail.emitting = false
+
+
+## Changes this [UIElement] design to match passed [SkinData]
+func _change_style(skin_data : SkinData = null) -> void:
+	var folder_name : String = ""
+	match skin_data.textures["ui_design"]:
+		SkinData.UI_DESIGN.STANDARD: folder_name = "standard"
+		SkinData.UI_DESIGN.SHININ: folder_name = "square"
+		SkinData.UI_DESIGN.SQUARE: folder_name = "square"
+		SkinData.UI_DESIGN.MODERN: folder_name = "modern"
+		SkinData.UI_DESIGN.LIVE: folder_name = "live"
+		SkinData.UI_DESIGN.PIXEL: folder_name = "pixel"
+		SkinData.UI_DESIGN.BLACK: folder_name = "black"
+		SkinData.UI_DESIGN.COMIC: folder_name = "comic"
+		SkinData.UI_DESIGN.CLEAN: folder_name = "clean"
+		SkinData.UI_DESIGN.VECTOR: folder_name = "vector"
+		SkinData.UI_DESIGN.TECHNO: folder_name = "techno"
+		_: return
+	
+	arrow_texture = load("res://images/game/foreground/holder/" + folder_name + "/arrow.png")
+	var holder_tex : Texture = load("res://images/game/foreground/holder/" + folder_name + "/holder.png")
+
+	$Thing/Arrow.texture = arrow_texture
+	$Thing/Arrow2.texture = arrow_texture
+
+	$Thing/Next.texture = load("res://images/game/foreground/holder/" + folder_name + "/next.png")
+
+	$Thing/Holder.texture = holder_tex
+	$Thing/Holder/Trail.texture = holder_tex
+
+
+## Connects given piece instance to the holder
+func _connect_piece(piece : Piece) -> void:
+	piece.moved.connect(_move)
+	piece.rotated.connect(_rotate)
+
+	position.x = piece.position.x + X_OFFSET
+	position.y = Y_OFFSET
+
+
+## Plays animation for piece movement
+func _move(pos : Vector2) -> void:
+	if position.x == pos.x + X_OFFSET : return
+	
+	var tween : Tween = create_tween().set_parallel(true)
+	
+	$Thing/Arrow.rotation_degrees = 0
+	$Thing/Arrow2.rotation_degrees = 0
+
+	var fx_sprite : Sprite2D = Sprite2D.new()
+	fx_sprite.texture = arrow_texture
+
+	if position.x < pos.x + X_OFFSET: 
+		fx_sprite.position = Vector2(112.0,0.0)
+		$Thing.add_child(fx_sprite)
+
+		tween.tween_property(fx_sprite,"position:x",156.0,0.25).from(112.0)
+		tween.tween_property(fx_sprite,"modulate:a",0.0,0.25).from(1.0)
+		tween.tween_callback(fx_sprite.queue_free).set_delay(0.25)
+	else: 
+		fx_sprite.position = Vector2(-112.0,0.0)
+		fx_sprite.flip_h = true
+		$Thing.add_child(fx_sprite)
+
+		tween.tween_property(fx_sprite,"position:x",-156.0,0.25).from(-112.0)
+		tween.tween_property(fx_sprite,"modulate:a",0.0,0.25).from(1.0)
+		tween.tween_callback(fx_sprite.queue_free).set_delay(0.25)
+	
+	position.x = pos.x + X_OFFSET
+	position.y = Y_OFFSET
+
+
+## Plays animation for piece rotation
+func _rotate(side : int) -> void:
+	var tween : Tween = create_tween().set_parallel(true)
+
+	var fx_sprite : Sprite2D = Sprite2D.new()
+	fx_sprite.texture = arrow_texture
+	var fx_sprite2 : Sprite2D = Sprite2D.new()
+	fx_sprite2.texture = arrow_texture
+	
+	if side == Piece.MOVE.RIGHT: 
+		$Thing/Arrow.rotation_degrees = 90
+		$Thing/Arrow2.rotation_degrees = 90
+		fx_sprite.rotation_degrees = 90
+		fx_sprite.position = Vector2(112.0,0.0)
+		fx_sprite2.rotation_degrees = 90
+		fx_sprite2.position = Vector2(-112.0,0.0)
+
+		$Thing.add_child(fx_sprite)
+		$Thing.add_child(fx_sprite2)
+		
+		tween.tween_property(fx_sprite,"position:y",50.0,0.25).from(0.0)
+		tween.tween_property(fx_sprite,"modulate:a",0.0,0.25).from(1.0)
+		tween.tween_callback(fx_sprite.queue_free).set_delay(0.25)
+		tween.tween_property(fx_sprite2,"position:y",-50.0,0.25).from(0.0)
+		tween.tween_property(fx_sprite2,"modulate:a",0.0,0.25).from(1.0)
+		tween.tween_callback(fx_sprite2.queue_free).set_delay(0.25)
+	else: 
+		$Thing/Arrow.rotation_degrees = 270
+		$Thing/Arrow2.rotation_degrees = 270
+		fx_sprite.rotation_degrees = 270
+		fx_sprite.position = Vector2(112.0,0.0)
+		fx_sprite2.rotation_degrees = 270
+		fx_sprite2.position = Vector2(-112.0,0.0)
+
+		$Thing.add_child(fx_sprite)
+		$Thing.add_child(fx_sprite2)
+		
+		tween.tween_property(fx_sprite,"position:y",-50.0,0.25).from(0.0)
+		tween.tween_property(fx_sprite,"modulate:a",0.0,0.25).from(1.0)
+		tween.tween_callback(fx_sprite.queue_free).set_delay(0.25)
+		tween.tween_property(fx_sprite2,"position:y",50.0,0.25).from(0.0)
+		tween.tween_property(fx_sprite2,"modulate:a",0.0,0.25).from(1.0)
+		tween.tween_callback(fx_sprite2.queue_free).set_delay(0.25)

@@ -1,17 +1,345 @@
-[gd_scene load_steps=73 format=3 uid="uid://dpeeknucofued"]
+[gd_scene load_steps=74 format=3 uid="uid://dpeeknucofued"]
 
 [ext_resource type="Texture2D" uid="uid://bypbhiqprsji5" path="res://images/menu/random.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://dam67m6wayew5" path="res://menu/images/lines.png" id="2_o6usn"]
+[ext_resource type="Texture2D" uid="uid://dam67m6wayew5" path="res://menu/images/misc/lines.png" id="2_o6usn"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="6"]
 [ext_resource type="FontFile" uid="uid://bncda7ixlpa7b" path="res://fonts/rounded_mgenplus.ttf" id="7"]
-[ext_resource type="Texture2D" uid="uid://do04mb8o2x5xh" path="res://menu/images/options_icons.png" id="7_yfvwy"]
-[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="8"]
+[ext_resource type="Texture2D" uid="uid://do04mb8o2x5xh" path="res://menu/images/options/options_icons.png" id="7_yfvwy"]
 [ext_resource type="PackedScene" uid="uid://160thw0yemok" path="res://menu/objects/slider.tscn" id="10"]
 [ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://menu/objects/regular_button.tscn" id="11"]
-[ext_resource type="Texture2D" uid="uid://clbyjed38caju" path="res://menu/images/controls.png" id="11_6sqiv"]
+[ext_resource type="Texture2D" uid="uid://clbyjed38caju" path="res://menu/images/options/controls.png" id="11_6sqiv"]
+[ext_resource type="FontFile" uid="uid://sawohm8dc1a" path="res://fonts/Gravity-Book.otf" id="12_waach"]
 [ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="13_mvprc"]
 [ext_resource type="Texture2D" uid="uid://dk6bk4i2fqinh" path="res://images/game/export/blocks_sheet.png" id="15"]
-[ext_resource type="Script" path="res://menu/scripts/screens/game_config.gd" id="22"]
+[ext_resource type="Script" uid="uid://ccv553hljw3vv" path="res://menu/scripts/screens/game_config.gd" id="22"]
+
+[sub_resource type="Animation" id="Animation_waach"]
+resource_name = "RESET"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top/Iconhold:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Top/Iconhold/Icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Top/Iconhold/Icon:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Top/Label:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.75),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Menu:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Menu:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Menu/BLOCKS:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Menu/RULES:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Menu/PARAMS:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Menu/Line:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Menu/Line2:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Menu/APPLY:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Menu/LOAD:scale")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Menu/SAVE:scale")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Menu/EXIT:scale")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Desc:modulate")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Desc:scale")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.75),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Optionsback:scale")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.75),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Optionsback:modulate")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("BLOCKS:modulate")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("RULES:modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("PARAMS:modulate")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("Menu/Detail4:visible_ratio")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("Desc/Detail3:visible_ratio")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("BLOCKS/Detail5:visible_ratio")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("RULES/Detail5:visible_ratio")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("Background:modulate")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_ywu7q"]
 resource_name = "end"
@@ -672,8 +1000,9 @@ tracks/26/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_77hok"]
 _data = {
-"end": SubResource("Animation_ywu7q"),
-"start": SubResource("17")
+&"RESET": SubResource("Animation_waach"),
+&"end": SubResource("Animation_ywu7q"),
+&"start": SubResource("17")
 }
 
 [sub_resource type="Shader" id="Shader_dnife"]
@@ -730,7 +1059,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jrc8w"]
 _data = {
-"base": SubResource("Animation_lf8ax")
+&"base": SubResource("Animation_lf8ax")
 }
 
 [sub_resource type="StyleBoxFlat" id="83"]
@@ -913,7 +1242,7 @@ atlas = ExtResource("7_yfvwy")
 region = Rect2(384, 640, 128, 128)
 
 [sub_resource type="LabelSettings" id="LabelSettings_bb3qu"]
-font = ExtResource("8")
+font = ExtResource("12_waach")
 font_size = 32
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_63hrd"]
@@ -944,10 +1273,13 @@ region = Rect2(1280, 768, 256, 256)
 atlas = ExtResource("13_mvprc")
 region = Rect2(512, 1280, 256, 256)
 
-[sub_resource type="LabelSettings" id="LabelSettings_6nh55"]
+[sub_resource type="LabelSettings" id="LabelSettings_1c1iy"]
 font = ExtResource("6")
 font_size = 36
 font_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.231373)
+shadow_offset = Vector2(4, 4)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gmqj1"]
 atlas = ExtResource("13_mvprc")
@@ -966,7 +1298,7 @@ script = ExtResource("22")
 [node name="A" type="AnimationPlayer" parent="."]
 reset_on_save = false
 libraries = {
-"": SubResource("AnimationLibrary_77hok")
+&"": SubResource("AnimationLibrary_77hok")
 }
 
 [node name="back" type="ColorRect" parent="."]
@@ -1003,7 +1335,7 @@ texture = ExtResource("2_o6usn")
 
 [node name="LinesAnim" type="AnimationPlayer" parent="Background"]
 libraries = {
-"": SubResource("AnimationLibrary_jrc8w")
+&"": SubResource("AnimationLibrary_jrc8w")
 }
 autoplay = "base"
 
@@ -1021,22 +1353,16 @@ color = Color(0, 0, 0, 0.5)
 [node name="BLOCKS" type="Control" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 528.0
-offset_top = 88.0
-offset_right = -16.0
-offset_bottom = -280.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_left = 536.0
+offset_top = 96.0
+offset_right = 536.0
+offset_bottom = 96.0
 
 [node name="SCROLL" type="ScrollContainer" parent="BLOCKS"]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 1372.0
-offset_bottom = 640.0
+offset_right = 1364.0
+offset_bottom = 632.0
 theme = SubResource("92")
 
 [node name="V" type="VBoxContainer" parent="BLOCKS/SCROLL"]
@@ -1063,7 +1389,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_kmqlg")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/RED" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/RED" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
@@ -1077,6 +1403,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "red"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="BLOCKS/SCROLL/V/RED/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1105,7 +1432,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_ovyr2")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/WHITE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/WHITE" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1120,6 +1447,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "white"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="BLOCKS/SCROLL/V/WHITE/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1148,7 +1476,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_clkhu")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/GREEN" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/GREEN" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1163,6 +1491,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "green"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="BLOCKS/SCROLL/V/GREEN/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1191,7 +1520,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_ldnct")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/PURPLE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/PURPLE" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1206,6 +1535,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "purple"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="BLOCKS/SCROLL/V/PURPLE/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1247,7 +1577,7 @@ size_flags_horizontal = 0
 texture = SubResource("118")
 expand_mode = 1
 
-[node name="Slider" parent="BLOCKS/SCROLL/V/SPECIALDELAY" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="BLOCKS/SCROLL/V/SPECIALDELAY" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 560.0
 offset_right = 1040.0
@@ -1258,8 +1588,10 @@ value = 72.0
 tick_count = 6
 description_node = NodePath("../../../../../Desc/Text")
 description = "SPECIAL_DELAY_DESC"
+is_setting_gamerule = true
 call_string = "special_block_delay"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="BLOCKS/SCROLL/V/SPECIALDELAY/Slider"]
 layout_mode = 0
@@ -1298,7 +1630,7 @@ size_flags_horizontal = 0
 texture = SubResource("122")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/INSTANTSPECIAL" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/INSTANTSPECIAL" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
@@ -1312,20 +1644,25 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "instant_special"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="BLOCKS/SCROLL/V/INSTANTSPECIAL/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -224.0
+offset_left = -228.0
 offset_top = -26.0
-offset_right = -8.0
-offset_bottom = 24.0
+offset_right = -16.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = SubResource("84")
 text = "OFF"
-label_settings = SubResource("LabelSettings_x3w21")
+label_settings = SubResource("LabelSettings_16anr")
 horizontal_alignment = 2
 vertical_alignment = 1
 
@@ -1336,7 +1673,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_824bd")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/CHAIN" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/CHAIN" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1351,6 +1688,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "chain"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="BLOCKS/SCROLL/V/CHAIN/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1386,7 +1724,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_824bd")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/MERGE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/MERGE" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1401,6 +1739,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "merge"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="BLOCKS/SCROLL/V/MERGE/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1436,7 +1775,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_824bd")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/LASER" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/LASER" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1451,6 +1790,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "laser"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="BLOCKS/SCROLL/V/LASER/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1486,7 +1826,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_824bd")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/WIPE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/WIPE" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1501,6 +1841,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "wipe"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="BLOCKS/SCROLL/V/WIPE/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1536,7 +1877,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_6iq3o")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/MULTI" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/MULTI" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1551,6 +1892,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "multi"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="BLOCKS/SCROLL/V/MULTI/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1579,7 +1921,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_ijbn0")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/DARK" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/DARK" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1594,6 +1936,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "garbage"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="BLOCKS/SCROLL/V/DARK/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1622,7 +1965,7 @@ size_flags_horizontal = 0
 texture = ExtResource("2")
 expand_mode = 1
 
-[node name="Button" parent="BLOCKS/SCROLL/V/CHAOS" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="BLOCKS/SCROLL/V/CHAOS" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1637,6 +1980,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "joker"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="BLOCKS/SCROLL/V/CHAOS/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1662,10 +2006,10 @@ vertical_alignment = 1
 modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
 texture_filter = 1
 layout_mode = 0
-offset_left = 28.0
-offset_top = 676.0
-offset_right = 260.0
-offset_bottom = 695.0
+offset_left = 24.0
+offset_top = 668.0
+offset_right = 327.0
+offset_bottom = 687.0
 text = "GAME_CONFIG_ARROW3"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
@@ -1685,17 +2029,13 @@ flip_h = true
 flip_v = true
 
 [node name="RULES" type="Control" parent="."]
-visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 536.0
-offset_top = 96.0
-offset_bottom = -312.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_left = 68.0
+offset_top = 1152.0
+offset_right = 68.0
+offset_bottom = 1152.0
 
 [node name="SCROLL" type="ScrollContainer" parent="RULES"]
 layout_mode = 0
@@ -1715,7 +2055,7 @@ size_flags_horizontal = 0
 texture = SubResource("123")
 expand_mode = 1
 
-[node name="Button" parent="RULES/SCROLL/V/PIECESWAP" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="RULES/SCROLL/V/PIECESWAP" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
@@ -1729,6 +2069,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "piece_swaping"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="RULES/SCROLL/V/PIECESWAP/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1753,7 +2094,7 @@ size_flags_horizontal = 0
 texture = SubResource("124")
 expand_mode = 1
 
-[node name="Button" parent="RULES/SCROLL/V/POSSAVE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="RULES/SCROLL/V/POSSAVE" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
@@ -1767,6 +2108,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "save_holder_position"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="RULES/SCROLL/V/POSSAVE/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1791,7 +2133,7 @@ size_flags_horizontal = 0
 texture = SubResource("125")
 expand_mode = 1
 
-[node name="Button" parent="RULES/SCROLL/V/NEOSCORE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="RULES/SCROLL/V/NEOSCORE" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 1.0
@@ -1806,6 +2148,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "give_score_for_square"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="RULES/SCROLL/V/NEOSCORE/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1830,7 +2173,7 @@ size_flags_horizontal = 0
 texture = SubResource("127")
 expand_mode = 1
 
-[node name="Button" parent="RULES/SCROLL/V/COMBO" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="RULES/SCROLL/V/COMBO" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
@@ -1844,6 +2187,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "combo_system"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="RULES/SCROLL/V/COMBO/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1868,7 +2212,7 @@ size_flags_horizontal = 0
 texture = SubResource("120")
 expand_mode = 1
 
-[node name="Slider" parent="RULES/SCROLL/V/MAXCOMBO" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="RULES/SCROLL/V/MAXCOMBO" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 560.0
 offset_right = 1040.0
@@ -1881,6 +2225,7 @@ description_node = NodePath("../../../../../Desc/Text")
 description = "MAX_COMBO_DESC"
 call_string = "max_combo"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="RULES/SCROLL/V/MAXCOMBO/Slider"]
 layout_mode = 0
@@ -1919,7 +2264,7 @@ size_flags_horizontal = 0
 texture = SubResource("126")
 expand_mode = 1
 
-[node name="Button" parent="RULES/SCROLL/V/CLASSICSCORE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="RULES/SCROLL/V/CLASSICSCORE" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
@@ -1933,6 +2278,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "classic_scoring"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="RULES/SCROLL/V/CLASSICSCORE/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1954,10 +2300,10 @@ vertical_alignment = 1
 modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
 texture_filter = 1
 layout_mode = 0
-offset_left = 20.0
-offset_top = 668.0
-offset_right = 252.0
-offset_bottom = 687.0
+offset_left = 24.0
+offset_top = 664.0
+offset_right = 327.0
+offset_bottom = 683.0
 text = "GAME_CONFIG_ARROW4"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
@@ -1973,19 +2319,17 @@ offset_right = -11.0
 offset_bottom = 20.0
 texture = SubResource("AtlasTexture_1fbr7")
 expand_mode = 1
+flip_h = true
+flip_v = true
 
 [node name="PARAMS" type="Control" parent="."]
-visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 536.0
-offset_top = 96.0
-offset_bottom = -312.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_left = 1528.0
+offset_top = 1156.0
+offset_right = 1528.0
+offset_bottom = 1156.0
 
 [node name="SCROLL" type="ScrollContainer" parent="PARAMS"]
 layout_mode = 0
@@ -2005,7 +2349,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_oggqk")
 expand_mode = 1
 
-[node name="Button" parent="PARAMS/SCROLL/V/SEED" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="PARAMS/SCROLL/V/SEED" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
@@ -2018,6 +2362,7 @@ button_layout = 2
 is_setting_button = true
 press_sound_name = "confirm3"
 call_function_name = "_set_seed"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="PARAMS/SCROLL/V/SEED/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -2045,7 +2390,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_or1yk")
 expand_mode = 1
 
-[node name="Slider" parent="PARAMS/SCROLL/V/PIECEFALL" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="PARAMS/SCROLL/V/PIECEFALL" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 560.0
 offset_right = 1040.0
@@ -2057,9 +2402,11 @@ tick_count = 17
 ticks_on_borders = true
 description_node = NodePath("../../../../../Desc/Text")
 description = "PIECE_FALL_SPEED_DESC"
+is_setting_gamerule = true
 input_dash_speed = 8
 call_string = "piece_fall_speed"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="PARAMS/SCROLL/V/PIECEFALL/Slider"]
 layout_mode = 0
@@ -2099,7 +2446,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_s1y8t")
 expand_mode = 1
 
-[node name="Slider" parent="PARAMS/SCROLL/V/PIECEDELAY" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="PARAMS/SCROLL/V/PIECEDELAY" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 560.0
 offset_right = 1040.0
@@ -2112,9 +2459,11 @@ tick_count = 17
 ticks_on_borders = true
 description_node = NodePath("../../../../../Desc/Text")
 description = "PIECE_FALL_DELAY_DESC"
+is_setting_gamerule = true
 input_dash_speed = 8
 call_string = "piece_fall_delay"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="PARAMS/SCROLL/V/PIECEDELAY/Slider"]
 layout_mode = 0
@@ -2154,7 +2503,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_tca12")
 expand_mode = 1
 
-[node name="Slider" parent="PARAMS/SCROLL/V/QUICKDROP" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="PARAMS/SCROLL/V/QUICKDROP" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 560.0
 offset_right = 1040.0
@@ -2167,9 +2516,11 @@ tick_count = 10
 ticks_on_borders = true
 description_node = NodePath("../../../../../Desc/Text")
 description = "QUICK_DROP_SPEED_DESC"
+is_setting_gamerule = true
 input_dash_speed = 4
 call_string = "quick_drop_speed"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="PARAMS/SCROLL/V/QUICKDROP/Slider"]
 layout_mode = 0
@@ -2210,7 +2561,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_ojp4h")
 expand_mode = 1
 
-[node name="Slider" parent="PARAMS/SCROLL/V/DASHSPEED" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="PARAMS/SCROLL/V/DASHSPEED" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 560.0
 offset_right = 1040.0
@@ -2223,9 +2574,11 @@ tick_count = 10
 ticks_on_borders = true
 description_node = NodePath("../../../../../Desc/Text")
 description = "PIECE_DASH_SPEED_DESC"
+is_setting_gamerule = true
 input_dash_speed = 4
 call_string = "piece_dash_speed"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="PARAMS/SCROLL/V/DASHSPEED/Slider"]
 layout_mode = 0
@@ -2266,7 +2619,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_jye00")
 expand_mode = 1
 
-[node name="Slider" parent="PARAMS/SCROLL/V/DASHDELAY" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="PARAMS/SCROLL/V/DASHDELAY" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 560.0
 offset_right = 1040.0
@@ -2278,9 +2631,11 @@ tick_count = 11
 ticks_on_borders = true
 description_node = NodePath("../../../../../Desc/Text")
 description = "PIECE_DASH_DELAY_DESC"
+is_setting_gamerule = true
 input_dash_speed = 8
 call_string = "piece_dash_delay"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="PARAMS/SCROLL/V/DASHDELAY/Slider"]
 layout_mode = 0
@@ -2321,7 +2676,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_f54g6")
 expand_mode = 1
 
-[node name="Slider" parent="PARAMS/SCROLL/V/BLOCKGRAV" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="PARAMS/SCROLL/V/BLOCKGRAV" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 560.0
 offset_right = 1040.0
@@ -2334,9 +2689,11 @@ tick_count = 10
 ticks_on_borders = true
 description_node = NodePath("../../../../../Desc/Text")
 description = "BLOCK_GRAVITY_DESC"
+is_setting_gamerule = true
 input_dash_speed = 4
 call_string = "block_gravity"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="PARAMS/SCROLL/V/BLOCKGRAV/Slider"]
 layout_mode = 0
@@ -2377,7 +2734,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_ksxeu")
 expand_mode = 1
 
-[node name="Slider" parent="PARAMS/SCROLL/V/DIFFICULTY" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="PARAMS/SCROLL/V/DIFFICULTY" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 560.0
 offset_right = 1040.0
@@ -2390,9 +2747,11 @@ tick_count = 10
 ticks_on_borders = true
 description_node = NodePath("../../../../../Desc/Text")
 description = "DIFFICUTLY_GROW_DESC"
+is_setting_gamerule = true
 input_dash_speed = 4
 call_string = "difficulty_factor"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="PARAMS/SCROLL/V/DIFFICULTY/Slider"]
 layout_mode = 0
@@ -2433,7 +2792,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_8evck")
 expand_mode = 1
 
-[node name="Slider" parent="PARAMS/SCROLL/V/LEVELSPEED" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="PARAMS/SCROLL/V/LEVELSPEED" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 560.0
 offset_right = 1040.0
@@ -2445,9 +2804,11 @@ tick_count = 18
 ticks_on_borders = true
 description_node = NodePath("../../../../../Desc/Text")
 description = "LEVEL_LENGTH_DESC"
+is_setting_gamerule = true
 input_dash_speed = 8
 call_string = "level_up_speed"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="PARAMS/SCROLL/V/LEVELSPEED/Slider"]
 layout_mode = 0
@@ -2487,7 +2848,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_u0j5i")
 expand_mode = 1
 
-[node name="Slider" parent="PARAMS/SCROLL/V/LEVELCOUNT" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="PARAMS/SCROLL/V/LEVELCOUNT" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 560.0
 offset_right = 1040.0
@@ -2499,9 +2860,11 @@ tick_count = 21
 ticks_on_borders = true
 description_node = NodePath("../../../../../Desc/Text")
 description = "LEVEL_COUNT_DESC"
+is_setting_gamerule = true
 input_dash_speed = 2
 call_string = "level_count"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="PARAMS/SCROLL/V/LEVELCOUNT/Slider"]
 layout_mode = 0
@@ -2541,7 +2904,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_wq0s8")
 expand_mode = 1
 
-[node name="Slider" parent="PARAMS/SCROLL/V/BPM" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="PARAMS/SCROLL/V/BPM" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 560.0
 offset_right = 1040.0
@@ -2551,9 +2914,11 @@ tick_count = 2
 ticks_on_borders = true
 description_node = NodePath("../../../../../Desc/Text")
 description = "FORCE_BPM_DESC"
+is_setting_gamerule = true
 input_dash_speed = 32
 call_string = "force_bpm"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="PARAMS/SCROLL/V/BPM/Slider"]
 layout_mode = 0
@@ -2591,10 +2956,10 @@ uppercase = true
 modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
 texture_filter = 1
 layout_mode = 0
-offset_left = 20.0
-offset_top = 668.0
-offset_right = 252.0
-offset_bottom = 687.0
+offset_left = 24.0
+offset_top = 664.0
+offset_right = 327.0
+offset_bottom = 683.0
 text = "GAME_CONFIG_ARROW5"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
@@ -2608,19 +2973,19 @@ offset_right = -11.0
 offset_bottom = 20.0
 texture = SubResource("AtlasTexture_1fbr7")
 expand_mode = 1
+flip_h = true
+flip_v = true
 
 [node name="Desc" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.092
-anchor_top = 0.059
-anchor_right = 0.092
-anchor_bottom = 0.059
-offset_left = -176.64
-offset_top = 744.28
-offset_right = 1743.36
-offset_bottom = 952.28
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -272.0
+offset_right = 1920.0
+offset_bottom = -64.0
+grow_vertical = 0
 scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(0, 160)
 mouse_filter = 2
@@ -2668,17 +3033,14 @@ flip_v = true
 [node name="Menu" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.059
-anchor_bottom = 0.059
-offset_top = 8.28
+offset_top = 72.0
 offset_right = 496.0
-offset_bottom = 728.28
+offset_bottom = 792.0
 scale = Vector2(1, 1e-05)
 mouse_filter = 2
 color = Color(0, 0, 0, 0.501961)
 
-[node name="BLOCKS" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="BLOCKS" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 100.0
@@ -2693,6 +3055,7 @@ menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm"
 call_string = "blocks"
 call_function_name = "_change_tab"
+parent_screen = NodePath("../..")
 
 [node name="Icon2" type="TextureRect" parent="Menu/BLOCKS"]
 layout_mode = 1
@@ -2709,7 +3072,7 @@ texture = SubResource("AtlasTexture_63hrd")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="RULES" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="RULES" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 168.0
@@ -2724,6 +3087,7 @@ menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm"
 call_string = "rules"
 call_function_name = "_change_tab"
+parent_screen = NodePath("../..")
 
 [node name="Icon2" type="TextureRect" parent="Menu/RULES"]
 layout_mode = 1
@@ -2740,7 +3104,7 @@ texture = SubResource("AtlasTexture_f6fee")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="PARAMS" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="PARAMS" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 236.0
@@ -2755,6 +3119,7 @@ menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm"
 call_string = "params"
 call_function_name = "_change_tab"
+parent_screen = NodePath("../..")
 
 [node name="Icon2" type="TextureRect" parent="Menu/PARAMS"]
 layout_mode = 1
@@ -2787,7 +3152,7 @@ offset_right = 480.0
 offset_bottom = 84.0
 scale = Vector2(1e-05, 1)
 
-[node name="APPLY" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="APPLY" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 404.0
@@ -2801,6 +3166,7 @@ description = "APPLY_DESC"
 menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm4"
 call_function_name = "_exit_with_apply"
+parent_screen = NodePath("../..")
 
 [node name="Icon2" type="TextureRect" parent="Menu/APPLY"]
 layout_mode = 1
@@ -2817,7 +3183,7 @@ texture = SubResource("151")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LOAD" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="LOAD" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 472.0
@@ -2832,6 +3198,7 @@ menu_position = Vector2i(-1, -1)
 work_mode = 2
 press_sound_name = "confirm2"
 call_string = "preset_load"
+parent_screen = NodePath("../..")
 
 [node name="Icon2" type="TextureRect" parent="Menu/LOAD"]
 layout_mode = 1
@@ -2848,7 +3215,7 @@ texture = SubResource("AtlasTexture_gfv4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="SAVE" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="SAVE" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 540.0
@@ -2863,6 +3230,7 @@ menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm2"
 is_cancel_button = true
 call_function_name = "_save_preset"
+parent_screen = NodePath("../..")
 
 [node name="Icon2" type="TextureRect" parent="Menu/SAVE"]
 layout_mode = 1
@@ -2879,7 +3247,7 @@ texture = SubResource("AtlasTexture_pb17m")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="EXIT" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="EXIT" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 608.0
@@ -2894,6 +3262,7 @@ menu_position = Vector2i(-1, -1)
 press_sound_name = "cancel"
 is_cancel_button = true
 call_function_name = "_exit_with_cancel"
+parent_screen = NodePath("../..")
 
 [node name="Icon2" type="TextureRect" parent="Menu/EXIT"]
 layout_mode = 1
@@ -2914,9 +3283,9 @@ stretch_mode = 5
 modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
 texture_filter = 1
 layout_mode = 0
-offset_left = 40.0
+offset_left = 44.0
 offset_top = 692.0
-offset_right = 272.0
+offset_right = 338.0
 offset_bottom = 711.0
 text = "GAME_CONFIG_ARROW1"
 label_settings = SubResource("LabelSettings_dplwv")
@@ -2955,7 +3324,7 @@ offset_bottom = 69.64
 scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(1784, 0)
 mouse_filter = 2
-color = Color(0.22, 0.38, 0.929, 0.75)
+color = Color(0.249329, 0.545814, 0.742188, 1)
 
 [node name="Text" type="Label" parent="Top/Label"]
 layout_mode = 0
@@ -2963,7 +3332,7 @@ offset_left = 48.0
 offset_right = 696.0
 offset_bottom = 72.0
 text = "GAME_CONFIG"
-label_settings = SubResource("LabelSettings_6nh55")
+label_settings = SubResource("LabelSettings_1c1iy")
 vertical_alignment = 1
 uppercase = true
 
@@ -2976,7 +3345,7 @@ offset_right = 136.0
 offset_bottom = 133.64
 scale = Vector2(1e-05, 1e-05)
 mouse_filter = 2
-color = Color(0.0431373, 0.145098, 0.254902, 1)
+color = Color(0.0714111, 0.23994, 0.351562, 1)
 
 [node name="Icon" type="TextureRect" parent="Top/Iconhold"]
 modulate = Color(1, 1, 1, 0)

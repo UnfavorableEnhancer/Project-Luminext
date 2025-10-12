@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,8 +18,12 @@
 
 extends MenuSelectableButton
 
-var replay_path : String = "" 
-var is_invalid : bool = false
+#-----------------------------------------------------------------------
+# Button used to display info about loaded replay
+#-----------------------------------------------------------------------
+
+var replay_path : String = "" ## Path to the displayed replay file
+var is_invalid : bool = false ## True if replay file is invalid
 
 
 func _ready() -> void:
@@ -29,11 +33,11 @@ func _ready() -> void:
 	deselected.connect(_deselected)
 
 
-# Loads replay metadata
+## Loads specified in **'replay_path'** replay metadata
 func _load() -> void:
 	var file : FileAccess = FileAccess.open_compressed(replay_path,FileAccess.READ,FileAccess.COMPRESSION_DEFLATE)
 	if not file: 
-		print("FILE ERROR! : ", error_string(FileAccess.get_open_error()))
+		Console._log("ERROR! Failed to load replay file. Open error : " + error_string(FileAccess.get_open_error()))
 		return FileAccess.get_open_error()
 	
 	var ver : String = file.get_pascal_string()
@@ -79,14 +83,25 @@ func _load() -> void:
 			is_invalid = true
 
 
+## Called when button is pressed [br]
+## **'silent'** - If true, no press sound will play
+func _work(silent : bool = false) -> void:
+	if is_invalid or parent_menu.is_locked or parent_menu.current_screen_name != parent_screen.snake_case_name: 
+		return
+	
+	super(silent)
+
+
+## Called when this button is selected
 func _selected() -> void:
 	modulate = Color(0.5,1,1,1)
-	Data.menu._sound("select")
+	parent_menu._play_sound("select")
 	
-	var foreground_screen : MenuScreen = Data.menu.screens["foreground"]
+	var foreground_screen : MenuScreen = parent_menu.screens["foreground"]
 	if is_instance_valid(foreground_screen):
 		foreground_screen._show_button_layout(0)
 
 
+## Called when this button is deselected
 func _deselected() -> void:
 	modulate = Color.WHITE

@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,65 +18,66 @@
 
 extends MenuScreen
 
-const SKIN_BUTTON : PackedScene = preload("res://menu/objects/skin_button.tscn") # Skin button instance
-const ALBUM_BAR : PackedScene = preload("res://menu/objects/album_bar.tscn") # Album label instance
+##-----------------------------------------------------------------------
+## Displays currently loaded skin list and allows to start any skin skintest
+##-----------------------------------------------------------------------
 
-var skin_list_rows_amount : int = 0
+signal all_skins_displayed ## Emitted when all skins from skin list are displayed
 
-var currently_swapping_skin_pos : int = -1 # Used in playlist skin swap
+const SKIN_BUTTON : PackedScene = preload("res://menu/objects/skin_button.tscn") ## Skin button instance
+const ALBUM_BAR : PackedScene = preload("res://menu/objects/album_bar.tscn") ## Album label instance
+
+var skin_list_rows_amount : int = 0 ## Amount of rows in displayed skin list
 
 
 func _ready() -> void:
-	menu.keep_locked = true
-	menu.screens["foreground"]._raise()
+	parent_menu.keep_locked = true
+	parent_menu.screens["foreground"]._raise()
 
 	cursor_selection_success.connect(_scroll)
 	
-	var skin_files_count : int = Data.skin_list._count_skin_files_amount()
-	$Skins/Info.text = str(skin_files_count) + " " + tr("SKINS_TOTAL")
-	if skin_files_count != Data.skin_list.files_amount:
-		Data.skin_list.was_parsed = false
-	
 	_load_skin_list()
+
+	$Skins/Info.text = str(Data.skin_list.skins_amount) + " " + tr("SKINS_TOTAL")
 	
-	await menu.all_screens_added
+	await parent_menu.all_screens_added
 	cursor = Vector2i(0,0)
 	_move_cursor()
 
 
-# Loads and displays skin list
+## Checks if skin list is already parsing and starts new parse if needed
 func _load_skin_list() -> void:
-	if Data.skin_list.currently_parsing:
-		Data.main._toggle_loading(true)
+	if Data.skin_list.is_parsing:
+		main._toggle_loading(true)
 
 		await Data.skin_list.parsed
 		await get_tree().create_timer(0.01).timeout
 
-		Data.main._toggle_loading(false)
+		main._toggle_loading(false)
 	else:
-		if Data.skin_list._check_parse():
-			Data.main._toggle_loading(true)
+		main._toggle_loading(true)
 
-			Data.skin_list._parse_threaded()
-			await Data.skin_list.parsed
-			await get_tree().create_timer(0.01).timeout
+		Data.skin_list._parse_threaded()
+		await Data.skin_list.parsed
+		await get_tree().create_timer(0.01).timeout
 
-			Data.main._toggle_loading(false)
+		main._toggle_loading(false)
 	
 	_display_skins_list()
 	
-	if menu.currently_adding_screens_amount > 0 : await menu.all_screens_added
-	menu.keep_locked = false
-	menu.is_locked = false
+	if parent_menu.currently_adding_screens_amount > 0 : await parent_menu.all_screens_added
+	parent_menu.keep_locked = false
+	parent_menu.is_locked = false
 
 
-# Displays all skins from skin list
+## Displays all skins from skin list
 func _display_skins_list() -> void:
-	print("DISPLAY SKINS START")
-	selectables.clear()
+	Console._log("Displaying skin list")
 	
 	for album : String in Data.skin_list.skins:
 		if Data.skin_list.skins[album].is_empty(): continue
+
+		Console._log("Adding album : " + album)
 		
 		var bar : ColorRect = ALBUM_BAR.instantiate()
 		bar.get_node("Album").text = album
@@ -94,42 +95,54 @@ func _display_skins_list() -> void:
 		album_numbers.sort()
 		
 		for number : int in album_numbers:
+			var skin_metadata : SkinMetadata = Data.skin_list._get_skin_metadata_by_album(album, number)
+			if skin_metadata == null : return
+
+			Console._log("Adding skin : " + skin_metadata.name)
+
 			if row_number == 4:
 				row_number = 0
 				if album_numbers.size() > 4: skin_list_rows_amount += 1
-			
+
 			var skin_button : MenuSelectableButton = SKIN_BUTTON.instantiate()
-			skin_button.skin_metadata = Data.skin_list.skins[album][number]
+			skin_button.skin_metadata = skin_metadata
 			skin_button.custom_minimum_size = Vector2(256,64)
+
 			skin_button.skin_selected.connect(_display_skin_metadata)
-			_assign_selectable(skin_button,Vector2i(row_number,skin_list_rows_amount))
+			skin_button.invalid_skin_selected.connect(_display_invalid_skin_metadata)
+			skin_button.locked_skin_selected.connect(_display_locked_skin_metadata)
+
 			skin_button.parent_screen = self
-			skin_button.sound_replay_button = true
+			skin_button.parent_menu = parent_menu
+
+			_set_selectable_position(skin_button,Vector2(row_number + 1,skin_list_rows_amount + 1))
+
 			grid.call_deferred("add_child",skin_button)
 			
 			row_number += 1
 		
 		skin_list_rows_amount += 1
 	
-	_assign_selectable($BACK, Vector2i(0,skin_list_rows_amount))
-	cancel_cursor_pos = Vector2i(0,skin_list_rows_amount)
-	
-	print("ALL SKINS DISPLAYED!")
-	emit_signal("all_skins_displayed")
+	Console._log("All skins displayed")
+	all_skins_displayed.emit()
 
 
+## Scrolls skin list
 func _scroll(cursor_pos : Vector2i) -> void:
-	if Data.current_input_mode == Data.INPUT_MODE.MOUSE: return
+	if main.current_input_mode == Main.INPUT_MODE.MOUSE: return
 
 	# Scroll skin list
 	if cursor_pos.y < skin_list_rows_amount: 
 		$Skins/S.scroll_vertical = clamp(currently_selected.position.y + currently_selected.get_parent().position.y - 256 ,0 ,INF)
 
 
+## ***Redefenition***
+## Moves cursor into **'direction'** and selects avaiable [MenuSelectableButton]/[MenuSelectableSlider][br]
+## **'oneshot'** - Set true if you don't want cursor to search for selectables, if cursor failed to select
 func _move_cursor(direction : int = CURSOR_DIRECTION.HERE, one_shot : bool = false) -> bool:
-	if menu.is_locked : return false
+	if parent_menu.is_locked : return false
 	if selectables.is_empty() : return false
-	if menu.current_screen_name != snake_case_name: return false
+	if parent_menu.current_screen_name != snake_case_name: return false
 
 	var old_cursor_position : Vector2i = cursor
 	cursor_move_try.emit()
@@ -204,13 +217,10 @@ func _move_cursor(direction : int = CURSOR_DIRECTION.HERE, one_shot : bool = fal
 	return false
 
 
+## Displays selected skin button metadata info
 func _display_skin_metadata(metadata : SkinMetadata) -> void:
 	if metadata == null:
-		%MadeBy.text = "MADE BY : MISSING_NO"
-		%Name.text = "UNKNOWN SKIN"
-		%Music.text = ""
-		%FileName.text = ""
-		%Info.text = tr("NO_SKINS2")
+		_display_invalid_skin_metadata("ERROR! Invalid metadata")
 		return
 	
 	%MadeBy.text = "MADE BY : " + metadata.skin_by + " | " + Time.get_datetime_string_from_unix_time(metadata.save_date as int).replace("T"," ")
@@ -220,15 +230,31 @@ func _display_skin_metadata(metadata : SkinMetadata) -> void:
 	%Info.text = metadata.info
 
 
-# Starts playlist mode game
-func _start_game(first_skin_metadata : SkinMetadata = null) -> void:
-	if first_skin_metadata == null: return
-	
-	if Data.menu.is_music_playing:
-		Data.menu.custom_data["last_music_pos"] = Data.menu.music_player.get_playback_position()
-	Data.menu._sound("announce", first_skin_metadata.announce)
+## Displays selected invalid skin button error message
+func _display_invalid_skin_metadata(error : String) -> void:
+	%MadeBy.text = "MADE BY : MISSING_NO"
+	%Name.text = "UNKNOWN SKIN"
+	%Music.text = error
+	%FileName.text = ""
+	%Info.text = ""
+	return
 
-	Data.menu._sound("enter")
-	_remove()
+
+## Displays selected locked skin button lock condition
+func _display_locked_skin_metadata(lock_condition : String) -> void:
+	%MadeBy.text = "MADE BY : ??????"
+	%Name.text = "LOCKED SKIN"
+	%Music.text = lock_condition
+	%FileName.text = ""
+	%Info.text = ""
+	return
+
+
+## Starts skintest with selected **'skin_metadata'**
+func _start_game(skin_metadata : SkinMetadata = null) -> void:
+	if skin_metadata == null: return
 	
-	Data.main._test_skin(first_skin_metadata)
+	parent_menu._play_sound("announce", skin_metadata.announce)
+	parent_menu._play_sound("enter")
+	
+	main._test_skin(skin_metadata)

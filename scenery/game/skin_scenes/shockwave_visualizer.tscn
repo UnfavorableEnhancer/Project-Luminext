@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://b2vj5gabae3vk"]
 
-[ext_resource type="Shader" path="res://shaders/ghost.gdshader" id="1_opwy2"]
+[ext_resource type="Shader" uid="uid://rg0svec0by73" path="res://shaders/ghost.gdshader" id="1_opwy2"]
 
 [sub_resource type="GDScript" id="GDScript_qo78n"]
 script/source = "extends Node2D
@@ -79,7 +79,7 @@ gradient = SubResource("Gradient_qejev")
 viewport_path = NodePath("Sub/Viewport")
 
 [sub_resource type="Curve" id="Curve_gnvi5"]
-max_value = 4.0
+_limits = [0.0, 4.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 4), 0.0, 0.0, 0, 0]
 point_count = 2
 
@@ -131,7 +131,7 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hxpbi"]
 _data = {
-"main": SubResource("Animation_l6jsq")
+&"main": SubResource("Animation_l6jsq")
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_817y6"]

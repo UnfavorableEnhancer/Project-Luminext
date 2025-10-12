@@ -1,16 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://btrm8f7wqk8pj"]
 
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="1"]
-
-[sub_resource type="GDScript" id="3"]
-script/source = "extends FX
-
-func _ready() -> void:
-	use_field_coordinates = false
-	$Label.text = parameter
-	
-	_start()
-"
+[ext_resource type="Script" uid="uid://bnjb5dili5qka" path="res://scripts/game/luminext/effects/fx_spec_message.gd" id="1_7qt6f"]
 
 [sub_resource type="Gradient" id="8"]
 offsets = PackedFloat32Array(0, 0.0325203, 0.924119, 1)
@@ -67,12 +58,12 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aa2la"]
 _data = {
-"start": SubResource("2")
+&"start": SubResource("2")
 }
 
 [node name="Message" type="Node2D"]
 modulate = Color(1, 1, 1, 0)
-script = SubResource("3")
+script = ExtResource("1_7qt6f")
 
 [node name="Message" type="TextureRect" parent="."]
 offset_left = -348.0
@@ -96,5 +87,5 @@ uppercase = true
 
 [node name="ANIM" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_aa2la")
+&"": SubResource("AnimationLibrary_aa2la")
 }

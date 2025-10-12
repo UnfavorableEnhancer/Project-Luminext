@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=3 uid="uid://dw0iu31f3tl2y"]
+[gd_scene load_steps=6 format=3 uid="uid://dw0iu31f3tl2y"]
 
-[ext_resource type="Script" path="res://scripts/debuger.gd" id="1"]
 [ext_resource type="FontFile" uid="uid://cklk4kjp10w3h" path="res://fonts/console/visitor1.ttf" id="2_26b0l"]
 [ext_resource type="FontFile" uid="uid://dxy0iebux22yo" path="res://fonts/console/whitrabt.ttf" id="3_e3dig"]
 
@@ -17,6 +16,7 @@ font = ExtResource("3_e3dig")
 font_size = 20
 
 [node name="Debug" type="Control"]
+z_index = 3999
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +24,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1")
 
 [node name="FPS" type="ColorRect" parent="."]
 layout_mode = 0
@@ -203,11 +202,6 @@ layout_mode = 2
 text = "Total squares amount : 0"
 label_settings = SubResource("LabelSettings_axjfj")
 
-[node name="DelCnt" type="Label" parent="Game/V"]
-layout_mode = 2
-text = "Total soon to delete blocks amount : 0"
-label_settings = SubResource("LabelSettings_axjfj")
-
 [node name="Line2" type="Label" parent="Game/V"]
 layout_mode = 2
 text = "-----------------------------------------------------"
@@ -357,7 +351,7 @@ mouse_filter = 2
 [node name="Back" type="ColorRect" parent="Skin"]
 layout_mode = 0
 offset_right = 768.0
-offset_bottom = 280.0
+offset_bottom = 248.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.75)
 
@@ -366,7 +360,7 @@ layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 752.0
-offset_bottom = 265.0
+offset_bottom = 240.0
 mouse_filter = 2
 
 [node name="Debug" type="Label" parent="Skin/V"]
@@ -382,6 +376,11 @@ label_settings = SubResource("LabelSettings_8kmyt")
 [node name="Name" type="Label" parent="Skin/V"]
 layout_mode = 2
 text = "Name : SHININ'"
+label_settings = SubResource("LabelSettings_8kmyt")
+
+[node name="ID" type="Label" parent="Skin/V"]
+layout_mode = 2
+text = "ID : 1001"
 label_settings = SubResource("LabelSettings_8kmyt")
 
 [node name="State" type="Label" parent="Skin/V"]
@@ -413,18 +412,3 @@ label_settings = SubResource("LabelSettings_8kmyt")
 layout_mode = 2
 text = "Last music sample start position :"
 label_settings = SubResource("LabelSettings_8kmyt")
-
-[node name="SSPos" type="Label" parent="Skin/V"]
-layout_mode = 2
-text = "Last scene sample start position :"
-label_settings = SubResource("LabelSettings_8kmyt")
-
-[node name="Loop" type="Label" parent="Skin/V"]
-layout_mode = 2
-text = "Is currently looping : false"
-label_settings = SubResource("LabelSettings_8kmyt")
-
-[node name="DebugTimer" type="Timer" parent="."]
-wait_time = 0.25
-
-[connection signal="timeout" from="DebugTimer" to="." method="_debug_check"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://ve3xt8fknq5s"]
 
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="1_7eynp"]
-[ext_resource type="Script" path="res://menu/scripts/objects/ranking_bar.gd" id="1_gl121"]
+[ext_resource type="Script" uid="uid://b08cxognjya1c" path="res://menu/scripts/objects/ranking_bar.gd" id="1_gl121"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ooinb"]
 blend_mode = 1

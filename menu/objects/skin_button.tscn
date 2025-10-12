@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://br3jadq0bue8"]
 
-[ext_resource type="Script" path="res://menu/scripts/objects/skin_button.gd" id="1"]
+[ext_resource type="Script" uid="uid://3fwptb1ynmfh" path="res://menu/scripts/objects/skin_button.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://bv7iu8q1vutpk" path="res://images/back.png" id="2"]
 [ext_resource type="FontFile" uid="uid://oh0jm8h7jp8q" path="res://fonts/square_sans_serif.ttf" id="3"]
-[ext_resource type="Texture2D" uid="uid://eqe8fsyitsks" path="res://menu/images/frame.png" id="4"]
-[ext_resource type="Shader" path="res://shaders/inverse.gdshader" id="4_5jx7f"]
+[ext_resource type="Texture2D" uid="uid://eqe8fsyitsks" path="res://menu/images/misc/frame.png" id="4"]
+[ext_resource type="Shader" uid="uid://bks0kx42beek5" path="res://shaders/inverse.gdshader" id="4_5jx7f"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ywwvy"]
 font = ExtResource("3")

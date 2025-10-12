@@ -1,21 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://de52ssxkpj6vk"]
 
-[sub_resource type="GDScript" id="22"]
-script/source = "extends FX
-
-func _ready() -> void:
-	is_persistent = true
-	
-	name = \"l\" + str(position.x + 10) + str(position.y + 10)
-	modulate = Color(0.8,0.0,0.0,0.75)
-	
-	_start()
-
-func _explode() -> void:
-	$ANIM.play(\"boom\")
-	await get_tree().create_timer(1).timeout
-	queue_free()
-"
+[ext_resource type="Script" uid="uid://cgnivu13ixn82" path="res://scripts/game/luminext/effects/fx_laser.gd" id="1_53t81"]
 
 [sub_resource type="Animation" id="23"]
 resource_name = "boom"
@@ -160,26 +145,25 @@ tracks/5/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jm5x5"]
 _data = {
-"boom": SubResource("23"),
-"start": SubResource("18")
+&"boom": SubResource("23"),
+&"start": SubResource("18")
 }
 
 [sub_resource type="Gradient" id="24"]
-offsets = PackedFloat32Array(0, 0.01)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
 [node name="Laser" type="Node2D"]
-script = SubResource("22")
+script = ExtResource("1_53t81")
 
 [node name="ANIM" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_jm5x5")
+&"": SubResource("AnimationLibrary_jm5x5")
 }
 
 [node name="Cross" type="Node2D" parent="."]
 modulate = Color(1, 1, 1, 0)
 position = Vector2(-32, -32)
-scale = Vector2(1e-05, 1e-05)
+scale = Vector2(8, 8)
 
 [node name="Line" type="Line2D" parent="Cross"]
 points = PackedVector2Array(0, 0, 44.114, 0, 90.4932, 0, 147.179, 0, 200, 0, 247.023, 0, 284.384, 0, 333.34, 0, 382.94, 0, 423.522, 0, 467.968, 0, 521.433, 0, 572, 0)
@@ -204,7 +188,7 @@ gradient = SubResource("24")
 modulate = Color(1, 1, 1, 0)
 position = Vector2(-32, -32)
 rotation = 1.5708
-scale = Vector2(1e-05, 1e-05)
+scale = Vector2(8, 8)
 
 [node name="Line5" type="Line2D" parent="Cross2"]
 rotation = -0.785398

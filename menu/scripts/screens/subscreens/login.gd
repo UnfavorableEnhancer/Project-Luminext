@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,49 +18,77 @@
 
 extends MenuScreen
 
-const PROFILE_BUTTON : PackedScene = preload("res://menu/objects/regular_button.tscn")
+##-----------------------------------------------------------------------
+## Created on boot sequence and allows to edit avaiable profiles or create new one
+##-----------------------------------------------------------------------
+
+const PROFILE_BUTTON : PackedScene = preload("res://menu/objects/regular_button.tscn") ## Profile button instance
 
 
 func _ready() -> void:
-	Data.menu._change_music("login")
-	create_tween().tween_property(Data.main.black,"color",Color(0,0,0,0),1.0)
+	parent_menu._change_music("login")
+	main._toggle_darken(false)
+
 	cursor_selection_success.connect(_scroll)
 	
-	menu.screens["foreground"]._raise()
-	
-	match Data.profile.status:
-		Profile.STATUS.NO_PROFILES_EXIST:
+	parent_menu.screens["foreground"]._raise()
+
+	match Player.profile_status:
+		Profile.PROFILE_STATUS.NO_PROFILES_EXIST:
 			$V/Text.text = "\n" + tr("LOGIN_WELCOME1") + "\n\n" + tr("LOGIN_WELCOME2")
 			$V/Control/Line.visible = false
 			$V/UNK.visible = true
 			$V/Profiles.visible = false
+
+			await parent_menu.all_screens_added
+			cursor = Vector2i(0,0)
+			_move_cursor()
 			return
-		Profile.STATUS.OK:
+
+		Profile.PROFILE_STATUS.OK:
 			$V/Text.text = tr("LOGIN_SELECT_OPTION")
-		Profile.STATUS.GLOBAL_DATA_ERROR:
+
+		Profile.PROFILE_STATUS.GLOBAL_DATA_ERROR:
 			$V/Text.text = tr("LOGIN_DATA_ERROR") + "\n" + tr("LOGIN_SELECT_OPTION")
-		Profile.STATUS.PROFILE_IS_MISSING:
+
+		Profile.PROFILE_STATUS.PROFILE_IS_MISSING:
 			$V/Text.text = tr("LOGIN_PROFILE_MISSING") + "\n" + tr("LOGIN_SELECT_OPTION")
-		Profile.STATUS.PROGRESS_MISSING:
+
+		Profile.PROFILE_STATUS.PROGRESS_MISSING:
 			$V/Text.text = tr("LOGIN_SAVEDATA_MISSING") + "\n" + tr("LOGIN_SELECT_OPTION")
-		Profile.STATUS.PROGRESS_FAIL:
+
+		Profile.PROFILE_STATUS.PROGRESS_FAIL:
 			$V/Text.text = tr("LOGIN_SAVEDATA_CORRUPT") + "\n" + tr("LOGIN_SELECT_OPTION")
-		Profile.STATUS.CONFIG_MISSING, Profile.STATUS.CONFIG_FAIL:
-			var dialog : MenuScreen = menu._add_screen("accept_dialog")
+
+		Profile.PROFILE_STATUS.CONFIG_MISSING, Profile.PROFILE_STATUS.CONFIG_FAIL:
+			var dialog : MenuScreen = parent_menu._add_screen("accept_dialog")
 			dialog.desc_text = tr("PE_CONFIG_MISSING")
 			dialog.accept_function = _continue_loading
 
+	_load_profile_list()
+
+	await parent_menu.all_screens_added
+	cursor = Vector2i(0,0)
+	_move_cursor()
+
+
+## Loads all avaiable profiles list
+func _load_profile_list() -> void:
+	selectables.clear()
 	var tween : Tween = create_tween()
 	tween.tween_interval(0.75)
-	var profiles : Array = Data._parse(Data.PARSE.PROFILES)
+
+	var profiles : Array[String] = Data._parse(Data.PARSE.PROFILES, true)
 	var count : int = 0
 	for profile_name : String in profiles:
 		profile_name = profile_name.get_file().get_slice('.',0)
 		
 		var button : MenuSelectableButton = PROFILE_BUTTON.instantiate()
+
 		button.call_function_name = "_load_profile"
 		button.call_string = profile_name
-		if profile_name == Data.profile.name : button.text = profile_name + " [CURRENT]"
+
+		if profile_name == Player.profile_name : button.text = profile_name + " [CURRENT]"
 		else : button.text = profile_name
 		
 		button.press_sound_name = "confirm4"
@@ -71,77 +99,85 @@ func _ready() -> void:
 		button.description_node = $V/Desc
 		button.button_layout = 13
 		button.modulate.a = 0.0
+
+		button.parent_screen = self
+		button.parent_menu = parent_menu
+
+		_set_selectable_position(button, Vector2i(0,count))
+
 		$V/Profiles/V.add_child(button)
-		_assign_selectable(button, Vector2i(0,count))
 		tween.tween_property(button, "modulate:a", 1.0, 0.1).from(0.0)
 		
 		count += 1
 	
 	$V/Profiles.custom_minimum_size = Vector2(0,clamp(56 * count, 0, 360))
 
-	_assign_selectable($V/Menu/Create, Vector2i(0,count))
-	_assign_selectable($V/Menu/Exit, Vector2i(0,count+1))
+	_set_selectable_position($V/Menu/Create, Vector2i(0,count))
+	_set_selectable_position($V/Menu/Exit, Vector2i(0,count+1))
 	
-	await menu.all_screens_added
-	cursor = Vector2i(0,0)
-	_move_cursor()
 
-
+## Scrolls profile list scroll bar
 func _scroll(_cursor_pos : Vector2i) -> void:
-	if Data.current_input_mode == Data.INPUT_MODE.MOUSE: return
+	if main.current_input_mode == Main.INPUT_MODE.MOUSE: return
 
 	$V/Profiles.scroll_vertical = clamp(currently_selected.position.y, 0 ,INF)
 
 
+## Loads selected profile
 func _load_profile(profile_name : String) -> void:
-	Data.profile._load_profile(profile_name)
+	Player._load(profile_name)
 
-	if Data.profile.status == Profile.STATUS.PROFILE_IS_MISSING:
-		Data.main._display_system_message("PROFILE IS MISSING!\nLOADING FAILED")
-		return
+	match Player.profile_status:
+		Profile.PROFILE_STATUS.PROFILE_IS_MISSING:
+			main._display_system_message("PROFILE IS MISSING!\nLOADING FAILED")
+			return
+
+		Profile.PROFILE_STATUS.PROGRESS_MISSING:
+			main._display_system_message("PROFILE SAVE DATA IS MISSING!\nLOADING FAILED")
+			return
+
+		Profile.PROFILE_STATUS.PROGRESS_FAIL:
+			main._display_system_message("PROFILE SAVE DATA IS CORRUPTED!\nLOADING FAILED")
+			return
+
+		Profile.PROFILE_STATUS.CONFIG_FAIL, Profile.PROFILE_STATUS.CONFIG_MISSING:
+			var dialog : MenuScreen = parent_menu._add_screen("accept_dialog")
+			dialog.desc_text = tr("PE_CONFIG_MISSING")
+			dialog.accept_function = _continue_loading
+			return
 	
-	if Data.profile.status == Profile.STATUS.PROGRESS_MISSING :
-		Data.main._display_system_message("PROFILE SAVE DATA IS MISSING!\nLOADING FAILED")
-		return
+	parent_menu.screens["foreground"]._update_profile_info()
 	
-	if Data.profile.status == Profile.STATUS.PROGRESS_FAIL :
-		Data.main._display_system_message("PROFILE SAVE DATA IS CORRUPTED!\nLOADING FAILED")
-		return
-
-	if Data.profile.status == Profile.STATUS.CONFIG_FAIL or Data.profile.status == Profile.STATUS.CONFIG_MISSING:
-		var dialog : MenuScreen = menu._add_screen("accept_dialog")
-		dialog.desc_text = tr("PE_CONFIG_MISSING")
-		dialog.accept_function = _continue_loading
-		return
-	
-	menu.screens["foreground"].get_node("ProfileLayout/Name").text = profile_name
-	# Hack to make music changing
-	menu.is_music_playing = false
-	menu._change_screen("main_menu")
+	parent_menu._change_music("menu_theme")
+	parent_menu._change_screen("main_menu")
 
 
+## Continues profile loading after confirmation dialog close
 func _continue_loading() -> void:
-	menu.screens["foreground"].get_node("ProfileLayout/Name").text = Data.profile.name
-	# Hack to make music changing
-	menu.is_music_playing = false
-	menu._change_screen("main_menu")
+	parent_menu.screens["foreground"]._update_profile_info()
+
+	parent_menu._change_music("menu_theme")
+	parent_menu._change_screen("main_menu")
 
 
+## Shows input dialog for inputting new profile name
 func _start_profile_create() -> void:
-	var input : MenuScreen = menu._add_screen("text_input")
+	var input : MenuScreen = parent_menu._add_screen("text_input")
 	input.desc_text = tr("PE_CREATE_DIALOG")
 	input.accept_function = _create_profile
 
 
+## Creates new profile with **'profile_name'**
 func _create_profile(profile_name : String) -> void:
-	Data.profile._create_profile(profile_name)
-	menu.screens["foreground"].get_node("ProfileLayout/Name").text = profile_name
-	# Hack to make music changing
-	menu.is_music_playing = false
-	Data.menu._change_screen("main_menu")
+	Player._create_profile(profile_name)
+	parent_menu.screens["foreground"]._update_profile_info()
+	
+	parent_menu._change_music("menu_theme")
+	parent_menu._change_screen("main_menu")
 
 
+## Shows confirmation dialog for closing the game
 func _exit() -> void:
-	var dialog : MenuScreen = Data.menu._add_screen("accept_dialog")
+	var dialog : MenuScreen = parent_menu._add_screen("accept_dialog")
 	dialog.desc_text = tr("EXIT_DIALOG")
-	dialog.accept_function = Data.main._exit
+	dialog.accept_function = main._exit

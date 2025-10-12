@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,48 +18,66 @@
 
 extends Node2D
 
-signal style_changed
+##-----------------------------------------------------------------------
+## Controls game UI which depends on currently played gamemode
+##-----------------------------------------------------------------------
 
-var ui_elements : Dictionary
+class_name Foreground
 
-var is_changing : bool = false
-var is_song_looping : bool = false
+signal style_changed ## Emitted when GUI style is changed
+
+var ui_elements : Dictionary[String, UIElement] ## All currently existing [UIElements]
+var is_changing : bool = false ## True if GUI style is currently changing
 
 
-# Resets background to its initial empty state
+## Removes all UI elements
 func _reset() -> void:
-	for element : UIElement in ui_elements:
-		ui_elements[element].queue_free()
-		ui_elements.erase(element)
+	for element_name : String in ui_elements.keys():
+		ui_elements[element_name].queue_free()
+		ui_elements.erase(element_name)
 
 
-# Adds UIElement
+## Adds new [UIElement] with name **'element_name'** and returns its instance
 func _add_ui_element(element_name : String) -> UIElement:
-	var element_instance : UIElement = load("res://scenery/game/foreground/" + element_name + ".tscn").instantiate()
-	ui_elements[element_name] = element_instance
-	add_child(element_instance)
-	return element_instance
+	var element : UIElement = load("res://scenery/game/foreground/" + element_name + ".tscn").instantiate()
+	ui_elements[element_name] = element
+	add_child(element)
+	return element
 
-# Removes UIElement
+
+## Removes existing [UIElement] with name **'element_name'**
 func _remove_ui_element(element_name : String) -> void:
 	if ui_elements.has(element_name):
 		ui_elements[element_name].queue_free()
 		ui_elements.erase(element_name)
 
 
-# Changes style of all UIElements with fade-out-in animation, 'speed' defines speed of that animation
-func _change_style(style : int, skin_data : SkinData, speed : float = 1.0) -> void:
+## Changes style of all UI elements with fade-out animation [br]
+## - **'skin_data'** - [SkinData] which will be used to define UI elements visuals [br]
+## - **'speed'** - defines speed factor of fade-out animation
+func _change_style(skin_data : SkinData, transition_time : float = 1.0) -> void:
 	if is_changing : return
 	is_changing = true
 
-	create_tween().tween_property(self, "modulate:a", 0.0, speed / 2.0)
+	if transition_time < 0.01:
+		for ui_element : UIElement in ui_elements.values(): 
+			ui_element._change_style(skin_data)
+		
+		is_changing = false
+		return
 
-	await get_tree().create_timer(speed / 2.0).timeout
+	var tween : Tween = create_tween()
 
-	for ui_element : UIElement in ui_elements.values():
-		ui_element._change_style(style, skin_data)
+	# Fade-out-in animation
+	tween.tween_property(self, "modulate:a", 0.0, transition_time).from(1.0)
+	tween.tween_property(self, "modulate:a", 1.0, transition_time)
 
-	create_tween().tween_property(self, "modulate:a", 1.0, speed / 2.0)
+	await tween.step_finished
+
+	for ui_element : UIElement in ui_elements.values(): 
+		ui_element._change_style(skin_data)
+
+	await tween.step_finished
 
 	style_changed.emit()
 	is_changing = false

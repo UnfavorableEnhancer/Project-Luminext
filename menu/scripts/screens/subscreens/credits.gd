@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,15 +18,19 @@
 
 extends MenuScreen
 
+##-----------------------------------------------------------------------
+## Loads and displays credits text from "res://CREDITS.txt"
+##-----------------------------------------------------------------------
+
 
 func _ready() -> void:
-	menu.screens["foreground"]._raise()
+	parent_menu.screens["foreground"]._raise()
 	
 	if FileAccess.file_exists("res://CREDITS.txt"):
 		var file : FileAccess = FileAccess.open("res://CREDITS.txt",FileAccess.READ)
 		$Content/Scroll/CreditsText.text = file.get_as_text()
 	
-	await menu.all_screens_added
+	await parent_menu.all_screens_added
 	cursor = Vector2i(0,0)
 	_move_cursor()
 

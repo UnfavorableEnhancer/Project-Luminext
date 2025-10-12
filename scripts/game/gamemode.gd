@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,68 +18,52 @@
 
 extends Node
 
-#-----------------------------------------------------------------------
-# Base gamemode class
-# 
-# Defines game rules and how it would behave
-#-----------------------------------------------------------------------
+##-----------------------------------------------------------------------
+## Base class for all gamemodes
+## Each gamemode defines unique game behaviour and goals
+##-----------------------------------------------------------------------
 
 class_name Gamemode
 
-signal retry_complete
-signal reset_complete
-signal preprocess_finished
+var main : Main ## Main instance
+var game : GameCore ## Game instance
+var foreground : Foreground ## Foreground instance
 
-enum RETRY_STATUS {OK, FAILED, SKIN_MISSING}
+var gamemode_name : String = "" ## Name of the gamemode
+var ruleset : Ruleset = Ruleset.new() ## Used by the gamemode ruleset
 
-@onready var game : Node2D = get_parent() # Current game instance
-
-var gamemode_name : String = ""
-
-var use_preprocess : bool = false # Set to true to preprocess this gamemode
-
-var error_text : String = "GAMEMODE ERROR!" # Custom error string that game will display if something wrong with gamemode 
-var retry_status : int = 0 # Shows did gamemode succeed in retrying 
+var error_text : String = "GAMEMODE ERROR!" ## Error string that will be displayed by the system message on gamemode reset failure
 
 
-# Called on game boot and designed to lift heavy tasks which must be completed before game starts
-func _preprocess() -> int:
-	preprocess_finished.emit()
-	return OK
+## Initiates all needed for this gamemode [UIElements]
+func _load_ui() -> void:
+	foreground._reset()
 
-# Called on game exit
-func _end() -> void:
+
+## Called on game soft reset and regular reset
+func _soft_reset() -> void:
 	pass
 
 
-# Asks game foreground to load needed ui elements
-func _load_ui() -> void:
-	game.foreground._reset()
-
-
-# Resets gamemode to initial state, called last in game reset function
-func _reset() -> void:
+## Called on game reset
+func _reset() -> int:
 	_load_ui()
 	
-	reset_complete.emit()
+	await get_tree().create_timer(1.0).timeout
+	return OK
 
 
-# Resets gamemode to initial state, called first in game reset function
-func _prereset() -> void:
-	pass
-
-
-# Called on game over
-func _game_over() -> void:
-	pass
-
-
-# Called on pause
+## Called on game pause
 func _pause(_on : bool) -> void:
 	pass
 
 
-# Called on game retry
-func _retry() -> void:
-	retry_complete.emit()
+## Called on game over
+func _game_over() -> void:
+	pass
+
+
+## Called on game exit
+func _end() -> void:
+	pass
 

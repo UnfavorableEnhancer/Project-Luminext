@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,8 +18,16 @@
 
 extends MenuScreen
 
+##-----------------------------------------------------------------------
+## Used for game over screen of [PracticeMode]
+## Displays several messages about what player can do next
+##-----------------------------------------------------------------------
+
+var game : GameCore = null
+
+
 func _ready() -> void:
-	Data.menu._remove_screen("foreground")
+	parent_menu._remove_screen("foreground")
 	var tween : Tween = create_tween()
 	
 	$Outro.modulate.a = 0.0
@@ -45,5 +53,5 @@ func _ready() -> void:
 	
 	await tween.finished
 	
-	Data.game._end()
+	game._end()
 	_remove()

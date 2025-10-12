@@ -18,6 +18,11 @@
 
 extends UIElement
 
+##-----------------------------------------------------------------------
+## Main UI for PracticeMode
+## Shows texts messages telling player about current tutorial stage goal
+##-----------------------------------------------------------------------
+
 const LABEL_FONT : FontFile = preload("res://fonts/sani_trixie_sans.ttf")
 const BUTTON_ICON_SIZE : Vector2 = Vector2(64,64)
 
@@ -118,10 +123,10 @@ func _highlight_mission(text : String, red : bool = false) -> void:
 	
 	if red : 
 		create_tween().tween_property(line, "modulate", Color.WHITE, 0.5).from(Color.RED)
-		Data.menu._sound("cancel")
+		#Data.menu._sound("cancel")
 	else : 
 		create_tween().tween_property(line, "modulate", Color.WHITE, 0.5).from(Color("00ffa5"))
-		Data.menu._sound("confirm4")
+		#Data.menu._sound("confirm4")
 
 
 func _update_mission_text(text : String, speed : float = 0.5) -> void:
@@ -148,7 +153,7 @@ func _add_text_to_line(index : int, text : String) -> Label:
 
 func _add_button_icon_to_line(index : int, button_name : String) -> void:
 	var line : HBoxContainer = get_node("Message/TextBox" + str(index))
-	var icon : TextureRect = Data.menu._create_button_icon(button_name, BUTTON_ICON_SIZE)
+	var icon : TextureRect = Menu._create_button_icon(button_name, BUTTON_ICON_SIZE)
 	icon.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	icon.custom_minimum_size = BUTTON_ICON_SIZE
 	line.add_child(icon)

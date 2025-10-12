@@ -1,13 +1,341 @@
-[gd_scene load_steps=30 format=3 uid="uid://dti7y77objyaa"]
+[gd_scene load_steps=31 format=3 uid="uid://dti7y77objyaa"]
 
-[ext_resource type="Texture2D" uid="uid://dam67m6wayew5" path="res://menu/images/lines.png" id="1_dunvi"]
-[ext_resource type="Script" path="res://menu/scripts/screens/synthesia_mode.gd" id="1_ekmnu"]
+[ext_resource type="Texture2D" uid="uid://dam67m6wayew5" path="res://menu/images/misc/lines.png" id="1_dunvi"]
+[ext_resource type="Script" uid="uid://ci571v10uesmd" path="res://menu/scripts/screens/synthesia_mode.gd" id="1_ekmnu"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2_dy6hb"]
 [ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://menu/objects/regular_button.tscn" id="3_wgmwl"]
+[ext_resource type="FontFile" uid="uid://sawohm8dc1a" path="res://fonts/Gravity-Book.otf" id="3_yoxjh"]
 [ext_resource type="FontFile" uid="uid://bncda7ixlpa7b" path="res://fonts/rounded_mgenplus.ttf" id="4_qo5rh"]
 [ext_resource type="PackedScene" uid="uid://160thw0yemok" path="res://menu/objects/slider.tscn" id="6_bpuej"]
-[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="8_7wbnt"]
 [ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="9_tj44y"]
+
+[sub_resource type="Animation" id="Animation_yoxjh"]
+resource_name = "RESET"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top/Iconhold:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Top/Label:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.75),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Top/Iconhold/Icon:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Top/Iconhold/Icon:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Desc:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Desc:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Music:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Music:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Menu:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Menu:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Background:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Music/Detail4:visible_ratio")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Menu/Detail4:visible_ratio")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Desc/Detail4:visible_ratio")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Menu/Visual/Label3/ColorRect:scale")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Menu/Soundset/Label3/ColorRect:scale")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Menu/ColorRect2:scale")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Menu/ColorRect3:scale")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Menu/Visual/Slider2:modulate")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Menu/Soundset/Slider:modulate")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("Menu/Visual/Label3:self_modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("Menu/Soundset/Label3:self_modulate")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("Menu/PlayInfinite:scale")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("Menu/PreciseCalc:scale")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("Menu/GameConfig:scale")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("Menu/Back:scale")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("Menu/Label4:self_modulate")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_0rwj5"]
 resource_name = "end"
@@ -668,8 +996,9 @@ tracks/26/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u4fqk"]
 _data = {
-"end": SubResource("Animation_0rwj5"),
-"start": SubResource("17")
+&"RESET": SubResource("Animation_yoxjh"),
+&"end": SubResource("Animation_0rwj5"),
+&"start": SubResource("17")
 }
 
 [sub_resource type="Shader" id="Shader_3bw7t"]
@@ -704,16 +1033,16 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ycc5"]
 shader = SubResource("Shader_3bw7t")
+shader_parameter/sub_texture = ExtResource("1_dunvi")
 shader_parameter/progress = 0.466
 shader_parameter/bg_color = Color(0.717647, 0.380392, 0.380392, 0)
 shader_parameter/wave_1_color = Color(0.713726, 0.713726, 0.713726, 0.509804)
 shader_parameter/wave_2_color = Color(0.898039, 0.898039, 0.898039, 0.717647)
 shader_parameter/wave_1_speed = -0.5
 shader_parameter/wave_2_speed = 0.25
-shader_parameter/sub_texture = ExtResource("1_dunvi")
 
 [sub_resource type="LabelSettings" id="LabelSettings_a2w4y"]
-font = ExtResource("8_7wbnt")
+font = ExtResource("3_yoxjh")
 font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_lwkt4"]
@@ -770,17 +1099,20 @@ region = Rect2(256, 512, 256, 256)
 atlas = ExtResource("9_tj44y")
 region = Rect2(512, 1280, 256, 256)
 
-[sub_resource type="LabelSettings" id="LabelSettings_4cgq3"]
+[sub_resource type="LabelSettings" id="LabelSettings_1c1iy"]
 font = ExtResource("2_dy6hb")
 font_size = 36
 font_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.231373)
+shadow_offset = Vector2(4, 4)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m8dhv"]
 atlas = ExtResource("9_tj44y")
 region = Rect2(768, 256, 256, 256)
 
 [sub_resource type="LabelSettings" id="LabelSettings_16csx"]
-font = ExtResource("8_7wbnt")
+font = ExtResource("3_yoxjh")
 font_size = 28
 
 [node name="Synthesia Mode" type="Control"]
@@ -795,7 +1127,7 @@ script = ExtResource("1_ekmnu")
 
 [node name="A" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_u4fqk")
+&"": SubResource("AnimationLibrary_u4fqk")
 }
 
 [node name="Background" type="Control" parent="."]
@@ -811,7 +1143,7 @@ material = SubResource("ShaderMaterial_1ycc5")
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
-color = Color(0.737255, 0.494118, 0.858824, 1)
+color = Color(0.604745, 0.385208, 0.996094, 1)
 
 [node name="back" type="ColorRect" parent="."]
 visible = false
@@ -841,7 +1173,6 @@ offset_right = 1008.0
 offset_bottom = 64.0
 text = "???"
 label_settings = SubResource("LabelSettings_a2w4y")
-horizontal_alignment = 2
 vertical_alignment = 1
 clip_text = true
 
@@ -953,7 +1284,7 @@ label_settings = SubResource("LabelSettings_g4n5i")
 horizontal_alignment = 2
 uppercase = true
 
-[node name="Slider2" parent="Menu/Visual" node_paths=PackedStringArray("description_node") instance=ExtResource("6_bpuej")]
+[node name="Slider2" parent="Menu/Visual" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_bpuej")]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_top = 60.0
@@ -965,6 +1296,7 @@ description = "SHOCKWAVE_FANCY_DESC"
 is_setting_slider = false
 menu_position = Vector2i(1, 0)
 call_function_name = "_select_visualizer"
+parent_screen = NodePath("../../..")
 
 [node name="Soundset" type="Control" parent="Menu"]
 layout_mode = 3
@@ -1004,7 +1336,7 @@ label_settings = SubResource("LabelSettings_g4n5i")
 horizontal_alignment = 2
 uppercase = true
 
-[node name="Slider" parent="Menu/Soundset" node_paths=PackedStringArray("description_node") instance=ExtResource("6_bpuej")]
+[node name="Slider" parent="Menu/Soundset" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_bpuej")]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 16.0
@@ -1018,6 +1350,7 @@ description = "Select sound set which will be used."
 is_setting_slider = false
 menu_position = Vector2i(1, 1)
 call_function_name = "_select_soundset"
+parent_screen = NodePath("../../..")
 
 [node name="Label4" type="Label" parent="Menu"]
 self_modulate = Color(1, 1, 1, 0)
@@ -1031,7 +1364,7 @@ text = "OTHER_SETTINGS"
 label_settings = SubResource("LabelSettings_g4n5i")
 uppercase = true
 
-[node name="PlayInfinite" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("3_wgmwl")]
+[node name="PlayInfinite" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("3_wgmwl")]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 304.0
@@ -1048,6 +1381,7 @@ menu_position = Vector2i(1, 2)
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "SY_endless_song"
+parent_screen = NodePath("../..")
 
 [node name="IO" type="Label" parent="Menu/PlayInfinite"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1069,7 +1403,7 @@ label_settings = SubResource("LabelSettings_m03pd")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="PreciseCalc" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("3_wgmwl")]
+[node name="PreciseCalc" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("3_wgmwl")]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 368.0
@@ -1086,6 +1420,7 @@ menu_position = Vector2i(1, 3)
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "SY_precise_bpm"
+parent_screen = NodePath("../..")
 
 [node name="IO" type="Label" parent="Menu/PreciseCalc"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1107,7 +1442,7 @@ label_settings = SubResource("LabelSettings_m03pd")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="GameConfig" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("3_wgmwl")]
+[node name="GameConfig" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("3_wgmwl")]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 648.0
@@ -1122,6 +1457,7 @@ menu_position = Vector2i(1, 4)
 work_mode = 1
 press_sound_name = "confirm"
 call_string = "game_config"
+parent_screen = NodePath("../..")
 
 [node name="Icon" type="TextureRect" parent="Menu/GameConfig"]
 layout_mode = 1
@@ -1138,7 +1474,7 @@ texture = SubResource("AtlasTexture_u0j8e")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Back" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("3_wgmwl")]
+[node name="Back" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("3_wgmwl")]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 712.0
@@ -1154,6 +1490,7 @@ work_mode = 1
 press_sound_name = "cancel"
 is_cancel_button = true
 call_string = "main_menu"
+parent_screen = NodePath("../..")
 
 [node name="Icon" type="TextureRect" parent="Menu/Back"]
 layout_mode = 1
@@ -1231,7 +1568,7 @@ offset_bottom = 69.64
 scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(1784, 0)
 mouse_filter = 2
-color = Color(0.713, 0.306, 0.784, 0.75)
+color = Color(0.604745, 0.385208, 0.996094, 1)
 
 [node name="Text" type="Label" parent="Top/Label"]
 layout_mode = 0
@@ -1239,7 +1576,7 @@ offset_left = 48.0
 offset_right = 696.0
 offset_bottom = 72.0
 text = "SYNTHESIA_MODE"
-label_settings = SubResource("LabelSettings_4cgq3")
+label_settings = SubResource("LabelSettings_1c1iy")
 vertical_alignment = 1
 uppercase = true
 
@@ -1253,10 +1590,10 @@ offset_bottom = 133.64
 scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(0, -2.38419e-07)
 mouse_filter = 2
-color = Color(0.239605, 0.0384521, 0.246094, 1)
+color = Color(0.203494, 0.0678406, 0.445312, 1)
 
 [node name="Icon" type="TextureRect" parent="Top/Iconhold"]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(0, 0, 0, 0)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5

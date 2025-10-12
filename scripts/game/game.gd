@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,40 +18,56 @@
 
 extends Node2D
 
-#-----------------------------------------------------------------------
-# Game logic script
-# 
-# Main script which initiates and controls 'Lumines-like' gameplay
-# Does game state control, block management, square checking, score manipulation, SFX and FX playback work.
-#-----------------------------------------------------------------------
+##-----------------------------------------------------------------------
+## Base class for all block-stacking puzzle games
+##-----------------------------------------------------------------------
 
+class_name GameCore
 
-signal reset # Emitted when game resets
-signal paused(on : bool) # Emitted when game pause is triggered
-signal game_over # Emitted when game is over
+signal reset_started ## Emitted when game reset is started
+signal reset_ended ## Emitted when game reset is finished
 
-signal skin_change_started # Emitted when skin change starts
-signal skin_change_ended # Emitted when skin change completed
+signal paused(on : bool) ## Emitted when game pause state is changed and returns new state
+signal game_over ## Emitted when game is over
 
-signal new_piece_is_given # Emmited when player gets new piece
-signal timeline_started # Emmited when timeline starts
+signal skin_change_started ## Emitted when skin change starts
+signal skin_change_ended ## Emitted when skin change is completed
 
-enum SKIN_CHANGE_STATUS {FAILED, NOT_NEEDED, GAME_OVER, SUCCESS}
+## Avaiable skin change routine error codes
+enum SKIN_CHANGE_ERROR {
+	OK, 
+	BUSY, ## Skin change is still going on
+	INVALID_PATH_OR_ID, ## Provided skin has invalid path or id
+	FAILED_TO_START_THREAD, ## Skin load thread failed to start 
+	FAILED_TO_LOAD_FILE, ## Skin file failed to load 
+	INVALID_DATA ## Loaded skin data is corrupt
+}
 
-const TIMELINE_SCENE : PackedScene = preload("res://scenery/game/timeline.tscn")
-const SKIN_SCENE : PackedScene = preload("res://scenery/game/skin.tscn")
+const PAUSE_BACK_Z_INDEX : int = -50
+const FOREGROUND_Z_INDEX : int = -100
+const EFFECTS_Z_INDEX : int = -200
+const GAMEFIELD_Z_INDEX : int = -500
+const SKIN_Z_INDEX : int = -1000
 
-var is_paused : bool = false
-var is_game_over : bool = false
-var is_changing_skins_now : bool = false
+const TICK : float = 1 / 120.0 ## Single game physics tick
 
-var is_piece_noclip_mode : bool = false # When active current piece ignores collisions with other blocks, it only collides with floor
-var is_paint_mode : bool = false # When active user can draw blocks on field with mouse
-var is_manual_timeline : bool = false # When active stops timeline creation when skin music sample ends
-var is_adding_pieces_to_queue : bool = true # When active game generates new piece and appends it to queue each time queue size is less than 3
+var main : Main ## Main instance
+var menu : Menu ## Menu instance
 
- # What inputs are locked for current piece
-var input_lock : Dictionary = {
+var gamecore_name : String = "default" ## Name of the gamecore
+
+var menu_screen_to_return_name : String = "main_menu" ## Name of the menu screen created after game exit
+var pause_screen_name : String = "playlist_mode_pause" ## Name of the menu screen created on game pause
+var game_over_screen_name : String = "playlist_mode_gameover" ## Name of the menu screen created on game over
+
+var is_physics_active : bool = true ## If true, game ticks are processed by engine physics thread
+var is_resetting : bool = false ## If true, game is currently resetting
+var is_paused : bool = false ## If true, the game is paused and nothing happens
+var is_game_over : bool = false ## If true, the game is over and needs restart
+var is_changing_skin_now : bool = false ## If true, the game currently changes skin
+
+## What inputs are currently locked and cannot be pressed
+var input_lock : Dictionary[StringName, bool] = {
 	&"move_left" : false,
 	&"move_right" : false,
 	&"rotate_left" : false,
@@ -60,257 +76,377 @@ var input_lock : Dictionary = {
 	&"side_ability" : false
 }
 
-var all_blocks : Dictionary = {} # All blocks on the game field | [position : Vector2i] = Block
-var blocks : Dictionary = {} # All blocks on the game field | [position : Vector2i] = Block
-var delete : Dictionary = {} # Ready to be deleted by timeline blocks | [position : Vector2i] = Block
-var squares : Dictionary = {} # All squares on the game field | [position : Vector2i] = FX
-var ghosts : Array = [] # All ghosts on the game field
+## Latest action inputs states (true - pressed, false - released)
+var latest_input : Dictionary[StringName, bool] = {
+	&"move_left" : false,
+	&"move_right" : false,
+	&"rotate_left" : false,
+	&"rotate_right" : false,
+	&"quick_drop" : false,
+	&"side_ability" : false,
+	&"pause" : false,
+}
 
-var gamemode : Gamemode = null # Current gamemode, which defines game rules
-var skin : Node2D = null # Currently loaded skin instance
-var timeline : Node2D = null # Current timeline instance, does blocks clearing work
+## Current action inputs states (true - pressed, false - released)
+var current_input : Dictionary[StringName, bool] = {
+	&"move_left" : false,
+	&"move_right" : false,
+	&"rotate_left" : false,
+	&"rotate_right" : false,
+	&"quick_drop" : false,
+	&"side_ability" : false,
+	&"pause" : false
+}
 
-var skin_change_status : int = 0 # Shows status of skin replacement procedure
+var gamemode : Gamemode = null ## Current gamemode, defines game rules and goals
 
-var created_squares : Array[Vector2i] = []
-var square_group : Array[Square] = []
-var is_adding_square_number : bool = false
+var replay : Replay = null ## Replay reference
+var is_playing_replay : bool = false ## If true, currently plays prerecorded replay, else replay is currently recoring
 
-var sound_queue : Array = [] # Queued sounds, to be played in sync with music beat
+var skin : SkinPlayer = null ## Current skin, defines game visuals and music
+var old_skin_data : SkinData = null ## Old skin data which is stored during skin transition
+var is_skin_transition_now : bool = false ## If true, skin transition is happening now
+var skin_transition_start_time : int = 0 ## Time in msecs since engine boot when skin transition animation started
 
-var piece : Piece = null # Current piece reference
-var piece_fall_speed : float = 1.0 # Piece falling speed in seconds
-var piece_fall_delay : float = 1.0 # Piece fall start delay in seconds
+var rng : RandomNumberGenerator = RandomNumberGenerator.new() ## Used to generate randomized pieces and other events with defined seed
 
-var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+var pause_background : ColorRect ## ColorRect which covers game screen when its paused
+var announce_timer : Timer ## Timer which starts next skin announce sample
 
-@onready var replay : Replay = $Replay
-var is_playing_replay : bool = false
+var gamefield : Node2D ## Contains all game entities which do all fancy and gamey stuff
+var foreground : Node2D ## Contains all game GUI which is controlled by current gamemode
+var effects : Node2D ## Contains all game special effects
 
-var menu_screen_to_return : String = "main_menu" # Menu screen name to which game will try to return when its ends
-var pause_screen_name : String = "playlist_mode_pause" # Menu screen name which would be created on game pause
-var game_over_screen_name : String = "playlist_mode_gameover" # Menu screen name which would be created on game over
-
-var custom_var : Dictionary = {} # Custom variables which might be used by mods
-
-@onready var foreground : Node2D = $Foreground # Foreground is used to display UI (score, time, combo, etc.)
-@onready var gameplay : Node2D = $Gameplay # Gameplay is where all gameplay things takes place
-@onready var field : Node2D = $Gameplay/Field # Field is the place where all placed blocks exists
-@onready var effects : Node2D = $Gameplay/Effects # Effects is the place where all FX objects exists
-@onready var piece_queue : ScrollContainer = $Gameplay/PieceQueue # Stack is where all pieces life until getting into player's hand
-@onready var sounds : Node2D = $Sounds # Node for spawning all sounds
-@onready var pause_background : ColorRect = $PauseBack # ColorRect which covers whole game when its paused
-
-
-func ___GAME_STATE___() -> void: return
+var sounds : Node2D ## Contains all game sound effects
+var sound_queue : Array[AudioStreamPlayer2D] = [] ## All queued sounds which gonna be played on next music beat
+var playing_sounds : Dictionary[String, AudioStreamPlayer2D] = {} ## All currently played sounds
 
 
 func _ready() -> void:
-	# These special FX use GPUParticles, which make stutter on first spawn, so we spawn them before game starts to cache them
-	_add_fx("blast", Vector2(0,0), "rsquare")
-	_add_fx("square", Vector2(0,0), "rsquare")
+	gamefield = Node2D.new()
+	gamefield.name = "Gamefield"
+	gamefield.z_as_relative = false
+	gamefield.z_index = GAMEFIELD_Z_INDEX
+	add_child(gamefield)
 
-	Data.console.opened.connect(_pause.bind(true,false,false))
-	Data.console.closed.connect(_pause.bind(false,false,false))
+	sounds = Node2D.new()
+	sounds.name = "Sounds"
+	add_child(sounds)
 
+	effects = Node2D.new()
+	effects.name = "Effects"
+	effects.z_as_relative = false
+	effects.z_index = EFFECTS_Z_INDEX
+	add_child(effects)
 
-# Resets game back to initial state and starts it again
-func _reset() -> void:
-	reset.emit()
-	replay._reset_replay()
-	gamemode._prereset()
+	foreground = Foreground.new()
+	foreground.name = "Foreground"
+	foreground.z_as_relative = false
+	foreground.z_index = FOREGROUND_Z_INDEX
+	add_child(foreground)
 
-	is_game_over = true
-	is_paused = true
-	skin._pause(true)
-	
-	gameplay.process_mode = Node.PROCESS_MODE_INHERIT
-	foreground.process_mode = Node.PROCESS_MODE_INHERIT
-	
+	pause_background = ColorRect.new()
+	pause_background.name = "PauseBack"
+	pause_background.color = Color.BLACK
+	pause_background.size = Vector2(1920, 1080)
+	pause_background.modulate.a = 0.0
+	pause_background.z_as_relative = false
+	pause_background.z_index = PAUSE_BACK_Z_INDEX
+	add_child(pause_background)
+
+	announce_timer = Timer.new()
+	announce_timer.name = "Announce"
+	announce_timer.one_shot = true
+	add_child(announce_timer)
+
+	if gamemode != null:
+		gamemode.game = self
+		gamemode.foreground = foreground
+		gamemode.main = main
+		add_child(gamemode)
+
+	if replay == null:
+		replay = Replay.new()
+		add_child(replay)
+	else:
+		is_playing_replay = true
+
+	replay.game = self
+
+	Console.opened.connect(_pause.bind(true,false))
+	Console.closed.connect(_pause.bind(false,false))
+	Console.command_entered.connect(_execute_console_command)
+
+	Debug.game = self
+
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+
+
+## Resets game to the initial state and starts it
+func _reset() -> void:
+	if is_resetting : return
+	is_resetting = true
+
+	Console._log("Resetting the game")
+	is_physics_active = false
+
+	gamemode._soft_reset()
+	reset_started.emit()
 	
-	blocks.clear()
-	squares.clear()
-	delete.clear()
-	
-	timeline = null
+	replay._reset_replay()
+
+	while not sound_queue.is_empty() : sound_queue.pop_back().free()
+	playing_sounds.clear()
 	
 	for effect : FX in effects.get_children(): effect.queue_free()
-	for object : Node2D in field.get_children(): object.queue_free()
-	
-	if is_playing_replay:
-		is_manual_timeline = true
-		for i : StringName in input_lock.keys() : input_lock[i] = true
-
-	gamemode._reset()
-	await gamemode.reset_complete
-	print("RESETTTED")
-
-	piece = null
-	piece_queue._reset()
-	_give_new_piece()
 
 	if is_playing_replay: 
-		replay._start_playback()
-		_create_timeline()
-	else: 
-		replay._start_recording()
-	
+		for action : StringName in input_lock.keys() : input_lock[action] = true
+
+	var error_code : int = await gamemode._reset()
+	if error_code != OK:
+		Console._log("ERROR! Gamemode failed to reset : " + gamemode.error_text)
+		main._display_system_message("ERROR!\n" + gamemode.error_text)
+		main._toggle_loading(false)
+		await get_tree().create_timer(3.0).timeout
+		_end()
+		return
+
 	is_game_over = false
-	skin._start()
-	_pause(false)
+	_pause(false, false)
+
+	if is_playing_replay : replay._start_playback()
+	else : replay._start_recording()
+
+	reset_ended.emit()
+	is_physics_active = true
+
+	Console._log("Game reset complete")
+	
+	main._toggle_loading(false)
+	main._toggle_darken(false)
+	is_resetting = false
 
 
-# Removes the game and makes return to specified main menu screen
+## Resets only game field and gamemode progress data, doesn't affect currently playing skin [br]
+## Stops replay playback/recoring until full reset
+func _soft_reset() -> void:
+	Console._log("Soft resetting game")
+
+	gamemode._soft_reset()
+	reset_started.emit()
+
+	if is_playing_replay: 
+		replay._stop_playback()
+		for i : StringName in input_lock.keys() : input_lock[i] = false
+	else: 
+		replay._stop_recording()
+		replay.error_code = Replay.REPLAY_ERROR.RULESET_CHANGED
+
+	is_game_over = false
+	reset_ended.emit()
+
+	Console._log("Game soft reset complete")
+
+
+## Restarts the game
+func _retry() -> void:
+	if menu.screens.size() > 0 : menu._exit()
+	
+	main._toggle_darken(true)
+	main._toggle_loading(true)
+	await get_tree().create_timer(1.0).timeout
+
+	_reset()
+
+
+## Finishes the game and adds predefined in **'menu_screen_to_return'** menu screen
 func _end() -> void:
+	Console._log("Game is finished")
 	gamemode._end()
+	if menu.screens.size() > 0 : menu._exit()
 
-	# Blackout animation
-	create_tween().tween_property(Data.main.black,"color",Color(0,0,0,1),1.0)
+	main._toggle_darken(true)
 	await get_tree().create_timer(1.0).timeout
 	
-	# Called when we are in skin editor playtest mode
-	if menu_screen_to_return == "skin_editor":
-		Data.menu._add_screen("background")
-		Data.menu._add_screen("foreground")
-		Data.menu.screens[menu_screen_to_return]._end_playtest_skn()
-		queue_free()
-		return
-	
-	Data.menu._return_from_game(menu_screen_to_return)
+	menu._return_from_game(menu_screen_to_return_name)
 	queue_free()
 
 
-func _input(event : InputEvent) -> void:
-	if event.is_action_pressed("pause") : 
-		if not is_paused: _pause(true)
-
-
-# Ends game and starts game over sequence
+## Ends the game and adds game over menu screen as predefined in **'game_over_screen_name'**
 func _game_over() -> void:
+	Console._log("Game over!")
 	if is_playing_replay :  replay._stop_playback()
 	else : replay._stop_recording()
 
 	is_game_over = true
-	_pause(true,false,false)
+	_pause(true,false)
 
 	while not sound_queue.is_empty() : sound_queue.pop_back().free()
 
-	Data.menu._add_screen("foreground")
-	Data.menu._add_screen(game_over_screen_name)
-	
-	timeline = null
+	menu._add_screen("foreground")
+	var gameover_screen : MenuScreen = menu._add_screen(game_over_screen_name)
+	gameover_screen._setup(self)
 	
 	game_over.emit()
 	gamemode._game_over()
 
 
-# This function toggles pause state
-func _pause(on : bool = true, wait_for_screen_end : bool = false, add_pause_screen : bool = true) -> void:
-	if wait_for_screen_end : await Data.menu.all_screens_removed
+## Sets pause state to **'on'** value[br]
+## - **'pause_screen'** - If true, adds menu screen as predefined in **'pause_screen_name'** if 'on' is true and waits for its closure if 'on' is false
+func _pause(on : bool = true, use_pause_screen : bool = true) -> void:
+	if use_pause_screen and not on: 
+		menu._remove_screen("foreground")
+		menu._remove_screen(pause_screen_name)
+		await menu.all_screens_removed
+	
+	if on : Console._log("Game paused")
+	else : Console._log("Game unpaused")
+
+	is_paused = on
+	announce_timer.paused = on
+
+	if skin != null : skin._pause(on)
+	gamemode._pause(on)
+	replay._pause(on)
 	paused.emit(on)
+
+	if on : create_tween().tween_property(pause_background, "modulate:a", 0.8, 1.0).from(0.0)
+	else : create_tween().tween_property(pause_background, "modulate:a", 0.0, 1.0).from(0.8)
+		
+	if on and use_pause_screen:
+		menu._add_screen("foreground")
+		var pause_screen : MenuScreen = menu._add_screen(pause_screen_name)
+		pause_screen._setup(self)
+
+		menu._play_sound("confirm4")
+
+
+## Tests is input pressed in current physics frame and updates input state
+func _is_action_pressed(action : StringName) -> bool:
+	if current_input[action] and not latest_input[action]:
+		latest_input[action] = current_input[action]
+		return true
 	
-	if on:
-		replay._pause(on)
-
-		is_paused = true
-		gameplay.process_mode = Node.PROCESS_MODE_DISABLED
-		foreground.process_mode = Node.PROCESS_MODE_DISABLED
-
-		if timeline != null : timeline._pause(true)
-		skin._pause(true)
-		gamemode._pause(true)
-		
-		$Announce.paused = true
-
-		create_tween().tween_property(pause_background, "modulate", Color(0,0,0,0.5), 1.0).from(Color(0.2,0.2,0.2,0))
-
-		if add_pause_screen:
-			Data.menu._add_screen("foreground")
-			Data.menu._add_screen(pause_screen_name)
-			Data.menu._sound("confirm4")
-	else:
-		is_paused = false
-		gameplay.process_mode = Node.PROCESS_MODE_INHERIT
-		foreground.process_mode = Node.PROCESS_MODE_INHERIT
-		
-		if timeline != null : timeline._pause(false)
-		skin._pause(false)
-		gamemode._pause(false)
-		
-		$Announce.paused = false
-		replay._pause(on)
-
-		create_tween().tween_property(pause_background, "modulate", Color(0,0,0,0), 1.0).from(Color(0.2,0.2,0.2,0.5))
+	return false
 
 
-# Restarts game
-func _retry() -> void:
-	# Black-in animation
-	create_tween().tween_property(Data.main.black,"color:a",1.0,1.0).from(0.0)
-	await get_tree().create_timer(1.0).timeout
-
-	gamemode._retry()
-	# Gamemode might do some long actions, like loading another skin, so we wait for its signal
-	await gamemode.retry_complete
-
-	if gamemode.retry_status != OK : 
-		_game_over()
-		return
-
-	await get_tree().create_timer(0.25).timeout
-	_reset()
+## Tests is input released in current physics frame and updates input state
+func _is_action_released(action : StringName) -> bool:
+	if not current_input[action] and latest_input[action]:
+		latest_input[action] = current_input[action]
+		return true
 	
-	# Black-out animation
-	create_tween().tween_property(Data.main.black,"color",Color(0,0,0,0),0.5)
+	return false
 
 
-# Loads new skin defined by "path" and replaces current one with it
-# If "quick" is true, skips skin transition animation and loads new skin immidiately
-func _change_skin(skin_path : String = "", quick : bool = false) -> void:
-	if is_changing_skins_now : return
-	if skin_path == "": return
+## Processes single game tick
+func _tick(delta : float = TICK) -> void:
+	for action : StringName in current_input.keys():
+		if (action != &"pause" and input_lock[action] == true) : continue
+		if Input.is_action_just_pressed(action) : current_input[action] = true
+		if Input.is_action_just_released(action) : current_input[action] = false
 
-	# XOR cache variable, so important data won't be overwritten by new one and break things
-	Data.use_second_cache = !Data.use_second_cache
+	if _is_action_pressed("pause") : 
+		if not is_paused : _pause(true)
+		else : _pause(false)
 
-	print("SKIN CHANGE STARTED. SKIN PATH : ", skin_path)
-	is_changing_skins_now = true 
+	for action : StringName in current_input.keys():
+		latest_input[action] = current_input[action]
+
+	if is_paused : return
+
+	skin._physics(delta)
+
+
+func _physics_process(delta: float) -> void:
+	if not is_physics_active : return
+	_tick(delta)
+
+
+## Changes current skin to new one specified in **'new_skin'** with special transition animation[br]
+## Returns [SKIN_CHANGE_ERROR] error code [br]
+## - **'new_skin'** - Can be either skin ID, either path to skin file, either loaded [SkinData][br]
+## - **'quick'** - If true, skips skin transition animation and loads new skin instantly
+func _change_skin(new_skin : Variant, quick : bool = false) -> int:
+	Console._space()
+	Console._log("Changing current game skin")
+	
+	if is_changing_skin_now : 
+		Console._log("ERROR! Skin is already changing!")
+		return SKIN_CHANGE_ERROR.BUSY
+	
+	var skin_data : SkinData = null
+	var skin_metadata : SkinMetadata = null
+
+	is_changing_skin_now = true
 	skin_change_started.emit()
-	
-	var skin_data : SkinData = SkinData.new()
 
-	var load_thread : Thread = Thread.new()
-	var err : int = load_thread.start(skin_data._load_from_path.bind(skin_path))
-	if err != OK:
-		print("SKIN LOAD THREAD ERROR : ", error_string(err))
-		print("SKIN CHANGE FAILED!")
-		is_changing_skins_now = false
-		
-		skin_change_status = SKIN_CHANGE_STATUS.FAILED
+	if new_skin is String:
+		skin_data = SkinData.new()
+		skin_metadata = Data.skin_list._get_skin_metadata_by_id(new_skin)
+		if skin_metadata != null : Console._log("Next skin ID : " + new_skin)
+		else :
+			skin_metadata = Data.skin_list._get_skin_metadata_by_path(new_skin)
+			if skin_metadata != null : Console._log("Next skin file path : " + new_skin)
+			else:
+				Console._log("ERROR! Invalid skin ID or path : " + new_skin)
+				is_changing_skin_now = false
+				skin_change_ended.emit()
+				return SKIN_CHANGE_ERROR.INVALID_PATH_OR_ID
+	elif new_skin is SkinMetadata:
+		Console._log("Next skin ID : " + new_skin.id)
+		skin_metadata = new_skin
+	elif new_skin is SkinData:
+		Console._log("Next skin ID : " + new_skin.metadata.id)
+		skin_data = new_skin
+	else:
+		Console._log("ERROR! Invalid skin data : " + str(new_skin))
+		is_changing_skin_now = false
 		skin_change_ended.emit()
-		return
+		return SKIN_CHANGE_ERROR.INVALID_DATA
 	
-	await skin_data.skin_loaded
-	await get_tree().create_timer(0.01).timeout
-	var result : int = load_thread.wait_to_finish()
-	
-	if result != OK:
-		print("SKIN CHANGE FAILED!")
-		is_changing_skins_now = false
+	if skin_data == null:
+		skin_data = SkinData.new()
+		skin_data.io_progress.connect(main._set_loading_message)
+
+		var load_thread : Thread = Thread.new()
+		var err : int = load_thread.start(skin_data._load_from_path.bind(skin_metadata.path))
+		if err != OK:
+			Console._log("ERROR! Failed to start skin loading thread. Error code : " + error_string(err))
+			is_changing_skin_now = false
+			skin_change_ended.emit()
+			return SKIN_CHANGE_ERROR.FAILED_TO_START_THREAD
 		
-		skin_change_status = SKIN_CHANGE_STATUS.FAILED
-		skin_change_ended.emit()
-		return
-	
+		await skin_data.skin_loaded
+		await get_tree().create_timer(0.01).timeout
+		var result : int = load_thread.wait_to_finish()
+		if result != OK:
+			Console._log("ERROR! Failed to load new skin.")
+			is_changing_skin_now = false
+			skin_change_ended.emit()
+			return SKIN_CHANGE_ERROR.FAILED_TO_LOAD_FILE
+
 	if quick:
-		print("SKIN CHANGE SUCCESS!")
-		is_changing_skins_now = false
-		skin_change_status = SKIN_CHANGE_STATUS.SUCCESS
-		skin.sample_ended.disconnect(_start_timeline)
-		_replace_skin(skin_data, true)
+		if skin != null:
+			skin.half_beat.disconnect(_on_skin_half_beat)
+			skin.beat.disconnect(_on_skin_beat)
+			skin.sample_ended.disconnect(_on_skin_sample_ended)
+			skin.queue_free()
+		
+		_set_skin(skin_data)
+
+		foreground._change_style(skin_data, 0.0)
+		get_tree().call_group("entity", "_render")
+
+		await get_tree().create_timer(0.1).timeout
+
+		is_changing_skin_now = false
+		is_skin_transition_now = false
+		
 		skin_change_ended.emit()
-		return
+		Console._log("Skin changed successfully!")
+		return OK
 
 	await skin.sample_ended
 	skin._play_ending()
@@ -318,408 +454,74 @@ func _change_skin(skin_path : String = "", quick : bool = false) -> void:
 	# Turn music volume down
 	if skin.music_player != null:
 		create_tween().tween_property(skin.music_player, "volume_db", -40.0, 60.0 / skin.bpm * 8.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
+ 
+	var transition_time : float = 60.0 / skin.bpm * 6.0 # 3 beats
+	announce_timer.start(transition_time)
 
-	# New skin announce starts after half of the sample passed, and uses Timer node, so we can pause the game while doing transition 
-	$Announce.start(60.0 / skin.bpm * 6.0)
 	await $Announce.timeout
 	_play_announce(skin_data)
 	
-	# Disconnect timeline so it won't spawn twice when new skin appear
-	skin.sample_ended.disconnect(_start_timeline)
-
 	await skin.sample_ended
 
-	_replace_skin(skin_data)
+	skin.half_beat.disconnect(_on_skin_half_beat)
+	skin.beat.disconnect(_on_skin_beat)
+	skin.sample_ended.disconnect(_on_skin_sample_ended)
+
+	old_skin_data = skin.skin_data
+	is_skin_transition_now = true
+	skin_transition_start_time = Time.get_ticks_msec()
+
+	skin._end(transition_time)
+	_set_skin(skin_data)
+	create_tween().tween_property(skin, "modulate:a", 1.0, transition_time).from(0.0)
+	skin._start()
+
+	foreground._change_style(skin_data, transition_time)
+	get_tree().call_group("entity", "_update_render", transition_time)
+
 	# Raise music volume up
 	if skin.music_player != null:
-		create_tween().tween_property(skin.music_player, "volume_db", 0.0, 60.0 / skin.bpm * 8.0).from(-40.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+		create_tween().tween_property(skin.music_player, "volume_db", 0.0, transition_time).from(-40.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
 	
-	is_changing_skins_now = false
-	skin_change_status = SKIN_CHANGE_STATUS.SUCCESS
+	await get_tree().create_timer(transition_time).timeout
+
+	old_skin_data.free()
+	old_skin_data = null
+	is_changing_skin_now = false
+	is_skin_transition_now = false
 	skin_change_ended.emit()
-	print("SKIN CHANGE SUCCESS!")
+	Console._log("Skin changed successfully")
+	return OK
 
 
-# Replaces current skin with new one defined by passed SkinData
-# If "quick" is true, skips skin transition animation and starts new skin immidiately
-func _replace_skin(skin_data : SkinData, quick : bool = false) -> void:
-	skin.half_beat.disconnect(_add_sounds_from_queue)
+## Creates skin instance from passed [SkinData] and connects it to the game, replacing old skin
+func _set_skin(skin_data : SkinData) -> void:
+	if skin != null:
+		skin.half_beat.disconnect(_on_skin_half_beat)
+		skin.beat.disconnect(_on_skin_beat)
+		skin.sample_ended.disconnect(_on_skin_sample_ended)
 	
-	var replace_anim_time : float = 60.0 / skin.bpm * 6.0
-
-	if quick: skin.queue_free()
-	else: skin._end(replace_anim_time)
-	
-	_add_skin(skin_data)
-
-	get_tree().call_group("blocks","_refresh_render")
-	get_tree().call_group("squares","_refresh_render")
-
-	if quick:
-		foreground._change_style(skin_data.textures["ui_design"], skin.skin_data, 0.0)
-	else:
-		foreground._change_style(skin_data.textures["ui_design"], skin.skin_data, replace_anim_time)
-		create_tween().tween_property(skin, "modulate:a", 1.0, replace_anim_time).from(0.0)
-		skin._start()
-
-
-# Creates skin instance from passed SkinData and connects it to the game
-func _add_skin(skin_data : SkinData) -> void:
-	var new_skin : Node2D = SKIN_SCENE.instantiate()
+	var new_skin : SkinPlayer = SkinPlayer.new()
 	new_skin.skin_data = skin_data
 	skin = new_skin
-	
-	skin.half_beat.connect(_add_sounds_from_queue)
-	skin.sample_ended.connect(_start_timeline)
-	
+
+	skin.half_beat.connect(_on_skin_half_beat)
+	skin.beat.connect(_on_skin_beat)
+	skin.sample_ended.connect(_on_skin_sample_ended)
+
+	skin.z_as_relative = false
+	skin.z_index = SKIN_Z_INDEX
+
+	Debug.skin = skin
+
 	add_child(new_skin)
 
+	get_tree().call_group("entity","_refresh_render")
 
-#================================================================================================
-#================================================================================================
 
-func ___BLOCKS_MANAGEMENT___() -> void: return
-
-
-# Give piece from queue to the player's hand
-func _give_new_piece(piece_start_pos : Vector2i = Vector2i(8,-1), piece_data : PieceData = null, has_waited_for_new_piece : bool = false) -> void:
-	if piece != null : 
-		piece._end()
-		piece = null
-	if piece_data == null:
-		if has_waited_for_new_piece:
-			piece_queue.piece_appended.disconnect(_give_new_piece.bind(piece_start_pos,null,true))
-		if piece_queue.queue.size() < 1:
-			# Wait for new piece to come into queue
-			piece_queue.piece_appended.connect(_give_new_piece.bind(piece_start_pos,null,true))
-			return
-		
-		piece_data = piece_queue._get_piece()
-	
-	piece = Piece.new()
-	piece.grid_position = piece_start_pos
-	piece.fall_delay = piece_fall_delay
-	piece.fall_speed = piece_fall_speed
-	piece.blocks = piece_data.blocks
-
-	if Data.profile.config["video"]["background_shaking"] and not skin.skin_data.metadata.settings["no_shaking"]:
-		piece.piece_moved.connect(skin._shake_background)
-		piece.piece_quick_drop.connect(skin._shake_background)
-	
-	piece.position = Vector2(piece_start_pos.x * 68, piece_start_pos.y * 68 - 2)
-	new_piece_is_given.emit()
-	piece.replay = replay
-	piece.emulated_inputs = replay.emulated_inputs
-	field.add_child(piece)
-	replay.piece = piece
-	
-	piece_data.free()
-
-
-# Replaces current piece in hand data with new one
-func _replace_current_piece(piece_data : PieceData) -> void:
-	if not is_instance_valid(piece): return
-	var tween : Tween = create_tween().set_parallel(true)
-
-	for block_pos : Vector2i in piece.blocks.keys():
-		var block : BlockBase = piece.blocks[block_pos]
-		block.color = piece_data.blocks[block_pos][0]
-		block.special = piece_data.blocks[block_pos][1]
-		block._render()
-		tween.tween_property(block,"modulate",Color(1,1,1,1),0.25).from(Color(0,0,0,0))
-
-
-# Adds block to the game field
-func _add_block(to_position : Vector2i, color : int, special : StringName, smooth : bool = false) -> void:
-	if to_position.y < 0 or to_position.y > 9: return
-	var block : Block = null
-	
-	match special:
-		&"chain" : block = Chain.new()
-		&"merge" : block = Merge.new()
-		&"laser" : block = Laser.new()
-		&"wipe" : block = Wipe.new()
-		&"joker" : block = Joker.new()
-	
-	if block == null:
-		if color == Block.BLOCK_COLOR.GARBAGE: block = Garbage.new()
-		elif color == Block.BLOCK_COLOR.NULL: return
-		else: block = Block.new()
-	
-	block.grid_position = to_position
-	block.color = color
-	block.special = special
-	
-	field.add_child(block)
-	block._render()
-
-	if smooth: create_tween().tween_property(block, "modulate", Color(1,1,1,1), 0.25).from(Color(0,0,0,0))
-
-
-func _add_ghost(to_position : Vector2i, color : int, special : StringName, smooth : bool = false) -> void:
-	if to_position.y < 0 or to_position.y > 9: return
-	
-	if special == &"square":
-		var ghost_square : ColorRect = ColorRect.new()
-
-		match color:
-			BlockBase.BLOCK_COLOR.RED : ghost_square.color = skin.skin_data.textures["red_fx"]
-			BlockBase.BLOCK_COLOR.WHITE : ghost_square.color = skin.skin_data.textures["red_fx"]
-			BlockBase.BLOCK_COLOR.GREEN : ghost_square.color = skin.skin_data.textures["red_fx"]
-			BlockBase.BLOCK_COLOR.PURPLE : ghost_square.color = skin.skin_data.textures["red_fx"]
-			BlockBase.BLOCK_COLOR.MULTI : ghost_square.color = skin.skin_data.textures["red_fx"]
-		
-		ghost_square.color.a = 0.5
-		ghost_square.position = Vector2(to_position.x * 68 - 34, to_position.y * 68 + 32) 
-		ghosts.append(ghost_square)
-
-		if smooth:
-			create_tween().tween_property(ghost_square, "modulate", Color(1,1,1,0.5), 0.25).from(Color(0,0,0,0))
-	else:
-		var ghost_block : BlockBase = BlockBase.new()
-			
-		ghost_block.position = Vector2(to_position.x * 68 - 34, to_position.y * 68 + 32) 
-		ghost_block.color = color
-		ghost_block.special = special
-		ghost_block.is_ghost = true
-		
-		field.add_child(ghost_block)
-		ghosts.append(ghost_block)
-		ghost_block._render()
-
-		if smooth:
-			create_tween().tween_property(ghost_block, "modulate", Color(1,1,1,0.5), 0.25).from(Color(0,0,0,0))
-
-
-func _clear_ghosts() -> void:
-	for i : int in ghosts.size():
-		ghosts.pop_back().queue_free()
-
-
-# Turns on all placed blocks gravity
-func _move_blocks(delay : float = 0.0) -> void:
-	await get_tree().create_timer(delay, true, true).timeout
-	# Call blocks from down-right corner, and go up-left, so they would fall in right order and won't clip thru each other
-	for x : int in range(16,0,-1):
-		for y : int in range(9,-1,-1):
-			var block : Block = blocks.get(Vector2i(x,y), null)
-			if block != null: block._fall()
-
-
-# Removes all placed blocks from the field
-func _clear_field() -> void:
-	for block : Variant in blocks.values():
-		if not is_instance_valid(block) : continue
-		block._free()
-	for square : Variant in squares.values():
-		if not is_instance_valid(square) : continue
-		square.queue_free()
-
-	delete.clear()
-	squares.clear()
-
-
-#================================================================================================
-
-func ___GAME_LOGIC___() -> void: return
-
-
-func _tick() -> void:
-	if is_paused : return
-
-	if piece : piece._physics()
-	
-	for x : int in range(16,0,-1):
-		for y : int in range(9,-1,-1):
-			var block : Variant = all_blocks.get(Vector2i(x,y), null)
-			if block != null : block._physics()
-	
-	if timeline : timeline._physics()
-
-
-func _physics_process(delta: float) -> void:
-	if is_paused : return
-	
-	if replay.is_recording : replay.current_tick += 1
-	if replay.is_playback : replay.advance(delta)
-
-	if piece : piece._physics()
-	
-	for x : int in range(16,0,-1):
-		for y : int in range(9,-1,-1):
-			var block : Variant = all_blocks.get(Vector2i(x,y), null)
-			if block != null : block._physics()
-	
-	if timeline : timeline._physics()
-
-
-# Scans area for possible squares and creates them
-func _square_check(area : Rect2i) -> void:
-	for x : int in range(area.position.x,area.position.y):
-		var has_square_on_row : bool = false
-		for y : int in range(area.size.x,area.size.y):
-			var squared_blocks : Array = _check_square_possible(Vector2i(x,y))
-			
-			if squared_blocks.is_empty() : continue
-			has_square_on_row = true
-
-			if _create_square(Vector2i(x,y), squared_blocks): created_squares.append(Vector2i(x,y))
-		
-		if not created_squares.is_empty() and not has_square_on_row and not is_adding_square_number:
-			is_adding_square_number = true
-			await get_tree().create_timer(0.025,true,true).timeout
-			_add_square_numbers()
-
-
-# Checks is square possible at game field position
-func _check_square_possible(in_position : Vector2i) -> Array:
-	var block : Variant = blocks.get(in_position,null)
-	
-	if block == null: 
-		blocks.erase(in_position)
-		return []
-	if block.is_falling : return []
-	
-	var squared_blocks : Array = [block]
-	var color : int = block.color
-	
-	# If block color is dark, garbage or null
-	if color > 4 : return []
-	
-	var adjacent_blocks_pos : Array[Vector2i] = [in_position + Vector2i(1,0), in_position + Vector2i(0,1), in_position + Vector2i(1,1)]
-	for pos : Vector2i in adjacent_blocks_pos:
-		var next_block : Block = blocks.get(pos,null)
-		
-		if next_block == null : return []
-		if next_block.is_falling : return []
-		
-		var next_color : int = next_block.color
-		if next_color > 4: return []
-		
-		if color == BlockBase.BLOCK_COLOR.MULTI:
-			color = next_color
-			squared_blocks.append(next_block)
-			continue
-		
-		if next_color == BlockBase.BLOCK_COLOR.MULTI:
-			squared_blocks.append(next_block)
-			continue
-		
-		if next_color != color: return []
-
-		squared_blocks.append(next_block)
-	
-	squared_blocks.append(color)
-	return squared_blocks
-
-
-# Removes square at game field position safely
-func _remove_square(in_position : Vector2i) -> void:
-	if squares.has(in_position):
-		squares[in_position]._remove()
-
-
-# Checks every sqaure in "created_sqaures", builds their groups and adds respective group sizes number animation
-func _add_square_numbers() -> void:
-	while not created_squares.is_empty():
-		var square_pos : Vector2i = created_squares.pop_front()
-		if not squares.has(square_pos) : continue
-
-		square_group.clear()
-		var origin_square : Square = squares[square_pos]
-
-		_get_square_group(origin_square,created_squares)
-		
-		_add_sound("square", Vector2(square_pos.x*48+300,square_pos.y*48+200), false, false)
-		_add_fx("num", square_pos, square_group.size())
-
-	is_adding_square_number = false
-
-		
-# Scan all chained squares from origin sqaure and store result sqaure group in "square_group" variable
-# Also clean-ups "squares_to_check" array leaving only single squares instances from each group
-func _get_square_group(origin_square : Square, squares_to_check : Array) -> void:
-	square_group.append(origin_square)
-
-	for adj_square : Square in origin_square.adjacent_squares.values():
-		if not adj_square in square_group:
-			if adj_square.grid_position in squares_to_check:
-				squares_to_check.erase(adj_square.grid_position)
-
-			_get_square_group(adj_square,squares_to_check)
-
-
-# Scans all squares from "created_sqaures" array and builds their respective square groups, which are packed into single array and returned
-func _get_all_sqaure_groups(squares_to_check : Array) -> Array:
-	var sqaure_groups : Array = []
-
-	while not squares_to_check.is_empty():
-		var square_pos : Vector2i = squares_to_check.pop_front()
-		if not squares.has(square_pos) : continue
-
-		square_group.clear()
-		var origin_square : Square = squares[square_pos]
-
-		_get_square_group(origin_square,squares_to_check)
-		sqaure_groups.append(square_group.duplicate(true))
-
-	return sqaure_groups
-
-
-# Creates square at game field position
-# "squared_blocks" Array must contain 4 Blocks references and blocks color
-func _create_square(in_position : Vector2i, squared_blocks : Array) -> bool:
-	if squares.has(in_position) : return false
-	
-	var color : int = squared_blocks[4]
-	var square : FX = _add_fx("square", in_position, color)
-	
-	square.grid_position = in_position
-	squares[in_position] = square
-	square._check_adjacent()
-	
-	# Remove blocks color string from array
-	squared_blocks.pop_back()
-	
-	for block : Block in squared_blocks:
-		block._square(square)
-	
-	return true
-
-
-func _start_timeline() -> void:
-	if not is_manual_timeline:
-		_create_timeline()
-
-
-# This function starts new timeline from begining, and removes current one
-func _create_timeline() -> void:
-	replay._record_timeline_start()
-	if timeline != null : timeline._end()
-	
-	if is_game_over: return
-	
-	timeline = TIMELINE_SCENE.instantiate()
-	
-	timeline.squares_deleted.connect(func(_pass : int) -> void : skin.is_music_looping = false)
-	game_over.connect(timeline.queue_free)
-	reset.connect(timeline.queue_free)
-	skin.beat.connect(timeline._beat)
-	timeline.get_node("Color").modulate = skin.skin_data.textures["timeline_color"]
-	
-	gameplay.add_child(timeline)
-	if is_paused : timeline._pause(true)
-	timeline_started.emit()
-
-
-#================================================================================================
-
-func ___MISCELLANEOUS___() -> void: return
-
-
-# Plays next skin announce sound
+## Plays next skin announce sound from passed [SkinData]
 func _play_announce(skin_data : SkinData) -> void:
-	if Data.profile.config["audio"]["announcer"] == Profile.ANNOUNCER_MODE.OFF: return
+	if Player.config.audio["announcer"] == Config.ANNOUNCER_MODE.OFF: return
 	
 	var announce : AudioStreamPlayer = AudioStreamPlayer.new()
 	announce.stream = skin_data.metadata.announce
@@ -729,86 +531,315 @@ func _play_announce(skin_data : SkinData) -> void:
 	announce.play()
 
 
-# Adds animated effect to the game
-func _add_fx(fx_name : StringName, to_position : Vector2, parameter : Variant = null) -> FX:
-	var fx_data : Variant = skin.skin_data.fx[fx_name]
+## Adds visual effect to the game and returns its instance
+## - **'fx_name** - Name of the effect in [SkinData.effects]
+## - **'fx_position** - New effect absolute position
+## - **'fx_parameter** - Custom variable this effect might use
+func _add_fx(fx_name : StringName, fx_position : Vector2, fx_parameter : Variant = null) -> FX:
+	var fx_data : Variant = skin.skin_data.effects[fx_name]
 	var fx : FX
 	
-	if fx_data is String: fx = load(fx_data).instantiate()
-	else: fx = fx_data.instantiate()
-	
-	fx.position = to_position
-	fx.parameter = parameter
+	if fx_data is String : fx = load(fx_data).instantiate()
+	elif fx_data is PackedScene : fx = fx_data.instantiate()
+	else : return
+
+	fx.position = fx_position
+	fx.parameter = fx_parameter
+	fx.game = self
 	
 	effects.add_child(fx)
 	return fx
 
 
-# This function adds sound from currently loaded skin
-func _add_sound(sound_name : StringName, sound_pos : Vector2, _play_once : bool = false, sync_to_beat : bool = true, sound_id : int = -1) -> AudioStreamPlayer2D:
-	# TODO : Create better method for finding existing sounds for now this thing is deprecated, since its currently used by literally one sound in game anyway, and it doesn't break much without this function
-	#if play_once and $Sounds.has_node(sound_name): 
-		#return null
-	
-	var sounds_dict : Dictionary = skin.skin_data.sounds
+## Adds sound effect from currently playing skin and returns its instance[br]
+## - **'sound_name'** - Name of the entry inside [SkinData.sounds][br]
+## - **'sound_pos'** - Sound absolute position in 2D space[br]
+## - **'play_once'** - If true, only one instance of sound can be played at once[br]
+## - **'sync_to_beat'** - If true, sound will be put into queue and be played only on next skin music beat[br]
+## - **'sound_id'** - Defines index inside multisound array from which sound will be taken[br] 
+## + - if == -1 random sound will be selected[br]
+## + - if == -2 random even index will be taken[br]
+## + - if == -3 random uneven index will be taken
+func _add_sound(sound_name : StringName, sound_position : Vector2, play_once : bool = false, sync_to_beat : bool = true, sound_id : int = -1) -> AudioStreamPlayer2D:
+	if play_once and playing_sounds.has(sound_name) : return null
+
+	if not skin.skin_data.sounds.has(sound_name) : 
+		Console._log("ERROR! Missing sound effect : " + sound_name)
+		return null
+
 	var sample : AudioStream = null
+	var entry : Variant = skin.skin_data.sounds[sound_name]
 
-	if sound_id > -1:
-		sample = sounds_dict[sound_name][clampi(sound_id,0,sounds_dict[sound_name].size() - 2)]
+	if entry is AudioStream : sample = entry
+
+	elif entry is Array :
+		if entry.is_empty() : return null
+		if entry[0] == null : return null
+
+		if sound_id == -1:
+			var rand_index : int = randi_range(0, entry.size() - 2)
+			sample = entry[rand_index]
+		elif sound_id == -2:
+			var even_index_array : Array = range(0, entry.size() - 1, 2)
+			sample = entry[even_index_array.pick_random()]
+		elif sound_id == -3:
+			if entry.size() < 3 : sample = entry[0]
+			else:
+				var uneven_index_array : Array = range(1, entry.size() - 1, 2)
+				sample = entry[uneven_index_array.pick_random()]
+		else:
+			if sound_id > (entry.size() - 1) : sample = entry[0]
+			else : sample = entry[sound_id]
 	else:
-		match sound_name:
-			&"blast1" : sample = sounds_dict["blast"][0]
-			&"blast2" : 
-				if sounds_dict["blast"].size() > 2:
-					var even_array : Array = sounds_dict["blast"].slice(1,999,2,true)
-					if even_array.back() == null: even_array.pop_back()
-					if even_array.is_empty() : return null
-					
-					sample = even_array.pick_random()
-				else:
-					sample = sounds_dict["blast"][0]
-
-			&"blast3" : 
-				if sounds_dict["blast"].size() > 3:
-					var uneven_array : Array = sounds_dict["blast"].slice(2,999,2,true)
-					if uneven_array.back() == null: uneven_array.pop_back()
-					if uneven_array.is_empty() : return null
-					
-					sample = uneven_array.pick_random()
-				else:
-					sample = sounds_dict["blast"][0]
-
-			&"square", &"timeline", &"special", &"blast", &"bonus":
-				var sounds_array : Array = sounds_dict[sound_name].duplicate(true)
-				# Remove last null entry in multi-sounds array
-				if sounds_array.back() == null: sounds_array.pop_back()
-				if sounds_array.is_empty() : return null
-				
-				sample = sounds_array.pick_random()
-			
-			_ : if sounds_dict.has(sound_name) : sample = sounds_dict[sound_name]
+		return null
 	
-	if sample == null : return null
-	
-	var sound : AudioStreamPlayer2D = AudioStreamPlayer2D.new()
-	sound.name = sound_name
-	sound.stream = sample
-	sound.position = sound_pos if Data.profile.config["audio"]["spatial_sound"] else Vector2(960,540)
-	sound.bus = "Sound"
-	sound.finished.connect(sound.queue_free)
+	while playing_sounds.has(sound_name):
+		sound_name += str(randi_range(10,100000000))
+
+	var sound_player : AudioStreamPlayer2D = AudioStreamPlayer2D.new()
+	sound_player.name = sound_name
+	sound_player.stream = sample
+	sound_player.position = sound_position if Player.config.audio["spatial_sound"] else Vector2(960,540)
+	sound_player.bus = "Sound"
+	sound_player.finished.connect(sound_player.queue_free)
+	sound_player.finished.connect(_sound_finished.bind(sound_name))
+	playing_sounds[sound_name] = sound_player
 	
 	if sync_to_beat: 
-		sound_queue.append(sound)
+		sound_queue.append(sound_player)
 	else:
-		sounds.add_child(sound)
-		sound.play()
+		sounds.add_child(sound_player)
+		sound_player.play()
 	
-	return sound
+	return sound_player
 
 
-# This function plays all queued sounds, usually when music beat occurs
-func _add_sounds_from_queue() -> void:
+func _sound_finished(sound_name : String) -> void:
+	playing_sounds.erase(sound_name)
+
+
+## Plays all queued sounds *(connected to skin music beat signal)*
+func _play_queued_sounds() -> void:
 	while not sound_queue.is_empty():
-		var sound : AudioStreamPlayer2D = sound_queue.pop_back()
-		sounds.add_child(sound)
-		sound.play()
+		var sound_player : AudioStreamPlayer2D = sound_queue.pop_back()
+		sounds.add_child(sound_player)
+		sound_player.play()
+
+
+## Called on each skin music half-beat
+func _on_skin_half_beat() -> void:
+	_play_queued_sounds()
+
+
+## Called on each skin music beat
+func _on_skin_beat() -> void:
+	pass
+
+
+## Called on each skin music sample end
+func _on_skin_sample_ended() -> void:
+	pass
+
+
+## Executes entered into Console command
+func _execute_console_command(command : String, arguments : PackedStringArray) -> void:
+	match command:
+		# Toggles skin debug screen
+		"skndebug" : 
+			Debug._toggle(Debug.DEBUG_SCREEN.SKIN)
+
+		# Prints current skin metadata
+		"skninfo" :
+			var metadata : SkinMetadata
+			if arguments.size() > 0 : return
+			if skin != null : metadata = skin.skin_data.metadata
+			
+			Console._output("Name : " + metadata.name)
+			Console._output("Album : " + metadata.album)
+			Console._output("Number in album : " + str(metadata.number))
+			Console._output("Id : " + metadata.id)
+			Console._output("Artist : " + metadata.artist)
+			Console._output("Last edited by : " + metadata.skin_by)
+			Console._output("Save date : " + Time.get_datetime_string_from_unix_time(int(metadata.save_date)).replace("T", " "))
+			Console._output("BPM : " + str(metadata.bpm))
+			Console._output("SKN format version : " + str(metadata.version))
+			Console._output("Info : ")
+			Console._output(metadata.info)
+		
+		# Pauses skin playback
+		"sknstop" :
+			if skin == null : Console._output("Error! Skin is not loaded"); return
+			skin._pause(true)
+		
+		# Continues skin playback
+		"sknplay" :
+			if skin == null : Console._output("Error! Skin is not loaded"); return
+			skin._pause(false)
+		
+		# Resets skin making it play from beginning
+		"sknrst" :
+			if skin == null : Console._output("Error! Skin is not loaded"); return
+			skin._start()
+		
+		# Replaces current skin with specified one
+		"sknload" :
+			if arguments.size() < 1: Console._output("Error! Skin path or id is not entered"); return
+			if skin == null : Console._output("Error! Skin is not loaded"); return
+
+			if arguments[0].is_relative_path():
+				_change_skin(arguments[0])
+			else:
+				var metadata : SkinMetadata = Data.skin_list._get_skin_by_id(arguments[0])
+				if metadata == null: Console._output("Error! This skin doesn't exist"); return
+				_change_skin(metadata.path)
+		
+		# Set's current skin playback position to specified one
+		"sknpos" : 
+			if arguments.size() < 1: Console._output("Error! Time in seconds is not entered"); return
+			if skin == null : Console._output("Error! Skin is not loaded"); return
+			skin._rewind(float(arguments[0]))
+		
+		# Lists all avaiable special effects
+		"fxlist" :
+			if skin == null : Console._output("Error! Skin is not loaded"); return
+			for fx_name : String in skin.skin_data.fx : Console._output(fx_name)
+		
+		# Spawns specified special effect at specified position
+		"fxadd" :
+			if arguments.size() < 1: Console._output("Error! X coordinate is not entered"); return
+			if arguments.size() < 2: Console._output("Error! Y coordinate is not entered"); return
+			if arguments.size() < 3: Console._output("Error! FX name is not entered"); return
+
+			if skin == null : Console._output("Error! Skin is not loaded"); return
+
+			var pos : Vector2 = Vector2(float(arguments[0]), float(arguments[1]))
+			_add_fx(arguments[2], pos)
+		
+		# Lists all avaiable sound effects
+		"sfxlist" :
+			if skin == null : Console._output("Error! Skin is not loaded"); return
+
+			for sound_name : String in skin.skin_data.sounds:
+				if skin.skin_data.sounds[sound_name] == null: 
+					continue 
+				if sound_name in ["bonus","square","special","timeline","blast"]:
+					for i : int in skin.skin_data.sounds[sound_name].size() - 1:
+						Console._output(sound_name + str(i))
+					continue
+				Console._output(sound_name)
+		
+		# Spawns specified sound effect at specified position
+		"sfxadd" :
+			if arguments.size() < 1: Console._output("Error! X coordinate is not entered"); return
+			if arguments.size() < 2: Console._output("Error! Y coordinate is not entered"); return
+			if arguments.size() < 3: Console._output("Error! Sound name is not entered"); return
+
+			if skin == null : Console._output("Error! Skin is not loaded"); return
+
+			var pos : Vector2 = Vector2(float(arguments[0]), float(arguments[1]))
+			var sound_name : String = arguments[2]
+
+			var num : int = -1
+			if sound_name.begins_with("bonus") : 
+				num = int(sound_name.substr(5))
+				sound_name = sound_name.left(5)
+			elif sound_name.begins_with("square") :
+				num = int(sound_name.substr(6))
+				sound_name = sound_name.left(6)
+			elif sound_name.begins_with("special") : 
+				num = int(sound_name.substr(7))
+				sound_name = sound_name.left(7)
+			elif sound_name.begins_with("timeline") : 
+				num = int(sound_name.substr(8))
+				sound_name = sound_name.left(8)
+			elif sound_name.begins_with("blast") : 
+				num = int(sound_name.substr(5))
+				sound_name = sound_name.left(5)
+
+			if num == -1 : _add_sound(sound_name, pos, true, false)
+			else : _add_sound(sound_name, pos, true, false, num)
+
+		# Lists all avaiable UI designs
+		"uilist" :
+			Console._output("standard")
+			Console._output("shinin")
+			Console._output("square")
+			Console._output("modern")
+			Console._output("live")
+			Console._output("pixel")
+			Console._output("black")
+			Console._output("comic")
+			Console._output("clean")
+			Console._output("vector")
+			Console._output("techno")
+		
+		# Changes current UI design with specified one
+		"uiset" : 
+			if arguments.size() < 1: Console._output("Error! UI design name is not entered"); return
+			if skin == null : Console._output("Error! Skin is not loaded"); return
+
+			var ui_design : int = 0
+			match arguments[0]:
+				"standard" : ui_design = SkinData.UI_DESIGN.STANDARD
+				"shinin" : ui_design = SkinData.UI_DESIGN.SHININ
+				"square" : ui_design = SkinData.UI_DESIGN.SQUARE
+				"modern" : ui_design = SkinData.UI_DESIGN.MODERN
+				"live" : ui_design = SkinData.UI_DESIGN.LIVE
+				"pixel" : ui_design = SkinData.UI_DESIGN.PIXEL
+				"black" : ui_design = SkinData.UI_DESIGN.BLACK
+				"comic" : ui_design = SkinData.UI_DESIGN.COMIC
+				"clean" : ui_design = SkinData.UI_DESIGN.CLEAN
+				"vector" : ui_design = SkinData.UI_DESIGN.VECTOR
+				"techno" : ui_design = SkinData.UI_DESIGN.TECHNO
+				_ : Console._output("Error! Invalid UI design name. Enter 'uilist' to get list of all avaiable UI designs"); return
+			
+			skin.skin_data.textures["ui_design"] = ui_design
+			foreground._change_style(skin.skin_data)
+		
+		# Changes specified UI element color
+		"color" :
+			if arguments.size() < 1: Console._output("Error! UI element name is not entered"); return
+			if arguments.size() < 2: Console._output("Error! Red channel % value is not entered"); return
+			if arguments.size() < 3: Console._output("Error! Green channel % value is not entered"); return
+			if arguments.size() < 4: Console._output("Error! Blue channel % value is not entered"); return
+			if arguments.size() < 5: Console._output("Error! Alpha channel % value is not entered"); return
+
+			if skin == null : Console._output("Error! Skin is not loaded"); return
+
+			var color : Color = Color.WHITE
+			color.r = color.r * (float(arguments[1]) / 100.0)
+			color.g = color.g * (float(arguments[2]) / 100.0)
+			color.b = color.b * (float(arguments[3]) / 100.0)
+			color.a = color.a * (float(arguments[4]) / 100.0)
+
+			match arguments[0]:
+				"eq" : 
+					skin.skin_data.textures["eq_visualizer_color"] = color
+					foreground._change_style(skin.skin_data)
+				"ui" : 
+					skin.skin_data.textures["ui_color"] = color
+					foreground._change_style(skin.skin_data)
+				"timeline" : 
+					skin.skin_data.textures["timeline_color"] = color
+				_: 
+					Console._output("Error! Invalid UI element name. Try entering 'eq', 'ui', 'timeline' instead"); return
+		
+		# Toggles game debug screen
+		"gdebug" :  
+			Debug._toggle(Debug.DEBUG_SCREEN.GAME)
+
+		# Resets game
+		"greset" :
+			_reset()
+
+		# Soft-resets game
+		"gsoft" :
+			_soft_reset()
+
+		# Triggers gameover
+		"gover" :
+			_game_over()
+		
+		# Finishes the game and returns to main menu screen
+		"back2menu" :
+			_end()

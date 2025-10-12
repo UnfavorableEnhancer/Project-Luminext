@@ -1,11 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://dffdqt6uu34xe"]
+[gd_scene load_steps=20 format=3 uid="uid://dffdqt6uu34xe"]
 
-[ext_resource type="Script" path="res://menu/scripts/screens/playlist_mode_gameover.gd" id="1_ctb7e"]
+[ext_resource type="Script" uid="uid://b6g0i352oubd3" path="res://menu/scripts/screens/playlist_mode_gameover.gd" id="1_ctb7e"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2_a2spf"]
-[ext_resource type="Shader" path="res://shaders/pixelize.gdshader" id="2_tshk8"]
 [ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://menu/objects/regular_button.tscn" id="4_tsr5t"]
 [ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="5_3vgpj"]
-[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="5_ddw78"]
+[ext_resource type="FontFile" uid="uid://sawohm8dc1a" path="res://fonts/Gravity-Book.otf" id="5_ic62b"]
 
 [sub_resource type="Animation" id="Animation_sha14"]
 resource_name = "end"
@@ -181,11 +180,11 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("Results/V2/Label2:modulate")
+tracks/14/path = NodePath("Results/Label4:modulate")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
-"times": PackedFloat32Array(0.196875, 0.365625, 1),
+"times": PackedFloat32Array(0.140625, 0.309375, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
@@ -193,11 +192,11 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("Results/V2/BlckDel:modulate")
+tracks/15/path = NodePath("Results/Label4/Time:modulate")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
-"times": PackedFloat32Array(0.16875, 0.3375, 1),
+"times": PackedFloat32Array(0.084375, 0.253125, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
@@ -205,11 +204,11 @@ tracks/15/keys = {
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("Results/V2/SqrDel:modulate")
+tracks/16/path = NodePath("Results/Label3:modulate")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
-"times": PackedFloat32Array(0.140625, 0.309375, 1),
+"times": PackedFloat32Array(0.084375, 0.253125, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
@@ -217,11 +216,11 @@ tracks/16/keys = {
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("Results/Label4:modulate")
+tracks/17/path = NodePath("Results/Label3/H/Lap:modulate")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
-"times": PackedFloat32Array(0.140625, 0.309375, 1),
+"times": PackedFloat32Array(0.0562499, 0.225, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
@@ -229,11 +228,11 @@ tracks/17/keys = {
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("Results/Label4/Time:modulate")
+tracks/18/path = NodePath("Results/Label3/H/Stage:modulate")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
-"times": PackedFloat32Array(0.084375, 0.253125, 1),
+"times": PackedFloat32Array(0.028125, 0.196875, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
@@ -241,46 +240,10 @@ tracks/18/keys = {
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("Results/V/Label3:modulate")
+tracks/19/path = NodePath("Results/Label3/H/Level:modulate")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
-"times": PackedFloat32Array(0.084375, 0.253125, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
-}
-tracks/20/type = "value"
-tracks/20/imported = false
-tracks/20/enabled = true
-tracks/20/path = NodePath("Results/V/Lap:modulate")
-tracks/20/interp = 1
-tracks/20/loop_wrap = true
-tracks/20/keys = {
-"times": PackedFloat32Array(0.0562499, 0.225, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
-}
-tracks/21/type = "value"
-tracks/21/imported = false
-tracks/21/enabled = true
-tracks/21/path = NodePath("Results/V/Stage:modulate")
-tracks/21/interp = 1
-tracks/21/loop_wrap = true
-tracks/21/keys = {
-"times": PackedFloat32Array(0.028125, 0.196875, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
-}
-tracks/22/type = "value"
-tracks/22/imported = false
-tracks/22/enabled = true
-tracks/22/path = NodePath("Results/V/Level:modulate")
-tracks/22/interp = 1
-tracks/22/loop_wrap = true
-tracks/22/keys = {
 "times": PackedFloat32Array(0, 0.16875, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
@@ -301,7 +264,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(2, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.501961), Color(0, 0, 0, 0)]
+"values": [Color(0.3125, 0, 0.153809, 0.501961), Color(0, 0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -310,7 +273,7 @@ tracks/1/path = NodePath("Top/Text:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
+"times": PackedFloat32Array(0, 0.75, 1.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -322,8 +285,8 @@ tracks/2/path = NodePath("Top/Label2:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.5, 1.2),
+"transitions": PackedFloat32Array(1, 0.5, 1),
 "update": 0,
 "values": [Vector2(2.12874e-08, 1), Vector2(0, 1), Vector2(1, 1)]
 }
@@ -406,7 +369,7 @@ tracks/9/path = NodePath("Menu/REPLAY:scale")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 1, 1.2),
+"times": PackedFloat32Array(0, 1, 1.25),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
@@ -418,7 +381,7 @@ tracks/10/path = NodePath("Menu/RESTART:scale")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0, 1.05, 1.25),
+"times": PackedFloat32Array(0, 1.05, 1.3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
@@ -430,7 +393,7 @@ tracks/11/path = NodePath("Menu/EXIT:scale")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0, 1.1, 1.3),
+"times": PackedFloat32Array(0, 1.1, 1.35),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
@@ -450,23 +413,23 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("Pixelize:material:shader_parameter/size")
+tracks/13/path = NodePath("Results/Label:modulate")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
-"times": PackedFloat32Array(0, 0.5, 1.5),
+"times": PackedFloat32Array(0, 1.05, 1.35),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [1.0, 1.0, 16.0]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("Results/Label:modulate")
+tracks/14/path = NodePath("Results/Label/Score:modulate")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
-"times": PackedFloat32Array(0, 0.65, 0.95),
+"times": PackedFloat32Array(0, 1.1, 1.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -474,11 +437,11 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("Results/Label/Score:modulate")
+tracks/15/path = NodePath("Results/Label4:modulate")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
-"times": PackedFloat32Array(0, 0.8, 1.1),
+"times": PackedFloat32Array(0, 1.25, 1.55),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -486,11 +449,11 @@ tracks/15/keys = {
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("Results/V2/Label2:modulate")
+tracks/16/path = NodePath("Results/Label4/Time:modulate")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
-"times": PackedFloat32Array(0, 1.15, 1.45),
+"times": PackedFloat32Array(0, 1.35, 1.65),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -498,11 +461,11 @@ tracks/16/keys = {
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("Results/V2/BlckDel:modulate")
+tracks/17/path = NodePath("Results/Label3:modulate")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
-"times": PackedFloat32Array(0, 1.2, 1.5),
+"times": PackedFloat32Array(0, 1.35, 1.65),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -510,11 +473,11 @@ tracks/17/keys = {
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("Results/V2/SqrDel:modulate")
+tracks/18/path = NodePath("Results/Label3/H/Lap:modulate")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
-"times": PackedFloat32Array(0, 1.25, 1.55),
+"times": PackedFloat32Array(0, 1.4, 1.7),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -522,11 +485,11 @@ tracks/18/keys = {
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("Results/Label4:modulate")
+tracks/19/path = NodePath("Results/Label3/H/Stage:modulate")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
-"times": PackedFloat32Array(0, 1.25, 1.55),
+"times": PackedFloat32Array(0, 1.45, 1.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -534,58 +497,10 @@ tracks/19/keys = {
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("Results/Label4/Time:modulate")
+tracks/20/path = NodePath("Results/Label3/H/Level:modulate")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
-"times": PackedFloat32Array(0, 1.35, 1.65),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/21/type = "value"
-tracks/21/imported = false
-tracks/21/enabled = true
-tracks/21/path = NodePath("Results/V/Label3:modulate")
-tracks/21/interp = 1
-tracks/21/loop_wrap = true
-tracks/21/keys = {
-"times": PackedFloat32Array(0, 1.35, 1.65),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/22/type = "value"
-tracks/22/imported = false
-tracks/22/enabled = true
-tracks/22/path = NodePath("Results/V/Lap:modulate")
-tracks/22/interp = 1
-tracks/22/loop_wrap = true
-tracks/22/keys = {
-"times": PackedFloat32Array(0, 1.4, 1.7),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/23/type = "value"
-tracks/23/imported = false
-tracks/23/enabled = true
-tracks/23/path = NodePath("Results/V/Stage:modulate")
-tracks/23/interp = 1
-tracks/23/loop_wrap = true
-tracks/23/keys = {
-"times": PackedFloat32Array(0, 1.45, 1.75),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/24/type = "value"
-tracks/24/imported = false
-tracks/24/enabled = true
-tracks/24/path = NodePath("Results/V/Level:modulate")
-tracks/24/interp = 1
-tracks/24/loop_wrap = true
-tracks/24/keys = {
 "times": PackedFloat32Array(0, 1.5, 1.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
@@ -594,13 +509,12 @@ tracks/24/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i76yb"]
 _data = {
-"end": SubResource("Animation_sha14"),
-"start": SubResource("14")
+&"end": SubResource("Animation_sha14"),
+&"start": SubResource("14")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_60gwj"]
-shader = ExtResource("2_tshk8")
-shader_parameter/size = 1.0
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ic62b"]
+blend_mode = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_ydym4"]
 font = ExtResource("2_a2spf")
@@ -619,7 +533,7 @@ atlas = ExtResource("5_3vgpj")
 region = Rect2(512, 1280, 256, 256)
 
 [sub_resource type="LabelSettings" id="LabelSettings_pjs1e"]
-font = ExtResource("5_ddw78")
+font = ExtResource("5_ic62b")
 font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_e0wsm"]
@@ -631,15 +545,15 @@ region = Rect2(512, 1280, 256, 256)
 
 [sub_resource type="LabelSettings" id="LabelSettings_q2cbg"]
 font = ExtResource("2_a2spf")
-font_size = 32
+font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_6vvpi"]
 font = ExtResource("2_a2spf")
-font_size = 96
+font_size = 56
 
-[sub_resource type="LabelSettings" id="LabelSettings_s018a"]
+[sub_resource type="LabelSettings" id="LabelSettings_ko6t2"]
 font = ExtResource("2_a2spf")
-font_size = 24
+font_size = 32
 
 [node name="PlaylistGameover" type="Control"]
 layout_mode = 3
@@ -648,17 +562,12 @@ script = ExtResource("1_ctb7e")
 
 [node name="A" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_i76yb")
+&"": SubResource("AnimationLibrary_i76yb")
 }
 
-[node name="Pixelize" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_60gwj")
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-
 [node name="back" type="ColorRect" parent="."]
-modulate = Color(1, 1, 1, 0.501961)
+modulate = Color(0, 0, 0, 0)
+material = SubResource("CanvasItemMaterial_ic62b")
 layout_mode = 0
 offset_top = 8.0
 offset_right = 1920.0
@@ -681,12 +590,11 @@ offset_left = -3.68
 offset_top = 125.64
 offset_right = 1916.32
 offset_bottom = 245.64
-scale = Vector2(2.12874e-08, 1)
+pivot_offset = Vector2(960, 56)
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Text" type="Label" parent="Top"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_top = 128.0
 offset_right = 1920.0
@@ -698,13 +606,11 @@ vertical_alignment = 1
 uppercase = true
 
 [node name="Menu" type="ColorRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 320.0
-offset_top = 680.0
+offset_top = 664.0
 offset_right = 1600.0
-offset_bottom = 1000.0
-scale = Vector2(1, 1e-05)
+offset_bottom = 984.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="REPLAY" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("4_tsr5t")]
@@ -712,7 +618,6 @@ layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 1264.0
-scale = Vector2(1, 1e-05)
 text = "SAVE REPLAY"
 description_node = NodePath("../Desc")
 glow_color = Color(0.94902, 0.513726, 0.227451, 1)
@@ -745,7 +650,6 @@ offset_left = 16.0
 offset_top = 80.0
 offset_right = 1264.0
 offset_bottom = 128.0
-scale = Vector2(1, 1e-05)
 text = "RESTART"
 description_node = NodePath("../Desc")
 glow_color = Color(0.94902, 0.513726, 0.227451, 1)
@@ -779,7 +683,6 @@ offset_left = 16.0
 offset_top = 144.0
 offset_right = 1264.0
 offset_bottom = 192.0
-scale = Vector2(1, 1e-05)
 text = "PAUSE_EXIT"
 description_node = NodePath("../Desc")
 glow_color = Color(0.709804, 0.709804, 0.709804, 1)
@@ -811,17 +714,16 @@ stretch_mode = 5
 [node name="ColorRect" type="ColorRect" parent="Menu"]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 216.0
+offset_top = 208.0
 offset_right = 1264.0
-offset_bottom = 220.0
-scale = Vector2(1e-05, 1)
+offset_bottom = 212.0
 
 [node name="Desc" type="Label" parent="Menu"]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 240.0
+offset_top = 224.0
 offset_right = 1256.0
-offset_bottom = 276.0
+offset_bottom = 284.0
 label_settings = SubResource("LabelSettings_pjs1e")
 horizontal_alignment = 1
 
@@ -836,8 +738,6 @@ offset_bottom = 311.0
 text = "PLAYLIST_END_ARROW2"
 label_settings = SubResource("LabelSettings_e0wsm")
 uppercase = true
-visible_characters = 0
-visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="Menu/Detail4"]
 texture_filter = 2
@@ -848,23 +748,22 @@ offset_right = -11.0
 offset_bottom = 20.0
 texture = SubResource("AtlasTexture_1fbr7")
 expand_mode = 1
+flip_h = true
+flip_v = true
 
 [node name="Results" type="ColorRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 320.0
 offset_top = 280.0
 offset_right = 1600.0
-offset_bottom = 664.0
-scale = Vector2(1, 2.37064e-08)
+offset_bottom = 648.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="Label" type="Label" parent="Results"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 offset_top = 20.0
 offset_right = 1280.0
-offset_bottom = 56.0
+offset_bottom = 47.0
 text = "END_SCORE"
 label_settings = SubResource("LabelSettings_q2cbg")
 horizontal_alignment = 1
@@ -872,103 +771,62 @@ uppercase = true
 
 [node name="Score" type="Label" parent="Results/Label"]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 offset_top = 36.0
 offset_right = 1280.0
-offset_bottom = 141.0
-text = "12586"
+offset_bottom = 97.25
+text = "999999 | 520 ™"
 label_settings = SubResource("LabelSettings_6vvpi")
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="V2" type="VBoxContainer" parent="Results"]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 168.0
-offset_right = 1032.0
-offset_bottom = 333.0
-theme_override_constants/separation = 16
-alignment = 2
-
-[node name="Label2" type="Label" parent="Results/V2"]
-modulate = Color(1, 1, 1, 0)
+[node name="Label3" type="Label" parent="Results"]
 layout_mode = 2
-text = "END_DELETED"
-label_settings = SubResource("LabelSettings_q2cbg")
-uppercase = true
-
-[node name="BlckDel" type="Label" parent="Results/V2"]
-unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-text = "BLOCKS"
-label_settings = SubResource("LabelSettings_s018a")
-uppercase = true
-
-[node name="SqrDel" type="Label" parent="Results/V2"]
-unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-text = "SQUARES : 2222
-"
-label_settings = SubResource("LabelSettings_s018a")
-uppercase = true
-
-[node name="V" type="VBoxContainer" parent="Results"]
-layout_mode = 0
-offset_left = 256.0
-offset_top = 168.0
-offset_right = 1264.0
-offset_bottom = 333.0
-theme_override_constants/separation = 16
-alignment = 2
-
-[node name="Label3" type="Label" parent="Results/V"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
+offset_top = 236.0
+offset_right = 1280.0
+offset_bottom = 271.0
 size_flags_vertical = 8
 text = "REACHED"
 label_settings = SubResource("LabelSettings_q2cbg")
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 2
 uppercase = true
 
-[node name="Lap" type="Label" parent="Results/V"]
+[node name="H" type="HBoxContainer" parent="Results/Label3"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 1280.0
+offset_bottom = 88.0
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Lap" type="Label" parent="Results/Label3/H"]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 text = "LAP : 33"
-label_settings = SubResource("LabelSettings_s018a")
-horizontal_alignment = 2
+label_settings = SubResource("LabelSettings_ko6t2")
 uppercase = true
 
-[node name="Stage" type="Label" parent="Results/V"]
+[node name="Stage" type="Label" parent="Results/Label3/H"]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 text = "sTAGE : 33"
-label_settings = SubResource("LabelSettings_s018a")
-horizontal_alignment = 2
+label_settings = SubResource("LabelSettings_ko6t2")
 uppercase = true
 
-[node name="Level" type="Label" parent="Results/V"]
+[node name="Level" type="Label" parent="Results/Label3/H"]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 text = "LEVEL : 23"
-label_settings = SubResource("LabelSettings_s018a")
-horizontal_alignment = 2
+label_settings = SubResource("LabelSettings_ko6t2")
 uppercase = true
 
 [node name="Label4" type="Label" parent="Results"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-offset_left = 16.0
-offset_top = 258.0
-offset_right = 1256.0
-offset_bottom = 294.0
+offset_top = 128.0
+offset_right = 1280.0
+offset_bottom = 164.0
 text = "TIME_SPENT"
 label_settings = SubResource("LabelSettings_q2cbg")
 horizontal_alignment = 1
@@ -976,14 +834,12 @@ uppercase = true
 
 [node name="Time" type="Label" parent="Results/Label4"]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-offset_left = -16.0
-offset_top = 40.0
-offset_right = 1264.0
-offset_bottom = 76.0
+offset_top = 36.0
+offset_right = 1280.0
+offset_bottom = 97.25
 text = "20:30:32"
-label_settings = SubResource("LabelSettings_q2cbg")
+label_settings = SubResource("LabelSettings_6vvpi")
 horizontal_alignment = 1
 uppercase = true
 
@@ -992,14 +848,12 @@ modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
 texture_filter = 1
 layout_mode = 0
 offset_left = 44.0
-offset_top = 356.0
+offset_top = 340.0
 offset_right = 391.0
-offset_bottom = 375.0
+offset_bottom = 359.0
 text = "PLAYLIST_END_ARROW1"
 label_settings = SubResource("LabelSettings_e0wsm")
 uppercase = true
-visible_characters = 0
-visible_ratio = 0.0
 
 [node name="Icon" type="TextureRect" parent="Results/Detail4"]
 texture_filter = 2
@@ -1010,3 +864,5 @@ offset_right = -11.0
 offset_bottom = 20.0
 texture = SubResource("AtlasTexture_1fbr7")
 expand_mode = 1
+flip_h = true
+flip_v = true

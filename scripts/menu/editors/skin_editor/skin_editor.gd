@@ -1,0 +1,684 @@
+# Project Luminext - an advanced open-source Lumines spiritual successor
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
+# Contact : <random.likes.apes@gmail.com>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+extends MenuScreen
+
+#-----------------------------------------------------------------------
+# Basic Skin Editor
+# Allows user to replace several textures, add own sounds/music/video data and edit metadata. 
+# In far away future advanced skin editor will be implemented, which will provide much more features.
+#-----------------------------------------------------------------------
+
+signal skin_saved ## Emitted when skin save finished
+signal skin_loaded ## Emitted when skin load finished
+signal file_selected ## Emitted when some file was selected
+
+enum SAVE_CONFIRM_TEXT {NORMAL, UNSAVED} ## Avaiable types of save confirmation message
+enum FILE_FORMAT {NONE,TEXTURE,AUDIO,VIDEO,SCENE,SKIN} ## Avaiable file formats to load
+
+var skin_data : SkinData = null ## Currently editing skin data
+
+var file_format : int = FILE_FORMAT.NONE ## What type of file we wanna get from [FileExplorer] now
+var selected_path : String = "" ## Currently selected path by [FileExplorer]
+
+var skin_path : String = "" ## Current skin path
+var skin_by : String = "" ## Current skin author name
+
+var has_unsaved_changes : bool = false ## True if skin has some changes unsaved
+
+var is_save_confirmed : bool = false ## True if skin save was confirmed
+var is_exiting : bool = false ## True if editor is currently closing
+var is_in_playtest : bool = false ## True if skin playtest mode is currently going
+
+
+func _ready() -> void:
+	parent_menu.screens["foreground"].visible = false ## Hide foreground so it wont overlay the editor
+
+	if parent_menu.is_music_playing:
+		parent_menu.custom_data["last_music_pos"] = parent_menu.music_player.get_playback_position()
+		parent_menu._change_music("nothing")
+	
+	%FileExplorer.close_requested.connect(func() -> void: selected_path = "cancel")
+	%FileExplorer.canceled.connect(func() -> void: selected_path = "cancel")
+	
+	main.total_time_tick.connect(func() -> void: Player.savedata.stats["total_skin_editor_time"] += 1)
+	
+	var new_skin : SkinData = Data.blank_skin._clone()
+	_import_skin(new_skin, true)
+
+
+## Starts current skin saving. If **'silent'** is true, saves without confirmation
+func _save_skin(silent : bool = false) -> int:
+	if is_in_playtest: return ERR_LOCKED
+
+	if not silent:
+		parent_menu._play_sound("confirm3")
+		var dialog : MenuScreen = parent_menu._add_screen("accept_dialog")
+		dialog.desc_text = tr("SE_SAVE_DIALOG")
+		
+		var accepted : bool = await dialog.closed
+		if not accepted : return ERR_LOCKED
+
+	await get_tree().create_timer(0.25).timeout
+	
+	var thread : Thread = Thread.new()
+	
+	main._toggle_loading(true)
+	parent_menu.is_locked = true
+
+	skin_path = ""
+
+	await get_tree().create_timer(0.1).timeout
+	thread.start(skin_data._save.bind(skin_path))
+	
+	await skin_data.skin_saved
+	await get_tree().create_timer(0.01).timeout
+	var result : int = thread.wait_to_finish()
+	if result != OK:
+		main._display_system_message("SKIN SAVE FAILED!")
+		has_unsaved_changes = false
+	
+	skin_path = skin_data.metadata.path
+
+	main._toggle_loading(false)
+	parent_menu.is_locked = false
+	skin_saved.emit()
+	return result
+
+
+## Loads all passed [SkinData] assets into editor. If **'silent'** is false and skin has unsaved changes, asks for confirmation
+func _import_skin(data : SkinData = null, silent : bool = false) -> void:
+	if is_in_playtest: return
+
+	if has_unsaved_changes and not silent:
+		var dialog : MenuScreen = parent_menu._add_screen("accept_dialog")
+		dialog.desc_text = tr("SE_UNSAVED_EXIT")
+		
+		var accepted : bool = await dialog.closed
+		if not accepted : return
+	
+	Console._space()
+	Console._log("Importing skin into editor")
+
+	if data == null:
+		parent_menu._play_sound("confirm3")
+		
+		_open_file_dialog(FILE_FORMAT.SKIN)
+		await file_selected
+		# Add slight delay so '%FileExplorer.confirmed' could work
+		await get_tree().create_timer(0.01).timeout
+
+		if selected_path == "" : return
+		skin_path = selected_path
+		Player.config.misc["last_skins_dir"] = skin_path 
+
+		var thread : Thread = Thread.new()
+		
+		main._toggle_loading(true)
+		parent_menu.is_locked = true
+
+		skin_data = Data.blank_skin._clone()
+
+		await get_tree().create_timer(0.25).timeout
+		thread.start(skin_data._load_from_path.bind(skin_path))
+
+		await skin_data.skin_loaded
+		await get_tree().create_timer(0.01).timeout
+		var result : int = thread.wait_to_finish()
+
+		main._toggle_loading(false)
+		parent_menu.is_locked = false
+
+		if result != OK:
+			main._display_system_message("SKIN LOADING ERROR!\n\n" + selected_path)
+			return
+		
+		if skin_data.version != SkinData.VERSION:
+			has_unsaved_changes = true
+	
+	else: skin_data = data
+	
+	Console._log("Importing metadata")
+	
+	# Enter metadata content settings
+	%Name.text = skin_data.metadata.name
+	%Album.text = skin_data.metadata.album
+	%Info.text = skin_data.metadata.info
+	%Artist.text = skin_data.metadata.artist
+	%BPM.text = str(skin_data.metadata.bpm)
+	%Number.text = str(skin_data.metadata.number)
+	
+	# Get this skin edit history
+	var edit_history : PackedStringArray = skin_data.stream["edit_history"]
+	if not edit_history.is_empty():
+		var text : String = ""
+		var entry : int = 0
+		var history_size : int = edit_history.size()
+		while entry < history_size:
+			var timestring : String = Time.get_datetime_string_from_unix_time(int(edit_history[entry])) 
+			timestring = timestring.replace("T", " ")
+			var editor : String = edit_history[entry + 1]
+			text += timestring + " - " + editor + "\n"
+			entry += 2
+		
+		%EditHistory.text = text
+	
+	if skin_data.metadata.label_art != null : %LabelArt.texture_normal = skin_data.metadata.label_art
+	if skin_data.metadata.cover_art != null : %CoverArt.texture_normal = skin_data.metadata.cover_art
+	
+	%Shake.text = "ON" if skin_data.metadata.settings["no_shaking"] else "OFF"
+	%Shake.button_pressed = skin_data.metadata.settings["no_shaking"]
+	%Loop.text = "ON" if skin_data.metadata.settings["looping"] else "OFF"
+	%Loop.button_pressed = skin_data.metadata.settings["looping"]
+	%BonusRand.text = "ON" if skin_data.metadata.settings["random_bonus"] else "OFF"
+	%BonusRand.button_pressed = skin_data.metadata.settings["random_bonus"]
+	%Zoom.text = "ON" if skin_data.metadata.settings["zoom_background"] else "OFF"
+	%Zoom.button_pressed = skin_data.metadata.settings["zoom_background"]
+	
+	Console._log("Importing sounds")
+	
+	for sound_name : String in ["bonus","square","timeline","blast","special"]:
+		# Set corresponding sound's spinboxes max value to array lenght (-1 since last array member is null)
+		var n : int = skin_data.sounds[sound_name].size() - 1
+		
+		match sound_name:
+			"bonus" : 
+				%BonusSound/N.max_value = n
+				%BonusSound/N.value = 0
+			"square" : 
+				%SquareSound/N.max_value = n
+				%SquareSound/N.value = 0
+			"timeline" : 
+				%TimelineSound/N.max_value = n
+				%TimelineSound/N.value = 0
+			"blast" : 
+				%BlastSound/N.max_value = n
+				%BlastSound/N.value = 0
+			"special" : 
+				%SpecialSound/N.max_value = n
+				%SpecialSound/N.value = 0
+	
+	# Reset all sound button labels
+	get_tree().call_group("sound_buttons","_load_sound")
+	
+	Console._log("Importing textures")
+	
+	for entry : String in skin_data.textures:
+		var value : Variant = skin_data.textures[entry]
+		
+		# Skip if nothing found
+		if value == null : continue
+
+		match entry:
+			"ui_design": 
+				%UIDesign.select(value)
+				_on_UIDesign_item_selected(%UIDesign.selected)
+			# Color colorable things
+			"red_fx" : 
+				%redfx.modulate = value
+			"white_fx" : 
+				%whitefx.modulate = value
+			"green_fx" : 
+				%greenfx.modulate = value
+			"purple_fx" : 
+				%purplefx.modulate = value
+			"ui_color" : 
+				%UIColor.modulate = value
+				%UIPreview.modulate = value
+			"eq_visualizer_color" : 
+				%EQColor.modulate = value
+				%EQPreview.modulate = value
+			"timeline_color" : 
+				%TimelineColor.modulate = value
+				%TimelinePreview.modulate = value
+			"red_anim" :
+				%RedAnim/Speed.text = str(value[2])
+			"white_anim" :
+				%WhiteAnim/Speed.text = str(value[2])
+			"green_anim" :
+				%GreenAnim/Speed.text = str(value[2])
+			"purple_anim" :
+				%PurpleAnim/Speed.text = str(value[2])
+	
+	%AnimStyle.selected = _get_animation_preset_index()
+	
+	if skin_data.stream.has("scene_path"):
+		%ScenePath.text = skin_data.stream["scene_path"]
+	
+	# Setup animated blocks textures
+	get_tree().call_group("texture_buttons","_load_texture")
+	
+	# Setup anything else
+	get_tree().call_group("data_buttons","_load_data")
+	
+	Console._log("Skin import finished!")
+	Player.savedata.stats["total_skin_load_times"] += 1
+	skin_loaded.emit()
+
+
+## Resets currently loaded skin to blank. Asks for confirmation first
+func _reset() -> void:
+	parent_menu._play_sound("confirm2")
+	
+	var dialog : MenuScreen = parent_menu._add_screen("accept_dialog")
+	if has_unsaved_changes : dialog.desc_text = tr("SE_UNSAVED_RESET")
+	else : dialog.desc_text = tr("SE_RESET_DIALOG")
+
+	var accepted : bool = await dialog.closed
+	if not accepted : return
+	
+	var new_skin : SkinData = Data.blank_skin._clone()
+	_import_skin(new_skin, true)
+
+	skin_path = ""
+	# We need to reset textures manually for proper SpriteFrames display
+	get_tree().call_group("texture_buttons","_reset_texture")
+	
+	%Name.text = ""
+	%Album.text = ""
+	%Number.text = ""
+	%Artist.text = ""
+	%Info.text = ""
+
+
+## Exits skin editor. If skin has unsaved changes, asks for confirmation
+func _exit() -> void:
+	if parent_menu.is_locked or parent_menu.current_screen_name != snake_case_name or is_in_playtest: 
+		return 
+	
+	parent_menu._play_sound("cancel")
+	
+	if has_unsaved_changes:
+		var dialog : MenuScreen = parent_menu._add_screen("accept_dialog")
+		dialog.desc_text = tr("SE_UNSAVED_EXIT")
+		
+		var accepted : bool = await dialog.closed
+		if not accepted : return
+	
+	Player._save_profile()
+	parent_menu._change_screen("main_menu")
+
+
+## Starts current skin playtest. If skin has unsaved changes, asks for confirmation
+func _start_playtest_skn() -> void:
+	if is_in_playtest: return
+	
+	if has_unsaved_changes:
+		var dialog : MenuScreen = parent_menu._add_screen("accept_dialog")
+		dialog.desc_text = tr("SE_UNSAVED_CONTINUE")
+		
+		var accepted : bool = await dialog.closed
+		if accepted: 
+			var result : int = await _save_skin(true)
+			if result != OK : return
+		else: return
+	
+	skin_data._cache_godot_scene()
+	skin_data._cache_video()
+
+	is_in_playtest = true
+	$A.play("end")
+	parent_menu._play_sound("enter")
+
+	var playlist_mode : PlaylistMode = PlaylistMode.new()
+	playlist_mode.is_single_run = false
+	playlist_mode.is_single_skin_mode = true
+	playlist_mode.is_playtest_mode = true
+	playlist_mode.menu_screen_to_return = "skin_editor"
+
+	skin_data.metadata.path = skin_path
+	#Data.main._start_game(skin_data, playlist_mode)
+
+
+## Ends current skin playtest
+func _end_playtest_skn() -> void:
+	if not is_in_playtest: return
+
+	parent_menu.current_screen = self
+	parent_menu.current_screen_name = "skin_editor"
+	parent_menu.move_child(self,parent_menu.get_child_count())
+
+	parent_menu.screens["foreground"].visible = false
+	
+	main._toggle_darken(false)
+	$A.play("back")
+	is_in_playtest = false
+
+
+## Opens [FileExplorer] with desired **'format'** to look for
+func _open_file_dialog(format : int) -> void:
+	if is_in_playtest: return
+
+	selected_path = ""
+	file_format = format
+	
+	var file_dialog : FileDialog = %FileExplorer
+	file_dialog.clear_filters()
+	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
+	
+	match format:
+		FILE_FORMAT.SKIN : 
+			file_dialog.add_filter("*.skn", "Luminext Skin File")
+			%FileExplorer.current_path = Player.config.misc["last_skins_dir"]
+		FILE_FORMAT.TEXTURE :
+			file_dialog.add_filter("*.png", "PNG Image File")
+			file_dialog.add_filter("*.jpeg", "JPEG Image File")
+			file_dialog.add_filter("*.bmp", "BMP Image File")
+			file_dialog.add_filter("*.webp", "WebP Image File")
+			%FileExplorer.current_path = Player.config.misc["last_editor_dir"]
+		FILE_FORMAT.AUDIO : 
+			file_dialog.add_filter("*.ogg", "OGG Vorbis Audio File")
+			file_dialog.add_filter("*.mp3", "MP3 Audio File")
+			file_dialog.add_filter("*.wav", "Waveform Audio File")
+			%FileExplorer.current_path = Player.config.misc["last_editor_dir"]
+		FILE_FORMAT.VIDEO : 
+			file_dialog.add_filter("*.mp4", "MP4 h263/h264 Video File")
+			file_dialog.add_filter("*.webm", "WebM VP8/VP9 Video File")
+			%FileExplorer.current_path = Player.config.misc["last_editor_dir"]
+		FILE_FORMAT.SCENE :
+			file_dialog.add_filter("*.pck", "Godot Package File")
+			file_dialog.add_filter("*.zip", "ZIP Archive File")
+			%FileExplorer.current_path = Player.config.misc["last_editor_dir"]
+	
+	$A.play("input")
+	%FileExplorer.popup_centered()
+	# Wait until popup_closes
+	await %FileExplorer.visibility_changed
+	
+	# Get drive letter dumbest way possible thanks to how godot is made
+	var stupid_file_dialog_option_button : OptionButton = %FileExplorer.get_vbox().get_child(0).get_child(4).get_child(0)
+	var drive_letter : String = stupid_file_dialog_option_button.get_item_text(stupid_file_dialog_option_button.selected)
+	
+	if selected_path == "cancel" : selected_path = ""
+	else: selected_path = drive_letter + %FileExplorer.current_path
+
+	print("test")
+	print("DIR ", %FileExplorer.current_dir)
+	print("PATH ", %FileExplorer.current_path)
+	print("FILE ", %FileExplorer.current_file)
+	print("DRIVE ", drive_letter)
+	print("SELECTED PATH ", selected_path)
+	
+	$A.play("input",-1,-1.5,true)
+	file_selected.emit()
+
+
+## Inputs currently selected file path into some **'entry'** in [SkinData.stream]
+func _edit_skn_stream_data(entry : String) -> String:
+	if is_in_playtest: return ""
+	if selected_path == "" : return ""
+
+	skin_data.stream[entry] = selected_path
+	Player.config.misc["last_editor_dir"] = selected_path 
+	has_unsaved_changes = true
+	
+	return selected_path
+
+
+## Toggles boolean **'entry'** inside skin metadata settings
+func _toggle_skn_data(entry : String, on : bool) -> void:
+	if is_in_playtest: return
+	
+	skin_data.metadata.settings[entry] = on
+
+
+## Used by [LineEdit] to input written **'text'** into some **'entry'** inside [SkinData] dictionaries
+func _edit_skn_text_data(entry : String, text : String) -> void:
+	if is_in_playtest: return
+	
+	match entry:
+		# Metadata
+		"name", "album", "artist", "info" : skin_data.metadata.set(entry, text)
+		# Floats
+		"BPM" : 
+			text = text.replace(",",".")
+			skin_data.metadata.bpm = float(text)
+		# Ints
+		"number" : 
+			skin_data.metadata.number = int(text)
+		# Block animation FPS
+		"red_anim_speed" : 
+			var fps : int = int(text)
+			skin_data.textures["red_anim"][2] = fps
+			skin_data._set_sprite_sheet_fps("red_anim", fps)
+			get_tree().call_group("texture_buttons", "_set_animation_fps", "red_anim", fps)
+		"white_anim_speed" : 
+			var fps : int = int(text)
+			skin_data.textures["white_anim"][2] = fps
+			skin_data._set_sprite_sheet_fps("white_anim", fps)
+			get_tree().call_group("texture_buttons", "_set_animation_fps", "white_anim", fps)
+		"green_anim_speed" : 
+			var fps : int = int(text)
+			skin_data.textures["green_anim"][2] = fps
+			skin_data._set_sprite_sheet_fps("green_anim", fps)
+			get_tree().call_group("texture_buttons", "_set_animation_fps", "green_anim", fps)
+		"purple_anim_speed" : 
+			var fps : int = int(text)
+			skin_data.textures["purple_anim"][2] = fps
+			skin_data._set_sprite_sheet_fps("purple_anim", fps)
+			get_tree().call_group("texture_buttons", "_set_animation_fps", "purple_anim", fps)
+		
+		"scene_path": skin_data.stream["scene_path"] = text
+	
+	has_unsaved_changes = true
+
+
+## Takes color from [ColorPicker] and assigns it to [SkinData.textures] **'entry'**
+func _edit_skn_color(entry : String) -> Color:
+	var color : Color = %ColorPicker.color
+	if is_in_playtest: return color
+
+	match entry:
+		"ui_color" : 
+			%UIColor.modulate = color
+			%UIPreview.modulate = color
+		"timeline_color" : 
+			%TimelineColor.modulate = color
+			%TimelinePreview.modulate = color
+		"eq_visualizer_color" : 
+			%EQColor.modulate = color
+			%EQPreview.modulate = color
+
+	skin_data.textures[entry] = color
+	has_unsaved_changes = true
+	
+	return color
+
+
+## Used to input audio data into **'entry'** inside [SkinData] **'dictionary_name'**[br]
+## If it's multi-sound entry, position must be specified in **'multisound_pos'**
+func _edit_skn_audio(entry : String, dictionary_name : String, multisound_pos : int = -1) -> String:
+	if selected_path == "" : return ""
+	if is_in_playtest: return ""
+
+	Player.config.misc["last_editor_dir"] = selected_path 
+	
+	var sample : AudioStream
+	if selected_path.ends_with(".ogg"): 
+		sample = AudioStreamOggVorbis.load_from_file(selected_path)
+	elif selected_path.ends_with(".mp3"): 
+		sample = AudioStreamMP3.load_from_file(selected_path)
+	elif selected_path.ends_with(".wav"): 
+		sample = AudioStreamWAV.load_from_file(selected_path)
+	else: return ""
+	
+	if entry == "announce":
+		skin_data.metadata.announce = sample
+		return selected_path
+	elif entry == "preview":
+		skin_data.metadata.preview = sample
+		return selected_path
+	
+	var dictionary : Dictionary = skin_data.get(dictionary_name)
+	
+	if multisound_pos > -1: 
+		dictionary[entry][multisound_pos] = sample
+		# Append null at the end of multi-sound array, so it can be modifyed later
+		if multisound_pos == dictionary[entry].size() - 1 : dictionary[entry].append(null)	
+	else: dictionary[entry] = sample
+	
+	has_unsaved_changes = true
+	return selected_path
+
+
+## Used to input texture image into some **'entry'** inside [SkinData] **'dictionary_name'**
+func _edit_skn_texture(entry : String, dictionary_name : String) -> Resource:
+	if selected_path == "" : return null
+	if is_in_playtest: return null
+
+	Player.config.misc["last_editor_dir"] = selected_path 
+	
+	var image : Image = Image.load_from_file(selected_path)
+	image.fix_alpha_edges()
+	var texture : PortableCompressedTexture2D = PortableCompressedTexture2D.new()
+	texture.keep_compressed_buffer = true
+	texture.create_from_image(image, PortableCompressedTexture2D.COMPRESSION_MODE_LOSSLESS)
+	
+	# If its just single texture
+	if entry in ["arrow_1","arrow_2","arrow_3","arrow_4","X_tex","2_tex","3_tex","4_tex",
+	"back","erase","select","effect_1","effect_2"]:
+		skin_data.get(dictionary_name)[entry] = texture
+		return texture
+	elif entry == "cover_art" or entry == "label_art":
+		skin_data.metadata.set(entry, texture)
+		return texture
+	
+	# Else we assume it's animated one
+	var sheet : SpriteFrames = SpriteFrames.new()
+	
+	var image_height : int = image.get_height()
+	var image_width : int = image.get_width()
+	var sprites_amount : int = int(float(image_width) / image_height)
+	
+	# We expect linear texture sheets to be inputed so slice this image into equal pieces
+	for i : int in sprites_amount:
+		var atlas_texture : AtlasTexture = AtlasTexture.new()
+		atlas_texture.atlas = texture
+		atlas_texture.region = Rect2(i * image_height,0,image_height,image_height)
+		sheet.add_frame("default",atlas_texture)
+	
+	sheet.set_animation_loop("default",false)
+	sheet.set_animation_speed("default",sheet.get_frame_count("default") * 6)
+	
+	# Set special animation speed for colored blocks textures, with exception of special blocks
+	if not entry.ends_with("chain"):
+		if entry.begins_with("r"): sheet.set_animation_speed("default",skin_data.textures["red_anim"][2])
+		if entry.begins_with("wh"): sheet.set_animation_speed("default",skin_data.textures["white_anim"][2])
+		if entry.begins_with("gr"): sheet.set_animation_speed("default",skin_data.textures["green_anim"][2])
+		if entry.begins_with("p"): sheet.set_animation_speed("default",skin_data.textures["purple_anim"][2])
+	
+	skin_data._update_sprite_sheet(sheet,entry)
+	has_unsaved_changes = true
+	return sheet
+
+
+## Sets block animation preset, which defines when block animation will play depending on music beat
+func _change_block_animation_preset(index : int) -> void:
+	var preset : Array[int]
+	
+	match index:
+		SkinData.BLOCK_ANIM_PATTERN.EACH_BEAT: preset = [0,4,2,4,0,4,2,4]
+		SkinData.BLOCK_ANIM_PATTERN.EACH_2BEATS: preset = [0,8,4,8,0,8,4,8]
+		SkinData.BLOCK_ANIM_PATTERN.EACH_BAR: preset = [0,16,8,16,0,16,8,16]
+		SkinData.BLOCK_ANIM_PATTERN.EACH_HALF_BEAT: preset = [0,2,1,2,0,2,1,2]
+		SkinData.BLOCK_ANIM_PATTERN.COLOR_ORDER: preset = [0,8,2,8,4,8,6,8]
+		_, SkinData.BLOCK_ANIM_PATTERN.CONSTANT_LOOPING: preset = [0,0,0,0,0,0,0,0]
+	
+	skin_data.textures["red_anim"][0] = preset[0]
+	skin_data.textures["red_anim"][1] = preset[1]
+	skin_data.textures["white_anim"][0] = preset[2]
+	skin_data.textures["white_anim"][1] = preset[3]
+	skin_data.textures["green_anim"][0] = preset[4]
+	skin_data.textures["green_anim"][1] = preset[5]
+	skin_data.textures["purple_anim"][0] = preset[6]
+	skin_data.textures["purple_anim"][1] = preset[7]
+	
+	has_unsaved_changes = true
+
+
+## Determines current block animation preset and returns it
+func _get_animation_preset_index() -> int:
+	var animation_offset : int = skin_data.textures["red_anim"][0]
+	var animation_beat : int = skin_data.textures["red_anim"][1]
+	
+	if animation_beat == 2 and animation_offset == 0: return SkinData.BLOCK_ANIM_PATTERN.EACH_BEAT
+	if animation_beat == 4 and animation_offset == 0: return SkinData.BLOCK_ANIM_PATTERN.EACH_2BEATS
+	if animation_beat == 8 and animation_offset == 0: return SkinData.BLOCK_ANIM_PATTERN.EACH_BAR
+	if animation_beat == 1 and animation_offset == 0: return SkinData.BLOCK_ANIM_PATTERN.EACH_HALF_BEAT
+	if skin_data.textures["purple_anim"][0] == 6 : return SkinData.BLOCK_ANIM_PATTERN.COLOR_ORDER
+	if animation_beat == 0 and animation_offset == 0: return  SkinData.BLOCK_ANIM_PATTERN.CONSTANT_LOOPING
+	
+	return 0 
+
+
+func _input(event : InputEvent) -> void:
+	if event.is_action("ui_cancel"): _exit()
+
+
+## Shows selected editor item description
+func _show_description(desc : String) -> void:
+	%Description.text = tr(desc)
+
+
+# That's kinda too much to make an separate oneline scripts for things below :/
+func _on_UIDesign_item_selected(index : int) -> void:
+	skin_data.textures["ui_design"] = index
+	
+	match index:
+		SkinData.UI_DESIGN.STANDARD: %UIPreview.texture = load("res://images/menu/ui_preview/standard.png")
+		SkinData.UI_DESIGN.SHININ: %UIPreview.texture = load("res://images/menu/ui_preview/shinin.png")
+		SkinData.UI_DESIGN.SQUARE: %UIPreview.texture = load("res://images/menu/ui_preview/classic.png")
+		SkinData.UI_DESIGN.MODERN: %UIPreview.texture = load("res://images/menu/ui_preview/modern.png")
+		SkinData.UI_DESIGN.LIVE: %UIPreview.texture = load("res://images/menu/ui_preview/live.png")
+		SkinData.UI_DESIGN.PIXEL: %UIPreview.texture = load("res://images/menu/ui_preview/pixel.png")
+		SkinData.UI_DESIGN.BLACK: %UIPreview.texture = load("res://images/menu/ui_preview/black.png")
+		SkinData.UI_DESIGN.COMIC: %UIPreview.texture = load("res://images/menu/ui_preview/comic.png")
+		SkinData.UI_DESIGN.CLEAN: %UIPreview.texture = load("res://images/menu/ui_preview/clean.png")
+		SkinData.UI_DESIGN.VECTOR: %UIPreview.texture = load("res://images/menu/ui_preview/vector.png")
+		SkinData.UI_DESIGN.TECHNO: %UIPreview.texture = load("res://images/menu/ui_preview/techno.png")
+
+func _on_UIDesign_mouse_entered() -> void:
+	_show_description("SE_UI_DESIGN_DESC")
+
+func _on_Info_text_changed() -> void:
+	skin_data.metadata["info"] = get_node("%Info").text
+
+func _on_Info_mouse_entered() -> void:
+	_show_description("SE_ABOUT_DESC")
+
+func _on_Test_mouse_entered() -> void:
+	_show_description("SE_PLAYTEST_DESC")
+
+func _on_Load_mouse_entered() -> void:
+	_show_description("SE_LOAD_DESC")
+
+func _on_Save_mouse_entered() -> void:
+	_show_description("SE_SAVE_DESC")
+
+func _on_Reset_mouse_entered() -> void:
+	_show_description("SE_RESET_DESC")
+
+func _on_AnimStyle_mouse_entered() -> void:
+	_show_description("SE_BLOCK_ANIM_DESC")
+
+func _on_edit_history_mouse_entered() -> void:
+	_show_description("SE_EDIT_HISTORY_DESC")
+
+func _on_exit_mouse_entered() -> void:
+	_show_description("SE_EXIT_DESC")

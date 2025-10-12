@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cxujte5rgkew1"]
 
-[ext_resource type="Script" path="res://scripts/game/gamemodes/synthesia_scenery/rez_visualizer.gd" id="1_x44db"]
+[ext_resource type="Script" uid="uid://cl44f8je1c057" path="res://scripts/game/gamemodes/synthesia_scenery/rez_visualizer.gd" id="1_x44db"]
 
 [sub_resource type="Gradient" id="Gradient_2lnfm"]
 offsets = PackedFloat32Array(0, 0.1, 0.15, 0.25)
@@ -54,7 +54,7 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_426js"]
 _data = {
-"scroll": SubResource("Animation_7losb")
+&"scroll": SubResource("Animation_7losb")
 }
 
 [sub_resource type="Animation" id="Animation_jfvh6"]
@@ -448,7 +448,7 @@ tracks/31/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_od4un"]
 _data = {
-"main": SubResource("Animation_jfvh6")
+&"main": SubResource("Animation_jfvh6")
 }
 
 [sub_resource type="GDScript" id="GDScript_b15hg"]

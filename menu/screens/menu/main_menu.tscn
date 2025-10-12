@@ -1,18 +1,19 @@
-[gd_scene load_steps=49 format=3 uid="uid://dwerdfbjp04f6"]
+[gd_scene load_steps=48 format=3 uid="uid://dwerdfbjp04f6"]
 
-[ext_resource type="Script" path="res://menu/scripts/screens/main_menu.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://b4r6tm3v5swvf" path="res://menu/images/new_grid.png" id="2_cadar"]
-[ext_resource type="Shader" path="res://shaders/shine.gdshader" id="2_oeu46"]
+[ext_resource type="Script" uid="uid://ndni61iy717c" path="res://menu/scripts/screens/main_menu.gd" id="1"]
+[ext_resource type="Shader" uid="uid://5hg6k8amlrd0" path="res://shaders/shine.gdshader" id="2_oeu46"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="3"]
-[ext_resource type="Texture2D" uid="uid://clwu1ywvtsvci" path="res://menu/images/luminext_logo.png" id="4_nwp5q"]
-[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="5"]
-[ext_resource type="Texture2D" uid="uid://bnwx2dd2e5lev" path="res://menu/images/flash_1.png" id="5_6we2p"]
+[ext_resource type="Texture2D" uid="uid://baxi8gl811lln" path="res://menu/images/main_menu/grid.png" id="3_wn01h"]
+[ext_resource type="Texture2D" uid="uid://bnwx2dd2e5lev" path="res://menu/images/main_menu/flash_1.png" id="5_6we2p"]
 [ext_resource type="PackedScene" uid="uid://dgn3wr1qc7i8g" path="res://menu/objects/menu_button.tscn" id="6"]
-[ext_resource type="Texture2D" uid="uid://b6opodjewpt7b" path="res://menu/images/flash_2.png" id="6_63yia"]
+[ext_resource type="Texture2D" uid="uid://b6opodjewpt7b" path="res://menu/images/main_menu/flash_2.png" id="6_63yia"]
 [ext_resource type="PackedScene" uid="uid://c0f04oiutqk2g" path="res://menu/objects/menu_button_2.tscn" id="7"]
-[ext_resource type="Texture2D" uid="uid://b2wfw86u3bxb2" path="res://menu/images/flash_3.png" id="7_5g3bg"]
-[ext_resource type="Texture2D" uid="uid://b6m8j1567royh" path="res://menu/images/flash_4.png" id="8_sbwpg"]
+[ext_resource type="Texture2D" uid="uid://b2wfw86u3bxb2" path="res://menu/images/main_menu/flash_3.png" id="7_5g3bg"]
+[ext_resource type="Texture2D" uid="uid://b6m8j1567royh" path="res://menu/images/main_menu/flash_4.png" id="8_sbwpg"]
+[ext_resource type="Texture2D" uid="uid://cdgvraqv6gdjp" path="res://images/logo_hires.png" id="8_wn01h"]
 [ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="9_a02og"]
+[ext_resource type="Texture2D" uid="uid://bhgpi7if5r4wn" path="res://images/star.png" id="10_b13r0"]
+[ext_resource type="FontFile" uid="uid://sawohm8dc1a" path="res://fonts/Gravity-Book.otf" id="11_wn01h"]
 
 [sub_resource type="Animation" id="Animation_st2o3"]
 resource_name = "RESET"
@@ -165,22 +166,10 @@ tracks/11/keys = {
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("Box2/Desc:percent_visible")
+tracks/12/path = NodePath("Background:modulate")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Background:modulate")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -534,147 +523,283 @@ tracks/13/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_en266"]
 _data = {
-"RESET": SubResource("Animation_st2o3"),
-"end": SubResource("74"),
-"start": SubResource("19")
+&"RESET": SubResource("Animation_st2o3"),
+&"end": SubResource("74"),
+&"start": SubResource("19")
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pmonq"]
 shader = ExtResource("2_oeu46")
-shader_parameter/offset = 0.365
-shader_parameter/width = 0.385
-shader_parameter/power = 3.34
-shader_parameter/angle = 360.0
+shader_parameter/offset = -0.554
+shader_parameter/width = 0.31
+shader_parameter/power = 2.89
+shader_parameter/angle = 249.73
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_la4gg"]
-shader = ExtResource("2_oeu46")
-shader_parameter/offset = 0.365
-shader_parameter/width = 0.385
-shader_parameter/power = 5.0
-shader_parameter/angle = 360.0
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cmn40"]
-blend_mode = 1
-
-[sub_resource type="Animation" id="Animation_astfb"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_b13r0"]
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Grid2:position")
+tracks/0/path = NodePath("Grid:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(848, -1576)]
+"values": [Vector2(848, -1360)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.554]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flash:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Flash2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Flash3:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Flash4:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = false
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Flash:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(429, 2404)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Flash2:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1135, 2603)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Flash3:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1164, 2801)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Flash4:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1419, 2998)]
 }
 
 [sub_resource type="Animation" id="Animation_ora3g"]
 resource_name = "anim"
 length = 4.0
 loop_mode = 1
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Grid2:position")
+tracks/0/path = NodePath("Grid:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2, 4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(736, -1464), Vector2(792, -1520), Vector2(848, -1576)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_o0mgy"]
-_data = {
-"RESET": SubResource("Animation_astfb"),
-"anim": SubResource("Animation_ora3g")
-}
-
-[sub_resource type="Animation" id="Animation_4iwvl"]
-resource_name = "anim"
-length = 4.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Grid2/Flash:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.95),
+"times": PackedFloat32Array(0, 3.996),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"update": 0,
+"values": [Vector2(1277, -1163), Vector2(1390, -1276)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Grid2/Flash2:modulate")
+tracks/1/path = NodePath("Flash:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = false
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 1.95),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 0),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Grid2/Flash3:modulate")
+tracks/2/path = NodePath("Flash2:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 2, 2.95),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
+"times": PackedFloat32Array(0, 1, 1.9),
+"transitions": PackedFloat32Array(0, 1, 1),
+"update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Grid2/Flash4:modulate")
+tracks/3/path = NodePath("Flash3:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 3, 3.95),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
+"times": PackedFloat32Array(0, 2, 2.9),
+"transitions": PackedFloat32Array(0, 1, 1),
+"update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Grid2/Flash:material:shader_parameter/power")
+tracks/4/path = NodePath("Flash4:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.95, 1, 1.95, 2, 2.95, 3, 3.95),
-"transitions": PackedFloat32Array(1, 0, 1, 0, 1, 0, 1, 0),
+"times": PackedFloat32Array(0, 3, 3.9),
+"transitions": PackedFloat32Array(0, 1, 1),
 "update": 0,
-"values": [5.0, 0.0, 5.0, 0.0, 5.0, 0.0, 5.0, 0.0]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Flash:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1, 1.2),
+"transitions": PackedFloat32Array(1, 0, 1),
+"update": 0,
+"values": [Vector2(429, 2404), Vector2(457, 2376), Vector2(429, 2404)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Flash2:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1, 2, 2.2),
+"transitions": PackedFloat32Array(1, 1, 0, 1),
+"update": 0,
+"values": [Vector2(1135, 2603), Vector2(1135, 2603), Vector2(1164, 2575), Vector2(1135, 2603)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Flash3:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 2, 3, 3.2),
+"transitions": PackedFloat32Array(1, 1, 0, 1),
+"update": 0,
+"values": [Vector2(1164, 2801), Vector2(1164, 2801), Vector2(1192, 2771), Vector2(1164, 2801)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Flash4:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 3, 3.9),
+"transitions": PackedFloat32Array(1, 1, 0),
+"update": 0,
+"values": [Vector2(1419, 2998), Vector2(1419, 2998), Vector2(1443, 2973)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath(".:material:shader_parameter/offset")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.554, -0.628]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_nhk7u"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o0mgy"]
 _data = {
-"anim": SubResource("Animation_4iwvl")
+&"RESET": SubResource("Animation_b13r0"),
+&"anim": SubResource("Animation_ora3g")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_nb74k"]
 font = ExtResource("3")
 font_size = 36
 font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fccoj"]
-atlas = ExtResource("9_a02og")
-region = Rect2(512, 0, 256, 256)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.231373)
+shadow_offset = Vector2(4, 4)
 
 [sub_resource type="LabelSettings" id="LabelSettings_loy7m"]
-font = ExtResource("5")
+font = ExtResource("11_wn01h")
 font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_bjjo2"]
@@ -715,9 +840,21 @@ region = Rect2(0, 256, 256, 256)
 atlas = ExtResource("9_a02og")
 region = Rect2(768, 256, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nb3di"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kv3hm"]
 atlas = ExtResource("9_a02og")
 region = Rect2(1280, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b13r0"]
+atlas = ExtResource("9_a02og")
+region = Rect2(1280, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfm7i"]
+atlas = ExtResource("9_a02og")
+region = Rect2(512, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nb3di"]
+atlas = ExtResource("9_a02og")
+region = Rect2(256, 256, 256, 256)
 
 [sub_resource type="AtlasTexture" id="56"]
 atlas = ExtResource("9_a02og")
@@ -735,6 +872,10 @@ region = Rect2(768, 1024, 256, 256)
 atlas = ExtResource("9_a02og")
 region = Rect2(0, 512, 256, 256)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_06rd6"]
+atlas = ExtResource("9_a02og")
+region = Rect2(1280, 512, 256, 256)
+
 [sub_resource type="AtlasTexture" id="58"]
 atlas = ExtResource("9_a02og")
 region = Rect2(768, 512, 256, 256)
@@ -742,10 +883,6 @@ region = Rect2(768, 512, 256, 256)
 [sub_resource type="AtlasTexture" id="AtlasTexture_uytjy"]
 atlas = ExtResource("9_a02og")
 region = Rect2(1536, 512, 256, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_06rd6"]
-atlas = ExtResource("9_a02og")
-region = Rect2(1280, 512, 256, 256)
 
 [sub_resource type="AtlasTexture" id="69"]
 atlas = ExtResource("9_a02og")
@@ -772,7 +909,7 @@ script = ExtResource("1")
 [node name="A" type="AnimationPlayer" parent="."]
 reset_on_save = false
 libraries = {
-"": SubResource("AnimationLibrary_en266")
+&"": SubResource("AnimationLibrary_en266")
 }
 
 [node name="back" type="ColorRect" parent="."]
@@ -793,76 +930,87 @@ color = Color(0.337255, 0.337255, 0.337255, 1)
 [node name="Background" type="Control" parent="."]
 modulate = Color(1, 1, 1, 0)
 z_index = -2
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Grid2" type="TextureRect" parent="Background"]
-modulate = Color(1, 1, 1, 0.501961)
 material = SubResource("ShaderMaterial_pmonq")
+anchors_preset = 0
+offset_left = 19.0
+offset_top = -25.0
+offset_right = 59.0
+offset_bottom = 15.0
+
+[node name="Grid" type="TextureRect" parent="Background"]
+modulate = Color(1, 1, 1, 0.501961)
+use_parent_material = true
 layout_mode = 0
 offset_left = 848.0
-offset_top = -1576.0
-offset_right = 2768.0
-offset_bottom = -496.0
+offset_top = -1360.0
+offset_right = 1745.0
+offset_bottom = -280.0
 rotation = 0.785397
 scale = Vector2(2.5, 2.5)
-texture = ExtResource("2_cadar")
+texture = ExtResource("3_wn01h")
 
-[node name="Flash" type="TextureRect" parent="Background/Grid2"]
-material = SubResource("ShaderMaterial_la4gg")
+[node name="Flash" type="TextureRect" parent="Background"]
+use_parent_material = true
 layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_left = 429.0
+offset_top = 2404.0
+offset_right = 2349.0
+offset_bottom = 3484.0
+rotation = -2.35619
+scale = Vector2(2.5, 2.5)
 texture = ExtResource("5_6we2p")
 
-[node name="Flash2" type="TextureRect" parent="Background/Grid2"]
+[node name="Flash2" type="TextureRect" parent="Background"]
 modulate = Color(1, 1, 1, 0)
-material = SubResource("ShaderMaterial_la4gg")
+use_parent_material = true
 layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_left = 1135.0
+offset_top = 2603.0
+offset_right = 3055.0
+offset_bottom = 3683.0
+rotation = -2.35619
+scale = Vector2(2.5, 2.5)
 texture = ExtResource("6_63yia")
 
-[node name="Flash3" type="TextureRect" parent="Background/Grid2"]
+[node name="Flash3" type="TextureRect" parent="Background"]
 modulate = Color(1, 1, 1, 0)
-material = SubResource("ShaderMaterial_la4gg")
+use_parent_material = true
 layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_left = 1164.0
+offset_top = 2801.0
+offset_right = 3084.0
+offset_bottom = 3881.0
+rotation = -2.35619
+scale = Vector2(2.5, 2.5)
 texture = ExtResource("7_5g3bg")
 
-[node name="Flash4" type="TextureRect" parent="Background/Grid2"]
+[node name="Flash4" type="TextureRect" parent="Background"]
 modulate = Color(1, 1, 1, 0)
-material = SubResource("ShaderMaterial_la4gg")
+use_parent_material = true
 layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_left = 1419.0
+offset_top = 2998.0
+offset_right = 3339.0
+offset_bottom = 4078.0
+rotation = -2.35619
+scale = Vector2(2.5, 2.5)
 texture = ExtResource("8_sbwpg")
 
 [node name="Logo" type="TextureRect" parent="Background"]
-modulate = Color(1, 1, 1, 0.3)
-material = SubResource("CanvasItemMaterial_cmn40")
+modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 0
-offset_left = 192.0
-offset_top = 320.0
-offset_right = 1728.0
-offset_bottom = 768.0
-texture = ExtResource("4_nwp5q")
+offset_left = 176.0
+offset_top = 353.0
+offset_right = 1712.0
+offset_bottom = 801.0
+texture = ExtResource("8_wn01h")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="BackAnim" type="AnimationPlayer" parent="Background"]
 libraries = {
-"": SubResource("AnimationLibrary_o0mgy")
+&"": SubResource("AnimationLibrary_o0mgy")
 }
-autoplay = "anim"
-
-[node name="FlashAnim" type="AnimationPlayer" parent="Background"]
-libraries = {
-"": SubResource("AnimationLibrary_nhk7u")
-}
-autoplay = "anim"
 
 [node name="Top" type="Control" parent="."]
 anchors_preset = 0
@@ -909,19 +1057,20 @@ color = Color(0.329412, 0.329412, 0.329412, 1)
 
 [node name="Icon" type="TextureRect" parent="Top/Iconhold"]
 modulate = Color(1, 1, 1, 0)
+texture_filter = 2
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 16.0
-offset_top = -52.0
-offset_right = 120.0
-offset_bottom = 52.0
+offset_left = 8.0
+offset_top = -60.0
+offset_right = 128.0
+offset_bottom = 60.0
 grow_vertical = 2
 scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(0, 104)
 mouse_filter = 2
-texture = SubResource("AtlasTexture_fccoj")
+texture = ExtResource("10_b13r0")
 expand_mode = 1
 stretch_mode = 5
 flip_v = true
@@ -979,7 +1128,7 @@ offset_top = 208.0
 offset_right = 664.0
 offset_bottom = 304.0
 
-[node name="P1MODE" parent="Main" instance=ExtResource("7")]
+[node name="P1MODE" parent="Main" node_paths=PackedStringArray("parent_screen") instance=ExtResource("7")]
 layout_mode = 2
 offset_left = -144.0
 offset_right = -48.0
@@ -997,8 +1146,9 @@ work_mode = 6
 press_sound_name = "confirm"
 call_string = "1p_mode"
 call_function_name = "_change_tab"
+parent_screen = NodePath("../..")
 
-[node name="CONTENT" parent="Main" instance=ExtResource("7")]
+[node name="CONTENT" parent="Main" node_paths=PackedStringArray("parent_screen") instance=ExtResource("7")]
 layout_mode = 2
 offset_left = -32.0
 offset_right = 64.0
@@ -1017,8 +1167,9 @@ work_mode = 6
 press_sound_name = "confirm"
 call_string = "content_edit"
 call_function_name = "_change_tab"
+parent_screen = NodePath("../..")
 
-[node name="PROFILE" parent="Main" instance=ExtResource("7")]
+[node name="PROFILE" parent="Main" node_paths=PackedStringArray("parent_screen") instance=ExtResource("7")]
 layout_mode = 2
 offset_left = 80.0
 offset_right = 176.0
@@ -1037,8 +1188,9 @@ work_mode = 6
 press_sound_name = "confirm"
 call_string = "profile"
 call_function_name = "_change_tab"
+parent_screen = NodePath("../..")
 
-[node name="EXTRAS" parent="Main" instance=ExtResource("7")]
+[node name="EXTRAS" parent="Main" node_paths=PackedStringArray("parent_screen") instance=ExtResource("7")]
 layout_mode = 2
 offset_left = 192.0
 offset_right = 288.0
@@ -1057,6 +1209,7 @@ work_mode = 6
 press_sound_name = "confirm"
 call_string = "extras"
 call_function_name = "_change_tab"
+parent_screen = NodePath("../..")
 
 [node name="TabBar" type="Control" parent="."]
 anchors_preset = 0
@@ -1081,70 +1234,135 @@ offset_bottom = 952.0
 mouse_filter = 2
 theme_override_constants/separation = 32
 
-[node name="CHALLENGE" parent="TabBar/P1MODE/Buttons" instance=ExtResource("6")]
+[node name="ADVENTURE" parent="TabBar/P1MODE/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
 visible = false
 layout_mode = 2
-text = "CHALLENGE_MODE"
+text = "ADVENTURE_MODE"
 icon = SubResource("52")
 expand_icon = true
-description = "CHALLENGE_MODE_DESC"
+description = "ADVENTURE_MODE_DESC"
 button_layout = 7
-button_color = Color(0.929412, 0.819608, 0.101961, 1)
+button_color = Color(0.885338, 0.695065, 0.221238, 1)
 menu_position = Vector2i(-1, -1)
 work_mode = 1
 press_sound_name = "confirm"
 call_string = "playlist_mode"
+parent_screen = NodePath("../../../..")
 
-[node name="PLAYLIST" parent="TabBar/P1MODE/Buttons" instance=ExtResource("6")]
+[node name="PLAYLIST" parent="TabBar/P1MODE/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
 layout_mode = 2
 text = "PLAYLIST_MODE"
 icon = SubResource("AtlasTexture_yg4lk")
 expand_icon = true
 description = "PLAYLIST_MODE_DESC"
 button_layout = 7
-button_color = Color(0.223529, 0.776471, 0.847059, 1)
+button_color = Color(4.42803e-06, 0.836722, 0.950903, 1)
 menu_position = Vector2i(0, 2)
 work_mode = 1
 press_sound_name = "announce_playlist_mode"
 call_string = "playlist_mode"
+parent_screen = NodePath("../../../..")
 
-[node name="TIMEATTACK" parent="TabBar/P1MODE/Buttons" instance=ExtResource("6")]
+[node name="TIMEATTACK" parent="TabBar/P1MODE/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
 layout_mode = 2
 text = "TIME_ATTACK_MODE"
 icon = SubResource("53")
 expand_icon = true
 description = "TIME_ATTACK_MODE_DESC"
 button_layout = 7
-button_color = Color(0.823529, 0.188235, 0.364706, 1)
+button_color = Color(0.87985, 0.391414, 0.803156, 1)
 menu_position = Vector2i(0, 3)
 work_mode = 1
 press_sound_name = "announce_time_attack_mode"
 call_string = "time_attack_mode"
+parent_screen = NodePath("../../../..")
 
-[node name="SYNTHESIA" parent="TabBar/P1MODE/Buttons" instance=ExtResource("6")]
+[node name="SYNTHESIA" parent="TabBar/P1MODE/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
 layout_mode = 2
 text = "SYNTHESIA_MODE"
 icon = SubResource("AtlasTexture_w462y")
 expand_icon = true
 description = "SYNTHESIA_MODE_DESC"
 button_layout = 7
-button_color = Color(0.533797, 0.306, 0.784, 1)
+button_color = Color(0.42332, 0.432734, 0.880386, 1)
 menu_position = Vector2i(0, 2)
 work_mode = 1
 press_sound_name = "announce_synthesia_mode"
 call_string = "synthesia_mode"
+parent_screen = NodePath("../../../..")
 
-[node name="TUTORIAL" parent="TabBar/P1MODE/Buttons" instance=ExtResource("6")]
+[node name="PUZZLE" parent="TabBar/P1MODE/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
+visible = false
+layout_mode = 2
+text = "PUZZLE_MODE"
+icon = SubResource("AtlasTexture_kv3hm")
+expand_icon = true
+description = "PUZZLE_MODE_DESC"
+button_layout = 7
+button_color = Color(0.337348, 0.819757, 0.422186, 1)
+menu_position = Vector2i(0, 2)
+work_mode = 1
+press_sound_name = "announce_synthesia_mode"
+call_string = "synthesia_mode"
+parent_screen = NodePath("../../../..")
+
+[node name="VS CPU" parent="TabBar/P1MODE/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
+visible = false
+layout_mode = 2
+text = "VS_CPU_MODE"
+icon = SubResource("AtlasTexture_b13r0")
+expand_icon = true
+description = "VS_CPU_MODE_DESC"
+button_layout = 7
+button_color = Color(0.954511, 0.413878, 0.361031, 1)
+menu_position = Vector2i(0, 2)
+work_mode = 1
+press_sound_name = "announce_synthesia_mode"
+call_string = "synthesia_mode"
+parent_screen = NodePath("../../../..")
+
+[node name="MISSION" parent="TabBar/P1MODE/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
+visible = false
+layout_mode = 2
+text = "MISSION_MODE"
+icon = SubResource("AtlasTexture_xfm7i")
+expand_icon = true
+description = "MISSION_MODE_DESC"
+button_layout = 7
+button_color = Color(0.476025, 0.876638, 0.989792, 1)
+menu_position = Vector2i(0, 2)
+work_mode = 1
+press_sound_name = "announce_synthesia_mode"
+call_string = "synthesia_mode"
+parent_screen = NodePath("../../../..")
+
+[node name="CUSTOM" parent="TabBar/P1MODE/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
+visible = false
+layout_mode = 2
+text = "CUSTOM_MODE"
+icon = SubResource("AtlasTexture_xfm7i")
+expand_icon = true
+description = "CUSTOM_MODE_DESC"
+button_layout = 7
+button_color = Color(0.771208, 0.779314, 0.79183, 1)
+menu_position = Vector2i(0, 2)
+work_mode = 1
+press_sound_name = "announce_synthesia_mode"
+call_string = "synthesia_mode"
+parent_screen = NodePath("../../../..")
+
+[node name="TUTORIAL" parent="TabBar/P1MODE/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
 layout_mode = 2
 text = "PRACTICE_MODE"
 icon = SubResource("AtlasTexture_nb3di")
 expand_icon = true
 description = "PRACTICE_MODE_DESC"
 button_layout = 7
-button_color = Color(0.36409, 0.443309, 0.871094, 1)
+button_color = Color(0.392796, 0.594282, 1, 1)
 menu_position = Vector2i(0, 3)
 press_sound_name = "confirm"
 call_function_name = "_start_practice"
+parent_screen = NodePath("../../../..")
 
 [node name="CONTENT" type="Control" parent="TabBar"]
 anchors_preset = 0
@@ -1163,20 +1381,21 @@ offset_bottom = 952.0
 mouse_filter = 2
 theme_override_constants/separation = 32
 
-[node name="SKINEDITOR" parent="TabBar/CONTENT/Buttons" instance=ExtResource("6")]
+[node name="SKINEDITOR" parent="TabBar/CONTENT/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
 layout_mode = 2
 text = "SKIN_EDITOR"
 icon = SubResource("56")
 expand_icon = true
 description = "SKIN_EDITOR_DESC"
 button_layout = 7
-button_color = Color(1, 0.593506, 0.296875, 1)
+button_color = Color(0.976335, 0.559588, 0.278611, 1)
 menu_position = Vector2i(1, 1)
 work_mode = 1
 press_sound_name = "announce_skin_editor"
 call_string = "skin_editor"
+parent_screen = NodePath("../../../..")
 
-[node name="ADDONEDITOR" parent="TabBar/CONTENT/Buttons" instance=ExtResource("6")]
+[node name="ADDONEDITOR" parent="TabBar/CONTENT/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
 visible = false
 layout_mode = 2
 text = "ADDON_EDITOR"
@@ -1184,24 +1403,56 @@ icon = SubResource("AtlasTexture_sqkth")
 expand_icon = true
 description = "ADDON_EDITOR_DESC"
 button_layout = 7
-button_color = Color(0.886275, 0.345098, 0.345098, 1)
+button_color = Color(0.918559, 0.346242, 0.381648, 1)
 menu_position = Vector2i(1, 1)
 work_mode = 1
 press_sound_name = "confirm"
 call_string = "addon_editor"
+parent_screen = NodePath("../../../..")
 
-[node name="SOUNDREPLAY" parent="TabBar/CONTENT/Buttons" instance=ExtResource("6")]
+[node name="AVATAREDITOR" parent="TabBar/CONTENT/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
+visible = false
+layout_mode = 2
+text = "AVATAR_EDITOR"
+icon = SubResource("AtlasTexture_sqkth")
+expand_icon = true
+description = "AVATAR_EDITOR_DESC"
+button_layout = 7
+button_color = Color(0.665777, 0.399053, 0.889008, 1)
+menu_position = Vector2i(1, 1)
+work_mode = 1
+press_sound_name = "confirm"
+call_string = "addon_editor"
+parent_screen = NodePath("../../../..")
+
+[node name="CONTENTVIEW" parent="TabBar/CONTENT/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
+visible = false
+layout_mode = 2
+text = "CONTENT_BROWSER"
+icon = SubResource("AtlasTexture_sqkth")
+expand_icon = true
+description = "CONTENT_BROWSER_DESC"
+button_layout = 7
+button_color = Color(0.186436, 0.668897, 0.639909, 1)
+menu_position = Vector2i(1, 1)
+work_mode = 1
+press_sound_name = "confirm"
+call_string = "addon_editor"
+parent_screen = NodePath("../../../..")
+
+[node name="SOUNDREPLAY" parent="TabBar/CONTENT/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
 layout_mode = 2
 text = "SKIN_PLAYER"
 icon = SubResource("AtlasTexture_dum7t")
 expand_icon = true
 description = "SKIN_PLAYER_DESC"
 button_layout = 7
-button_color = Color(0.500488, 0.772629, 0.800781, 1)
+button_color = Color(0.446446, 0.796649, 0.505837, 1)
 menu_position = Vector2i(1, 1)
 work_mode = 2
 press_sound_name = "announce_skin_player"
 call_string = "sound_replay"
+parent_screen = NodePath("../../../..")
 
 [node name="PROFILE" type="Control" parent="TabBar"]
 anchors_preset = 0
@@ -1218,57 +1469,91 @@ offset_bottom = 992.0
 mouse_filter = 2
 theme_override_constants/separation = 32
 
-[node name="OPTIONS" parent="TabBar/PROFILE/Buttons" instance=ExtResource("6")]
+[node name="OPTIONS" parent="TabBar/PROFILE/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
 layout_mode = 2
 text = "OPTIONS"
 icon = SubResource("93")
 expand_icon = true
 description = "OPTIONS_DESC"
 button_layout = 7
-button_color = Color(0.113725, 1, 0.772549, 1)
+button_color = Color(0, 0.918589, 0.622308, 1)
 menu_position = Vector2i(2, 1)
 work_mode = 1
 press_sound_name = "announce_options"
 call_string = "options"
+parent_screen = NodePath("../../../..")
 
-[node name="STATS" parent="TabBar/PROFILE/Buttons" instance=ExtResource("6")]
+[node name="CHARASEL" parent="TabBar/PROFILE/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
+visible = false
+layout_mode = 2
+text = "CHARACTER_SELECT"
+icon = SubResource("AtlasTexture_06rd6")
+expand_icon = true
+description = "CHARACTER_SELECT_DESC"
+button_layout = 7
+button_color = Color(0.811486, 0.515456, 0.966983, 1)
+menu_position = Vector2i(2, 4)
+work_mode = 2
+press_sound_name = "announce_profile_edit"
+call_string = "profile_edit"
+parent_screen = NodePath("../../../..")
+
+[node name="ABILITYSEL" parent="TabBar/PROFILE/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
+visible = false
+layout_mode = 2
+text = "ABILITY_SELECT"
+icon = SubResource("AtlasTexture_06rd6")
+expand_icon = true
+description = "ABILITY_SELECT_DESC"
+button_layout = 7
+button_color = Color(0.890835, 0.63868, 0.238595, 1)
+menu_position = Vector2i(2, 4)
+work_mode = 2
+press_sound_name = "announce_profile_edit"
+call_string = "profile_edit"
+parent_screen = NodePath("../../../..")
+
+[node name="STATS" parent="TabBar/PROFILE/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
 layout_mode = 2
 text = "STATISTICS"
 icon = SubResource("58")
 expand_icon = true
 description = "STATISTICS_DESC"
 button_layout = 7
-button_color = Color(0.65098, 0.976471, 0.545098, 1)
+button_color = Color(0.823787, 0.850435, 0.293345, 1)
 menu_position = Vector2i(2, 3)
 work_mode = 2
 press_sound_name = "announce_statistics"
 call_string = "statistics"
+parent_screen = NodePath("../../../..")
 
-[node name="REPLAY" parent="TabBar/PROFILE/Buttons" instance=ExtResource("6")]
+[node name="REPLAY" parent="TabBar/PROFILE/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
 layout_mode = 2
 text = "REPLAY_PLAYER"
 icon = SubResource("AtlasTexture_uytjy")
 expand_icon = true
 description = "REPLAY_PLAYER_DESC"
 button_layout = 7
-button_color = Color(1, 0.992218, 0.501961, 1)
+button_color = Color(0.969628, 0.399425, 0.510948, 1)
 menu_position = Vector2i(2, 3)
 work_mode = 2
 press_sound_name = "announce_replay_player"
 call_string = "replay_player"
+parent_screen = NodePath("../../../..")
 
-[node name="EDITPROFILE" parent="TabBar/PROFILE/Buttons" instance=ExtResource("6")]
+[node name="EDITPROFILE" parent="TabBar/PROFILE/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
 layout_mode = 2
 text = "PROFILE_EDIT"
 icon = SubResource("AtlasTexture_06rd6")
 expand_icon = true
 description = "PROFILE_EDIT_DESC"
 button_layout = 7
-button_color = Color(1, 0.367188, 0.634155, 1)
+button_color = Color(0.271805, 0.444585, 0.877005, 1)
 menu_position = Vector2i(2, 4)
 work_mode = 2
 press_sound_name = "announce_profile_edit"
 call_string = "profile_edit"
+parent_screen = NodePath("../../../..")
 
 [node name="EXTRAS" type="Control" parent="TabBar"]
 anchors_preset = 0
@@ -1287,40 +1572,43 @@ offset_bottom = 952.0
 mouse_filter = 2
 theme_override_constants/separation = 32
 
-[node name="COMMUNITY" parent="TabBar/EXTRAS/Buttons" instance=ExtResource("6")]
+[node name="COMMUNITY" parent="TabBar/EXTRAS/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
 layout_mode = 2
 text = "COMMUNITY"
 icon = SubResource("69")
 expand_icon = true
 description = "COMMUNITY_DESC"
 button_layout = 7
-button_color = Color(0, 0.438965, 0.90625, 1)
+button_color = Color(0.229423, 0.459989, 0.998611, 1)
 menu_position = Vector2i(3, 1)
 work_mode = 2
 press_sound_name = "announce_community"
 call_string = "community"
+parent_screen = NodePath("../../../..")
 
-[node name="CREDITS" parent="TabBar/EXTRAS/Buttons" instance=ExtResource("6")]
+[node name="CREDITS" parent="TabBar/EXTRAS/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
 layout_mode = 2
 text = "CREDITS"
 icon = SubResource("61")
 expand_icon = true
 description = "CREDITS_DESC"
 button_layout = 7
-button_color = Color(1, 0.333333, 0.333333, 1)
+button_color = Color(1, 1, 1, 1)
 menu_position = Vector2i(3, 2)
 work_mode = 2
 press_sound_name = "announce_credits"
 call_string = "credits"
+parent_screen = NodePath("../../../..")
 
-[node name="EXIT" parent="TabBar/EXTRAS/Buttons" instance=ExtResource("6")]
+[node name="EXIT" parent="TabBar/EXTRAS/Buttons" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6")]
 layout_mode = 2
 text = "EXIT"
 icon = SubResource("94")
 expand_icon = true
 description = "EXIT_DESC"
 button_layout = 7
-button_color = Color(0.709804, 0.709804, 0.709804, 1)
+button_color = Color(0.582031, 0.582031, 0.582031, 1)
 menu_position = Vector2i(3, 3)
 press_sound_name = "announce_exit"
 call_function_name = "_exit_dialog"
+parent_screen = NodePath("../../../..")

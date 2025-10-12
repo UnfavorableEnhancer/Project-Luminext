@@ -4,11 +4,9 @@
 /Luminext.code-workspace
 bin/*
 profiles/*
-content/*
 export/*
 assets/cleanup/*
 deprecated/*
-internal/content/skins/*
 Project Luminext.code-workspace
 addons/ffmpeg/win64/~libgdffmpeg.windows.template_debug.x86_64.dlls
 addons/ffmpeg/win64/~libgdffmpeg.windows.template_debug.x86_64.dll

@@ -9,14 +9,12 @@ script/source = "extends FX
 
 func _ready() -> void:
 	name = \"boom\"
-	anim = \"start\"
-		
+	
 	_start()
 "
 
 [sub_resource type="Curve" id="24"]
-min_value = -200.0
-max_value = 200.0
+_limits = [-200.0, 200.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.744681, 200), 292.344, 0.0, 0, 0]
 point_count = 2
 
@@ -57,7 +55,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_juc3k"]
 _data = {
-"start": SubResource("9")
+&"start": SubResource("9")
 }
 
 [node name="Blast" type="Node2D"]
@@ -77,11 +75,11 @@ stretch_mode = 1
 self_modulate = Color(2.5, 0, 0, 1)
 position = Vector2(12, 568)
 amount = 16
+texture = ExtResource("1")
 lifetime = 2.0
 speed_scale = 6.0
 fixed_fps = 60
 fract_delta = false
-texture = ExtResource("1")
 spread = 180.0
 gravity = Vector2(0, 0)
 linear_accel_curve = SubResource("24")
@@ -91,5 +89,5 @@ color_ramp = SubResource("6")
 [node name="ANIM" type="AnimationPlayer" parent="."]
 callback_mode_process = 0
 libraries = {
-"": SubResource("AnimationLibrary_juc3k")
+&"": SubResource("AnimationLibrary_juc3k")
 }

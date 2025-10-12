@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,27 +18,33 @@
 
 extends MenuScreen
 
-var is_exiting : bool = true
+##-----------------------------------------------------------------------
+## Game splash screen animation
+##-----------------------------------------------------------------------
+
+var is_exiting : bool = true ## True if game is currently exiting
+
 
 func _ready() -> void:
-	Data.menu.screens["foreground"].visible = false
-	$Info/VER.text = tr("VERSION") + " " + Data.VERSION
-	$Info/BUILD.text = tr("BUILD") + " " + Data.BUILD
-	$Info/EDITION.text = tr("POWERED_BY") + "\nGODOT ENGINE "
+	parent_menu.screens["foreground"].visible = false
+	$Foreground/Info/VER.text = tr("VERSION") + " " + Data.VERSION
+	$Foreground/Info/BUILD.text = tr("BUILD") + " " + Data.BUILD
+	$Foreground/Info/EDITION.text = tr("POWERED_BY") + "\nGODOT ENGINE"
 	
-	Data.input_method_changed.connect(_label)
+	main.input_method_changed.connect(_label)
 	_label()
 	
 	await get_tree().create_timer(2.0).timeout
 	
 	$LogoAnim.play("start")
-	$StarAnim.play("start")
+	$GlassAnim.play("start")
 	is_exiting = false
 
 
+## Sets start game label depending on current input type
 func _label() -> void:
-	if Data.current_input_mode == Data.INPUT_MODE.GAMEPAD: $ENTER.text = tr("PRESS_START")
-	else: $ENTER.text = tr("PRESS_ENTER")
+	if main.current_input_mode == Main.INPUT_MODE.GAMEPAD: $Foreground/ENTER.text = tr("PRESS_START")
+	else: $Foreground/ENTER.text = tr("PRESS_ENTER")
 
 
 func _input(event : InputEvent) -> void:
@@ -47,49 +53,14 @@ func _input(event : InputEvent) -> void:
 		if event.is_action_pressed("ui_enter"):
 			is_exiting = true 
 			
-			Data.menu._sound("enter")
+			parent_menu._play_sound("enter")
+			main._toggle_darken(true)
 			
-			if Data.profile.status != OK:
-				Data.menu._change_screen("login")
-			else:
-				Data.menu._change_screen("main_menu")
+			if Player.profile_status != OK : parent_menu._change_screen("login")
+			else : parent_menu._change_screen("main_menu")
 	
 	# Exit the game
 	if event.is_action_pressed("ui_exit"):
-		Data.main._exit()
-
-
-func _catch_phrase() -> void:
-	var catch : Array[String] = [
-	"Life is music",
-	"Stack the music",
-	"yet another Lumines clone...",
-	"hey! you read this message", 
-	"welcome to the club",
-	"puzzle excellence",
-	"luminext system",
-	"Lumines love letter", 
-	"bean edition", 
-	"have a nice day!", 
-	"aka. tetris with great music, funky visuals and weird rules", 
-	"thank you PSP",
-	"Square dance", 
-	"thank you for participating",
-	"this feature is inspired by minecraft splash texts", 
-	"ROCK IS DEAD", 
-	"i love hearing the music in my soul", 
-	"powered by Godot Engine 4.2.1",
-	"Lunyaes was first", 
-	"Block challenge", 
-	"Puzzle X Music", 
-	"Puzzle Fusion", 
-	"insert funny splash text here", 
-	"this game will xplode your computer!",  
-	"ogv sux", 
-	"cloning Lumines...", 
-	"fan made spiritual successor remake remastered revision edition",  
-	"An advanced Lumines clone",
-	"Try out Lumines Remastered™ too next time!",
-	"pizza time"]
-	
-	$Info/EDITION.text = catch.pick_random()
+		if is_exiting : return
+		is_exiting = true
+		main._exit()

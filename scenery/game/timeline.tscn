@@ -1,28 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4se5srlr5r2l"]
+[gd_scene load_steps=10 format=3 uid="uid://c4se5srlr5r2l"]
 
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="1"]
 [ext_resource type="Texture2D" uid="uid://8bfqbqooll58" path="res://images/game/foreground/timeline.png" id="2_73eaq"]
-[ext_resource type="Script" path="res://scripts/game/timeline.gd" id="3"]
-[ext_resource type="Texture2D" uid="uid://gx2j08tl7802" path="res://images/game/effects/glow_line.png" id="3_7ns5o"]
+[ext_resource type="Script" uid="uid://ebv0yu46yij1" path="res://scripts/game/luminext/timeline.gd" id="3"]
 
 [sub_resource type="AtlasTexture" id="12"]
 atlas = ExtResource("2_73eaq")
-region = Rect2(46, 261, 335, 149)
-
-[sub_resource type="CanvasItemMaterial" id="6"]
-resource_local_to_scene = true
-blend_mode = 1
-
-[sub_resource type="Gradient" id="9"]
-interpolation_mode = 2
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="10"]
-gradient = SubResource("9")
-
-[sub_resource type="AtlasTexture" id="1"]
-atlas = ExtResource("2_73eaq")
-region = Rect2(57, 50, 307, 121)
+region = Rect2(0, 168, 425, 272)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_anij2"]
 blend_mode = 1
@@ -34,7 +18,12 @@ colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="5"]
 resource_local_to_scene = true
 gradient = SubResource("8")
-width = 512
+width = 256
+height = 1
+
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("2_73eaq")
+region = Rect2(56, 17, 307, 121)
 
 [sub_resource type="LabelSettings" id="LabelSettings_cas2q"]
 font = ExtResource("1")
@@ -54,62 +43,52 @@ position = Vector2(0.000350952, -9.30229)
 [node name="GLOW" type="Node2D" parent="Color"]
 modulate = Color(1, 1, 1, 0)
 z_index = -1
-position = Vector2(-64.9287, 5.04254)
-scale = Vector2(0.940655, 0.924434)
+position = Vector2(-0.000343323, 9.30229)
 
 [node name="Arrow" type="Sprite2D" parent="Color/GLOW"]
 z_index = -1
-position = Vector2(-0.199773, -0.423409)
+position = Vector2(-155.814, -53.4884)
 scale = Vector2(1.06489, 1.11808)
 texture = SubResource("12")
-
-[node name="Arrow2" type="Sprite2D" parent="Color/GLOW"]
-z_index = -1
-position = Vector2(-0.199773, -0.423409)
-scale = Vector2(1.06489, 1.11808)
-texture = SubResource("12")
-
-[node name="Arrow3" type="Sprite2D" parent="Color/GLOW"]
-z_index = -1
-position = Vector2(-0.199773, -0.423409)
-scale = Vector2(1.06489, 1.11808)
-texture = SubResource("12")
-
-[node name="Stick" type="Sprite2D" parent="Color/GLOW"]
-z_index = -1
-position = Vector2(156.791, 907.092)
-scale = Vector2(0.424927, 3.38775)
-texture = ExtResource("3_7ns5o")
 
 [node name="Gradient" type="Sprite2D" parent="Color/GLOW"]
-modulate = Color(1, 1, 1, 0.376471)
-material = SubResource("6")
-position = Vector2(-92.4846, 919)
-scale = Vector2(7.62337, 26.6898)
-texture = SubResource("10")
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_anij2")
+position = Vector2(-9.30233, 0)
+scale = Vector2(1.99855, 24.7093)
+texture = SubResource("5")
+centered = false
+offset = Vector2(-256, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 256, 64)
 
 [node name="Arrow" type="Sprite2D" parent="Color"]
-position = Vector2(-66, 6)
+position = Vector2(-153.489, -51.1628)
 texture = SubResource("1")
 
 [node name="Line" type="Line2D" parent="Color"]
 use_parent_material = true
-position = Vector2(90.3581, 836.894)
+position = Vector2(2.32523, 783.721)
 scale = Vector2(0.992117, 4.29955)
-points = PackedVector2Array(-8.00001, 188.039, -8.00001, -180.524)
+points = PackedVector2Array(-7.03218, 187.689, -7.03218, -180.657)
 
 [node name="Gradient" type="Sprite2D" parent="Color"]
+texture_filter = 1
 material = SubResource("CanvasItemMaterial_anij2")
-position = Vector2(-175.041, 855.233)
-scale = Vector2(0.987759, 24.6912)
+position = Vector2(-9.30268, 9.30229)
+scale = Vector2(1.99855, 24.7093)
 texture = SubResource("5")
+centered = false
+offset = Vector2(-256, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 256, 64)
 
 [node name="Number" type="Label" parent="."]
 texture_filter = 1
-offset_left = -177.0
-offset_top = -63.0
-offset_right = 88.0
-offset_bottom = 56.0
+offset_left = -263.047
+offset_top = -118.556
+offset_right = 1.95346
+offset_bottom = 0.444405
 text = "22"
 label_settings = SubResource("LabelSettings_cas2q")
 vertical_alignment = 1

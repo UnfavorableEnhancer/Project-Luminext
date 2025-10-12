@@ -1,22 +1,7 @@
-[gd_resource type="AudioBusLayout" load_steps=6 format=3 uid="uid://djji6j5ooplna"]
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://djji6j5ooplna"]
 
 [sub_resource type="AudioEffectSpectrumAnalyzer" id="11"]
 resource_name = "SpectrumAnalyzer"
-buffer_length = 1.0
-fft_size = 1
-
-[sub_resource type="AudioEffectReverb" id="8"]
-resource_name = "Reverb"
-wet = 0.0
-
-[sub_resource type="AudioEffectStereoEnhance" id="5"]
-resource_name = "StereoEnhance"
-pan_pullout = 1.5
-time_pullout_ms = 2.0
-
-[sub_resource type="AudioEffectPitchShift" id="1"]
-resource_name = "PitchShift"
-pitch_scale = 1.34
 
 [sub_resource type="AudioEffectCompressor" id="10"]
 resource_name = "Compressor"
@@ -26,10 +11,6 @@ attack_us = 250.0
 [resource]
 bus/0/effect/0/effect = SubResource("11")
 bus/0/effect/0/enabled = true
-bus/0/effect/1/effect = SubResource("8")
-bus/0/effect/1/enabled = true
-bus/0/effect/2/effect = SubResource("5")
-bus/0/effect/2/enabled = false
 bus/1/name = &"ExMaster"
 bus/1/solo = false
 bus/1/mute = false
@@ -42,10 +23,8 @@ bus/2/mute = false
 bus/2/bypass_fx = false
 bus/2/volume_db = 0.0694828
 bus/2/send = &"ExMaster"
-bus/2/effect/0/effect = SubResource("1")
-bus/2/effect/0/enabled = false
-bus/2/effect/1/effect = SubResource("10")
-bus/2/effect/1/enabled = true
+bus/2/effect/0/effect = SubResource("10")
+bus/2/effect/0/enabled = true
 bus/3/name = &"Music"
 bus/3/solo = false
 bus/3/mute = false

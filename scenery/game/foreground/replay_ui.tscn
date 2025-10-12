@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://k4xw5dhudvem"]
 
-[ext_resource type="Script" path="res://scripts/game/foreground/replay_ui.gd" id="1_loynr"]
-[ext_resource type="Shader" path="res://shaders/inverse.gdshader" id="2_214fn"]
+[ext_resource type="Script" uid="uid://b8c6yw1mqarrt" path="res://scripts/game/foreground/replay_ui.gd" id="1_loynr"]
+[ext_resource type="Shader" uid="uid://bks0kx42beek5" path="res://shaders/inverse.gdshader" id="2_214fn"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="7_8rxxv"]
 
 [sub_resource type="ShaderMaterial" id="1"]

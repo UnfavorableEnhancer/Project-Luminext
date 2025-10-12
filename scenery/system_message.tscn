@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://01vihxako5y1"]
 
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="1"]
-[ext_resource type="Script" path="res://scripts/menu/system_message.gd" id="2"]
+[ext_resource type="Script" uid="uid://cmp46dp8sxjnw" path="res://scripts/misc/messager.gd" id="1_krb2c"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qcnb0"]
 font = ExtResource("1")
@@ -15,7 +15,7 @@ anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
-script = ExtResource("2")
+script = ExtResource("1_krb2c")
 
 [node name="Center" type="CenterContainer" parent="."]
 layout_mode = 0

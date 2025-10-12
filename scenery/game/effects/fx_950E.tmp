@@ -1,0 +1,631 @@
+[gd_scene load_steps=32 format=3 uid="uid://bro7r2diko7um"]
+
+[ext_resource type="Texture2D" uid="uid://dhihw4f25flo3" path="res://images/game/effects/light_line.png" id="1"]
+[ext_resource type="Shader" path="res://shaders/outline_color.gdshader" id="2"]
+[ext_resource type="Texture2D" uid="uid://dmyipr30s73wt" path="res://images/game/effects/circle_highlight.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://bqeucyjcr3rbl" path="res://images/game/effects/droplet.png" id="4"]
+[ext_resource type="Shader" path="res://shaders/color.gdshader" id="5"]
+[ext_resource type="Texture2D" uid="uid://c2enltmtn30ww" path="res://images/game/effects/circle.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://ds3kyjwvb3ns7" path="res://images/game/effects/star_comp.png" id="8_qv4ml"]
+[ext_resource type="Texture2D" uid="uid://gmuojglfurto" path="res://images/game/effects/glow.png" id="9"]
+[ext_resource type="Shader" path="res://shaders/color_add.gdshader" id="10"]
+[ext_resource type="Texture2D" uid="uid://dad8u48vh1qit" path="res://images/game/effects/big_star_comp.png" id="10_dplhb"]
+
+[sub_resource type="GDScript" id="16"]
+script/source = "extends FX
+
+
+func _ready() -> void:
+	name = \"b\" + str(position.x + 10) + str(position.y + 10)
+	
+	var skin_data : SkinData = Data.game.skin.skin_data
+	var color : Color = Color.WHITE
+	
+	if Data.profile.config[\"video\"][\"force_standard_blocks\"]:
+		match parameter:
+			BlockBase.BLOCK_COLOR.RED : color = Color(\"ec7d24\")
+			BlockBase.BLOCK_COLOR.WHITE : color = Color.WHITE
+			BlockBase.BLOCK_COLOR.GREEN : color = Color.GREEN
+			BlockBase.BLOCK_COLOR.PURPLE : color = Color.PURPLE
+	else:
+		match parameter:
+			BlockBase.BLOCK_COLOR.RED : color = skin_data.textures[\"red_fx\"]
+			BlockBase.BLOCK_COLOR.WHITE : color = skin_data.textures[\"white_fx\"]
+			BlockBase.BLOCK_COLOR.GREEN : color = skin_data.textures[\"green_fx\"]
+			BlockBase.BLOCK_COLOR.PURPLE : color = skin_data.textures[\"purple_fx\"]
+	
+	if Data.profile.config[\"video\"][\"background_effects\"]: z_index = -4
+	
+	$S1.material.set_shader_parameter(\"tint_color\", color)
+	$S2.material.set_shader_parameter(\"tint_color\", color)
+	$Glow.material.set_shader_parameter(\"tint_color\", color)
+	$P1.material.set_shader_parameter(\"tint_color\", color)
+	$P3.material.set_shader_parameter(\"tint_color\", color)
+	
+	$Line.self_modulate = color
+	$Line2.self_modulate = color
+	
+	$P1.texture = skin_data.textures[\"effect_1\"]
+	$P3.texture = skin_data.textures[\"effect_2\"]
+	
+	match Data.profile.config[\"video\"][\"fx_quality\"]:
+		Config.EFFECTS_QUALITY.MINIMUM : 
+			anim = \"min\"
+		Config.EFFECTS_QUALITY.LOW :
+			$P1.amount = 2
+			$P2.amount = 12
+			$P3.amount = 0
+		Config.EFFECTS_QUALITY.MEDIUM :
+			$P1.amount = 3
+			$P2.amount = 28
+			$P3.amount = 8
+		Config.EFFECTS_QUALITY.HIGH :
+			$P1.amount = 4
+			$P2.amount = 40
+			$P3.amount = 12
+		Config.EFFECTS_QUALITY.BEAUTIFUL :
+			$P1.amount = 5
+			$P2.amount = 56
+			$P3.amount = 20
+	
+	_start()
+"
+
+[sub_resource type="CanvasItemMaterial" id="50"]
+blend_mode = 1
+
+[sub_resource type="ShaderMaterial" id="44"]
+resource_local_to_scene = true
+shader = ExtResource("10")
+shader_parameter/alpha_scale = 1.177
+shader_parameter/brightness = 1.0
+shader_parameter/contrast = 0.941
+shader_parameter/saturation = 3.0
+shader_parameter/redVal = 1.0
+shader_parameter/greenVal = 1.0
+shader_parameter/blueVal = 1.0
+shader_parameter/tint_color = Color(1, 0.584314, 0, 1)
+shader_parameter/tint_effect_factor = 1.0
+
+[sub_resource type="ShaderMaterial" id="17"]
+resource_local_to_scene = true
+shader = ExtResource("5")
+shader_parameter/alpha_scale = 2.225
+shader_parameter/brightness = 1.0
+shader_parameter/contrast = 1.088
+shader_parameter/saturation = 3.0
+shader_parameter/redVal = 1.0
+shader_parameter/greenVal = 1.0
+shader_parameter/blueVal = 1.0
+shader_parameter/tint_color = Color(1, 0.6, 0, 1)
+shader_parameter/tint_effect_factor = 1.0
+
+[sub_resource type="ShaderMaterial" id="42"]
+resource_local_to_scene = true
+shader = ExtResource("2")
+shader_parameter/tint_color = Color(1, 0.537255, 0, 1)
+shader_parameter/tint_effect_factor = 1.0
+shader_parameter/test = 0.0
+shader_parameter/test2 = 0.0
+
+[sub_resource type="Curve" id="27"]
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 7.40182, 0, 0, Vector2(0.384615, 1.12088), 0.0, 0.0, 0, 0, Vector2(0.903846, 0), -0.672268, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="30"]
+curve = SubResource("27")
+
+[sub_resource type="ParticleProcessMaterial" id="31"]
+particle_flag_disable_z = true
+direction = Vector3(100, 100, 0)
+spread = 180.0
+initial_velocity_min = 250.0
+initial_velocity_max = 275.0
+angular_velocity_min = 15.0
+angular_velocity_max = 15.0
+gravity = Vector3(0, 0, 0)
+damping_min = 60.0
+damping_max = 60.0
+attractor_interaction_enabled = false
+scale_min = 0.7
+scale_max = 0.85
+scale_curve = SubResource("30")
+scale_over_velocity_min = 150.0
+scale_over_velocity_max = 400.0
+
+[sub_resource type="Gradient" id="Gradient_miorr"]
+offsets = PackedFloat32Array(0.794444, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hdsc5"]
+gradient = SubResource("Gradient_miorr")
+
+[sub_resource type="Curve" id="12"]
+_data = [Vector2(0, 0.502273), 0.0, 5.07209, 0, 0, Vector2(0.163462, 0.978022), 0.0, 0.0, 0, 0, Vector2(0.485577, 0), -3.55556, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="33"]
+curve = SubResource("12")
+
+[sub_resource type="Curve" id="Curve_0sme2"]
+min_value = 1.0
+max_value = 2.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.423077, 1.65934), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_x76vs"]
+curve = SubResource("Curve_0sme2")
+
+[sub_resource type="ParticleProcessMaterial" id="34"]
+lifetime_randomness = 0.25
+particle_flag_align_y = true
+particle_flag_disable_z = true
+direction = Vector3(0, 10, 0)
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 175.0
+gravity = Vector3(0, 20, 0)
+scale_min = 0.1
+scale_max = 0.8
+scale_curve = SubResource("33")
+scale_over_velocity_min = 25.0
+scale_over_velocity_max = 200.0
+scale_over_velocity_curve = SubResource("CurveTexture_x76vs")
+color_ramp = SubResource("GradientTexture1D_hdsc5")
+
+[sub_resource type="ShaderMaterial" id="45"]
+resource_local_to_scene = true
+shader = ExtResource("2")
+shader_parameter/tint_color = Color(1, 0.560784, 0, 1)
+shader_parameter/tint_effect_factor = 1.0
+shader_parameter/test = 0.5
+shader_parameter/test2 = 1.0
+
+[sub_resource type="CurveTexture" id="37"]
+curve = SubResource("12")
+
+[sub_resource type="ParticleProcessMaterial" id="38"]
+particle_flag_disable_z = true
+direction = Vector3(10, 0, 0)
+spread = 180.0
+initial_velocity_min = 500.0
+initial_velocity_max = 500.0
+gravity = Vector3(0, 0, 0)
+damping_min = 175.0
+damping_max = 225.0
+scale_min = 0.1
+scale_max = 0.25
+scale_curve = SubResource("37")
+color = Color(1, 1, 1, 0.8)
+
+[sub_resource type="Animation" id="49"]
+resource_name = "min"
+length = 0.75
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("S1:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.610865]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("S1:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0.35, 0.35), Vector2(0.65, 0.175)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("S1:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("S2:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.610865]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("S2:scale")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0.35, 0.35), Vector2(0.65, 0.175)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("S2:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("S1/Glow2:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Glow:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2.5, 2.5)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Glow:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(4, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="46"]
+resource_name = "start"
+length = 3.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("P1:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("P2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("P3:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("S1:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.610865]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("S1:scale")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0.3, 0.3), Vector2(0.65, 0.125)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("S1:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("S2:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.610865]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("S2:scale")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0.3, 0.3), Vector2(0.65, 0.125)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("S2:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.75),
+"transitions": PackedFloat32Array(1, 1.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("S1/Glow2:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Line:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1.25, 1),
+"update": 0,
+"values": [3.14159, -2.0944]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Line:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(10, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Line:scale")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0), Vector2(0.5, 2), Vector2(0.2, 0.6)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Line2:rotation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1.5, 1),
+"update": 0,
+"values": [2.35619, -1.0472]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Line2:modulate")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(10, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Line2:scale")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0), Vector2(0.5, 3), Vector2(0.2, 1.5)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Glow:scale")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2.5, 2.5)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Glow:modulate")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(4, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8t5n7"]
+_data = {
+"min": SubResource("49"),
+"start": SubResource("46")
+}
+
+[node name="Blast" type="Node2D"]
+scale = Vector2(0.9, 0.9)
+script = SubResource("16")
+
+[node name="Line" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 0.584314, 0, 1)
+material = SubResource("50")
+position = Vector2(-5.96046e-08, 2.79397e-08)
+rotation = -2.0944
+scale = Vector2(0.2, 0.6)
+texture = ExtResource("1")
+offset = Vector2(-0.730342, -120.001)
+
+[node name="Line2" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 0.772549, 0, 1)
+material = SubResource("50")
+position = Vector2(-0.0479719, -0.151452)
+rotation = -1.0472
+scale = Vector2(0.2, 1.5)
+texture = ExtResource("1")
+offset = Vector2(0.460205, -119.784)
+
+[node name="Glow" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.615686)
+material = SubResource("44")
+rotation = 1.12649
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("9")
+
+[node name="S1" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("17")
+position = Vector2(8.88889, 3.82647e-07)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("6")
+
+[node name="Glow2" type="Sprite2D" parent="S1"]
+modulate = Color(1, 1, 1, 0)
+use_parent_material = true
+position = Vector2(-10.0132, -14.5272)
+texture = ExtResource("3")
+
+[node name="S2" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("17")
+position = Vector2(4.76837e-07, -5.88688e-08)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("6")
+flip_h = true
+
+[node name="P1" type="GPUParticles2D" parent="."]
+material = SubResource("42")
+emitting = false
+amount = 4
+process_material = SubResource("31")
+texture = ExtResource("8_qv4ml")
+lifetime = 6.0
+speed_scale = 5.5
+explosiveness = 1.0
+fixed_fps = 0
+
+[node name="P2" type="GPUParticles2D" parent="."]
+z_index = 400
+rotation = -1.5708
+emitting = false
+amount = 32
+process_material = SubResource("34")
+texture = ExtResource("4")
+lifetime = 20.0
+speed_scale = 10.0
+explosiveness = 1.0
+fixed_fps = 0
+
+[node name="P3" type="GPUParticles2D" parent="."]
+material = SubResource("45")
+emitting = false
+process_material = SubResource("38")
+texture = ExtResource("10_dplhb")
+lifetime = 10.0
+speed_scale = 3.0
+explosiveness = 1.0
+fixed_fps = 0
+
+[node name="ANIM" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8t5n7")
+}
+speed_scale = 1.8

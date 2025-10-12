@@ -1,30 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cl6i2h412q133"]
 
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="1"]
-
-[sub_resource type="GDScript" id="18"]
-script/source = "extends FX
-
-func _ready() -> void:
-	z_index = 401
-	name = \"sn\" + str(position.x + 10) + str(position.y + 10)
-	
-	if parameter[2] > 1:
-		$NUM.text = \"X\" + str(parameter[2]) + \" +\" + str(parameter[0])
-	else:
-		$NUM.text = \"+\" + str(parameter[0])
-	
-	if parameter[1] > 31:
-		$NUM.self_modulate = Color.GOLD
-	elif parameter[1] > 15:
-		$NUM.self_modulate = Color.FUCHSIA
-	elif parameter[1] > 3:
-		$NUM.self_modulate = Color.CYAN
-	else:
-		$NUM.self_modulate = Color.GRAY
-	
-	_start()
-"
+[ext_resource type="Script" uid="uid://bxkl1deyf68bd" path="res://scripts/game/luminext/effects/fx_score_number.gd" id="1_easti"]
 
 [sub_resource type="Animation" id="16"]
 resource_name = "start"
@@ -67,7 +44,7 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_spuwi"]
 _data = {
-"start": SubResource("16")
+&"start": SubResource("16")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_do1he"]
@@ -77,21 +54,21 @@ shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(4, 4)
 
 [node name="ScoreNum" type="Node2D"]
-script = SubResource("18")
+script = ExtResource("1_easti")
 
 [node name="ANIM" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_spuwi")
+&"": SubResource("AnimationLibrary_spuwi")
 }
 
 [node name="NUM" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 offset_left = -168.0
-offset_top = 16.0
+offset_top = -32.0
 offset_right = 167.0
-offset_bottom = 78.0
-scale = Vector2(1e-05, 1e-05)
+offset_bottom = 30.0
+scale = Vector2(2, 2)
 pivot_offset = Vector2(168, 31)
 text = "+17900"
 label_settings = SubResource("LabelSettings_do1he")

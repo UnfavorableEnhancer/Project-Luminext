@@ -1,32 +1,266 @@
-[gd_scene load_steps=16 format=3 uid="uid://bg7kjf8dq11xu"]
+[gd_scene load_steps=17 format=3 uid="uid://bg7kjf8dq11xu"]
 
 [ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://menu/objects/regular_button.tscn" id="1"]
+[ext_resource type="Script" uid="uid://b74es6aay4a2q" path="res://menu/scripts/screens/community.gd" id="1_dxedd"]
 [ext_resource type="FontFile" uid="uid://bncda7ixlpa7b" path="res://fonts/rounded_mgenplus.ttf" id="2"]
 [ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="2_fxtws"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="3"]
-[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="5_677rj"]
+[ext_resource type="FontFile" uid="uid://muipf4ba52dw" path="res://fonts/Gravity-Regular.otf" id="4_1c1iy"]
 
-[sub_resource type="GDScript" id="GDScript_nygwf"]
-script/source = "extends MenuScreen
-
-
-func _ready() -> void:
-	menu.move_child(menu.screens[\"foreground\"],menu.get_child_count() - 1)
-	
-	await menu.all_screens_added
-	cursor = Vector2i(0,0)
-	_move_cursor()
-
-
-func _accept_invite() -> void:
-	OS.shell_open(\"https://discord.gg/XwsQcEUCKR\")
-	_remove()
-
-
-func _accept_invite2() -> void:
-	OS.shell_open(\"https://github.com/UnfavorableEnhancer/Project-Luminext\")
-	_remove()
-"
+[sub_resource type="Animation" id="Animation_1c1iy"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.75),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Box:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.75),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Iconhold:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Iconhold/Icon:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Content:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Content:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Hide:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Content/Line:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Content/Line2:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Accept2:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Accept3:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Cancel:scale")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Box/Detail3:visible_ratio")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Content/V/Text:visible_ratio")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Content/V/Text2:visible_ratio")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Content/V/Text3:visible_ratio")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Content/V/Text4:visible_ratio")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Content/V/Text5:visible_ratio")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Content/V/Text6:visible_ratio")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("Content/V/Text7:visible_ratio")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_8yeh8"]
 resource_name = "end"
@@ -542,8 +776,9 @@ tracks/20/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v1pit"]
 _data = {
-"end": SubResource("Animation_8yeh8"),
-"start": SubResource("5")
+&"RESET": SubResource("Animation_1c1iy"),
+&"end": SubResource("Animation_8yeh8"),
+&"start": SubResource("5")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_xv3m0"]
@@ -562,10 +797,13 @@ cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
-[sub_resource type="LabelSettings" id="LabelSettings_rd3u4"]
+[sub_resource type="LabelSettings" id="LabelSettings_1c1iy"]
 font = ExtResource("3")
 font_size = 36
 font_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.231373)
+shadow_offset = Vector2(4, 4)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kd8lw"]
 atlas = ExtResource("2_fxtws")
@@ -573,8 +811,8 @@ region = Rect2(768, 1536, 256, 256)
 
 [sub_resource type="LabelSettings" id="LabelSettings_m0dil"]
 line_spacing = 12.0
-font = ExtResource("5_677rj")
-font_size = 32
+font = ExtResource("4_1c1iy")
+font_size = 24
 
 [node name="Community" type="Control"]
 layout_mode = 3
@@ -584,11 +822,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = SubResource("GDScript_nygwf")
+script = ExtResource("1_dxedd")
 
 [node name="A" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_v1pit")
+&"": SubResource("AnimationLibrary_v1pit")
 }
 
 [node name="back" type="ColorRect" parent="."]
@@ -608,11 +846,11 @@ color = Color(0, 0, 0, 0.5)
 
 [node name="Box" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
-layout_mode = 0
+layout_mode = 1
 offset_left = 632.0
-offset_top = 144.0
+offset_top = 168.0
 offset_right = 1920.0
-offset_bottom = 992.0
+offset_bottom = 984.0
 scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(1288, 0)
 color = Color(0, 0, 0, 0.5)
@@ -622,9 +860,9 @@ modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
 texture_filter = 1
 layout_mode = 0
 offset_left = 44.0
-offset_top = 820.0
+offset_top = 788.0
 offset_right = 391.0
-offset_bottom = 839.0
+offset_bottom = 807.0
 text = "COMMUNITY_ARROW"
 label_settings = SubResource("LabelSettings_xv3m0")
 uppercase = true
@@ -645,19 +883,14 @@ flip_v = true
 
 [node name="Label" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.092
-anchor_top = 0.059
-anchor_right = 0.092
-anchor_bottom = 0.059
-offset_left = 455.36
-offset_top = 8.28
-offset_right = 1607.36
-offset_bottom = 80.28
+offset_left = 632.0
+offset_top = 96.0
+offset_right = 1784.0
+offset_bottom = 168.0
 scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(1152, 0)
 mouse_filter = 2
-color = Color(0.333, 0.533, 0.925, 0.75)
+color = Color(0.335358, 0.443386, 0.867188, 1)
 
 [node name="Text" type="Label" parent="Label"]
 layout_mode = 0
@@ -667,23 +900,20 @@ offset_bottom = 72.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = SubResource("8")
 text = "COMMUNITY"
-label_settings = SubResource("LabelSettings_rd3u4")
+label_settings = SubResource("LabelSettings_1c1iy")
 horizontal_alignment = 2
 vertical_alignment = 1
 uppercase = true
 
 [node name="Iconhold" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.059
-anchor_bottom = 0.059
 offset_left = 1784.0
-offset_top = 8.28
+offset_top = 96.0
 offset_right = 1920.0
-offset_bottom = 144.28
+offset_bottom = 232.0
 scale = Vector2(1e-05, 1e-05)
 mouse_filter = 2
-color = Color(0.141176, 0.203922, 0.329412, 1)
+color = Color(0.103256, 0.162421, 0.394531, 1)
 
 [node name="Icon" type="TextureRect" parent="Iconhold"]
 layout_mode = 1
@@ -704,11 +934,12 @@ stretch_mode = 6
 
 [node name="Content" type="Control" parent="."]
 modulate = Color(1, 1, 1, 0)
+layout_mode = 1
 anchors_preset = 0
 offset_left = 656.0
-offset_top = 224.0
-offset_right = 1896.0
-offset_bottom = 856.0
+offset_top = 240.0
+offset_right = 1904.0
+offset_bottom = 872.0
 scale = Vector2(1, 1e-05)
 pivot_offset = Vector2(0, 408)
 
@@ -716,14 +947,14 @@ pivot_offset = Vector2(0, 408)
 custom_minimum_size = Vector2(0, 4)
 layout_mode = 2
 offset_top = 12.0
-offset_right = 1240.0
+offset_right = 1248.0
 offset_bottom = 16.0
 scale = Vector2(1e-05, 1)
 
 [node name="V" type="VBoxContainer" parent="Content"]
 layout_mode = 0
 offset_top = 32.0
-offset_right = 1240.0
+offset_right = 1248.0
 offset_bottom = 472.0
 
 [node name="Text" type="Label" parent="Content/V"]
@@ -808,29 +1039,30 @@ visible_ratio = 0.0
 custom_minimum_size = Vector2(0, 4)
 layout_mode = 2
 offset_top = 488.0
-offset_right = 1240.0
+offset_right = 1248.0
 offset_bottom = 492.0
 scale = Vector2(1e-05, 1)
 
-[node name="Accept2" parent="." instance=ExtResource("1")]
-layout_mode = 2
+[node name="Accept2" parent="." node_paths=PackedStringArray("parent_screen") instance=ExtResource("1")]
+layout_mode = 1
 offset_left = 656.0
-offset_top = 744.0
-offset_right = 1896.0
-offset_bottom = 792.0
+offset_top = 752.0
+offset_right = 1904.0
+offset_bottom = 800.0
 scale = Vector2(1, 1e-05)
 pivot_offset = Vector2(1240, 0)
 text = "COMMUNITY_INVITE1"
 glow_color = Color(0.233643, 0.670395, 0.679688, 1)
 press_sound_name = "confirm4"
 call_function_name = "_accept_invite"
+parent_screen = NodePath("..")
 
-[node name="Accept3" parent="." instance=ExtResource("1")]
-layout_mode = 2
+[node name="Accept3" parent="." node_paths=PackedStringArray("parent_screen") instance=ExtResource("1")]
+layout_mode = 1
 offset_left = 656.0
-offset_top = 808.0
-offset_right = 1896.0
-offset_bottom = 856.0
+offset_top = 816.0
+offset_right = 1904.0
+offset_bottom = 864.0
 scale = Vector2(1, 1e-05)
 pivot_offset = Vector2(1240, 0)
 text = "COMMUNITY_INVITE2"
@@ -838,13 +1070,14 @@ glow_color = Color(0.233643, 0.670395, 0.679688, 1)
 menu_position = Vector2i(0, 1)
 press_sound_name = "confirm4"
 call_function_name = "_accept_invite2"
+parent_screen = NodePath("..")
 
-[node name="Cancel" parent="." instance=ExtResource("1")]
-layout_mode = 2
+[node name="Cancel" parent="." node_paths=PackedStringArray("parent_screen") instance=ExtResource("1")]
+layout_mode = 1
 offset_left = 656.0
-offset_top = 872.0
-offset_right = 1896.0
-offset_bottom = 920.0
+offset_top = 880.0
+offset_right = 1904.0
+offset_bottom = 928.0
 scale = Vector2(1, 1e-05)
 pivot_offset = Vector2(1240, 0)
 text = "COMMUNITY_NO_THANKS"
@@ -853,3 +1086,4 @@ menu_position = Vector2i(0, 2)
 work_mode = 7
 press_sound_name = "cancel"
 is_cancel_button = true
+parent_screen = NodePath("..")

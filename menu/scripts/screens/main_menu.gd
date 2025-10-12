@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,39 +18,40 @@
 
 extends MenuScreen
 
+##-----------------------------------------------------------------------
+## Main menu screen
+## Contains 4 categories of buttons which lead to other menu screens
+##-----------------------------------------------------------------------
 
+## All avaiable main menu tabs
 enum MAIN_MENU_TABS {P1_MODE, CONTENT_EDIT, PROFILE, EXTRAS, EMPTY, NONE}
 
-var current_tab : int = MAIN_MENU_TABS.NONE
+var current_tab : int = MAIN_MENU_TABS.NONE ## Currently selected tab
 
-var is_changing_tabs : bool = false
-var is_exiting : bool = false
+var is_changing_tabs : bool = false ## Is currently changing tab
+var is_exiting : bool = false ## Is game currently exiting
 
 
 func _ready() -> void:
-	Data.menu.screens["foreground"].visible =  true
+	parent_menu.screens["foreground"].visible =  true
 
 	BUTTON_SEARCH_DISTANCE = 0
 
 	remove_started.connect(_hide_tab)
-	create_tween().tween_property(Data.main.black,"color",Color(0,0,0,0),1.0)
+	main._toggle_darken(false)
 	
-	$Background/BackAnim.seek(Data.menu.screens["background"].get_node("GridAnim").current_animation_position, true)
+	parent_menu._change_music("menu_theme")
+	$Background/BackAnim.play("anim")
 	
-	if not Data.menu.is_music_playing:
-		Data.menu._change_music("menu_theme")
-		if Data.menu.custom_data.has("last_music_pos"):
-			Data.menu.music_player.seek(Data.menu.custom_data["last_music_pos"])
-	
-	var seek_position : float = fposmod(menu.music_player.get_playback_position(), 8.0)
+	var seek_position : float = wrapf(parent_menu.music_player.get_playback_position() + 0.125, 0.0, 4.0)
 	$Background/BackAnim.seek(seek_position)
-	$Background/FlashAnim.seek(seek_position)
 	
-	await menu.all_screens_added
+	await parent_menu.all_screens_added
 	cursor = Vector2i(0,0)
 	_move_cursor()
 
 
+## Changes currently selected tab
 func _change_tab(tab : String) -> void:	
 	var tab_cursor_x : int = 0
 	
@@ -72,16 +73,16 @@ func _change_tab(tab : String) -> void:
 			$TabBar/EXTRAS.position.x = -3000
 			$Main/EXTRAS._deselected()
 		MAIN_MENU_TABS.EMPTY :
-			Data.menu.previously_selected._deselected()
+			parent_menu.previously_selected._deselected()
 	
 	var tab_instance : Control
 	
 	selectables.clear()
 
-	_assign_selectable($Main/P1MODE, Vector2i(0,0))
-	_assign_selectable($Main/CONTENT, Vector2i(1,0))
-	_assign_selectable($Main/PROFILE, Vector2i(2,0))
-	_assign_selectable($Main/EXTRAS, Vector2i(3,0))
+	_set_selectable_position($Main/P1MODE, Vector2i(0,0))
+	_set_selectable_position($Main/CONTENT, Vector2i(1,0))
+	_set_selectable_position($Main/PROFILE, Vector2i(2,0))
+	_set_selectable_position($Main/EXTRAS, Vector2i(3,0))
 	
 	# We set all of these to zero to ensure that player could select other tab by right/left press from any position
 	visited_cursor_positions[0.0] = 0
@@ -92,35 +93,31 @@ func _change_tab(tab : String) -> void:
 	match tab:
 		"1p_mode":
 			tab_instance = $TabBar/P1MODE
-			
 			current_tab = MAIN_MENU_TABS.P1_MODE
 			tab_cursor_x = 0
-			Data.menu.screens["background"]._change_gradient_colors(Color("121f35"),Color("1f2730"),Color("05061b"),Color("0b352f"),Color("010b0c"))
+			parent_menu.screens["background"]._change_gradient_colors(Color("121f35"),Color("1f2730"),Color("05061b"),Color("0b352f"),Color("010b0c"))
 			
 		"content_edit":
 			tab_instance = $TabBar/CONTENT
-			
 			current_tab = MAIN_MENU_TABS.CONTENT_EDIT
 			tab_cursor_x = 1
-			Data.menu.screens["background"]._change_gradient_colors(Color("360c16"),Color("19001e"),Color("4a0a2b"),Color("1c0303"),Color("080002"))
+			parent_menu.screens["background"]._change_gradient_colors(Color("360c16"),Color("19001e"),Color("4a0a2b"),Color("1c0303"),Color("040002"))
 			
 		"profile":
 			tab_instance = $TabBar/PROFILE
-			
 			current_tab = MAIN_MENU_TABS.PROFILE
 			tab_cursor_x = 2
-			Data.menu.screens["background"]._change_gradient_colors(Color("410042"),Color("181519"),Color("11022a"),Color("27040d"),Color("000509"))
+			parent_menu.screens["background"]._change_gradient_colors(Color("410042"),Color("181519"),Color("11022a"),Color("27040d"),Color("000509"))
 			
 		"extras":
 			tab_instance = $TabBar/EXTRAS
-			
 			current_tab = MAIN_MENU_TABS.EXTRAS
 			tab_cursor_x = 3
-			Data.menu.screens["background"]._change_gradient_colors(Color("004231"),Color("343434"),Color("00120c"),Color("021c20"),Color("000807"))
+			parent_menu.screens["background"]._change_gradient_colors(Color("004231"),Color("343434"),Color("00120c"),Color("021c20"),Color("000807"))
 			
 		"empty":
 			current_tab = MAIN_MENU_TABS.EMPTY
-			Data.menu.screens["background"]._change_gradient_colors(Color("414608"),Color("557816"),Color("357010"),Color("2e3000"),Color("000000"))
+			parent_menu.screens["background"]._change_gradient_colors(Color("414608"),Color("557816"),Color("357010"),Color("2e3000"),Color("000000"))
 			return
 	
 	var buttons_holder : VBoxContainer = tab_instance.get_node("Buttons")
@@ -128,9 +125,10 @@ func _change_tab(tab : String) -> void:
 	var button_idx : int = 0
 	for button : MenuSelectableButton in buttons_holder.get_children(): 
 		if not button.visible : continue
+		
 		button_idx += 1
 		button.scale.x = 0.0
-		_assign_selectable(button, Vector2(tab_cursor_x, button_idx))
+		_set_selectable_position(button, Vector2(tab_cursor_x, button_idx))
 	
 	tab_instance.modulate.a = 0.0
 	tab_instance.position.x = 0
@@ -142,10 +140,13 @@ func _change_tab(tab : String) -> void:
 	var delay : float = 0.05
 	
 	for button : MenuSelectableButton in buttons_holder.get_children():
+		if not button.visible : continue
+		
 		tween2.parallel().tween_property(button,"scale:x",1.0,0.25).from(0.0).set_delay(delay).set_trans(Tween.TRANS_SINE)
 		delay += 0.05
 
 
+## Hides previous main menu tabs
 func _hide_tab() -> void:
 	var tab_instance : Control
 	
@@ -163,7 +164,7 @@ func _hide_tab() -> void:
 			tab_instance = $TabBar/EXTRAS
 			$Main/EXTRAS._deselected()
 		MAIN_MENU_TABS.EMPTY :
-			Data.menu.currently_selected._deselected()
+			parent_menu.currently_selected._deselected()
 			return
 	
 	var buttons_holder : VBoxContainer = tab_instance.get_node("Buttons")
@@ -179,33 +180,31 @@ func _hide_tab() -> void:
 		delay += 0.05
 
 
-func _start_practice() -> void:
-	print("PRACTICE")
-	
+## Starts game tutorial
+func _start_practice() -> void:	
 	var pc_skin_metadata : SkinMetadata = SkinMetadata.new()
 	pc_skin_metadata.path = Data.BUILD_IN_PATH + Data.SKINS_PATH + "holding_patterns.skn"
-	
-	if Data.menu.is_music_playing:
-		Data.menu.custom_data["last_music_pos"] = Data.menu.music_player.get_playback_position()
 	
 	var gamemode : PracticeMode = PracticeMode.new()
 	gamemode.start_tutorial = true
 	
-	Data.main._start_game(pc_skin_metadata, gamemode)
+	# TODO
+	#main._start_game(pc_skin_metadata, gamemode)
 
 
 func _input(event : InputEvent) -> void:
 	super(event)
 	
-	if menu.current_screen == self and event.is_action_pressed("ui_cancel") and menu.currently_removing_screens_amount == 0:
+	if parent_menu.current_screen == self and event.is_action_pressed("ui_cancel") and parent_menu.currently_removing_screens_amount == 0:
 		_exit_dialog()
 
 
+## Opens exit confirmation dialog
 func _exit_dialog() -> void:
 	if is_exiting : return
 	is_exiting = true
 	
-	var dialog : MenuScreen = Data.menu._add_screen("accept_dialog")
+	var dialog : MenuScreen = parent_menu._add_screen("accept_dialog")
 	dialog.desc_text = tr("EXIT_DIALOG")
 	dialog.cancel_function = func() -> void: await get_tree().create_timer(1.0).timeout; is_exiting = false
-	dialog.accept_function = Data.main._exit
+	dialog.accept_function = main._exit

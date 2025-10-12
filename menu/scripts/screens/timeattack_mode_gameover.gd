@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,16 +18,24 @@
 
 extends MenuScreen
 
+##-----------------------------------------------------------------------
+## Used for game over screen of [TimeAttackMode]
+## Displays stats of current and previous time attack attempts
+##-----------------------------------------------------------------------
+
+var game : GameCore = null
+
 
 func _ready() -> void:
-	menu.screens["foreground"].visible = true
-	menu.screens["foreground"]._raise()
+	parent_menu.screens["foreground"].visible = true
+	parent_menu.screens["foreground"]._raise()
 
-	await menu.all_screens_added
+	await parent_menu.all_screens_added
 	cursor = Vector2i(0,0)
 	_move_cursor()
 
 
+## Creates statistics on given [TimeAttackMode] instance scores and other data
 func _setup(ta_mode : TimeAttackMode) -> void:
 	var square_cumulative : Array = ta_mode.statistics["square_cumulative"]
 	var arrays_size : int = ta_mode.statistics["square_cumulative"].size()
@@ -170,6 +178,7 @@ func _setup(ta_mode : TimeAttackMode) -> void:
 
 # graph line Y from -16 to 216
 # graph line X from 0 to 392
+## Returns array of Vector2 points which are used to plot a graph of values
 func _plot_graph(points : Array, value_max : int) -> PackedVector2Array:
 	var graph : PackedVector2Array = PackedVector2Array()
 	var point_space : float = 392.0 / (points.size() - 1)
@@ -184,6 +193,7 @@ func _plot_graph(points : Array, value_max : int) -> PackedVector2Array:
 	return graph
 
 
+## Displays new record animation
 func _new_record() -> void:
 	get_node("Results/NewRecord").visible = true
 		
@@ -192,19 +202,22 @@ func _new_record() -> void:
 	tween.tween_property(get_node("Results/NewRecord"), "self_modulate:a", 0.5, 0.25).from(1.0)
 
 
+## Opens input dialog for replay save
 func _save_replay() -> void:
-	var input : MenuScreen = Data.menu._add_screen("text_input")
+	var input : MenuScreen = parent_menu._add_screen("text_input")
 	input.desc_text = tr("SAVE_REPLAY_DIALOG")
-	input.accept_function = Data.game.replay._save
+	input.accept_function = game.replay._save
 
 
+## Starts new time attack attempt
 func _restart() -> void:
-	Data.game._retry()
-	Data.menu._remove_screen("foreground")
+	game._retry()
+	parent_menu._remove_screen("foreground")
 	_remove()
 
 
+# Finishes the game and returns to main menu
 func _end() -> void:
-	Data.game._end()
-	Data.menu._remove_screen("foreground")
+	game._end()
+	parent_menu._remove_screen("foreground")
 	_remove()

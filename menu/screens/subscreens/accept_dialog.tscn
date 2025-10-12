@@ -1,10 +1,111 @@
-[gd_scene load_steps=13 format=3 uid="uid://cnk3um8clm5i4"]
+[gd_scene load_steps=14 format=3 uid="uid://cnk3um8clm5i4"]
 
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2"]
-[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="2_ubrqr"]
+[ext_resource type="FontFile" uid="uid://sawohm8dc1a" path="res://fonts/Gravity-Book.otf" id="2_m0vae"]
 [ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://menu/objects/regular_button.tscn" id="3"]
-[ext_resource type="Script" path="res://menu/scripts/screens/subscreens/accept_dialog.gd" id="4"]
+[ext_resource type="Script" uid="uid://d05elktohvjrj" path="res://menu/scripts/screens/subscreens/accept_dialog.gd" id="4"]
 [ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="4_rd5pp"]
+
+[sub_resource type="Animation" id="Animation_m0vae"]
+resource_name = "RESET"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.75),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Block:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.75),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect/Label/ColorRect:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect/OK:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ColorRect/NO:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ColorRect/Dialog:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ColorRect/Label:visible_ratio")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ColorRect/Detail3:visible_ratio")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_ytuok"]
 resource_name = "end"
@@ -210,12 +311,13 @@ tracks/7/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7bvjj"]
 _data = {
-"end": SubResource("Animation_ytuok"),
-"start": SubResource("131")
+&"RESET": SubResource("Animation_m0vae"),
+&"end": SubResource("Animation_ytuok"),
+&"start": SubResource("131")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_pja6n"]
-font = ExtResource("2_ubrqr")
+font = ExtResource("2_m0vae")
 font_size = 28
 
 [sub_resource type="LabelSettings" id="LabelSettings_ucm3b"]
@@ -238,17 +340,8 @@ script = ExtResource("4")
 
 [node name="A" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_7bvjj")
+&"": SubResource("AnimationLibrary_7bvjj")
 }
-
-[node name="back" type="ColorRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = -40.0
-offset_top = -32.0
-offset_right = 1968.0
-offset_bottom = 1120.0
-color = Color(0.337255, 0.337255, 0.337255, 1)
 
 [node name="Block" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -299,7 +392,7 @@ offset_right = 920.0
 offset_bottom = 36.0
 scale = Vector2(1e-05, 1)
 
-[node name="OK" parent="ColorRect" instance=ExtResource("3")]
+[node name="OK" parent="ColorRect" node_paths=PackedStringArray("parent_screen") instance=ExtResource("3")]
 texture_filter = 1
 layout_mode = 0
 offset_left = 16.0
@@ -311,8 +404,9 @@ text = "YES"
 glow_color = Color(0.4, 0.952941, 0.964706, 1)
 press_sound_name = "confirm"
 call_function_name = "_accept"
+parent_screen = NodePath("../..")
 
-[node name="NO" parent="ColorRect" instance=ExtResource("3")]
+[node name="NO" parent="ColorRect" node_paths=PackedStringArray("parent_screen") instance=ExtResource("3")]
 texture_filter = 1
 layout_mode = 1
 offset_left = 16.0
@@ -326,6 +420,7 @@ menu_position = Vector2i(0, 1)
 press_sound_name = "cancel"
 is_cancel_button = true
 call_function_name = "_cancel"
+parent_screen = NodePath("../..")
 
 [node name="Detail3" type="Label" parent="ColorRect"]
 modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)

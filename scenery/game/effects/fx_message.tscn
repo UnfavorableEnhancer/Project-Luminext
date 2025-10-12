@@ -6,7 +6,6 @@
 script/source = "extends FX
 
 func _ready() -> void:
-	use_field_coordinates = false
 	$Message/bonus.text = parameter
 	$ANIM.playback_speed = Data.game.skin.bpm / 120.0
 	
@@ -67,7 +66,7 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_foptm"]
 _data = {
-"start": SubResource("2")
+&"start": SubResource("2")
 }
 
 [node name="Message" type="Node2D"]
@@ -97,5 +96,5 @@ vertical_alignment = 1
 
 [node name="ANIM" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_foptm")
+&"": SubResource("AnimationLibrary_foptm")
 }

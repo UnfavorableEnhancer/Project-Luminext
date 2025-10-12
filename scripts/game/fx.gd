@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,33 +18,26 @@
 
 extends Node2D
 
-#-----------------------------------------------------------------------
-# FX (Effect) class
-#
-# Used for creating special effects which spawns on certain actions
-# Each special effect must have AnimationPlayer called "ANIM"
-#-----------------------------------------------------------------------
-
 class_name FX
 
-var anim : String = "start" # Animtaion FX will play on creation
-var is_persistent : bool = false # If true, FX woundn't be destroyed after finishing animation
-var use_field_coordinates : bool = true # FX would use game field coords system, instead of absolute one
+##-----------------------------------------------------------------------
+## Special effects are used to spice up various game events
+## Each special effect must have AnimationPlayer called *'ANIM'*
+##-----------------------------------------------------------------------
 
-var parameter : Variant # Some additional custom parameter this FX can use
+var game : GameCore
+
+var start_animation : String = "start" ## Animtaion name which will be played on spawn
+var is_persistent : bool = false ## If true, FX woundn't be deleted after finishing animation
+var parameter : Variant ## Some additional custom parameter this FX can use
 
 
-# Called by FX when it's ready to work
+## Starts special effect animation
 func _start() -> void:
 	if not is_persistent : $ANIM.animation_finished.connect(_die)
-	if use_field_coordinates : position = Vector2(position.x * 68.0, (position.y + 1.0) * 68.0)
-	else:
-		position.x -= 392
-		position.y -= 232
-	
-	$ANIM.play(anim)
+	$ANIM.play(start_animation)
 
 
-# Called at the end of animation
+## Called at the end of animation
 func _die(_a : String) -> void: 
 	queue_free()

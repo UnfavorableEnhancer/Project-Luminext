@@ -1,12 +1,12 @@
 [gd_scene load_steps=43 format=3 uid="uid://ds0xug7wdnh5a"]
 
-[ext_resource type="Script" path="res://menu/scripts/screens/timeattack_mode_gameover.gd" id="1_iuoqc"]
-[ext_resource type="Shader" path="res://shaders/pixelize.gdshader" id="2_5rxg2"]
+[ext_resource type="Script" uid="uid://bjy3qd4bu8ltq" path="res://menu/scripts/screens/timeattack_mode_gameover.gd" id="1_iuoqc"]
+[ext_resource type="Shader" uid="uid://c2jreqrpby5uk" path="res://shaders/pixelize.gdshader" id="2_5rxg2"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="3_u31jn"]
 [ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://menu/objects/regular_button.tscn" id="4_njmbc"]
 [ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="5_vhgiv"]
 [ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="6_uiabh"]
-[ext_resource type="Shader" path="res://shaders/shine.gdshader" id="7_8y07t"]
+[ext_resource type="Shader" uid="uid://5hg6k8amlrd0" path="res://shaders/shine.gdshader" id="7_8y07t"]
 
 [sub_resource type="Animation" id="Animation_3rb4o"]
 resource_name = "end"
@@ -1759,8 +1759,8 @@ tracks/79/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i76yb"]
 _data = {
-"end": SubResource("Animation_3rb4o"),
-"start": SubResource("14")
+&"end": SubResource("Animation_3rb4o"),
+&"start": SubResource("14")
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_60gwj"]

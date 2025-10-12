@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dgn3wr1qc7i8g"]
 
-[ext_resource type="Script" path="res://menu/scripts/objects/menu_button.gd" id="1"]
+[ext_resource type="Script" uid="uid://j5emu5kuyb6l" path="res://menu/scripts/objects/menu_button.gd" id="1"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2"]
-[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="4"]
+[ext_resource type="FontFile" uid="uid://muipf4ba52dw" path="res://fonts/Gravity-Regular.otf" id="3_xl8tc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tmjmv"]
 font = ExtResource("2")
@@ -10,9 +10,8 @@ font_size = 28
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hunwm"]
-font = ExtResource("4")
+font = ExtResource("3_xl8tc")
 font_size = 28
-font_color = Color(0, 0, 0, 1)
 
 [node name="Button" type="Button"]
 self_modulate = Color(1, 1, 1, 0)
@@ -25,9 +24,9 @@ offset_bottom = 8.48
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
-text = "asd"
+text = "yo"
 script = ExtResource("1")
-description = "пппппп"
+description = "write something here"
 button_color = Color(0.984314, 0.2, 0.2, 1)
 
 [node name="Back" type="ColorRect" parent="."]
@@ -74,13 +73,14 @@ offset_right = 640.0
 offset_bottom = 56.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "asd"
+text = "yo"
 label_settings = SubResource("LabelSettings_tmjmv")
 vertical_alignment = 1
 uppercase = true
 
 [node name="Info" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -90,7 +90,7 @@ offset_right = -176.0
 offset_bottom = 110.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "пппппп"
+text = "write something here"
 label_settings = SubResource("LabelSettings_hunwm")
 vertical_alignment = 1
 autowrap_mode = 2

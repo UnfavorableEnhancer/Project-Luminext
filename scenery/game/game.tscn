@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://ds15gbp8yt020"]
 
-[ext_resource type="Script" path="res://scripts/game/piece_queue.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/game/game.gd" id="2"]
-[ext_resource type="Script" path="res://scripts/game/foreground.gd" id="3"]
-[ext_resource type="Script" path="res://scripts/resources/replay.gd" id="4_lj3px"]
+[ext_resource type="Script" uid="uid://bxkn0prshx57h" path="res://scripts/game/luminext/piece_queue.gd" id="1"]
+[ext_resource type="Script" uid="uid://ctocnbvqta168" path="res://scripts/game/game.gd" id="2"]
+[ext_resource type="Script" uid="uid://dfjglhqwwkll7" path="res://scripts/game/foreground.gd" id="3"]
+[ext_resource type="Script" uid="uid://ban0fbhar4b83" path="res://scripts/game/replay.gd" id="4_lj3px"]
 
 [sub_resource type="Animation" id="Animation_v4ws0"]
 resource_name = "blank"
@@ -21,7 +21,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dcbbs"]
 _data = {
-"blank": SubResource("Animation_v4ws0")
+&"blank": SubResource("Animation_v4ws0")
 }
 
 [node name="Game" type="Node2D"]
@@ -80,6 +80,6 @@ callback_mode_process = 2
 callback_mode_method = 1
 callback_mode_discrete = 0
 libraries = {
-"": SubResource("AnimationLibrary_dcbbs")
+&"": SubResource("AnimationLibrary_dcbbs")
 }
 script = ExtResource("4_lj3px")

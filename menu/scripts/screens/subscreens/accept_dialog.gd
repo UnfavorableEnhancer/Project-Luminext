@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,35 +18,36 @@
 
 extends MenuScreen
 
-signal closed(result : bool)
+##-----------------------------------------------------------------------
+## Special dialog for confirming various player actions
+##-----------------------------------------------------------------------
 
-var desc_text : String = "" : 
+signal closed(result : bool) ## Emitted when dialog is closed and returns true if player confirmed action, otherwise returns false
+
+var desc_text : String = "" : ## Dialog description text
 	set(text) : $ColorRect/Dialog.text = text
 
-var accept_function : Callable
-var cancel_function : Callable
-var is_accepted : bool = false
+var accept_function : Callable ## Function will will be called on confirmation accept
+var cancel_function : Callable ## Function will will be called on confirmation cancel
 
 
 func _ready() -> void:
-	menu.screens["foreground"]._raise()
+	parent_menu.screens["foreground"]._raise()
 	
-	await menu.all_screens_added
+	await parent_menu.all_screens_added
 	cursor = Vector2i(0,0)
 	_move_cursor()
 
 
+## Cancels confirmation
 func _cancel() -> void:
 	if cancel_function : cancel_function.call()
-	
 	closed.emit(false)
-	
 	_remove()
 
 
+## Accepts confirmation
 func _accept() -> void:
 	if accept_function : accept_function.call()
-	
 	closed.emit(true)
-	
 	_remove()

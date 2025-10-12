@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,73 +18,65 @@
 
 extends Control
 
-#-----------------------------------------------------------------------
-# Menu screen class
-#
-# Each "screen" node should have an AnimationPlayer node called 'A'
-# 'A' must contain "start" and "end" titled animations in order to work, but can have more animations if needed
-# Then you can do anything you want inside menu screen and code stuff.
-#-----------------------------------------------------------------------
+##-----------------------------------------------------------------------
+## Each menu screen should have an AnimationPlayer node called **'A'**
+## **'A'** must contain *'start'* and *'end'* named animations in order to work, but can have more animations if needed
+## Then you can do anything you want inside menu screen and code stuff.
+##-----------------------------------------------------------------------
 
 class_name MenuScreen
 
-@warning_ignore("unused_signal")
-signal remove_started # Emitted when this menu screen is going to be removed
+signal remove_started ## Called when screen is going to be removed
 
-signal cursor_move_try # Called when cursor is moved
-signal cursor_selection_success(cursor : Vector2) # Called on any successfull cursor movement, and returns new cursor position
-signal cursor_selection_fail(cursor : Vector2, direction : int) # Called on any failure cursor selection (useful for setuping screen unique cursor movement rules)
+signal cursor_move_try ## Called when cursor is moved
+signal cursor_selection_success(cursor : Vector2) ## Called on any successfull cursor movement and returns new cursor position
+signal cursor_selection_fail(cursor : Vector2, direction : int) ## Called on any failed cursor movement and returns tried cursor position and direction
 
-enum CURSOR_DIRECTION {HERE,LEFT,RIGHT,UP,DOWN} # Movement sides for cursor
+enum CURSOR_DIRECTION {HERE,LEFT,RIGHT,UP,DOWN} ## Movement sides for cursor
 
-const CURSOR_DASH_DELAY : float = 0.2 # How many ticks wait before cursor dash
-var BUTTON_SEARCH_SPREAD : Array = [-2,-1,1,2] # Spread in which we try to find selectable button
-var BUTTON_SEARCH_DISTANCE : int = 5 # How far we search for far away selectable, when cursor tries to move into void
+const CURSOR_DASH_DELAY : float = 0.2 ## How many seconds wait before cursor dash
+var BUTTON_SEARCH_RANGE : Array = [-2,-1,1,2] ## Range in which we try to find selectable [MenuSelectableButton]/[MenuSelectableSlider], when cursor fails to select one
+var BUTTON_SEARCH_DISTANCE : int = 5 ## Distance in which we try to find selectable [MenuSelectableButton]/[MenuSelectableSlider], when cursor fails to select one
 
-@onready var menu : Control = Data.menu
+var main : Main = null
+var parent_menu : Menu = null ## Parent [Menu] instance
 
-var last_cursor_dir : int = CURSOR_DIRECTION.HERE # Latest direction cursor tried to move
+var snake_case_name : String = "" ## Menu screen snake_case name
+var previous_screen_name : String = "" ## Name of the previous menu screen, which was focused before this menu screen was added
 
-var previous_screen_name : String = "" # Name of the screen from which this screen was opened
+var cursor : Vector2i = Vector2i(0,0) ## Current cursor position
+var last_cursor_dir : int = CURSOR_DIRECTION.HERE ## Latest direction cursor tried to move
 
-var currently_selected : Control = null # Currently selected by cursor selectable node
-var previously_selected : Control = null # Previously selected by cursor selectable node
+var input_hold : float = 0.0 ## How many seconds input button is held
+var input_lock : Array[bool] = [false,false,false,false] ## Lock specific directions for cursor, so it can't move there [br] Uses four bool indexes : [LEFT, RIGHT,  UP ,DOWN]
 
-var input_hold : float = 0.0 # How many ticks input button is held
-#                         [LEFT, RIGHT,  UP ,DOWN]
-var input_lock : Array = [false,false,false,false] # Lock specific directions for cursor, so it can't move there
+## Avaiable buttons/sliders in this menu screen[br]
+## [Vector2i(x,y)] : [MenuSelectableButton]/[MenuSelectableSlider]
+var selectables : Dictionary = {} 
 
-var snake_case_name : String = "" # Menu screen snake_case name
-var cursor : Vector2i = Vector2i(0,0) # Current cursor position
+var currently_selected : Control = null ## Currently selected by cursor [MenuSelectableButton]/[MenuSelectableSlider]
+var previously_selected : Control = null ## Previously selected by cursor [MenuSelectableButton]/[MenuSelectableSlider]
 
-# Avaiable selectables by cursor nodes
-var selectables : Dictionary = {
-	# Vector2i(x,y) : Selectable_node
-} 
+var visited_cursor_positions : Dictionary = {} ## Storage of last visited cursor positions for each X coordinate [br] [Cursor X] : [Cursor Y]
+var cancel_cursor_pos : Vector2i = Vector2i(0,0) ## A position of button, which would be triggered by cancel input
 
-var visited_cursor_positions : Dictionary = {} # Storage for last cursor positions
-var cancel_cursor_pos : Vector2i = Vector2i(0,0) # A position of selectable object, which would be triggered by cancel input
-
-@onready var animation_player : AnimationPlayer = get_node("A") if has_node("A") else null # Menu screen animation node
+@onready var animation_player : AnimationPlayer = get_node("A") if has_node("A") else null ## Menu screen animation node
 
 
-# Removes this screen
+## Removes this screen and automatically focuses previous menu screen if it still exists
 func _remove(anim_name : String = "end") -> void:
-	if menu.screens.has(previous_screen_name):
-		menu.current_screen_name = previous_screen_name
-		menu.current_screen = menu.screens[previous_screen_name]
-		menu.current_screen._move_cursor()
-
-	menu._remove_screen(snake_case_name, anim_name)
+	parent_menu._remove_screen(snake_case_name, anim_name)
 
 
-# Assigns selectable to given position coordinates (old selectable position will be removed)
-func _assign_selectable(selectable : Control, to_position : Vector2i) -> void:
+## Sets selectable [MenuSelectableButton]/[MenuSelectableSlider] to given position[br]
+## If some selectable was already assigned to this possition, removes it from selectable dictionary
+func _set_selectable_position(selectable : Control, to_position : Vector2i) -> void:
 	if selectables.has(to_position):
 		if is_instance_valid(selectables[to_position]): 
 			selectables[to_position].menu_position = Vector2i(-1,-1)
 		selectables.erase(to_position)
 
+	# Remove old selectable position
 	if selectables.has(selectable.menu_position) and selectables[selectable.menu_position].name == selectable.name:
 		selectables.erase(selectable.menu_position)
 	
@@ -94,12 +86,12 @@ func _assign_selectable(selectable : Control, to_position : Vector2i) -> void:
 	if selectable is MenuSelectableButton and selectable.is_cancel_button : cancel_cursor_pos = to_position
 
 
-# Moves cursor into "direction" and selects selectable to use
-# "oneshot" - Set true if you don't want cursor to seek for far away selectables, if cursor moved into nothing
+## Moves cursor into **'direction'** and selects avaiable [MenuSelectableButton]/[MenuSelectableSlider][br]
+## **'oneshot'** - Set true if you don't want cursor to search for selectables, if cursor failed to select
 func _move_cursor(direction : int = CURSOR_DIRECTION.HERE, one_shot : bool = false) -> bool:
-	if menu.is_locked : return false
+	if parent_menu.is_locked : return false
 	if selectables.is_empty() : return false
-	if menu.current_screen_name != snake_case_name: return false
+	if parent_menu.current_screen_name != snake_case_name : return false 
 
 	var old_cursor_position : Vector2i = cursor
 	cursor_move_try.emit()
@@ -167,7 +159,7 @@ func _move_cursor(direction : int = CURSOR_DIRECTION.HERE, one_shot : bool = fal
 			#return true
 	
 	var origin_position : Vector2i = cursor
-	for i : int in BUTTON_SEARCH_SPREAD:
+	for i : int in BUTTON_SEARCH_RANGE:
 		cursor = origin_position
 		
 		if direction == CURSOR_DIRECTION.RIGHT or direction == CURSOR_DIRECTION.LEFT:
@@ -187,16 +179,14 @@ func _move_cursor(direction : int = CURSOR_DIRECTION.HERE, one_shot : bool = fal
 	return false
 
 
-# Resets cursor to position (0,0) and resets previosly selected node
+## Resets cursor to position (0,0)
 func _reset_cursor() -> void:
-	currently_selected = null
-	previously_selected = null
 	cursor = Vector2(0,0)
 	_move_cursor()
 
 
 func _input(event : InputEvent) -> void:
-	if menu.is_locked : return
+	if parent_menu.is_locked : return
 
 	# Cursor movement
 	if event.is_action_pressed("ui_up") and not input_lock[2]: _move_cursor(CURSOR_DIRECTION.UP)
@@ -212,7 +202,7 @@ func _input(event : InputEvent) -> void:
 
 # Used to "dash" input when hold input button too long
 func _physics_process(delta : float) -> void:
-	if menu.is_locked: return
+	if parent_menu.is_locked : return
 
 	if Input.is_action_pressed("ui_right") and not input_lock[1]:
 		if input_hold > CURSOR_DASH_DELAY: _move_cursor(CURSOR_DIRECTION.RIGHT)

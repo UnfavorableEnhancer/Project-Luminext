@@ -1,0 +1,52 @@
+✔ Rework "skin_list" @done(25-02-20 12:07)
+
+@high
+☐ Replace SilentWolf with Talo
+☐ Add local ranking to "ranking_manager" and remove it from global settings
+☐ Refactor all code and document it properly @started(25-06-14 11:23) @today
+	☐ Rework menu system
+	✔ Separate config and savedata from player singletone @started(25-09-26 12:57) @done(25-09-26 17:23) @lasted(4h26m28s)
+☐ Add piece ghost
+	☐ Basic
+	☐ Advanced
+☐ Add colorblind blocks
+☐ Add options presetup screen
+☐ Add soundset import option to skin editor
+☐ Ask Wrythm to design following soundsets:
+	- 8-bit
+	- Finish drum
+	- Calm
+	- Techno
+	- Rock
+	- Jazz
+	- Pop
+☐ Add adventure mode
+	☐ Add addon resources 
+	☐ Create menu
+	☐ Add gamemode
+	☐ Create addon editor
+
+@medium
+
+☐ Optimize disk sector video and music
+☐ Replace time attack skin with any desired
+
+@low
+
+☐ Add startup screen demo replays
+☐ Fix L2/R2 being mapped to JOY_AXIS
+✔ Change startup @done(25-09-26 12:57)
+
+@bugs
+☐ Adjust "Protocol" block colors
+☐ Fix synthesia mode not working on Linux
+☐ Fix classic preset special delay not being 30
+☐ Fix incorrect level up system (piece delay not lowering at all)
+☐ Fix song end resetting combo
+☐ Fix profile deletion breaking
+☐ Fix window to fullscreen bug
+☐ Fix some replay breaking cases (especially with chaos blocks)
+☐ Fix sounds playing after restart
+☐ Fix timeline deleting resetted blocks (blocks not being properly deleted from dicts)
+☐ Fix invincible blocks (blocks not being properly deleted)
+☐ Fix some broken text

@@ -1,11 +1,158 @@
-[gd_scene load_steps=21 format=3 uid="uid://dc1ceb73mqe8g"]
+[gd_scene load_steps=22 format=3 uid="uid://dc1ceb73mqe8g"]
 
-[ext_resource type="Script" path="res://menu/scripts/screens/subscreens/credits.gd" id="1_qfb43"]
+[ext_resource type="Script" uid="uid://don5pno0i1qvd" path="res://menu/scripts/screens/subscreens/credits.gd" id="1_qfb43"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2_61ekk"]
 [ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="3_0yku0"]
 [ext_resource type="FontFile" uid="uid://bncda7ixlpa7b" path="res://fonts/rounded_mgenplus.ttf" id="4_f7hpe"]
-[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="5_3hts0"]
+[ext_resource type="FontFile" uid="uid://sawohm8dc1a" path="res://fonts/Gravity-Book.otf" id="5_r0bgv"]
 [ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://menu/objects/regular_button.tscn" id="5_s0gf6"]
+
+[sub_resource type="Animation" id="Animation_r0bgv"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.75),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Box:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.75),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Iconhold:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Iconhold/Icon:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Content:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Content:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Hide:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Content/Line:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Content/Line2:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Cancel:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Box/Detail3:visible_ratio")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_rg6xp"]
 resource_name = "end"
@@ -305,8 +452,9 @@ tracks/11/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v1pit"]
 _data = {
-"end": SubResource("Animation_rg6xp"),
-"start": SubResource("5")
+&"RESET": SubResource("Animation_r0bgv"),
+&"end": SubResource("Animation_rg6xp"),
+&"start": SubResource("5")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_xv3m0"]
@@ -325,10 +473,13 @@ cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
-[sub_resource type="LabelSettings" id="LabelSettings_rd3u4"]
+[sub_resource type="LabelSettings" id="LabelSettings_1c1iy"]
 font = ExtResource("2_61ekk")
 font_size = 36
 font_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.231373)
+shadow_offset = Vector2(4, 4)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3efpa"]
 atlas = ExtResource("3_0yku0")
@@ -357,8 +508,8 @@ VScrollBar/styles/grabber_pressed = SubResource("133")
 VScrollBar/styles/scroll = SubResource("134")
 
 [sub_resource type="LabelSettings" id="LabelSettings_80lia"]
-font = ExtResource("5_3hts0")
-font_size = 32
+font = ExtResource("5_r0bgv")
+font_size = 28
 
 [node name="Credits" type="Control"]
 layout_mode = 3
@@ -372,7 +523,7 @@ script = ExtResource("1_qfb43")
 
 [node name="A" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_v1pit")
+&"": SubResource("AnimationLibrary_v1pit")
 }
 
 [node name="back" type="ColorRect" parent="."]
@@ -392,7 +543,7 @@ color = Color(0, 0, 0, 0.5)
 
 [node name="Box" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
-layout_mode = 0
+layout_mode = 1
 offset_left = 632.0
 offset_top = 144.0
 offset_right = 1920.0
@@ -430,18 +581,15 @@ flip_v = true
 [node name="Label" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.092
-anchor_top = 0.059
-anchor_right = 0.092
-anchor_bottom = 0.059
-offset_left = 455.36
-offset_top = 8.28
-offset_right = 1607.36
-offset_bottom = 80.28
+offset_left = 632.0
+offset_top = 72.0
+offset_right = 1784.0
+offset_bottom = 144.0
+grow_horizontal = 0
 scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(1152, 0)
 mouse_filter = 2
-color = Color(1, 0.333, 0.333, 0.75)
+color = Color(0.839844, 0.839844, 0.839844, 1)
 
 [node name="Text" type="Label" parent="Label"]
 layout_mode = 0
@@ -451,23 +599,20 @@ offset_bottom = 72.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = SubResource("8")
 text = "CREDITS"
-label_settings = SubResource("LabelSettings_rd3u4")
+label_settings = SubResource("LabelSettings_1c1iy")
 horizontal_alignment = 2
 vertical_alignment = 1
 uppercase = true
 
 [node name="Iconhold" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.059
-anchor_bottom = 0.059
 offset_left = 1784.0
-offset_top = 8.28
+offset_top = 72.0
 offset_right = 1920.0
-offset_bottom = 144.28
+offset_bottom = 208.0
 scale = Vector2(1e-05, 1e-05)
 mouse_filter = 2
-color = Color(0.301961, 0.054902, 0.054902, 1)
+color = Color(0.308594, 0.308594, 0.308594, 1)
 
 [node name="Icon" type="TextureRect" parent="Iconhold"]
 layout_mode = 1
@@ -488,6 +633,7 @@ stretch_mode = 6
 
 [node name="Content" type="Control" parent="."]
 modulate = Color(1, 1, 1, 0)
+layout_mode = 1
 anchors_preset = 0
 offset_left = 656.0
 offset_top = 224.0
@@ -520,7 +666,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "CREDITS.txt is missing...
 
-You can find full credits in official GitHub repo.
+You can find full credits in official GitHub repository.
 
 "
 label_settings = SubResource("LabelSettings_80lia")
@@ -535,8 +681,8 @@ offset_right = 1240.0
 offset_bottom = 632.0
 scale = Vector2(1e-05, 1)
 
-[node name="Cancel" parent="." instance=ExtResource("5_s0gf6")]
-layout_mode = 2
+[node name="Cancel" parent="." node_paths=PackedStringArray("parent_screen") instance=ExtResource("5_s0gf6")]
+layout_mode = 1
 offset_left = 656.0
 offset_top = 880.0
 offset_right = 1896.0
@@ -549,3 +695,4 @@ button_layout = 15
 work_mode = 7
 press_sound_name = "cancel"
 is_cancel_button = true
+parent_screen = NodePath("..")

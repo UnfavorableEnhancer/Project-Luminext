@@ -1,9 +1,110 @@
-[gd_scene load_steps=16 format=3 uid="uid://b74gegkema7mt"]
+[gd_scene load_steps=17 format=3 uid="uid://b74gegkema7mt"]
 
 [ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://menu/objects/regular_button.tscn" id="1"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="3"]
 [ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="3_im4xn"]
-[ext_resource type="Script" path="res://menu/scripts/screens/subscreens/playlist_edit.gd" id="4"]
+[ext_resource type="Script" uid="uid://bq4pbrmq6tniw" path="res://menu/scripts/screens/subscreens/playlist_edit.gd" id="4"]
+
+[sub_resource type="Animation" id="Animation_l8jtt"]
+resource_name = "RESET"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.5),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Scroll:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Background:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label/ColorRect:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BACK:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Label:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("BACK:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Box/Detail5:visible_ratio")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_7cbjc"]
 resource_name = "end"
@@ -209,8 +310,9 @@ tracks/7/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iqntv"]
 _data = {
-"end": SubResource("Animation_7cbjc"),
-"start": SubResource("70")
+&"RESET": SubResource("Animation_l8jtt"),
+&"end": SubResource("Animation_7cbjc"),
+&"start": SubResource("70")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_a72wb"]
@@ -256,7 +358,7 @@ script = ExtResource("4")
 
 [node name="A" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_iqntv")
+&"": SubResource("AnimationLibrary_iqntv")
 }
 
 [node name="back" type="ColorRect" parent="."]
@@ -270,17 +372,22 @@ color = Color(0.337255, 0.337255, 0.337255, 1)
 
 [node name="Background" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_top = -44.0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -1.1
+anchor_bottom = -1.1
 offset_right = 1920.0
-offset_bottom = 1036.0
+offset_bottom = 1080.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="Box" type="ColorRect" parent="."]
-layout_mode = 0
-offset_top = 196.0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -1.1
+anchor_bottom = -1.1
+offset_top = 240.0
 offset_right = 1176.0
-offset_bottom = 836.0
+offset_bottom = 880.0
 scale = Vector2(1, 1e-05)
 color = Color(0, 0, 0, 0.501961)
 
@@ -310,13 +417,16 @@ expand_mode = 1
 flip_h = true
 flip_v = true
 
-[node name="BACK" parent="." instance=ExtResource("1")]
+[node name="BACK" parent="." node_paths=PackedStringArray("parent_screen") instance=ExtResource("1")]
 modulate = Color(1, 1, 1, 0)
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -1.1
+anchor_bottom = -1.1
 offset_left = 16.0
-offset_top = 732.0
+offset_top = 776.0
 offset_right = 1160.0
-offset_bottom = 788.0
+offset_bottom = 832.0
 scale = Vector2(1e-05, 1)
 text = "CANCEL"
 glow_color = Color(0.564706, 0.564706, 0.564706, 1)
@@ -325,6 +435,7 @@ menu_position = Vector2i(-1, -1)
 work_mode = 7
 press_sound_name = "cancel"
 is_cancel_button = true
+parent_screen = NodePath("..")
 
 [node name="Icon2" type="TextureRect" parent="BACK"]
 layout_mode = 1
@@ -348,10 +459,12 @@ stretch_mode = 5
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+anchor_top = -1.1
+anchor_bottom = -1.1
 offset_left = 16.0
-offset_top = 212.0
+offset_top = 256.0
 offset_right = 555.0
-offset_bottom = 260.0
+offset_bottom = 304.0
 text = "SELECT_PLAYLIST"
 label_settings = SubResource("LabelSettings_a372g")
 uppercase = true
@@ -365,11 +478,14 @@ scale = Vector2(1e-05, 1)
 
 [node name="Scroll" type="ScrollContainer" parent="."]
 modulate = Color(1, 1, 1, 0)
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -1.1
+anchor_bottom = -1.1
 offset_left = 16.0
-offset_top = 276.0
+offset_top = 320.0
 offset_right = 1160.0
-offset_bottom = 716.0
+offset_bottom = 760.0
 theme = SubResource("87")
 
 [node name="V" type="VBoxContainer" parent="Scroll"]

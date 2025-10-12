@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,45 +18,44 @@
 
 extends MenuScreen
 
-const REGULAR_BUTTON : PackedScene = preload("res://menu/objects/regular_button.tscn")
+##-----------------------------------------------------------------------
+## Menu screen for [SynthesiaMode] gamemode
+## Displays list of music from [OS.SYSTEM_DIR_MUSIC] and allows to play a game with it
+##-----------------------------------------------------------------------
 
-var play_infinitely : bool = false
-var use_precise_bpm_calculation : bool = false
-
-var visualiser : int = 0
-var color_scheme : int = 0
-var sound_set : int = 0
+const REGULAR_BUTTON : PackedScene = preload("res://menu/objects/regular_button.tscn") ## Button node instance
 
 
 func _ready() -> void:
-	Data.menu.screens["background"]._change_gradient_colors(Color("340846"),Color("38303e"),Color("19013f"),Color("101010"),Color("020106"))
+	parent_menu.background._change_gradient_colors(Color("340846"),Color("38303e"),Color("19013f"),Color("101010"),Color("020106"))
 	cursor_selection_success.connect(_scroll)
 	
-	if not Data.menu.is_music_playing:
-		Data.menu._change_music("menu_theme")
-		if Data.menu.custom_data.has("last_music_pos"):
-			Data.menu.music_player.seek(Data.menu.custom_data["last_music_pos"])
+	parent_menu._change_music("menu_theme")
+	if parent_menu.custom_data.has("last_music_pos"):
+		parent_menu.music_player.seek(parent_menu.custom_data["last_music_pos"])
 	
-	_select_visualizer(Data.profile.config["misc"]["SY_visualizer"])
-	_select_soundset(Data.profile.config["misc"]["SY_soundset"])
+	_select_visualizer(Player.config.gamemode["sy_visualizer"])
+	_select_soundset(Player.config.gamemode["sy_soundset"])
 
-	$Menu/PlayInfinite._set_toggle_by_data(Data.profile.config)
-	$Menu/PreciseCalc._set_toggle_by_data(Data.profile.config)
+	$Menu/PlayInfinite._set_toggle_by_data()
+	$Menu/PreciseCalc._set_toggle_by_data()
 
 	_display_dir(OS.get_system_dir(OS.SYSTEM_DIR_MUSIC))
 
 
+## Scrolls file explorer scroll bar
 func _scroll(cursor_pos : Vector2) -> void:
-	if Data.current_input_mode == Data.INPUT_MODE.MOUSE: return
+	if Main.current_input_mode == Main.INPUT_MODE.MOUSE: return
 
 	# Scroll music list
 	if cursor_pos.x == 0: 
 		$Music/List.scroll_vertical = clamp(currently_selected.position.y - 288 ,0 ,INF)
 
 
+## Selects visualizer background and shows its description
 func _select_visualizer(value : float) -> void:
 	$Menu/Visual/Slider2.value = value
-	Data.profile.config["misc"]["SY_visualizer"] = value
+	Player.config.gamemode["sy_visualizer"] = value
 	
 	match int(value):
 		SynthesiaMode.VISUALISER.SHOCKWAVE: 
@@ -73,9 +72,10 @@ func _select_visualizer(value : float) -> void:
 			$Desc/Desc.text = tr("EDEN_DESC")
 
 
+## Selects soundset and shows its description
 func _select_soundset(value : float) -> void:
 	$Menu/Soundset/Slider.value = value
-	Data.profile.config["misc"]["SY_soundset"] = value
+	Player.config.gamemode["sy_soundset"] = value
 
 	match int(value):
 		SynthesiaMode.SOUND_SET.DRUMS : 
@@ -96,6 +96,7 @@ func _select_soundset(value : float) -> void:
 			$Desc/Desc.text = "Sound set featuring some sick electronic samples."
 
 
+## Displays contents of directory in **'dir_path'** and filters music files of avaiable formats
 func _display_dir(dir_path : String) -> void:
 	for i : Node in $Music/List/V.get_children():
 		i.queue_free()
@@ -161,7 +162,7 @@ func _display_dir(dir_path : String) -> void:
 			$Music/Help.visible = false
 			$Music/Help2.visible = false
 	else:
-		print("DIR ACCESS ERROR")
+		Console._log("ERROR! Failed accessing directory in path : " + dir_path)
 		_display_dir(OS.get_system_dir(OS.SYSTEM_DIR_MUSIC))
 	
 	$Music/Dir.text = dir_path
@@ -169,24 +170,26 @@ func _display_dir(dir_path : String) -> void:
 	_move_cursor()
 
 
+## Called on menu screen remove
 func _exit_tree() -> void:
-	Data.profile._save_config()
+	Player._save_profile()
 
 
+## Starts a game of [SynthesiaMode] with selected music file
 func _start_game(song_path : String) -> void:
-	if Data.menu.is_music_playing:
-		Data.menu.custom_data["last_music_pos"] = Data.menu.music_player.get_playback_position()
+	if parent_menu.is_music_playing:
+		parent_menu.custom_data["last_music_pos"] = parent_menu.music_player.get_playback_position()
 	
 	var gamemode : Gamemode = SynthesiaMode.new()
 	gamemode.music_file_path_to_load = song_path
-	gamemode.is_single_run = !Data.profile.config["misc"]["SY_endless_song"]
-	gamemode.use_precise_bpm_calculation = Data.profile.config["misc"]["SY_precise_bpm"]
+	gamemode.is_single_run = !Player.config.gamemode["sy_endless_song"]
+	gamemode.use_precise_bpm_calculation = Player.config.gamemode["sy_precise_bpm"]
 
-	gamemode.visualiser = Data.profile.config["misc"]["SY_visualizer"]
-	gamemode.sound_set = Data.profile.config["misc"]["SY_soundset"]
+	gamemode.visualiser = Player.config.gamemode["sy_visualizer"]
+	gamemode.sound_set = Player.config.gamemode["sy_soundset"]
 	
 	var metadata : SkinMetadata = SkinMetadata.new()
 	metadata.path = Data.BUILD_IN_PATH + Data.SKINS_PATH + "synthesia.skn"
 	
-	Data.menu._sound("enter")
-	Data.main._start_game(metadata, gamemode)
+	parent_menu._sound("enter")
+	#main._start_game(metadata, gamemode)

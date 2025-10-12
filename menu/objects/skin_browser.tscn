@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://tnuqbq025n0c"]
+
+[ext_resource type="Script" uid="uid://byxih4xyatc57" path="res://menu/scripts/objects/skin_browser.gd" id="1_khh44"]
+
+[node name="SkinBrowser" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_khh44")
+
+[node name="Grid" type="GridContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Preview" type="AudioStreamPlayer" parent="."]
+volume_db = -80.0
+bus = &"Music"

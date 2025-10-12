@@ -1,8 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://b6u6xcrjdwuo4"]
+[gd_scene load_steps=14 format=3 uid="uid://b6u6xcrjdwuo4"]
 
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2"]
 [ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="2_1p0e6"]
-[ext_resource type="Script" path="res://menu/scripts/screens/subscreens/text_input.gd" id="4"]
+[ext_resource type="Script" uid="uid://bw2wgyg0qiaj0" path="res://menu/scripts/screens/subscreens/text_input.gd" id="4"]
 [ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="4_nsa8d"]
 
 [sub_resource type="Animation" id="Animation_4hsim"]
@@ -159,10 +159,88 @@ tracks/5/keys = {
 "values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_hq83f"]
+resource_name = "RESET"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.75),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Block:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.75),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect/Label/ColorRect:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect/Detail2:visible_ratio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ColorRect/Detail3:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ColorRect/Name:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2hykb"]
 _data = {
-"end": SubResource("Animation_4hsim"),
-"start": SubResource("131")
+&"RESET": SubResource("Animation_hq83f"),
+&"end": SubResource("Animation_4hsim"),
+&"start": SubResource("131")
 }
 
 [sub_resource type="StyleBoxFlat" id="128"]
@@ -198,7 +276,7 @@ script = ExtResource("4")
 
 [node name="A" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_2hykb")
+&"": SubResource("AnimationLibrary_2hykb")
 }
 
 [node name="back" type="ColorRect" parent="."]

@@ -6,7 +6,6 @@
 script/source = "extends FX
 
 func _ready() -> void:
-	use_field_coordinates = false
 	name = \"levelup\"
 
 	_start()
@@ -74,7 +73,7 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bwq4p"]
 _data = {
-"start": SubResource("4")
+&"start": SubResource("4")
 }
 
 [node name="LevelUp" type="Node2D"]
@@ -92,5 +91,5 @@ gradient = SubResource("6")
 
 [node name="ANIM" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_bwq4p")
+&"": SubResource("AnimationLibrary_bwq4p")
 }

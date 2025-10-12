@@ -1,16 +1,34 @@
-Helper table of z indexes between all game objects
+Helper table of game nodes absolute z indexes
 
-0 - Menu, Everything else
--299 - Numbers effects
--300 - Erase effect, blast sparks
--502 - Block erase animation
--501 - Multi block mark
--500 - Block erase sprite 
--700 - Effects layer
--701 - Special block gems
--702 - Blocks, Piece (Game field)
--703 - Game, Foreground
--704 - EQ Visualizer
--1000 - Skin
--1200 - Bonus arrow
--1999 - Skin background
+1002 - System message
+1001 - Loading screen
+1000 - Screen darken
+
+500 - Menu foreground
+0 - Menu screens, everything else
+
+-50 - Game pause background
+-60 - Classic bonus arrow
+-70 - Timeline
+-100 - Game foreground
+
+-200 - Special game effects
+-201 - Blast effect, Erase effect
+-202 - Removing block
+
+-250 - Ghost blocks/squares
+-300 - Multi block, Special delete overlay
+
+-331-500 - Squares
+
+-500 - Game field, Piece queue
+-501 - Block delete overlay
+-502 - Piece
+-503 - Special block overlay
+-504 - Blocks
+
+-699 - EQ Visualizer
+-700 - Bonus arrow
+
+-1000 - Skin background
+-1500 - Menu background

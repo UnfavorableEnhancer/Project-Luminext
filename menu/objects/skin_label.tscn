@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://cc1q1i2hp045m"]
+
+[ext_resource type="Script" uid="uid://bu4jtg38blak4" path="res://menu/scripts/objects/skin_label.gd" id="1_u3jt8"]
+[ext_resource type="Texture2D" uid="uid://bv7iu8q1vutpk" path="res://images/back.png" id="2_h1f56"]
+[ext_resource type="FontFile" uid="uid://oh0jm8h7jp8q" path="res://fonts/square_sans_serif.ttf" id="3_3xslt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ywwvy"]
+font = ExtResource("3_3xslt")
+font_size = 20
+font_color = Color(0, 0, 0, 1)
+
+[node name="SkinLabel" type="Control"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(196, 48)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 256.0
+offset_bottom = 64.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_u3jt8")
+
+[node name="LabelTexture" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("2_h1f56")
+expand_mode = 1
+
+[node name="Name" type="Label" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "UNKNOWN"
+label_settings = SubResource("LabelSettings_ywwvy")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+uppercase = true

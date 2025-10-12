@@ -1,32 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://deqgt6g6snogi"]
 
-[ext_resource type="Texture2D" uid="uid://c1w2u887taqyk" path="res://images/menu/vignette.png" id="2_v63oy"]
-[ext_resource type="Texture2D" uid="uid://b4r6tm3v5swvf" path="res://menu/images/new_grid.png" id="2_yitv3"]
-
-[sub_resource type="GDScript" id="47"]
-script/source = "extends MenuScreen
-
-@onready var blob1 : TextureRect = $Shiny/Blob
-@onready var blob2 : TextureRect = $Shiny/Blob2
-@onready var blob3 : TextureRect = $Shiny/Blob3
-@onready var blob4 : TextureRect = $Shiny/Blob4
-@onready var background : ColorRect = $Back
-
-
-func _change_gradient_colors(color_1 : Color, color_2 : Color, color_3 : Color, color_4 : Color, back_color : Color) -> void:
-	var begin_color_1 : Color = blob1.texture.gradient.get_color(0)
-	var begin_color_2 : Color = blob2.texture.gradient.get_color(0)
-	var begin_color_3 : Color = blob3.texture.gradient.get_color(0)
-	var begin_color_4 : Color = blob4.texture.gradient.get_color(0)
-	
-	var tween : Tween = create_tween().set_parallel(true)
-	
-	tween.tween_method(func(color : Color) -> void: blob1.texture.gradient.set_color(0,color), begin_color_1, color_1, 1.0)
-	tween.tween_method(func(color : Color) -> void: blob3.texture.gradient.set_color(0,color), begin_color_3, color_3, 1.0)
-	tween.tween_method(func(color : Color) -> void: blob4.texture.gradient.set_color(0,color), begin_color_4, color_4, 1.0)
-	tween.tween_method(func(color : Color) -> void: blob2.texture.gradient.set_color(0,color), begin_color_2, color_2, 1.0)
-	tween.tween_property(background, \"color\", back_color, 1.0)
-"
+[ext_resource type="Script" uid="uid://b5nd3vxf4lqgi" path="res://menu/scripts/screens/background.gd" id="1_k0sbt"]
+[ext_resource type="Texture2D" uid="uid://dj5ecyu8vnll5" path="res://menu/images/main_menu/gridx2.png" id="1_mb6t5"]
 
 [sub_resource type="Animation" id="1"]
 resource_name = "start"
@@ -96,45 +71,53 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5iew8"]
 _data = {
-"start": SubResource("1")
+&"start": SubResource("1")
 }
 
 [sub_resource type="CanvasItemMaterial" id="48"]
 blend_mode = 1
 
 [sub_resource type="Gradient" id="42"]
-colors = PackedColorArray(0, 0.258824, 0.192157, 1, 0, 0, 0, 0)
+colors = PackedColorArray(0.254902, 0, 0.258824, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="49"]
 gradient = SubResource("42")
+width = 16
+height = 16
 fill = 1
-fill_from = Vector2(0.333911, 0.397886)
+fill_from = Vector2(0.270833, 0.779167)
 fill_to = Vector2(1, 1)
 
 [sub_resource type="Gradient" id="43"]
-colors = PackedColorArray(0.203922, 0.203922, 0.203922, 1, 0, 0, 0, 0)
+colors = PackedColorArray(0.0941176, 0.0823529, 0.0980392, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="50"]
 gradient = SubResource("43")
+width = 12
+height = 12
 fill = 1
-fill_from = Vector2(0.730577, 0.67414)
+fill_from = Vector2(0.795833, 0.170833)
 fill_to = Vector2(1, 1)
 
 [sub_resource type="Gradient" id="44"]
-colors = PackedColorArray(0, 0.0705882, 0.0470588, 1, 0, 0, 0, 0)
+colors = PackedColorArray(0.0666667, 0.00784314, 0.164706, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="51"]
 gradient = SubResource("44")
+width = 32
+height = 8
 fill = 1
-fill_from = Vector2(0.516995, 0.909174)
+fill_from = Vector2(0.870833, 0.766667)
 
 [sub_resource type="Gradient" id="45"]
-colors = PackedColorArray(0.00784314, 0.109804, 0.12549, 1, 0, 0, 0, 0)
+colors = PackedColorArray(0.152941, 0.0156863, 0.0509804, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="52"]
 gradient = SubResource("45")
+width = 24
+height = 8
 fill = 1
-fill_from = Vector2(0.540634, 0.417034)
+fill_from = Vector2(0.1, 0.0666667)
 
 [sub_resource type="Animation" id="54"]
 resource_name = "loop"
@@ -191,12 +174,27 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4g6s1"]
 _data = {
-"loop": SubResource("54")
+&"loop": SubResource("54")
+}
+
+[sub_resource type="Animation" id="Animation_dxm38"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Grid:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-110, 1440)]
 }
 
 [sub_resource type="Animation" id="Animation_2o7vt"]
 resource_name = "anim"
-length = 1.5
+length = 2.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -205,15 +203,16 @@ tracks/0/path = NodePath("Grid:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5),
+"times": PackedFloat32Array(0, 1.998),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-80, -200), Vector2(-120, -160)]
+"values": [Vector2(-110, 1440), Vector2(-150, 1480)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ddh28"]
 _data = {
-"anim": SubResource("Animation_2o7vt")
+&"RESET": SubResource("Animation_dxm38"),
+&"anim": SubResource("Animation_2o7vt")
 }
 
 [node name="Background" type="Control"]
@@ -226,18 +225,20 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(-992, -216)
 mouse_filter = 2
-script = SubResource("47")
+script = ExtResource("1_k0sbt")
 
 [node name="Back" type="ColorRect" parent="."]
 layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-color = Color(0.00405229, 0.0418301, 0.0462745, 1)
+offset_left = -104.0
+offset_top = -80.0
+offset_right = 2015.0
+offset_bottom = 1161.0
+color = Color(0.0664062, 0.0303497, 0.0303497, 1)
 
 [node name="SplashAnim" type="AnimationPlayer" parent="."]
 reset_on_save = false
 libraries = {
-"": SubResource("AnimationLibrary_5iew8")
+&"": SubResource("AnimationLibrary_5iew8")
 }
 
 [node name="Shiny" type="Control" parent="."]
@@ -279,31 +280,23 @@ expand_mode = 1
 
 [node name="BackAnim" type="AnimationPlayer" parent="Shiny"]
 libraries = {
-"": SubResource("AnimationLibrary_4g6s1")
+&"": SubResource("AnimationLibrary_4g6s1")
 }
 autoplay = "loop"
 
 [node name="Grid" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0.156863)
+modulate = Color(1, 1, 1, 0.05)
 layout_mode = 0
-offset_left = -103.383
-offset_top = -176.617
-offset_right = 1816.62
-offset_bottom = 903.383
+offset_left = -110.0
+offset_top = 1440.0
+offset_right = 1683.0
+offset_bottom = 3576.0
+rotation = -1.57079
 scale = Vector2(1.25, 1.25)
-texture = ExtResource("2_yitv3")
-
-[node name="Vignette" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0.25)
-layout_mode = 0
-offset_right = 1536.0
-offset_bottom = 864.0
-scale = Vector2(1.25, 1.25)
-texture = ExtResource("2_v63oy")
-expand_mode = 1
+texture = ExtResource("1_mb6t5")
 
 [node name="GridAnim" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_ddh28")
+&"": SubResource("AnimationLibrary_ddh28")
 }
 autoplay = "anim"

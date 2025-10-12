@@ -1,12 +1,12 @@
 [gd_scene load_steps=26 format=3 uid="uid://r8scymn381x3"]
 
-[ext_resource type="Script" path="res://scripts/game/foreground/time_attack.gd" id="1"]
+[ext_resource type="Script" uid="uid://djnwf4xvd1r8r" path="res://scripts/game/luminext/foreground/time_attack.gd" id="1"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2"]
 [ext_resource type="Texture2D" uid="uid://b3rr6jqj6yrqr" path="res://images/game/foreground/clock.png" id="2_x0oj3"]
 [ext_resource type="Texture2D" uid="uid://bvtpsjufq6a8n" path="res://images/game/foreground/circle.png" id="3_8khg7"]
 [ext_resource type="Texture2D" uid="uid://b636g3qqxolmt" path="res://images/game/foreground/clock_segment.png" id="4_2oij2"]
-[ext_resource type="AudioStream" uid="uid://tky1yawphbya" path="res://internal/Sounds/321go.ogg" id="6_kcyhj"]
-[ext_resource type="AudioStream" uid="uid://d2niw4j6d7nqs" path="res://internal/Sounds/321gofast.ogg" id="7_ud0rv"]
+[ext_resource type="AudioStream" uid="uid://tky1yawphbya" path="res://internal/sounds/321go.ogg" id="6_kcyhj"]
+[ext_resource type="AudioStream" uid="uid://d2niw4j6d7nqs" path="res://internal/sounds/321gofast.ogg" id="7_ud0rv"]
 
 [sub_resource type="Animation" id="Animation_0f1m6"]
 length = 0.001
@@ -394,9 +394,9 @@ tracks/10/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3eb5i"]
 _data = {
-"RESET": SubResource("Animation_0f1m6"),
-"clock": SubResource("Animation_gvut0"),
-"clock_start": SubResource("Animation_hs3ll")
+&"RESET": SubResource("Animation_0f1m6"),
+&"clock": SubResource("Animation_gvut0"),
+&"clock_start": SubResource("Animation_hs3ll")
 }
 
 [sub_resource type="Animation" id="Animation_sbu46"]
@@ -631,9 +631,9 @@ tracks/5/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tfeo2"]
 _data = {
-"RESET": SubResource("Animation_sbu46"),
-"circle_beat": SubResource("Animation_tgg6m"),
-"circle_beat_start": SubResource("Animation_25o7n")
+&"RESET": SubResource("Animation_sbu46"),
+&"circle_beat": SubResource("Animation_tgg6m"),
+&"circle_beat_start": SubResource("Animation_25o7n")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_u8u7p"]
@@ -1178,8 +1178,8 @@ tracks/19/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8b0ak"]
 _data = {
-"start": SubResource("Animation_dyj8s"),
-"startfast": SubResource("Animation_s0p8y")
+&"start": SubResource("Animation_dyj8s"),
+&"startfast": SubResource("Animation_s0p8y")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vk77e"]

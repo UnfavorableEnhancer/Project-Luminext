@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -19,6 +19,11 @@
 @tool
 extends MenuSelectableButton
 
+#-----------------------------------------------------------------------
+# Button used in main menu screen for category selection
+#-----------------------------------------------------------------------
+
+## Avaiable to show button layouts when this button is selected
 enum MENU_BUTTON_LAYOUT{
 	EMPTY,
 	UP_DOWN_SELECT,
@@ -30,14 +35,14 @@ enum MENU_BUTTON_LAYOUT{
 	MAIN_MENU
 }
 
-var main_color : Color
+var main_color : Color ## Base button color
 
-@export var desc_node_path : NodePath
-@export var label_node_path : NodePath
-@export var label_color : Color
+@export var desc_node_path : NodePath ## Path to the description [Label] node
+@export var label_node_path : NodePath ## Path to the outer [Label] node to display text onto
+@export var label_color : Color ## Color of the outer [Label] node when this button is selected
 
-@export var description : String = "" # Description shown on button select
-@export var button_layout : MENU_BUTTON_LAYOUT = MENU_BUTTON_LAYOUT.UP_DOWN_SELECT # Button layout which user can use now
+@export var description : String = "" ## Description shown when button is selected
+@export var button_layout : MENU_BUTTON_LAYOUT = MENU_BUTTON_LAYOUT.UP_DOWN_SELECT ## Button layout foreground menu screen will show when this button is selected
 
 
 func _ready() -> void:
@@ -45,7 +50,10 @@ func _ready() -> void:
 	
 	main_color = modulate
 	selected.connect(_selected)
+	disable_toggled.connect(_disabled)
 	$Icon.texture = icon
+
+	if is_off : modulate = Color(0.5,0.5,0.5,1.0)
 
 
 func _process(_delta : float) -> void:
@@ -53,10 +61,24 @@ func _process(_delta : float) -> void:
 	$Back.color = label_color
 
 
-func _selected() -> void:
-	Data.menu._sound("select")
+## Called when button is pressed [br]
+## **'silent'** - If true, no press sound will play
+func _work(silent : bool = false) -> void:
+	if is_off:
+		var tween : Tween = create_tween()
+		tween.tween_property(self,"modulate",Color.RED,0.1)
+		tween.tween_property(self,"modulate",Color(0.5,0.5,0.5,1.0),0.1)
+		parent_menu._play_sound("error")
+		return
+	
+	super(silent)
 
-	var foreground_screen : MenuScreen = Data.menu.screens["foreground"]
+
+## Called when this button is selected
+func _selected() -> void:
+	parent_menu._play_sound("select")
+
+	var foreground_screen : MenuScreen = parent_menu.screens["foreground"]
 	if is_instance_valid(foreground_screen):
 		foreground_screen._show_button_layout(button_layout)
 	
@@ -71,7 +93,15 @@ func _selected() -> void:
 	get_node(label_node_path).modulate = label_color
 
 
+## Called when this button is deselected
 func _deselected() -> void:
 	var tween : Tween = create_tween()
 	tween.tween_property($Back,"scale",Vector2(1.0,1.0),0.1)
 	tween.parallel().tween_property($Icon,"position:y",24,0.1)
+
+
+## Called when this button disabled state changes
+func _disabled(on : bool) -> void:
+	is_off = on
+	if is_off : modulate = Color(0.5,0.5,0.5,1.0)
+	else: modulate = Color.WHITE

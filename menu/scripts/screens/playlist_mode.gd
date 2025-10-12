@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,70 +18,70 @@
 
 extends MenuScreen
 
-const SKIN_BUTTON : PackedScene = preload("res://menu/objects/skin_button.tscn") # Skin button instance
-const ALBUM_BAR : PackedScene = preload("res://menu/objects/album_bar.tscn") # Album label instance
+##-----------------------------------------------------------------------
+## Menu screen for [PlaylistMode] gamemode
+## Displays currently loaded skin list and allows to build own playlist from it
+##-----------------------------------------------------------------------
 
-signal all_skins_displayed
+signal all_skins_displayed ## Emitted when all skins from skin list are displayed
 
-var skin_list_rows_amount : int = 0
+const SKIN_BUTTON : PackedScene = preload("res://menu/objects/skin_button.tscn") ## Skin button instance
+const ALBUM_BAR : PackedScene = preload("res://menu/objects/album_bar.tscn") ## Album label instance
 
-var currently_swapping_skin_pos : int = -1 # Used in playlist skin swap
+var skin_list_rows_amount : int = 0 ## Amount of rows in displayed skin list
+var currently_swapping_skin_pos : int = -1 ## Currently selected to be swapped position in playlist
 
 
 func _ready() -> void:
-	menu.keep_locked = true
-	Data.menu.screens["background"]._change_gradient_colors(Color("0b3155"),Color("11433f"),Color("14013f"),Color("1f1f1f"),Color("010509"))
+	parent_menu.keep_locked = true
+	parent_menu.screens["background"]._change_gradient_colors(Color("0b3155"),Color("11433f"),Color("14013f"),Color("1f1f1f"),Color("010509"))
 
 	cursor_selection_success.connect(_scroll)
-	Data.playlist.playlist_changed.connect(_display_current_playlist)
-	
-	if not Data.menu.is_music_playing:
-		Data.menu._change_music("menu_theme")
-		if Data.menu.custom_data.has("last_music_pos"):
-			Data.menu.music_player.seek(Data.menu.custom_data["last_music_pos"])
+	Data.skin_playlist.playlist_changed.connect(_display_current_playlist)
 	
 	_load_skin_list()
 	_display_current_playlist()
 	
 	$Skins/Info.text = str(Data.skin_list.skins_amount) + " " + tr("SKINS_TOTAL")
 
-	await menu.all_screens_added
+	await parent_menu.all_screens_added
 	cursor = Vector2i(0,0)
 	_move_cursor()
 
 
-# Loads and displays skin list
+## Checks if skin list is already parsing and starts new parse if needed
 func _load_skin_list() -> void:
-	if Data.skin_list.currently_parsing:
-		Data.main._toggle_loading(true)
+	if Data.skin_list.is_parsing:
+		main._toggle_loading(true)
 
 		await Data.skin_list.parsed
 		await get_tree().create_timer(0.01).timeout
 
-		Data.main._toggle_loading(false)
+		main._toggle_loading(false)
 	else:
-		if Data.skin_list._check_parse():
-			Data.main._toggle_loading(true)
+		main._toggle_loading(true)
 
-			Data.skin_list._parse_threaded()
-			await Data.skin_list.parsed
-			await get_tree().create_timer(0.01).timeout
+		Data.skin_list._parse_threaded()
+		await Data.skin_list.parsed
+		await get_tree().create_timer(0.01).timeout
 
-			Data.main._toggle_loading(false)
+		main._toggle_loading(false)
 	
 	_display_skins_list()
 	
-	if menu.currently_adding_screens_amount > 0 : await menu.all_screens_added
-	menu.keep_locked = false
-	menu.is_locked = false
+	if parent_menu.currently_adding_screens_amount > 0 : await parent_menu.all_screens_added
+	parent_menu.keep_locked = false
+	parent_menu.is_locked = false
 
 
-# Displays all skins from skin list
+## Displays all skins from skin list
 func _display_skins_list() -> void:
-	print("DISPLAY SKINS START")
+	Console._log("Displaying skin list")
 	
 	for album : String in Data.skin_list.skins:
 		if Data.skin_list.skins[album].is_empty(): continue
+
+		Console._log("Adding album : " + album)
 		
 		var bar : ColorRect = ALBUM_BAR.instantiate()
 		bar.get_node("Album").text = album
@@ -99,32 +99,40 @@ func _display_skins_list() -> void:
 		album_numbers.sort()
 		
 		for number : int in album_numbers:
+			var skin_metadata : SkinMetadata = Data.skin_list._get_skin_metadata_by_album(album, number)
+			if skin_metadata == null : return
+
+			Console._log("Adding skin : " + skin_metadata.name)
+
 			if row_number == 4:
 				row_number = 0
 				if album_numbers.size() > 4: skin_list_rows_amount += 1
-			
+
 			var skin_button : MenuSelectableButton = SKIN_BUTTON.instantiate()
-			skin_button.skin_metadata = Data.skin_list.skins[album][number]
+			skin_button.skin_metadata = skin_metadata
+
+			skin_button.parent_screen = self
+			skin_button.parent_menu = parent_menu
+
 			skin_button.custom_minimum_size = Vector2(256,64)
 			skin_button.skin_selected.connect(_display_skin_metadata)
-			_assign_selectable(skin_button,Vector2(row_number + 1,skin_list_rows_amount + 1))
-			skin_button.parent_screen = self
+			skin_button.invalid_skin_selected.connect(_display_invalid_skin_metadata)
+			skin_button.locked_skin_selected.connect(_display_locked_skin_metadata)
+
+			_set_selectable_position(skin_button,Vector2(row_number + 1,skin_list_rows_amount + 1))
 			grid.call_deferred("add_child",skin_button)
 			
 			row_number += 1
 		
 		skin_list_rows_amount += 1
 	
-	print("ALL SKINS DISPLAYED!")
+	Console._log("All skins displayed")
 	all_skins_displayed.emit()
 
 
-func _end() -> void:
-	Data.profile._save_progress()
-
-
+## Scrolls skin list or playlist scroll bar
 func _scroll(cursor_pos : Vector2i) -> void:
-	if Data.current_input_mode == Data.INPUT_MODE.MOUSE: return
+	if main.current_input_mode == Main.INPUT_MODE.MOUSE: return
 
 	# Scroll skin list
 	if cursor_pos.x > 0 and cursor_pos.x < 5: 
@@ -138,15 +146,18 @@ func _scroll(cursor_pos : Vector2i) -> void:
 		$Playlist/S.scroll_vertical = clamp(cursor_pos.y * 64 - 128 ,0 ,INF)
 	
 	else: 
-		# We need to wait a little or playlist mode just immidiately closes when last skin in playlist is removed
+		# We need to wait a little or menu screen will just immidiately close when last skin in playlist is removed
 		await get_tree().create_timer(0.1).timeout
 		cancel_cursor_pos = Vector2i(0,5)
 
 
+## ***Redefenition***
+## Moves cursor into **'direction'** and selects avaiable [MenuSelectableButton]/[MenuSelectableSlider][br]
+## **'oneshot'** - Set true if you don't want cursor to search for selectables, if cursor failed to select
 func _move_cursor(direction : int = CURSOR_DIRECTION.HERE, one_shot : bool = false) -> bool:
-	if menu.is_locked : return false
+	if parent_menu.is_locked : return false
 	if selectables.is_empty() : return false
-	if menu.current_screen_name != snake_case_name: return false
+	if parent_menu.current_screen_name != snake_case_name: return false
 
 	var old_cursor_position : Vector2i = cursor
 	cursor_move_try.emit()
@@ -221,26 +232,33 @@ func _move_cursor(direction : int = CURSOR_DIRECTION.HERE, one_shot : bool = fal
 	return false
 
 
-# Displays playlist
+## Displays current playlist
 func _display_current_playlist() -> void:
 	for skin_button : MenuSelectableButton in $Playlist/S/V.get_children():
 		selectables.erase(skin_button.menu_position)
 		skin_button.queue_free()
 	
-	if Data.playlist.skins.is_empty():
+	if Data.skin_playlist.skins_ids.is_empty():
 		$Playlist/Counter.text = "0"
 		cursor = Vector2(5,0)
 		_move_cursor()
 		return
 	
 	var count : int = 0
-	for skin_entry : Array in Data.playlist.skins:
-		var skin_path : String = skin_entry[0]
+	for i : int in Data.skin_playlist.skins_ids.size():
 		var skin_button : MenuSelectableButton = SKIN_BUTTON.instantiate()
-		skin_button.skin_metadata = Data.skin_list._get_skin_metadata_by_file_path(skin_path)
-		_assign_selectable(skin_button,Vector2(5,count + 1))
+		skin_button.skin_metadata = Data.skin_playlist._get_skin_metadata_in_position(i)
+		_set_selectable_position(skin_button,Vector2(5,count + 1))
+
 		skin_button.parent_screen = self
+		skin_button.parent_menu = parent_menu
+
 		skin_button.is_in_playlist = true
+		skin_button.button_layout = 5
+
+		skin_button.skin_selected.connect(_display_skin_metadata)
+		skin_button.invalid_skin_selected.connect(_display_invalid_skin_metadata)
+		skin_button.locked_skin_selected.connect(_display_locked_skin_metadata)
 		
 		$Playlist/S/V.add_child(skin_button)
 		count += 1
@@ -254,18 +272,13 @@ func _display_current_playlist() -> void:
 			_move_cursor()
 
 
+## Displays selected skin button metadata info
 func _display_skin_metadata(metadata : SkinMetadata) -> void:
 	if metadata == null:
-		%CoverArt.texture = load("res://menu/images/unk.png")
-		%MadeBy.text = "MADE BY : MISSING_NO"
-		%BPM.text = "120"
-		%Name.text = "UNKNOWN SKIN"
-		%Music.text = ""
-		%FileName.text = ""
-		%Info.text = tr("NO_SKINS2")
+		_display_invalid_skin_metadata("ERROR! Invalid metadata")
 		return
 	
-	if metadata.cover_art == null : %CoverArt.texture = load("res://menu/images/unk.png")
+	if metadata.cover_art == null : %CoverArt.texture = load("res://menu/images/misc/unk.png")
 	else : %CoverArt.texture = metadata.cover_art
 	%MadeBy.text = "MADE BY : " + metadata.skin_by + " | " + Time.get_datetime_string_from_unix_time(metadata.save_date as int).replace("T"," ")
 	%BPM.text = str(snapped(metadata.bpm,0.001))
@@ -275,116 +288,145 @@ func _display_skin_metadata(metadata : SkinMetadata) -> void:
 	%Info.text = metadata.info
 
 
+## Displays selected invalid skin button error message
+func _display_invalid_skin_metadata(error : String) -> void:
+	%CoverArt.texture = load("res://menu/images/unk.png")
+	%MadeBy.text = "MADE BY : MISSING_NO"
+	%BPM.text = "666"
+	%Name.text = "UNKNOWN SKIN"
+	%Music.text = error
+	%FileName.text = ""
+	%Info.text = ""
+	return
+
+
+## Displays selected locked skin button lock condition
+func _display_locked_skin_metadata(lock_condition : String) -> void:
+	%CoverArt.texture = load("res://menu/images/unk.png")
+	%MadeBy.text = "MADE BY : ??????"
+	%BPM.text = "???"
+	%Name.text = "LOCKED SKIN"
+	%Music.text = lock_condition
+	%FileName.text = ""
+	%Info.text = ""
+	return
+
+
+## Adds given **'amount'** of random skins to playlist
 func _add_random_skin(amount : String) -> void:
-	var random_skins_list : Array = []
+	var random_skins_list : Array[SkinMetadata] = []
 	match amount:
-		"1" : random_skins_list = Data.skin_list._get_random_skin(1)
-		"5" : random_skins_list = Data.skin_list._get_random_skin(5)
-		"10" : random_skins_list = Data.skin_list._get_random_skin(10)
-		"all" : random_skins_list = Data.skin_list._get_random_skin(-1)
+		"1" : random_skins_list = Data.skin_list._get_random_skin_metadata(1)
+		"5" : random_skins_list = Data.skin_list._get_random_skin_metadata(5)
+		"10" : random_skins_list = Data.skin_list._get_random_skin_metadata(10)
+		"all" : random_skins_list = Data.skin_list._get_random_skin_metadata(-1)
 	
 	if random_skins_list.is_empty() : return
-	for skin_path : String in random_skins_list:
-		var skin_hash : StringName = Data.skin_list.path_links[skin_path]
-		Data.playlist._add_to_playlist(skin_path, skin_hash, false)
+	for skin_metadata : SkinMetadata in random_skins_list:
+		Data.skin_playlist._add_to_playlist(skin_metadata, false)
 	
 	_display_current_playlist()
 
 
+## Clears playlist
 func _clear_playlist() -> void:
 	$Error.color = Color("28e5a780")
 	create_tween().tween_property($Error,"modulate:a",0.0,0.25).from(1.0)
 	
-	Data.playlist._clear()
+	Data.skin_playlist._clear()
 	_display_current_playlist()
 
 
+## Swaps selected skin position in playlist with currently stored position in **'currently_swapping_skin_pos'**[br]
+## If **'currently_swapping_skin_pos'** = -1, then it stores given position there and awaits for another position
 func _swap_skins(skin_position : int) -> void:
-	if skin_position > -1:
-		if currently_swapping_skin_pos == -1:
-			# Lock left and right menu cursor movement directions
-			input_lock[0] = true
-			input_lock[1] = true
-			$Swap.position = Vector2(0,0)
-			$Swap.modulate.a = 0
-			create_tween().tween_property($Swap,"modulate:a",1.0,1.0)
-			currently_swapping_skin_pos = skin_position
-			$Playlist/CLEAR._disable(true)
-			return
-			
-		else:
-			Data.playlist._swap_skins(currently_swapping_skin_pos, skin_position)
-			_display_current_playlist()
-			# Return white color for first selected to swap skin since it turned purple
-			selectables[Vector2i(5,currently_swapping_skin_pos)].modulate = Color.WHITE
-			currently_swapping_skin_pos = -1
-			# Unlock left and right menu cursor movement directions
-			input_lock[0] = false
-			input_lock[1] = false
-			$Swap.position = Vector2(9999,0)
-			create_tween().tween_property($Swap,"modulate:a",0.0,1.0)
-			$Playlist/CLEAR._disable(false)
+	if skin_position == -1: return
+
+	if currently_swapping_skin_pos == -1:
+		# Lock left and right menu cursor movement directions
+		input_lock[0] = true
+		input_lock[1] = true
+		$Swap.position = Vector2(0,0)
+		$Swap.modulate.a = 0
+		create_tween().tween_property($Swap,"modulate:a",1.0,1.0)
+		currently_swapping_skin_pos = skin_position
+		$Playlist/CLEAR._set_disable(true)
+		return
+		
+	else:
+		Data.skin_playlist._swap_skins(currently_swapping_skin_pos, skin_position)
+		_display_current_playlist()
+		# Return white color for first selected to swap skin since it turned purple
+		selectables[Vector2i(5,currently_swapping_skin_pos)].modulate = Color.WHITE
+		currently_swapping_skin_pos = -1
+		# Unlock left and right menu cursor movement directions
+		input_lock[0] = false
+		input_lock[1] = false
+		$Swap.position = Vector2(9999,0)
+		create_tween().tween_property($Swap,"modulate:a",0.0,1.0)
+		$Playlist/CLEAR._set_disable(false)
 
 
+## Opens input dialog for saving current playlist
 func _save_playlist() -> void:
-	if Data.playlist.skins.is_empty():
+	if Data.skin_playlist.skins_ids.is_empty():
 		$Error.color = Color("e5286280")
 		create_tween().tween_property($Error,"modulate:a",0.0,0.25).from(1.0)
-		Data.menu._sound("error")
+		parent_menu._play_sound("error")
 		return
 	
-	Data.menu._sound("confirm2")
-	var input : MenuScreen = Data.menu._add_screen("text_input")
+	parent_menu._play_sound("confirm2")
+	var input : MenuScreen = parent_menu._add_screen("text_input")
 	input.desc_text = "ENTER PLAYLIST NAME"
-	input.accept_function = Data.playlist._save
+	input.accept_function = Data.skin_playlist._save
 
 
-# func _reload_skin_list():
-# 	cursor = Vector2(0,0)
-# 	Data.menu._move_cursor()
-# 	skin_list_rows_amount = 0
-	
-# 	get_tree().call_group("skin_list_buttons","_set_selectable",false)
-
-# 	for object in $Skins/S/V.get_children():
-# 		object.queue_free()
-	
-# 	Data.skin_list.was_parsed = false
-# 	_load_skin_list()
-# 	_display_current_playlist()
-
-
+## Starts endless [PlaylistMode] game with current playlist
 func _start_game_endless() -> void:
-	_start_game(null,false,true)
+	_start_game(true)
 
 
-# Starts playlist mode game
-func _start_game(first_skin_metadata : SkinMetadata = null, single_skin_mode : bool = false, endless_mode : bool = false) -> void:
-	if first_skin_metadata == null:
-		if Data.playlist.skins.is_empty():
+## Starts [PlaylistMode] game with current playlist[br]
+## - **'endless_mode'** - if true, then the game will be endless[br]
+## - **'single_skin'** - if not **NULL**, then it would be played endlessly instead of current playlist[br]
+
+func _start_game(endless_mode : bool = false, single_skin : SkinMetadata = null) -> void:
+	var single_skin_mode : bool = false
+	var playlist : SkinPlaylist = Data.skin_playlist
+	var first_skin_metadata : SkinMetadata
+	
+	if single_skin == null:
+		if playlist.skins_ids.is_empty():
 			$Error.color = Color("e5286280")
 			create_tween().tween_property($Error,"modulate:a",0.0,0.25).from(1.0)
-			Data.menu._sound("error")
+			parent_menu._play_sound("error")
 			return
 		
-		var first_skin_hash : StringName = Data.playlist.skins[0][1]
-		first_skin_metadata = Data.skin_list._get_skin_metadata_by_hash(first_skin_hash)
-		if first_skin_metadata == null:
+		var invalid_skins : Array[String] = playlist._validate()
+		if invalid_skins.size() > 0:
 			$Error.color = Color("e5286280")
 			create_tween().tween_property($Error,"modulate:a",0.0,0.25).from(1.0)
-			Data.menu._sound("error")
+			parent_menu._play_sound("error")
 			return
-
-	if Data.playlist.skins.size() == 1: single_skin_mode = true
+		
+		first_skin_metadata = playlist._get_skin_metadata_in_position(0)
+		if playlist.skins_ids.size() == 1 : single_skin_mode = true
 	
-	if Data.menu.is_music_playing:
-		Data.menu.custom_data["last_music_pos"] = Data.menu.music_player.get_playback_position()
-	Data.menu._sound("_announce", first_skin_metadata.announce)
+	else:
+		playlist = SkinPlaylist.new()
+		playlist._add_to_playlist(single_skin, false)
+		
+		first_skin_metadata = single_skin
+		single_skin_mode = true
 
+	var gamecore : LuminextGame = LuminextGame.new()
+	
 	var gamemode : Gamemode = PlaylistMode.new()
 	gamemode.is_single_skin_mode = single_skin_mode
 	gamemode.is_single_run = not endless_mode
-	gamemode.current_playlist = Data.playlist
-
-	Data.menu._sound("enter")
-	Data.main._start_game(first_skin_metadata, gamemode)
+	gamemode.current_playlist = playlist
+	
+	parent_menu._play_sound("enter")
+	parent_menu._play_sound("_announce", first_skin_metadata.announce)
+	
+	main._start_game(gamecore, gamemode)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cvbsfd7t344un"]
 
-[ext_resource type="Script" path="res://menu/scripts/screens/tutorial_gameover.gd" id="1_2jv4a"]
+[ext_resource type="Script" uid="uid://dan36uyhfojdv" path="res://menu/scripts/screens/tutorial_gameover.gd" id="1_2jv4a"]
 [ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="2_u14gq"]
 
 [sub_resource type="Animation" id="Animation_sha14"]
@@ -14,8 +14,8 @@ step = 0.05
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i76yb"]
 _data = {
-"end": SubResource("Animation_sha14"),
-"start": SubResource("14")
+&"end": SubResource("Animation_sha14"),
+&"start": SubResource("14")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_2pam4"]

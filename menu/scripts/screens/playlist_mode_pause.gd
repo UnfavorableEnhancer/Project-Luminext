@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,29 +18,37 @@
 
 extends MenuScreen
 
+##-----------------------------------------------------------------------
+## Used for game pause screen
+##-----------------------------------------------------------------------
+
+var parent_game : GameCore ## Game instance
+
 
 func _ready() -> void:
-	menu.screens["foreground"].visible = true
-	menu.screens["foreground"]._raise()
+	parent_menu.screens["foreground"].visible = true
+	parent_menu.screens["foreground"]._raise()
 
-	await menu.all_screens_added
+	await parent_menu.all_screens_added
 	cursor = Vector2i(0,0)
 	_move_cursor()
 
 
+## Setups game instance
+func _setup(game : GameCore) -> void:
+	parent_game = game
+
+
+## Continues the game
 func _continue() -> void:
-	Data.game._pause(false,true)
-	Data.menu._remove_screen("foreground")
-	_remove()
+	parent_game._pause(false,true)
 
 
+## Restarts game from beginning
 func _restart() -> void:
-	Data.game._retry()
-	Data.menu._remove_screen("foreground")
-	_remove()
+	parent_game._retry()
 
 
+## Finishes the game and returns to main menu
 func _end() -> void:
-	Data.game._end()
-	Data.menu._remove_screen("foreground")
-	_remove()
+	parent_game._end()

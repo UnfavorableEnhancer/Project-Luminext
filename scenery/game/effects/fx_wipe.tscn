@@ -1,40 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bdrbobs45kdvl"]
 
 [ext_resource type="Texture2D" uid="uid://chywbckklw6ka" path="res://images/game/effects/square_sector.png" id="1"]
+[ext_resource type="Script" uid="uid://d3tp6ndwa1p4x" path="res://scripts/game/luminext/effects/fx_wipe.gd" id="1_ted73"]
 [ext_resource type="Texture2D" uid="uid://bfhiq7b8qg0bs" path="res://images/game/effects/square_wave.png" id="2"]
-
-[sub_resource type="GDScript" id="22"]
-script/source = "extends FX
-
-func _ready() -> void:
-	is_persistent = true
-	
-	name = \"w\" + str(position.x + 10) + str(position.y + 10)
-	
-	var color : Color
-	
-	if Data.profile.config[\"video\"][\"force_standard_blocks\"] :
-		match parameter:
-			BlockBase.BLOCK_COLOR.RED : color = Color(\"ec7d24\")
-			BlockBase.BLOCK_COLOR.WHITE : color = Color.WHITE
-			BlockBase.BLOCK_COLOR.GREEN : color = Color.GREEN
-			BlockBase.BLOCK_COLOR.PURPLE : color = Color.PURPLE
-	else:
-		var skin_data : SkinData = Data.game.skin.skin_data
-		match parameter:
-			BlockBase.BLOCK_COLOR.RED: color = skin_data.textures[\"red_fx\"]
-			BlockBase.BLOCK_COLOR.WHITE : color = skin_data.textures[\"white_fx\"]
-			BlockBase.BLOCK_COLOR.GREEN : color = skin_data.textures[\"green_fx\"]
-			BlockBase.BLOCK_COLOR.PURPLE : color = skin_data.textures[\"purple_fx\"]
-	
-	modulate = color
-	_start()
-
-func _explode() -> void:
-	$ANIM.play(\"boom\")
-	await get_tree().create_timer(1).timeout
-	queue_free()
-"
 
 [sub_resource type="Animation" id="24"]
 resource_name = "boom"
@@ -118,12 +86,12 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ydis"]
 _data = {
-"boom": SubResource("24"),
-"start": SubResource("18")
+&"boom": SubResource("24"),
+&"start": SubResource("18")
 }
 
 [node name="Merge" type="Node2D"]
-script = SubResource("22")
+script = ExtResource("1_ted73")
 
 [node name="S5" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -132,11 +100,12 @@ scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("1")
 
 [node name="S6" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 2.02656e-06)
 position = Vector2(-34, -34)
-scale = Vector2(1e-05, 1e-05)
+scale = Vector2(9.99999, 9.99999)
 texture = ExtResource("2")
 
 [node name="ANIM" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_3ydis")
+&"": SubResource("AnimationLibrary_3ydis")
 }

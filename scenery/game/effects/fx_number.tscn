@@ -1,44 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://d31pyhxqlo3ri"]
 
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="1"]
-
-[sub_resource type="GDScript" id="18"]
-script/source = "extends FX
-
-func _ready() -> void:
-	z_index = 401
-	name = \"n\" + str(position.x + 10) + str(position.y + 10)
-	$NUM.text = str(parameter)
-	
-	_start()
-"
-
-[sub_resource type="Animation" id="16"]
-resource_name = "start"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("NUM:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(0.25, 1),
-"update": 0,
-"values": [Vector2(-72, -40), Vector2(-72, -100)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("NUM:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.5, 1),
-"transitions": PackedFloat32Array(0.5, 1, 1.5, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
+[ext_resource type="Script" uid="uid://dfc37q4i4riwr" path="res://scripts/game/luminext/effects/fx_number.gd" id="1_6404t"]
 
 [sub_resource type="Animation" id="Animation_1alf0"]
 resource_name = "RESET"
@@ -67,24 +30,51 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="16"]
+resource_name = "start"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NUM:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Vector2(-72, -40), Vector2(-72, -100)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NUM:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5, 1),
+"transitions": PackedFloat32Array(0.5, 1, 1.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bbgd2"]
 _data = {
-"RESET": SubResource("Animation_1alf0"),
-"start": SubResource("16")
+&"RESET": SubResource("Animation_1alf0"),
+&"start": SubResource("16")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_2bydh"]
 font = ExtResource("1")
 font_size = 80
-shadow_color = Color(0, 0, 0, 1)
-shadow_offset = Vector2(4, 4)
+shadow_color = Color(0, 0, 0, 0.75)
+shadow_offset = Vector2(8, 8)
 
 [node name="Number" type="Node2D"]
-script = SubResource("18")
+script = ExtResource("1_6404t")
 
 [node name="ANIM" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_bbgd2")
+&"": SubResource("AnimationLibrary_bbgd2")
 }
 
 [node name="NUM" type="Label" parent="."]

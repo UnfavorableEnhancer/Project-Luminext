@@ -4,15 +4,15 @@
 [ext_resource type="FontFile" uid="uid://bncda7ixlpa7b" path="res://fonts/rounded_mgenplus.ttf" id="6"]
 [ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="7"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="8"]
-[ext_resource type="Script" path="res://scripts/editors/skin_editor/skin_editor.gd" id="9"]
-[ext_resource type="Script" path="res://scripts/editors/skin_editor/check_button_se.gd" id="10"]
+[ext_resource type="Script" uid="uid://c5vc50jc5ivr0" path="res://scripts/editors/skin_editor/skin_editor.gd" id="9"]
+[ext_resource type="Script" uid="uid://bg6g23vrcy6js" path="res://scripts/editors/skin_editor/check_button_se.gd" id="10"]
 [ext_resource type="Texture2D" uid="uid://dk6bk4i2fqinh" path="res://images/game/export/blocks_sheet.png" id="10_q70vq"]
-[ext_resource type="Script" path="res://scripts/editors/skin_editor/texture_button_se.gd" id="11"]
+[ext_resource type="Script" uid="uid://bmxmhu2jy37i8" path="res://scripts/editors/skin_editor/texture_button_se.gd" id="11"]
 [ext_resource type="Texture2D" uid="uid://ds3kyjwvb3ns7" path="res://images/game/effects/star_comp.png" id="11_6q6f5"]
-[ext_resource type="Script" path="res://scripts/editors/skin_editor/color_button_se.gd" id="12"]
+[ext_resource type="Script" uid="uid://wrh4qd2g7ovm" path="res://scripts/editors/skin_editor/color_button_se.gd" id="12"]
 [ext_resource type="Texture2D" uid="uid://dad8u48vh1qit" path="res://images/game/effects/big_star_comp.png" id="12_ga2g6"]
-[ext_resource type="Script" path="res://scripts/editors/skin_editor/data_button_se.gd" id="13"]
-[ext_resource type="Script" path="res://scripts/editors/skin_editor/text_edit_se.gd" id="14"]
+[ext_resource type="Script" uid="uid://66mly8iqjrsd" path="res://scripts/editors/skin_editor/data_button_se.gd" id="13"]
+[ext_resource type="Script" uid="uid://djq4a3a863hh2" path="res://scripts/editors/skin_editor/text_edit_se.gd" id="14"]
 [ext_resource type="Texture2D" uid="uid://dmygw8pa831ps" path="res://images/game/effects/arrow_comp.png" id="14_g0yjx"]
 [ext_resource type="Texture2D" uid="uid://bv7iu8q1vutpk" path="res://images/back.png" id="15"]
 [ext_resource type="Texture2D" uid="uid://y4hwgwcgxu1j" path="res://images/game/effects/2_comp.png" id="16_jc26b"]
@@ -20,7 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://dbgqu7bm41f68" path="res://images/game/effects/4_comp.png" id="18_rcb6y"]
 [ext_resource type="Texture2D" uid="uid://ddrnxkwne0nfn" path="res://images/menu/ui_preview/standard.png" id="20_ljbd5"]
 [ext_resource type="Texture2D" uid="uid://b504jaxroea6i" path="res://images/menu/ui_preview/timeline.png" id="21_ue55i"]
-[ext_resource type="Script" path="res://scripts/editors/skin_editor/sound_button_se.gd" id="22"]
+[ext_resource type="Script" uid="uid://w6d7xiogoif2" path="res://scripts/editors/skin_editor/sound_button_se.gd" id="22"]
 [ext_resource type="Texture2D" uid="uid://dhjhpu8e26lth" path="res://images/menu/ui_preview/EQ.png" id="22_lar5u"]
 [ext_resource type="Texture2D" uid="uid://dk6eo8r6t8tfu" path="res://images/menu/ui_preview/timeline2.png" id="22_wr5px"]
 [ext_resource type="Texture2D" uid="uid://ddmab2kvhjxj0" path="res://images/menu/chess.png" id="24_8qiwp"]
@@ -219,11 +219,11 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4qgax"]
 _data = {
-"back": SubResource("90"),
-"color": SubResource("44"),
-"end": SubResource("88"),
-"input": SubResource("33"),
-"start": SubResource("2")
+&"back": SubResource("90"),
+&"color": SubResource("44"),
+&"end": SubResource("88"),
+&"input": SubResource("33"),
+&"start": SubResource("2")
 }
 
 [sub_resource type="FontFile" id="73"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c64vgjpw7518t"]
 
-[ext_resource type="Script" path="res://scripts/game/skin.gd" id="8"]
+[ext_resource type="Script" uid="uid://d3iyjc8sr8j1i" path="res://scripts/game/skin_player.gd" id="8"]
 
 [node name="Skin" type="Node2D"]
 z_index = -1000
@@ -28,7 +28,6 @@ mouse_filter = 2
 volume_db = -80.0
 expand = true
 loop = true
-bus = &"Music"
 
 [node name="Darken" type="ColorRect" parent="."]
 visible = false

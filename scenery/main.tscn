@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://qj3qi0seh5qt"]
+
+[ext_resource type="Script" uid="uid://dmkt3bjaga35j" path="res://scripts/main.gd" id="1_mb3mv"]
+[ext_resource type="PackedScene" uid="uid://01vihxako5y1" path="res://scenery/system_message.tscn" id="3"]
+[ext_resource type="Script" uid="uid://pnpa8edtd6yy" path="res://scripts/misc/loading.gd" id="4_ffxv4"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_mb3mv")
+start_menu_screen = "main_menu"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="Darken" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="SystemMessager" parent="CanvasLayer" instance=ExtResource("3")]
+
+[node name="LoadingScreen" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_ffxv4")
+
+[node name="TotalTime" type="Timer" parent="."]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bvf846go0skpy"]
 
-[ext_resource type="Script" path="res://scripts/game/gamemodes/synthesia_scenery/rez_visualizer.gd" id="1_pwau2"]
-[ext_resource type="Shader" path="res://shaders/ghost.gdshader" id="2_rgunk"]
+[ext_resource type="Script" uid="uid://cl44f8je1c057" path="res://scripts/game/gamemodes/synthesia_scenery/rez_visualizer.gd" id="1_pwau2"]
+[ext_resource type="Shader" uid="uid://rg0svec0by73" path="res://shaders/ghost.gdshader" id="2_rgunk"]
 
 [sub_resource type="Shader" id="Shader_528mv"]
 code = "shader_type canvas_item;
@@ -64,7 +64,7 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_426js"]
 _data = {
-"scroll": SubResource("Animation_7losb")
+&"scroll": SubResource("Animation_7losb")
 }
 
 [sub_resource type="Animation" id="Animation_jfvh6"]
@@ -458,7 +458,7 @@ tracks/31/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_od4un"]
 _data = {
-"main": SubResource("Animation_jfvh6")
+&"main": SubResource("Animation_jfvh6")
 }
 
 [sub_resource type="GDScript" id="GDScript_b15hg"]

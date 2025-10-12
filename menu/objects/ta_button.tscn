@@ -1,0 +1,121 @@
+[gd_scene load_steps=8 format=3 uid="uid://ukfu5jxurb7"]
+
+[ext_resource type="Script" uid="uid://b6q84idip20ir" path="res://menu/scripts/objects/ta_button.gd" id="1_prktr"]
+[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2_prktr"]
+[ext_resource type="FontFile" uid="uid://bncda7ixlpa7b" path="res://fonts/rounded_mgenplus.ttf" id="3_prktr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_he33f"]
+font = ExtResource("2_prktr")
+font_size = 54
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0epxn"]
+blend_mode = 1
+
+[sub_resource type="FontFile" id="FontFile_jpubx"]
+fallbacks = Array[Font]([ExtResource("2_prktr"), ExtResource("3_prktr")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/24/0/ascent = 0.0
+cache/0/24/0/descent = 0.0
+cache/0/24/0/underline_position = 0.0
+cache/0/24/0/underline_thickness = 0.0
+cache/0/24/0/scale = 1.0
+cache/0/24/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/20/0/ascent = 0.0
+cache/0/20/0/descent = 0.0
+cache/0/20/0/underline_position = 0.0
+cache/0/20/0/underline_thickness = 0.0
+cache/0/20/0/scale = 1.0
+cache/0/20/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/20/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/20/0/kerning_overrides/20/0 = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kw3ol"]
+font = ExtResource("2_prktr")
+
+[node name="Button" type="Button"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(152, 58)
+offset_right = 152.0
+offset_bottom = 58.0
+focus_mode = 0
+script = ExtResource("1_prktr")
+
+[node name="Rank" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 9.0
+offset_top = -1.0
+offset_right = 68.0
+offset_bottom = 58.25
+text = "?"
+label_settings = SubResource("LabelSettings_he33f")
+uppercase = true
+
+[node name="Back" type="ColorRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.235, 0.235, 0.235, 0.75)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Glow" type="ColorRect" parent="Back"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("CanvasItemMaterial_0epxn")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.48, 0.0698242, 0.6875, 0.508)
+
+[node name="Average" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 62.0
+offset_top = 8.0
+offset_right = 146.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontFile_jpubx")
+text = "----"
+label_settings = SubResource("LabelSettings_kw3ol")
+horizontal_alignment = 2
+uppercase = true
+
+[node name="Hiscore" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 76.0
+offset_top = 32.0
+offset_right = 146.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontFile_jpubx")
+text = "----"
+label_settings = SubResource("LabelSettings_kw3ol")
+horizontal_alignment = 2
+uppercase = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 28.0
+offset_right = 143.0
+offset_bottom = 30.0
+color = Color(0.609375, 0.609375, 0.609375, 1)

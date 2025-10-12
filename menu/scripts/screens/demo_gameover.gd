@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,14 @@
 
 extends MenuScreen
 
+#-----------------------------------------------------------------------
+# Immidiately causes game to return to main menu when added
+#-----------------------------------------------------------------------
+
+var game : GameCore ## Game instance
+
+
 func _ready() -> void:
-	Data.game._end()
-	Data.menu._remove_screen("foreground")
+	game._end()
+	parent_menu._remove_screen("foreground")
 	_remove()

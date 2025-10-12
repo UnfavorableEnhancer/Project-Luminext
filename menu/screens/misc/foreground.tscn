@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cxg5e4iwo6hfc"]
 
-[ext_resource type="Script" path="res://menu/scripts/screens/foreground.gd" id="2"]
+[ext_resource type="Script" uid="uid://dgvvppe5lvrje" path="res://menu/scripts/screens/foreground.gd" id="2"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="5"]
 
 [sub_resource type="Animation" id="6"]
@@ -86,8 +86,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w5h3p"]
 _data = {
-"end": SubResource("6"),
-"start": SubResource("5")
+&"end": SubResource("6"),
+&"start": SubResource("5")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_75ns1"]
@@ -109,7 +109,7 @@ script = ExtResource("2")
 
 [node name="A" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_w5h3p")
+&"": SubResource("AnimationLibrary_w5h3p")
 }
 
 [node name="S" type="ColorRect" parent="."]

@@ -1,17 +1,419 @@
-[gd_scene load_steps=87 format=3 uid="uid://6uirnlwcpt7s"]
+[gd_scene load_steps=97 format=3 uid="uid://6uirnlwcpt7s"]
 
-[ext_resource type="Texture2D" uid="uid://clbyjed38caju" path="res://menu/images/controls.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://bruo4pkdqcre4" path="res://menu/images/flags.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://dam67m6wayew5" path="res://menu/images/lines.png" id="2_qljs8"]
-[ext_resource type="Texture2D" uid="uid://do04mb8o2x5xh" path="res://menu/images/options_icons.png" id="3_6ju14"]
+[ext_resource type="Texture2D" uid="uid://clbyjed38caju" path="res://menu/images/options/controls.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://bruo4pkdqcre4" path="res://menu/images/options/flags.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://dam67m6wayew5" path="res://menu/images/misc/lines.png" id="2_qljs8"]
+[ext_resource type="Texture2D" uid="uid://do04mb8o2x5xh" path="res://menu/images/options/options_icons.png" id="3_6ju14"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="6"]
 [ext_resource type="FontFile" uid="uid://bncda7ixlpa7b" path="res://fonts/rounded_mgenplus.ttf" id="7"]
+[ext_resource type="FontFile" uid="uid://bt26lnw1uwy2r" path="res://fonts/Gravity-Bold.otf" id="7_6m3np"]
 [ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="8"]
-[ext_resource type="Script" path="res://menu/scripts/screens/options.gd" id="9"]
+[ext_resource type="Script" uid="uid://dlso3yygw8565" path="res://menu/scripts/screens/options.gd" id="9"]
 [ext_resource type="PackedScene" uid="uid://160thw0yemok" path="res://menu/objects/slider.tscn" id="10"]
 [ext_resource type="Texture2D" uid="uid://oj1c6i86f7t0" path="res://images/menu/key_graphics.png" id="10_2t6oq"]
 [ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://menu/objects/regular_button.tscn" id="11"]
+[ext_resource type="FontFile" uid="uid://sawohm8dc1a" path="res://fonts/Gravity-Book.otf" id="13_umkuq"]
 [ext_resource type="Texture2D" uid="uid://g4f831og4nyy" path="res://menu/images/menu_icons.png" id="13_whxfh"]
+
+[sub_resource type="Animation" id="Animation_umkuq"]
+resource_name = "RESET"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top/Iconhold:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Top/Iconhold/Icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Top/Iconhold/Icon:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.05),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Top/Label:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.75),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Menu:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Menu:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Menu/AUDIO:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Menu/VISUAL:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Menu/CONTROL:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Menu/LANGUAGE:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Menu/GAME:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Menu/Line:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Menu/Line2:scale")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Menu/APPLY:scale")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Menu/RESET:scale")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Menu/RESET2:scale")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Menu/EXIT:scale")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Desc:modulate")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Desc:scale")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.75),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Optionsback:scale")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.75),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("Optionsback:modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("AUDIO:modulate")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("VIDEO:modulate")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("CONTROLS:modulate")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("LANGUAGE:modulate")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("GAME:modulate")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("Menu/Detail4:visible_ratio")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/27/type = "value"
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/path = NodePath("Desc/Detail3:visible_ratio")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/28/type = "value"
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/path = NodePath("CONTROLS/Detail5:visible_ratio")
+tracks/28/interp = 1
+tracks/28/loop_wrap = true
+tracks/28/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/29/type = "value"
+tracks/29/imported = false
+tracks/29/enabled = true
+tracks/29/path = NodePath("AUDIO/Detail5:visible_ratio")
+tracks/29/interp = 1
+tracks/29/loop_wrap = true
+tracks/29/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/30/type = "value"
+tracks/30/imported = false
+tracks/30/enabled = true
+tracks/30/path = NodePath("VIDEO/Detail5:visible_ratio")
+tracks/30/interp = 1
+tracks/30/loop_wrap = true
+tracks/30/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/31/type = "value"
+tracks/31/imported = false
+tracks/31/enabled = true
+tracks/31/path = NodePath("LANGUAGE/Detail5:visible_ratio")
+tracks/31/interp = 1
+tracks/31/loop_wrap = true
+tracks/31/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/32/type = "value"
+tracks/32/imported = false
+tracks/32/enabled = true
+tracks/32/path = NodePath("Background:modulate")
+tracks/32/interp = 1
+tracks/32/loop_wrap = true
+tracks/32/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_ywu7q"]
 resource_name = "end"
@@ -140,83 +542,83 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Menu/Line:scale")
+tracks/10/path = NodePath("Desc:modulate")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0.15, 0.2625, 0.75),
+"times": PackedFloat32Array(0.375, 0.6375, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Menu/Line2:scale")
+tracks/11/path = NodePath("Desc:scale")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0.15, 0.2625, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0.375, 0.6375, 0.75),
+"transitions": PackedFloat32Array(1, 1, 0.75),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
+"values": [Vector2(1, 1), Vector2(1e-05, 1), Vector2(0, 1)]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("Menu/APPLY:scale")
+tracks/12/path = NodePath("Optionsback:scale")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0.15, 0.2625, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0.2625, 0.525, 0.75),
+"transitions": PackedFloat32Array(1, 1, 0.75),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+"values": [Vector2(1, 1), Vector2(1, 1e-05), Vector2(1, 0)]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("Menu/RESET:scale")
+tracks/13/path = NodePath("Optionsback:modulate")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
-"times": PackedFloat32Array(0.1125, 0.225, 0.75),
+"times": PackedFloat32Array(0.2625, 0.525, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("Menu/RESET2:scale")
+tracks/14/path = NodePath("AUDIO:modulate")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
-"times": PackedFloat32Array(0.075, 0.1875, 0.75),
+"times": PackedFloat32Array(0, 0.2625, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("Menu/EXIT:scale")
+tracks/15/path = NodePath("VIDEO:modulate")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
-"times": PackedFloat32Array(0.0375, 0.15, 0.75),
+"times": PackedFloat32Array(0, 0.2625, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("Desc:modulate")
+tracks/16/path = NodePath("CONTROLS:modulate")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
-"times": PackedFloat32Array(0.375, 0.6375, 0.75),
+"times": PackedFloat32Array(0, 0.2625, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
@@ -224,167 +626,191 @@ tracks/16/keys = {
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("Desc:scale")
+tracks/17/path = NodePath("LANGUAGE:modulate")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
-"times": PackedFloat32Array(0.375, 0.6375, 0.75),
-"transitions": PackedFloat32Array(1, 1, 0.75),
+"times": PackedFloat32Array(0, 0.2625, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1e-05, 1), Vector2(0, 1)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
 }
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("Optionsback:scale")
+tracks/18/path = NodePath("Menu/Detail4:visible_ratio")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
-"times": PackedFloat32Array(0.2625, 0.525, 0.75),
-"transitions": PackedFloat32Array(1, 1, 0.75),
+"times": PackedFloat32Array(0, 0.15, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1, 1e-05), Vector2(1, 0)]
+"values": [1.0, 0.0, 0.0]
 }
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("Optionsback:modulate")
+tracks/19/path = NodePath("Desc/Detail3:visible_ratio")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
-"times": PackedFloat32Array(0.2625, 0.525, 0.75),
+"times": PackedFloat32Array(0, 0.15, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+"values": [1.0, 0.0, 0.0]
 }
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("AUDIO:modulate")
+tracks/20/path = NodePath("CONTROLS/Detail5:visible_ratio")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
-"times": PackedFloat32Array(0, 0.2625, 0.75),
+"times": PackedFloat32Array(0, 0.15, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+"values": [1.0, 0.0, 0.0]
 }
 tracks/21/type = "value"
 tracks/21/imported = false
 tracks/21/enabled = true
-tracks/21/path = NodePath("VIDEO:modulate")
+tracks/21/path = NodePath("AUDIO/Detail5:visible_ratio")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
-"times": PackedFloat32Array(0, 0.2625, 0.75),
+"times": PackedFloat32Array(0, 0.15, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+"values": [1.0, 0.0, 0.0]
 }
 tracks/22/type = "value"
 tracks/22/imported = false
 tracks/22/enabled = true
-tracks/22/path = NodePath("CONTROLS:modulate")
+tracks/22/path = NodePath("VIDEO/Detail5:visible_ratio")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = {
-"times": PackedFloat32Array(0, 0.2625, 0.75),
+"times": PackedFloat32Array(0, 0.15, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+"values": [1.0, 0.0, 0.0]
 }
 tracks/23/type = "value"
 tracks/23/imported = false
 tracks/23/enabled = true
-tracks/23/path = NodePath("LANGUAGE:modulate")
+tracks/23/path = NodePath("LANGUAGE/Detail5:visible_ratio")
 tracks/23/interp = 1
 tracks/23/loop_wrap = true
 tracks/23/keys = {
-"times": PackedFloat32Array(0, 0.2625, 0.75),
+"times": PackedFloat32Array(0, 0.15, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+"values": [1.0, 0.0, 0.0]
 }
 tracks/24/type = "value"
 tracks/24/imported = false
 tracks/24/enabled = true
-tracks/24/path = NodePath("Menu/Detail4:visible_ratio")
+tracks/24/path = NodePath("Background:modulate")
 tracks/24/interp = 1
 tracks/24/loop_wrap = true
 tracks/24/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.75),
+"times": PackedFloat32Array(0, 0.375, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [1.0, 0.0, 0.0]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
 }
 tracks/25/type = "value"
 tracks/25/imported = false
 tracks/25/enabled = true
-tracks/25/path = NodePath("Desc/Detail3:visible_ratio")
+tracks/25/path = NodePath("Menu/GAME:scale")
 tracks/25/interp = 1
 tracks/25/loop_wrap = true
 tracks/25/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.75),
+"times": PackedFloat32Array(0.15, 0.2625, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [1.0, 0.0, 0.0]
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
 }
 tracks/26/type = "value"
 tracks/26/imported = false
 tracks/26/enabled = true
-tracks/26/path = NodePath("CONTROLS/Detail5:visible_ratio")
+tracks/26/path = NodePath("Menu/Line:scale")
 tracks/26/interp = 1
 tracks/26/loop_wrap = true
 tracks/26/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.75),
+"times": PackedFloat32Array(0.1125, 0.225, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [1.0, 0.0, 0.0]
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
 }
 tracks/27/type = "value"
 tracks/27/imported = false
 tracks/27/enabled = true
-tracks/27/path = NodePath("AUDIO/Detail5:visible_ratio")
+tracks/27/path = NodePath("Menu/Line2:scale")
 tracks/27/interp = 1
 tracks/27/loop_wrap = true
 tracks/27/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.75),
+"times": PackedFloat32Array(0.1125, 0.225, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [1.0, 0.0, 0.0]
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(0, 1)]
 }
 tracks/28/type = "value"
 tracks/28/imported = false
 tracks/28/enabled = true
-tracks/28/path = NodePath("VIDEO/Detail5:visible_ratio")
+tracks/28/path = NodePath("Menu/APPLY:scale")
 tracks/28/interp = 1
 tracks/28/loop_wrap = true
 tracks/28/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.75),
+"times": PackedFloat32Array(0.1125, 0.225, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [1.0, 0.0, 0.0]
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
 }
 tracks/29/type = "value"
 tracks/29/imported = false
 tracks/29/enabled = true
-tracks/29/path = NodePath("LANGUAGE/Detail5:visible_ratio")
+tracks/29/path = NodePath("Menu/RESET:scale")
 tracks/29/interp = 1
 tracks/29/loop_wrap = true
 tracks/29/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.75),
+"times": PackedFloat32Array(0.075, 0.1875, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [1.0, 0.0, 0.0]
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
 }
 tracks/30/type = "value"
 tracks/30/imported = false
 tracks/30/enabled = true
-tracks/30/path = NodePath("Background:modulate")
+tracks/30/path = NodePath("Menu/RESET2:scale")
 tracks/30/interp = 1
 tracks/30/loop_wrap = true
 tracks/30/keys = {
-"times": PackedFloat32Array(0, 0.375, 0.75),
+"times": PackedFloat32Array(0.0375, 0.15, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/31/type = "value"
+tracks/31/imported = false
+tracks/31/enabled = true
+tracks/31/path = NodePath("Menu/EXIT:scale")
+tracks/31/interp = 1
+tracks/31/loop_wrap = true
+tracks/31/keys = {
+"times": PackedFloat32Array(0, 0.1125, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/32/type = "value"
+tracks/32/imported = false
+tracks/32/enabled = true
+tracks/32/path = NodePath("GAME:modulate")
+tracks/32/interp = 1
+tracks/32/loop_wrap = true
+tracks/32/keys = {
+"times": PackedFloat32Array(0, 0.2625, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
@@ -516,23 +942,23 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Menu/Line:scale")
+tracks/10/path = NodePath("Menu/GAME:scale")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0, 0.65, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 1), Vector2(0, 1), Vector2(1, 1)]
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Menu/Line2:scale")
+tracks/11/path = NodePath("Menu/Line:scale")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0, 0.65, 0.8),
+"times": PackedFloat32Array(0, 0.7, 0.85),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 1), Vector2(0, 1), Vector2(1, 1)]
@@ -540,19 +966,19 @@ tracks/11/keys = {
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("Menu/APPLY:scale")
+tracks/12/path = NodePath("Menu/Line2:scale")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0, 0.65, 0.8),
+"times": PackedFloat32Array(0, 0.7, 0.85),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+"values": [Vector2(0, 1), Vector2(0, 1), Vector2(1, 1)]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("Menu/RESET:scale")
+tracks/13/path = NodePath("Menu/APPLY:scale")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
@@ -564,7 +990,7 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("Menu/RESET2:scale")
+tracks/14/path = NodePath("Menu/RESET:scale")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -576,7 +1002,7 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("Menu/EXIT:scale")
+tracks/15/path = NodePath("Menu/RESET2:scale")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
@@ -588,59 +1014,59 @@ tracks/15/keys = {
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("Desc:modulate")
+tracks/16/path = NodePath("Menu/EXIT:scale")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
+"times": PackedFloat32Array(0, 0.85, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Desc:modulate")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
 "times": PackedFloat32Array(0, 0.15, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
-tracks/17/type = "value"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("Desc:scale")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Desc:scale")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
 "times": PackedFloat32Array(0, 0.15, 0.5),
 "transitions": PackedFloat32Array(0.75, 1, 1),
 "update": 0,
 "values": [Vector2(0, 1), Vector2(1e-05, 1), Vector2(1, 1)]
 }
-tracks/18/type = "value"
-tracks/18/imported = false
-tracks/18/enabled = true
-tracks/18/path = NodePath("Optionsback:scale")
-tracks/18/interp = 1
-tracks/18/loop_wrap = true
-tracks/18/keys = {
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Optionsback:scale")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.65),
 "transitions": PackedFloat32Array(0.75, 1, 1),
 "update": 0,
 "values": [Vector2(1, 0), Vector2(1, 1e-05), Vector2(1, 1)]
 }
-tracks/19/type = "value"
-tracks/19/imported = false
-tracks/19/enabled = true
-tracks/19/path = NodePath("Optionsback:modulate")
-tracks/19/interp = 1
-tracks/19/loop_wrap = true
-tracks/19/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.65),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("AUDIO:modulate")
+tracks/20/path = NodePath("Optionsback:modulate")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
-"times": PackedFloat32Array(0, 0.65, 1),
+"times": PackedFloat32Array(0, 0.3, 0.65),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -648,7 +1074,7 @@ tracks/20/keys = {
 tracks/21/type = "value"
 tracks/21/imported = false
 tracks/21/enabled = true
-tracks/21/path = NodePath("VIDEO:modulate")
+tracks/21/path = NodePath("AUDIO:modulate")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
@@ -660,7 +1086,7 @@ tracks/21/keys = {
 tracks/22/type = "value"
 tracks/22/imported = false
 tracks/22/enabled = true
-tracks/22/path = NodePath("CONTROLS:modulate")
+tracks/22/path = NodePath("VIDEO:modulate")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = {
@@ -672,7 +1098,7 @@ tracks/22/keys = {
 tracks/23/type = "value"
 tracks/23/imported = false
 tracks/23/enabled = true
-tracks/23/path = NodePath("LANGUAGE:modulate")
+tracks/23/path = NodePath("CONTROLS:modulate")
 tracks/23/interp = 1
 tracks/23/loop_wrap = true
 tracks/23/keys = {
@@ -684,31 +1110,31 @@ tracks/23/keys = {
 tracks/24/type = "value"
 tracks/24/imported = false
 tracks/24/enabled = true
-tracks/24/path = NodePath("Menu/Detail4:visible_ratio")
+tracks/24/path = NodePath("LANGUAGE:modulate")
 tracks/24/interp = 1
 tracks/24/loop_wrap = true
 tracks/24/keys = {
-"times": PackedFloat32Array(0, 0.8, 1),
+"times": PackedFloat32Array(0, 0.65, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, 0.0, 1.0]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 tracks/25/type = "value"
 tracks/25/imported = false
 tracks/25/enabled = true
-tracks/25/path = NodePath("Desc/Detail3:visible_ratio")
+tracks/25/path = NodePath("GAME:modulate")
 tracks/25/interp = 1
 tracks/25/loop_wrap = true
 tracks/25/keys = {
-"times": PackedFloat32Array(0, 0.8, 1),
+"times": PackedFloat32Array(0, 0.65, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, 0.0, 1.0]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 tracks/26/type = "value"
 tracks/26/imported = false
 tracks/26/enabled = true
-tracks/26/path = NodePath("CONTROLS/Detail5:visible_ratio")
+tracks/26/path = NodePath("Menu/Detail4:visible_ratio")
 tracks/26/interp = 1
 tracks/26/loop_wrap = true
 tracks/26/keys = {
@@ -720,7 +1146,7 @@ tracks/26/keys = {
 tracks/27/type = "value"
 tracks/27/imported = false
 tracks/27/enabled = true
-tracks/27/path = NodePath("AUDIO/Detail5:visible_ratio")
+tracks/27/path = NodePath("Desc/Detail3:visible_ratio")
 tracks/27/interp = 1
 tracks/27/loop_wrap = true
 tracks/27/keys = {
@@ -732,7 +1158,7 @@ tracks/27/keys = {
 tracks/28/type = "value"
 tracks/28/imported = false
 tracks/28/enabled = true
-tracks/28/path = NodePath("VIDEO/Detail5:visible_ratio")
+tracks/28/path = NodePath("CONTROLS/Detail5:visible_ratio")
 tracks/28/interp = 1
 tracks/28/loop_wrap = true
 tracks/28/keys = {
@@ -744,7 +1170,7 @@ tracks/28/keys = {
 tracks/29/type = "value"
 tracks/29/imported = false
 tracks/29/enabled = true
-tracks/29/path = NodePath("LANGUAGE/Detail5:visible_ratio")
+tracks/29/path = NodePath("AUDIO/Detail5:visible_ratio")
 tracks/29/interp = 1
 tracks/29/loop_wrap = true
 tracks/29/keys = {
@@ -756,10 +1182,34 @@ tracks/29/keys = {
 tracks/30/type = "value"
 tracks/30/imported = false
 tracks/30/enabled = true
-tracks/30/path = NodePath("Background:modulate")
+tracks/30/path = NodePath("VIDEO/Detail5:visible_ratio")
 tracks/30/interp = 1
 tracks/30/loop_wrap = true
 tracks/30/keys = {
+"times": PackedFloat32Array(0, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/31/type = "value"
+tracks/31/imported = false
+tracks/31/enabled = true
+tracks/31/path = NodePath("LANGUAGE/Detail5:visible_ratio")
+tracks/31/interp = 1
+tracks/31/loop_wrap = true
+tracks/31/keys = {
+"times": PackedFloat32Array(0, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/32/type = "value"
+tracks/32/imported = false
+tracks/32/enabled = true
+tracks/32/path = NodePath("Background:modulate")
+tracks/32/interp = 1
+tracks/32/loop_wrap = true
+tracks/32/keys = {
 "times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
@@ -895,10 +1345,11 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_77hok"]
 _data = {
-"end": SubResource("Animation_ywu7q"),
-"start": SubResource("17"),
-"uassign": SubResource("154"),
-"unsign": SubResource("155")
+&"RESET": SubResource("Animation_umkuq"),
+&"end": SubResource("Animation_ywu7q"),
+&"start": SubResource("17"),
+&"uassign": SubResource("154"),
+&"unsign": SubResource("155")
 }
 
 [sub_resource type="Shader" id="Shader_dnife"]
@@ -915,7 +1366,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ghd84"]
 shader = SubResource("Shader_dnife")
 shader_parameter/offset = -0.2
-shader_parameter/width = 0.25
+shader_parameter/width = 0.1
 shader_parameter/power = 4.237
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0jul4"]
@@ -955,7 +1406,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jrc8w"]
 _data = {
-"base": SubResource("Animation_lf8ax")
+&"base": SubResource("Animation_lf8ax")
 }
 
 [sub_resource type="StyleBoxFlat" id="83"]
@@ -1010,8 +1461,7 @@ atlas = ExtResource("3_6ju14")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hce62"]
-font = ExtResource("8")
-font_size = 24
+font = ExtResource("7_6m3np")
 
 [sub_resource type="AtlasTexture" id="96"]
 atlas = ExtResource("3_6ju14")
@@ -1073,45 +1523,33 @@ region = Rect2(256, 128, 128, 128)
 font = ExtResource("6")
 font_size = 24
 
-[sub_resource type="AtlasTexture" id="123"]
-atlas = ExtResource("3_6ju14")
-region = Rect2(384, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="124"]
-atlas = ExtResource("3_6ju14")
-region = Rect2(512, 128, 128, 128)
-
 [sub_resource type="AtlasTexture" id="119"]
 atlas = ExtResource("3_6ju14")
 region = Rect2(640, 128, 128, 128)
 
-[sub_resource type="AtlasTexture" id="120"]
+[sub_resource type="AtlasTexture" id="123"]
 atlas = ExtResource("3_6ju14")
-region = Rect2(768, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="126"]
-atlas = ExtResource("3_6ju14")
-region = Rect2(128, 256, 128, 128)
+region = Rect2(384, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hxfn0"]
 atlas = ExtResource("3_6ju14")
 region = Rect2(256, 256, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wuusd"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2kglr"]
 atlas = ExtResource("3_6ju14")
-region = Rect2(384, 256, 128, 128)
+region = Rect2(512, 256, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s3b5h"]
 atlas = ExtResource("3_6ju14")
 region = Rect2(512, 640, 128, 128)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_gu0ri"]
+atlas = ExtResource("3_6ju14")
+region = Rect2(768, 128, 128, 128)
+
 [sub_resource type="AtlasTexture" id="125"]
 atlas = ExtResource("3_6ju14")
 region = Rect2(0, 256, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2kglr"]
-atlas = ExtResource("3_6ju14")
-region = Rect2(512, 256, 128, 128)
 
 [sub_resource type="AtlasTexture" id="130"]
 atlas = ExtResource("3_6ju14")
@@ -1133,21 +1571,41 @@ region = Rect2(0, 0, 128, 128)
 atlas = ExtResource("1")
 region = Rect2(256, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="138"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_umkuq"]
 atlas = ExtResource("1")
 region = Rect2(128, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="99"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6m3np"]
 atlas = ExtResource("1")
 region = Rect2(0, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="139"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2byjd"]
 atlas = ExtResource("1")
 region = Rect2(0, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="140"]
 atlas = ExtResource("1")
 region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yc3n"]
+atlas = ExtResource("1")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sof0u"]
+atlas = ExtResource("1")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfyr2"]
+atlas = ExtResource("1")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4as3"]
+atlas = ExtResource("1")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="139"]
+atlas = ExtResource("1")
+region = Rect2(0, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="141"]
 atlas = ExtResource("1")
@@ -1177,8 +1635,24 @@ region = Rect2(160, 107, 160, 107)
 atlas = ExtResource("2")
 region = Rect2(160, 321, 160, 107)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebb25"]
+atlas = ExtResource("3_6ju14")
+region = Rect2(384, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="124"]
+atlas = ExtResource("3_6ju14")
+region = Rect2(512, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="126"]
+atlas = ExtResource("3_6ju14")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wuusd"]
+atlas = ExtResource("3_6ju14")
+region = Rect2(384, 256, 128, 128)
+
 [sub_resource type="LabelSettings" id="LabelSettings_bb3qu"]
-font = ExtResource("8")
+font = ExtResource("13_umkuq")
 font_size = 32
 
 [sub_resource type="AtlasTexture" id="148"]
@@ -1197,6 +1671,10 @@ region = Rect2(1280, 1280, 256, 256)
 atlas = ExtResource("13_whxfh")
 region = Rect2(1536, 1280, 256, 256)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8lnt1"]
+atlas = ExtResource("13_whxfh")
+region = Rect2(512, 1536, 256, 256)
+
 [sub_resource type="AtlasTexture" id="151"]
 atlas = ExtResource("13_whxfh")
 region = Rect2(1536, 1024, 256, 256)
@@ -1213,10 +1691,13 @@ region = Rect2(256, 1280, 256, 256)
 atlas = ExtResource("13_whxfh")
 region = Rect2(512, 1280, 256, 256)
 
-[sub_resource type="LabelSettings" id="LabelSettings_6nh55"]
+[sub_resource type="LabelSettings" id="LabelSettings_umkuq"]
 font = ExtResource("6")
 font_size = 36
 font_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.231373)
+shadow_offset = Vector2(4, 4)
 
 [sub_resource type="AtlasTexture" id="65"]
 atlas = ExtResource("13_whxfh")
@@ -1239,7 +1720,7 @@ script = ExtResource("9")
 [node name="A" type="AnimationPlayer" parent="."]
 reset_on_save = false
 libraries = {
-"": SubResource("AnimationLibrary_77hok")
+&"": SubResource("AnimationLibrary_77hok")
 }
 
 [node name="back" type="ColorRect" parent="."]
@@ -1254,6 +1735,7 @@ color = Color(0.623529, 0.623529, 0.623529, 1)
 [node name="Background" type="Control" parent="."]
 modulate = Color(1, 1, 1, 0)
 z_index = -2
+texture_filter = 1
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -1278,7 +1760,7 @@ texture = ExtResource("2_qljs8")
 
 [node name="LinesAnim" type="AnimationPlayer" parent="Background"]
 libraries = {
-"": SubResource("AnimationLibrary_jrc8w")
+&"": SubResource("AnimationLibrary_jrc8w")
 }
 autoplay = "base"
 
@@ -1288,7 +1770,7 @@ layout_mode = 0
 offset_left = 512.0
 offset_top = 72.0
 offset_right = 1920.0
-offset_bottom = 792.0
+offset_bottom = 808.0
 scale = Vector2(1, 1e-05)
 pivot_offset = Vector2(0, 360)
 color = Color(0, 0, 0, 0.5)
@@ -1296,25 +1778,21 @@ color = Color(0, 0, 0, 0.5)
 [node name="AUDIO" type="Control" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 0
 offset_left = 528.0
 offset_top = 88.0
-offset_right = -16.0
-offset_bottom = -280.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 1912.0
+offset_bottom = 800.0
 
 [node name="SCROLL" type="ScrollContainer" parent="AUDIO"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 1392.0
-offset_bottom = 640.0
+offset_right = 1384.0
+offset_bottom = 632.0
 theme = SubResource("92")
 
 [node name="V" type="VBoxContainer" parent="AUDIO/SCROLL"]
+custom_minimum_size = Vector2(52, 460)
 layout_mode = 2
 theme_override_constants/separation = 16
 
@@ -1325,7 +1803,7 @@ size_flags_horizontal = 0
 texture = SubResource("94")
 expand_mode = 1
 
-[node name="Slider" parent="AUDIO/SCROLL/V/MUSIC" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="AUDIO/SCROLL/V/MUSIC" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 1
 offset_left = 576.0
 offset_right = 1100.0
@@ -1337,6 +1815,7 @@ description_node = NodePath("../../../../../Desc/Text")
 description = "MUSIC_VOLUME_DESC"
 call_string = "music_volume"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="AUDIO/SCROLL/V/MUSIC/Slider"]
 layout_mode = 0
@@ -1380,7 +1859,7 @@ size_flags_horizontal = 0
 texture = SubResource("95")
 expand_mode = 1
 
-[node name="Slider" parent="AUDIO/SCROLL/V/SOUND" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="AUDIO/SCROLL/V/SOUND" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 576.0
 offset_top = 1.0
@@ -1394,6 +1873,7 @@ description_node = NodePath("../../../../../Desc/Text")
 description = "SFX_VOLUME_DESC"
 call_string = "sound_volume"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="AUDIO/SCROLL/V/SOUND/Slider"]
 layout_mode = 0
@@ -1433,7 +1913,7 @@ size_flags_horizontal = 0
 texture = SubResource("134")
 expand_mode = 1
 
-[node name="Slider" parent="AUDIO/SCROLL/V/AUDIODEVICE" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="AUDIO/SCROLL/V/AUDIODEVICE" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 576.0
 offset_top = 2.0
@@ -1445,6 +1925,7 @@ description_node = NodePath("../../../../../Desc/Text")
 description = "AUDIO_DEVICE_DESC"
 call_string = "audio_device"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="AUDIO/SCROLL/V/AUDIODEVICE/Slider"]
 layout_mode = 0
@@ -1484,7 +1965,7 @@ size_flags_horizontal = 0
 texture = SubResource("96")
 expand_mode = 1
 
-[node name="Slider" parent="AUDIO/SCROLL/V/ANNOUNCE" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="AUDIO/SCROLL/V/ANNOUNCE" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 576.0
 offset_top = 3.0
@@ -1497,6 +1978,7 @@ description_node = NodePath("../../../../../Desc/Text")
 description = "ANNOUNCER_DESC"
 call_string = "announcer"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="AUDIO/SCROLL/V/ANNOUNCE/Slider"]
 layout_mode = 0
@@ -1537,7 +2019,7 @@ size_flags_horizontal = 0
 texture = SubResource("97")
 expand_mode = 1
 
-[node name="Button" parent="AUDIO/SCROLL/V/SPATIAL" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="AUDIO/SCROLL/V/SPATIAL" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
@@ -1551,6 +2033,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "spatial_sound"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="AUDIO/SCROLL/V/SPATIAL/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1579,7 +2062,7 @@ size_flags_horizontal = 0
 texture = SubResource("91")
 expand_mode = 1
 
-[node name="Button" parent="AUDIO/SCROLL/V/SEQUENCE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="AUDIO/SCROLL/V/SEQUENCE" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1594,6 +2077,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "sequential_sounds"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="AUDIO/SCROLL/V/SEQUENCE/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1622,7 +2106,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_22tlt")
 expand_mode = 1
 
-[node name="Button" parent="AUDIO/SCROLL/V/SEQUENCE2" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="AUDIO/SCROLL/V/SEQUENCE2" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_top = 2.0
@@ -1637,6 +2121,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "skin_preview"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="AUDIO/SCROLL/V/SEQUENCE2/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1663,9 +2148,9 @@ modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
 texture_filter = 1
 layout_mode = 0
 offset_left = 28.0
-offset_top = 676.0
-offset_right = 260.0
-offset_bottom = 695.0
+offset_top = 692.0
+offset_right = 261.0
+offset_bottom = 711.0
 text = "OPTIONS_ARROW3"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
@@ -1685,26 +2170,24 @@ flip_h = true
 flip_v = true
 
 [node name="VIDEO" type="Control" parent="."]
-visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 536.0
-offset_top = 96.0
-offset_bottom = -312.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_left = 72.0
+offset_top = 1148.0
+offset_right = 1448.0
+offset_bottom = 1820.0
 
 [node name="SCROLL" type="ScrollContainer" parent="VIDEO"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 0
-offset_right = 1368.0
-offset_bottom = 640.0
+offset_right = 1376.0
+offset_bottom = 644.0
 theme = SubResource("92")
 horizontal_scroll_mode = 0
 
 [node name="V" type="VBoxContainer" parent="VIDEO/SCROLL"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_constants/separation = 16
 
@@ -1729,7 +2212,7 @@ size_flags_horizontal = 0
 texture = SubResource("117")
 expand_mode = 1
 
-[node name="Slider" parent="VIDEO/SCROLL/V/RESO" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="VIDEO/SCROLL/V/RESO" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 1
 offset_left = 560.0
 offset_right = 1040.0
@@ -1740,6 +2223,7 @@ description_node = NodePath("../../../../../Desc/Text")
 description = "RESOLUTION_DESC"
 call_string = "resolution"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="VIDEO/SCROLL/V/RESO/Slider"]
 layout_mode = 0
@@ -1778,7 +2262,7 @@ size_flags_horizontal = 0
 texture = SubResource("122")
 expand_mode = 1
 
-[node name="Button" parent="VIDEO/SCROLL/V/FULLSCREEN" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="VIDEO/SCROLL/V/FULLSCREEN" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
@@ -1792,6 +2276,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "fullscreen"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="VIDEO/SCROLL/V/FULLSCREEN/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -1816,7 +2301,7 @@ size_flags_horizontal = 0
 texture = SubResource("118")
 expand_mode = 1
 
-[node name="Slider" parent="VIDEO/SCROLL/V/FPS" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="VIDEO/SCROLL/V/FPS" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 560.0
 offset_right = 1040.0
@@ -1830,6 +2315,7 @@ description = "FPS_LIMIT_DESC"
 input_dash_speed = 4
 call_string = "max_fps"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="VIDEO/SCROLL/V/FPS/Slider"]
 layout_mode = 0
@@ -1861,6 +2347,9 @@ label_settings = SubResource("LabelSettings_x3w21")
 vertical_alignment = 1
 uppercase = true
 
+[node name="Sep" type="Control" parent="VIDEO/SCROLL/V"]
+layout_mode = 2
+
 [node name="Label2" type="Label" parent="VIDEO/SCROLL/V"]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
@@ -1875,82 +2364,6 @@ offset_top = 40.0
 offset_right = 1328.0
 offset_bottom = 44.0
 
-[node name="BLOCKANIM" type="TextureRect" parent="VIDEO/SCROLL/V"]
-custom_minimum_size = Vector2(52, 52)
-layout_mode = 2
-size_flags_horizontal = 0
-texture = SubResource("123")
-expand_mode = 1
-
-[node name="Button" parent="VIDEO/SCROLL/V/BLOCKANIM" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
-layout_mode = 0
-offset_left = 72.0
-offset_right = 1328.0
-offset_bottom = 52.0
-text = "BLOCK_ANIM"
-description_node = NodePath("../../../../../Desc/Text")
-glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "BLOCK_ANIM_DESC"
-button_layout = 9
-is_setting_button = true
-work_mode = 4
-press_sound_name = "confirm3"
-call_string = "block_animations"
-
-[node name="IO" type="Label" parent="VIDEO/SCROLL/V/BLOCKANIM/Button"]
-modulate = Color(0.537255, 0.537255, 0.537255, 1)
-layout_mode = 0
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -224.0
-offset_top = -26.0
-offset_right = -8.0
-offset_bottom = 24.0
-text = "OFF"
-label_settings = SubResource("LabelSettings_x3w21")
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="BLOCKTRAIL" type="TextureRect" parent="VIDEO/SCROLL/V"]
-custom_minimum_size = Vector2(52, 52)
-layout_mode = 2
-size_flags_horizontal = 0
-texture = SubResource("124")
-expand_mode = 1
-
-[node name="Button" parent="VIDEO/SCROLL/V/BLOCKTRAIL" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
-layout_mode = 0
-offset_left = 72.0
-offset_right = 1328.0
-offset_bottom = 52.0
-text = "BLOCK_TRAIL"
-description_node = NodePath("../../../../../Desc/Text")
-glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "BLOCK_TRAIL_DESC"
-button_layout = 9
-is_setting_button = true
-work_mode = 4
-press_sound_name = "confirm3"
-call_string = "block_trail"
-
-[node name="IO" type="Label" parent="VIDEO/SCROLL/V/BLOCKTRAIL/Button"]
-modulate = Color(0.537255, 0.537255, 0.537255, 1)
-layout_mode = 0
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -224.0
-offset_top = -26.0
-offset_right = -8.0
-offset_bottom = 24.0
-text = "OFF"
-label_settings = SubResource("LabelSettings_x3w21")
-horizontal_alignment = 2
-vertical_alignment = 1
-
 [node name="EFFECTS" type="TextureRect" parent="VIDEO/SCROLL/V"]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
@@ -1958,7 +2371,7 @@ size_flags_horizontal = 0
 texture = SubResource("119")
 expand_mode = 1
 
-[node name="Slider" parent="VIDEO/SCROLL/V/EFFECTS" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
+[node name="Slider" parent="VIDEO/SCROLL/V/EFFECTS" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
 layout_mode = 0
 offset_left = 560.0
 offset_right = 1040.0
@@ -1970,13 +2383,14 @@ description_node = NodePath("../../../../../Desc/Text")
 description = "FX_QUALITY_DESC"
 call_string = "fx_quality"
 call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="VIDEO/SCROLL/V/EFFECTS/Slider"]
 layout_mode = 0
 offset_left = 304.0
 offset_right = 752.0
 offset_bottom = 52.0
-text = "MEDUIM"
+text = "MEDIUM"
 label_settings = SubResource("LabelSettings_x3w21")
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -2002,79 +2416,30 @@ label_settings = SubResource("LabelSettings_x3w21")
 vertical_alignment = 1
 uppercase = true
 
-[node name="SQUARES" type="TextureRect" parent="VIDEO/SCROLL/V"]
+[node name="BLOCKANIM" type="TextureRect" parent="VIDEO/SCROLL/V"]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 0
-texture = SubResource("120")
+texture = SubResource("123")
 expand_mode = 1
 
-[node name="Slider" parent="VIDEO/SCROLL/V/SQUARES" node_paths=PackedStringArray("description_node") instance=ExtResource("10")]
-layout_mode = 0
-offset_left = 560.0
-offset_right = 1040.0
-offset_bottom = 52.0
-max_value = 2.0
-value = 1.0
-description_node = NodePath("../../../../../Desc/Text")
-description = "SQUARES_QUALITY_DESC"
-call_string = "square_quality"
-call_function_name = "_change_option"
-
-[node name="Power" type="Label" parent="VIDEO/SCROLL/V/SQUARES/Slider"]
-layout_mode = 0
-offset_left = 304.0
-offset_right = 752.0
-offset_bottom = 52.0
-text = "MEDIUM"
-label_settings = SubResource("LabelSettings_x3w21")
-horizontal_alignment = 2
-vertical_alignment = 1
-uppercase = true
-
-[node name="ColorRect" type="ColorRect" parent="VIDEO/SCROLL/V/SQUARES"]
-show_behind_parent = true
+[node name="Button" parent="VIDEO/SCROLL/V/BLOCKANIM" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
 offset_bottom = 52.0
-mouse_filter = 2
-color = Color(0.24, 0.24, 0.24, 0.5)
-
-[node name="Label" type="Label" parent="VIDEO/SCROLL/V/SQUARES"]
-layout_mode = 0
-offset_left = 96.0
-offset_top = 4.0
-offset_right = 1056.0
-offset_bottom = 48.0
-text = "SQUARES_QUALITY"
-label_settings = SubResource("LabelSettings_x3w21")
-vertical_alignment = 1
-uppercase = true
-
-[node name="EQVISUAL" type="TextureRect" parent="VIDEO/SCROLL/V"]
-custom_minimum_size = Vector2(52, 52)
-layout_mode = 2
-size_flags_horizontal = 0
-texture = SubResource("126")
-expand_mode = 1
-
-[node name="Button" parent="VIDEO/SCROLL/V/EQVISUAL" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
-layout_mode = 0
-offset_left = 72.0
-offset_right = 1328.0
-offset_bottom = 52.0
-text = "EQ_VISUALIZER"
+text = "BLOCK_ANIM"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "EQ_VISUALIZER_DESC"
+description = "BLOCK_ANIM_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
-call_string = "EQ_visual"
+call_string = "block_animations"
+parent_screen = NodePath("../../../../..")
 
-[node name="IO" type="Label" parent="VIDEO/SCROLL/V/EQVISUAL/Button"]
+[node name="IO" type="Label" parent="VIDEO/SCROLL/V/BLOCKANIM/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
 layout_mode = 0
 anchor_left = 1.0
@@ -2097,7 +2462,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_hxfn0")
 expand_mode = 1
 
-[node name="Button" parent="VIDEO/SCROLL/V/BACKMOVE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="VIDEO/SCROLL/V/BACKMOVE" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
@@ -2111,6 +2476,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "background_shaking"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="VIDEO/SCROLL/V/BACKMOVE/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -2128,49 +2494,14 @@ label_settings = SubResource("LabelSettings_x3w21")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="BONUS" type="TextureRect" parent="VIDEO/SCROLL/V"]
-custom_minimum_size = Vector2(52, 52)
+[node name="Sep2" type="Control" parent="VIDEO/SCROLL/V"]
 layout_mode = 2
-size_flags_horizontal = 0
-texture = SubResource("AtlasTexture_wuusd")
-expand_mode = 1
-
-[node name="Button" parent="VIDEO/SCROLL/V/BONUS" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
-layout_mode = 0
-offset_left = 72.0
-offset_right = 1328.0
-offset_bottom = 52.0
-text = "CLASSIC_BONUS"
-description_node = NodePath("../../../../../Desc/Text")
-glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "CLASSIC_BONUS_DESC"
-button_layout = 9
-is_setting_button = true
-work_mode = 4
-press_sound_name = "confirm3"
-call_string = "classic_bonus_animation"
-
-[node name="IO" type="Label" parent="VIDEO/SCROLL/V/BONUS/Button"]
-modulate = Color(0.537255, 0.537255, 0.537255, 1)
-layout_mode = 0
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -224.0
-offset_top = -26.0
-offset_right = -8.0
-offset_bottom = 24.0
-text = "OFF"
-label_settings = SubResource("LabelSettings_x3w21")
-horizontal_alignment = 2
-vertical_alignment = 1
 
 [node name="Label3" type="Label" parent="VIDEO/SCROLL/V"]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 text = "VS_LABEL3"
-label_settings = SubResource("LabelSettings_x3w21")
+label_settings = SubResource("LabelSettings_24oyo")
 uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="VIDEO/SCROLL/V/Label3"]
@@ -2179,6 +2510,56 @@ offset_top = 40.0
 offset_right = 1344.0
 offset_bottom = 44.0
 
+[node name="BLKREP" type="TextureRect" parent="VIDEO/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_2kglr")
+expand_mode = 1
+
+[node name="Slider" parent="VIDEO/SCROLL/V/BLKREP" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
+layout_mode = 0
+offset_left = 560.0
+offset_right = 1040.0
+offset_bottom = 52.0
+max_value = 2.0
+description_node = NodePath("../../../../../Desc/Text")
+description = "BLOCKS_REPLACE_DESC"
+call_string = "fx_quality"
+call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
+
+[node name="Power" type="Label" parent="VIDEO/SCROLL/V/BLKREP/Slider"]
+layout_mode = 0
+offset_left = 304.0
+offset_right = 752.0
+offset_bottom = 52.0
+text = "NONE"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+
+[node name="ColorRect" type="ColorRect" parent="VIDEO/SCROLL/V/BLKREP"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.24, 0.24, 0.24, 0.5)
+
+[node name="Label" type="Label" parent="VIDEO/SCROLL/V/BLKREP"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 4.0
+offset_right = 1056.0
+offset_bottom = 48.0
+text = "BLOCKS_REPLACE"
+label_settings = SubResource("LabelSettings_x3w21")
+vertical_alignment = 1
+uppercase = true
+
 [node name="DARKENING" type="TextureRect" parent="VIDEO/SCROLL/V"]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
@@ -2186,7 +2567,7 @@ size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_s3b5h")
 expand_mode = 1
 
-[node name="Button" parent="VIDEO/SCROLL/V/DARKENING" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="VIDEO/SCROLL/V/DARKENING" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
@@ -2200,6 +2581,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "background_darkening"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="VIDEO/SCROLL/V/DARKENING/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -2217,30 +2599,30 @@ label_settings = SubResource("LabelSettings_x3w21")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="BACKEFFECT" type="TextureRect" parent="VIDEO/SCROLL/V"]
+[node name="SHADOWS" type="TextureRect" parent="VIDEO/SCROLL/V"]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 0
-texture = SubResource("125")
+texture = SubResource("AtlasTexture_s3b5h")
 expand_mode = 1
 
-[node name="Button" parent="VIDEO/SCROLL/V/BACKEFFECT" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="VIDEO/SCROLL/V/SHADOWS" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
-offset_top = 1.0
 offset_right = 1328.0
-offset_bottom = 53.0
-text = "BACK_FX"
+offset_bottom = 52.0
+text = "BLOCK_SHADOWS"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "BACK_FX_DESC"
+description = "BLOCK_SHADOWS_DSC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
-call_string = "background_effects"
+call_string = "background_darkening"
+parent_screen = NodePath("../../../../..")
 
-[node name="IO" type="Label" parent="VIDEO/SCROLL/V/BACKEFFECT/Button"]
+[node name="IO" type="Label" parent="VIDEO/SCROLL/V/SHADOWS/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
 layout_mode = 0
 anchor_left = 1.0
@@ -2256,29 +2638,83 @@ label_settings = SubResource("LabelSettings_x3w21")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="FORCEBLOCKS" type="TextureRect" parent="VIDEO/SCROLL/V"]
+[node name="ASSIST" type="TextureRect" parent="VIDEO/SCROLL/V"]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 0
-texture = SubResource("AtlasTexture_2kglr")
+texture = SubResource("AtlasTexture_gu0ri")
 expand_mode = 1
 
-[node name="Button" parent="VIDEO/SCROLL/V/FORCEBLOCKS" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Slider" parent="VIDEO/SCROLL/V/ASSIST" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
+layout_mode = 0
+offset_left = 560.0
+offset_right = 1040.0
+offset_bottom = 52.0
+max_value = 3.0
+value = 2.0
+tick_count = 4
+description_node = NodePath("../../../../../Desc/Text")
+description = "GAME_ASSIST1_DESC"
+call_string = "fx_quality"
+call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
+
+[node name="Power" type="Label" parent="VIDEO/SCROLL/V/ASSIST/Slider"]
+layout_mode = 0
+offset_left = 304.0
+offset_right = 752.0
+offset_bottom = 52.0
+text = "MEDIUM"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+
+[node name="ColorRect" type="ColorRect" parent="VIDEO/SCROLL/V/ASSIST"]
+show_behind_parent = true
 layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
 offset_bottom = 52.0
-text = "FORCE_STD_BLOCKS"
+mouse_filter = 2
+color = Color(0.24, 0.24, 0.24, 0.5)
+
+[node name="Label" type="Label" parent="VIDEO/SCROLL/V/ASSIST"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 4.0
+offset_right = 1056.0
+offset_bottom = 48.0
+text = "FIELD BACKGROUND"
+label_settings = SubResource("LabelSettings_x3w21")
+vertical_alignment = 1
+uppercase = true
+
+[node name="BACKEFFECT" type="TextureRect" parent="VIDEO/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("125")
+expand_mode = 1
+
+[node name="Button" parent="VIDEO/SCROLL/V/BACKEFFECT" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 1.0
+offset_right = 1328.0
+offset_bottom = 53.0
+text = "BACK_FX"
 description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
-description = "FORCE_STD_BLOCKS_DESC"
+description = "BACK_FX_DESC"
 button_layout = 9
 is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
-call_string = "force_standard_blocks"
+call_string = "background_effects"
+parent_screen = NodePath("../../../../..")
 
-[node name="IO" type="Label" parent="VIDEO/SCROLL/V/FORCEBLOCKS/Button"]
+[node name="IO" type="Label" parent="VIDEO/SCROLL/V/BACKEFFECT/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
 layout_mode = 0
 anchor_left = 1.0
@@ -2301,7 +2737,7 @@ size_flags_horizontal = 0
 texture = SubResource("130")
 expand_mode = 1
 
-[node name="Button" parent="VIDEO/SCROLL/V/REMOVEVIDEO" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="VIDEO/SCROLL/V/REMOVEVIDEO" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
@@ -2315,6 +2751,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "disable_video"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="VIDEO/SCROLL/V/REMOVEVIDEO/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -2339,7 +2776,7 @@ size_flags_horizontal = 0
 texture = SubResource("131")
 expand_mode = 1
 
-[node name="Button" parent="VIDEO/SCROLL/V/REMOVESCENE" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="VIDEO/SCROLL/V/REMOVESCENE" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 72.0
 offset_right = 1328.0
@@ -2353,6 +2790,7 @@ is_setting_button = true
 work_mode = 4
 press_sound_name = "confirm3"
 call_string = "disable_scenery"
+parent_screen = NodePath("../../../../..")
 
 [node name="IO" type="Label" parent="VIDEO/SCROLL/V/REMOVESCENE/Button"]
 modulate = Color(0.537255, 0.537255, 0.537255, 1)
@@ -2374,10 +2812,10 @@ vertical_alignment = 1
 modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
 texture_filter = 1
 layout_mode = 0
-offset_left = 20.0
-offset_top = 668.0
-offset_right = 252.0
-offset_bottom = 687.0
+offset_left = 28.0
+offset_top = 692.0
+offset_right = 261.0
+offset_bottom = 711.0
 text = "OPTIONS_ARROW4"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
@@ -2397,191 +2835,570 @@ flip_h = true
 flip_v = true
 
 [node name="CONTROLS" type="Control" parent="."]
-visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 536.0
-offset_top = 88.0
-offset_right = -24.0
-offset_bottom = -376.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Input" type="Control" parent="CONTROLS"]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 1532.0
+offset_top = 1140.0
+offset_right = 2900.0
+offset_bottom = 1756.0
 
-[node name="Label" type="Label" parent="CONTROLS/Input"]
+[node name="SCROLL" type="ScrollContainer" parent="CONTROLS"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 0
-offset_right = 428.0
-offset_bottom = 52.0
+offset_right = 1368.0
+offset_bottom = 632.0
+theme = SubResource("92")
+
+[node name="V" type="VBoxContainer" parent="CONTROLS/SCROLL"]
+custom_minimum_size = Vector2(52, 460)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
 text = "KEY_CATEGORY1"
 label_settings = SubResource("LabelSettings_xk0on")
 uppercase = true
 
-[node name="ColorRect" type="ColorRect" parent="CONTROLS/Input/Label"]
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/Label"]
 layout_mode = 0
 offset_top = 40.0
-offset_right = 1360.0
+offset_right = 1320.0
 offset_bottom = 44.0
 
-[node name="MoveLeft" type="TextureRect" parent="CONTROLS/Input"]
-layout_mode = 0
-offset_top = 64.0
-offset_right = 48.0
-offset_bottom = 112.0
+[node name="MoveLeft" type="TextureRect" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
 texture = SubResource("136")
 expand_mode = 1
 
-[node name="Button" parent="CONTROLS/Input/MoveLeft" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="CONTROLS/SCROLL/V/MoveLeft" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 64.0
-offset_right = 616.0
-offset_bottom = 48.0
+offset_right = 1260.0
+offset_bottom = 52.0
 text = "MOVE_LEFT"
-description_node = NodePath("../../../../Desc/Text")
+description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
 description = "MOVE_LEFT_DESC"
 button_layout = 3
 press_sound_name = "confirm3"
 call_string = "move_left"
 call_function_name = "_assign_control"
+parent_screen = NodePath("../../../../..")
 
-[node name="ColorRect" type="ColorRect" parent="CONTROLS/Input/MoveLeft"]
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/MoveLeft"]
 layout_mode = 0
-offset_left = 616.0
-offset_right = 664.0
-offset_bottom = 48.0
-color = Color(1, 1, 1, 0.12549)
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+color = Color(0.664062, 0.664062, 0.664062, 0.12549)
 
-[node name="Icon" type="TextureRect" parent="CONTROLS/Input/MoveLeft"]
+[node name="Icon" type="TextureRect" parent="CONTROLS/SCROLL/V/MoveLeft"]
 layout_mode = 0
-offset_left = 616.0
-offset_right = 664.0
-offset_bottom = 48.0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
 pivot_offset = Vector2(24, 24)
 texture = SubResource("100")
 expand_mode = 1
 
-[node name="MoveRight" type="TextureRect" parent="CONTROLS/Input"]
-layout_mode = 0
-offset_left = 696.0
-offset_top = 64.0
-offset_right = 744.0
-offset_bottom = 112.0
+[node name="MoveRight" type="TextureRect" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
 texture = SubResource("137")
 expand_mode = 1
 
-[node name="Button" parent="CONTROLS/Input/MoveRight" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="CONTROLS/SCROLL/V/MoveRight" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 64.0
-offset_right = 616.0
-offset_bottom = 48.0
+offset_right = 1260.0
+offset_bottom = 52.0
 text = "MOVE_RIGHT"
-description_node = NodePath("../../../../Desc/Text")
+description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
 description = "MOVE_RIGHT_DESC"
 button_layout = 3
 press_sound_name = "confirm3"
 call_string = "move_right"
 call_function_name = "_assign_control"
+parent_screen = NodePath("../../../../..")
 
-[node name="ColorRect3" type="ColorRect" parent="CONTROLS/Input/MoveRight"]
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/MoveRight"]
 layout_mode = 0
-offset_left = 616.0
-offset_right = 664.0
-offset_bottom = 48.0
-color = Color(1, 1, 1, 0.12549)
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+color = Color(0.664062, 0.664062, 0.664062, 0.12549)
 
-[node name="Icon" type="TextureRect" parent="CONTROLS/Input/MoveRight"]
+[node name="Icon" type="TextureRect" parent="CONTROLS/SCROLL/V/MoveRight"]
 layout_mode = 0
-offset_left = 616.0
-offset_right = 664.0
-offset_bottom = 48.0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+pivot_offset = Vector2(24, 24)
 texture = SubResource("100")
 expand_mode = 1
-stretch_mode = 1
 
-[node name="RotateLeft" type="TextureRect" parent="CONTROLS/Input"]
-layout_mode = 0
-offset_top = 128.0
-offset_right = 48.0
-offset_bottom = 176.0
-texture = SubResource("138")
+[node name="RotateLeft" type="TextureRect" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_umkuq")
 expand_mode = 1
 
-[node name="Button" parent="CONTROLS/Input/RotateLeft" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="CONTROLS/SCROLL/V/RotateLeft" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 64.0
-offset_right = 616.0
-offset_bottom = 48.0
+offset_right = 1260.0
+offset_bottom = 52.0
 text = "ROTATE_LEFT"
-description_node = NodePath("../../../../Desc/Text")
+description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
 description = "ROTATE_LEFT_DESC"
 button_layout = 3
 press_sound_name = "confirm3"
 call_string = "rotate_left"
 call_function_name = "_assign_control"
+parent_screen = NodePath("../../../../..")
 
-[node name="ColorRect2" type="ColorRect" parent="CONTROLS/Input/RotateLeft"]
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/RotateLeft"]
 layout_mode = 0
-offset_left = 616.0
-offset_right = 664.0
-offset_bottom = 48.0
-color = Color(1, 1, 1, 0.12549)
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+color = Color(0.664062, 0.664062, 0.664062, 0.12549)
 
-[node name="Icon" type="TextureRect" parent="CONTROLS/Input/RotateLeft"]
+[node name="Icon" type="TextureRect" parent="CONTROLS/SCROLL/V/RotateLeft"]
 layout_mode = 0
-offset_left = 616.0
-offset_right = 664.0
-offset_bottom = 48.0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+pivot_offset = Vector2(24, 24)
 texture = SubResource("100")
 expand_mode = 1
-stretch_mode = 1
 
-[node name="RotateRight" type="TextureRect" parent="CONTROLS/Input"]
-layout_mode = 0
-offset_left = 696.0
-offset_top = 128.0
-offset_right = 744.0
-offset_bottom = 176.0
-texture = SubResource("99")
+[node name="RotateRight" type="TextureRect" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_6m3np")
 expand_mode = 1
 
-[node name="Button" parent="CONTROLS/Input/RotateRight" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="Button" parent="CONTROLS/SCROLL/V/RotateRight" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 64.0
-offset_right = 616.0
-offset_bottom = 48.0
+offset_right = 1260.0
+offset_bottom = 52.0
 text = "ROTATE_RIGHT"
-description_node = NodePath("../../../../Desc/Text")
+description_node = NodePath("../../../../../Desc/Text")
 glow_color = Color(0.152941, 0.631373, 0.639216, 1)
 description = "ROTATE_RIGHT_DESC"
 button_layout = 3
 press_sound_name = "confirm3"
 call_string = "rotate_right"
 call_function_name = "_assign_control"
+parent_screen = NodePath("../../../../..")
 
-[node name="ColorRect3" type="ColorRect" parent="CONTROLS/Input/RotateRight"]
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/RotateRight"]
 layout_mode = 0
-offset_left = 616.0
-offset_right = 664.0
-offset_bottom = 48.0
-color = Color(1, 1, 1, 0.12549)
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+color = Color(0.664062, 0.664062, 0.664062, 0.12549)
 
-[node name="Icon" type="TextureRect" parent="CONTROLS/Input/RotateRight"]
+[node name="Icon" type="TextureRect" parent="CONTROLS/SCROLL/V/RotateRight"]
 layout_mode = 0
-offset_left = 616.0
-offset_right = 664.0
-offset_bottom = 48.0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+pivot_offset = Vector2(24, 24)
 texture = SubResource("100")
 expand_mode = 1
-stretch_mode = 1
+
+[node name="QuickDrop" type="TextureRect" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_2byjd")
+expand_mode = 1
+
+[node name="Button" parent="CONTROLS/SCROLL/V/QuickDrop" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 1260.0
+offset_bottom = 52.0
+text = "QUICK_DROP"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "QUICK_DROP_DESC"
+button_layout = 3
+press_sound_name = "confirm3"
+call_string = "quick_drop"
+call_function_name = "_assign_control"
+parent_screen = NodePath("../../../../..")
+
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/QuickDrop"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+color = Color(0.664062, 0.664062, 0.664062, 0.12549)
+
+[node name="Icon" type="TextureRect" parent="CONTROLS/SCROLL/V/QuickDrop"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+pivot_offset = Vector2(24, 24)
+texture = SubResource("100")
+expand_mode = 1
+
+[node name="PassiveAbility" type="TextureRect" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("140")
+expand_mode = 1
+
+[node name="Button" parent="CONTROLS/SCROLL/V/PassiveAbility" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 1260.0
+offset_bottom = 52.0
+text = "SWAP_PIECE"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "SWAP_PIECE_DESC"
+button_layout = 3
+press_sound_name = "confirm3"
+call_string = "passive_ability"
+call_function_name = "_assign_control"
+parent_screen = NodePath("../../../../..")
+
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/PassiveAbility"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+color = Color(0.664062, 0.664062, 0.664062, 0.12549)
+
+[node name="Icon" type="TextureRect" parent="CONTROLS/SCROLL/V/PassiveAbility"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+pivot_offset = Vector2(24, 24)
+texture = SubResource("100")
+expand_mode = 1
+
+[node name="Sep" type="Control" parent="CONTROLS/SCROLL/V"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "KEY_CATEGORY2"
+label_settings = SubResource("LabelSettings_xk0on")
+uppercase = true
+
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/Label2"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 1320.0
+offset_bottom = 44.0
+
+[node name="Accept" type="TextureRect" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_6yc3n")
+expand_mode = 1
+
+[node name="Button" parent="CONTROLS/SCROLL/V/Accept" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 1260.0
+offset_bottom = 52.0
+text = "MENU_ACCEPT"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "MENU_ACCEPT_DESC"
+button_layout = 3
+press_sound_name = "confirm3"
+call_string = "ui_accept"
+call_function_name = "_assign_control"
+parent_screen = NodePath("../../../../..")
+
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/Accept"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+color = Color(0.664062, 0.664062, 0.664062, 0.12549)
+
+[node name="Icon" type="TextureRect" parent="CONTROLS/SCROLL/V/Accept"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+pivot_offset = Vector2(24, 24)
+texture = SubResource("100")
+expand_mode = 1
+
+[node name="Cancel" type="TextureRect" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_sof0u")
+expand_mode = 1
+
+[node name="Button" parent="CONTROLS/SCROLL/V/Cancel" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 1260.0
+offset_bottom = 52.0
+text = "MENU_CANCEL"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "MENU_CANCEL_DESC"
+button_layout = 3
+press_sound_name = "confirm3"
+call_string = "ui_cancel"
+call_function_name = "_assign_control"
+parent_screen = NodePath("../../../../..")
+
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/Cancel"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+color = Color(0.664062, 0.664062, 0.664062, 0.12549)
+
+[node name="Icon" type="TextureRect" parent="CONTROLS/SCROLL/V/Cancel"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+pivot_offset = Vector2(24, 24)
+texture = SubResource("100")
+expand_mode = 1
+
+[node name="Extra1" type="TextureRect" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_wfyr2")
+expand_mode = 1
+
+[node name="Button" parent="CONTROLS/SCROLL/V/Extra1" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 1260.0
+offset_bottom = 52.0
+text = "MENU_EXTRA"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "MENU_EXTRA_DESC"
+button_layout = 3
+press_sound_name = "confirm3"
+call_string = "ui_extra"
+call_function_name = "_assign_control"
+parent_screen = NodePath("../../../../..")
+
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/Extra1"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+color = Color(0.664062, 0.664062, 0.664062, 0.12549)
+
+[node name="Icon" type="TextureRect" parent="CONTROLS/SCROLL/V/Extra1"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+pivot_offset = Vector2(24, 24)
+texture = SubResource("100")
+expand_mode = 1
+
+[node name="Extra2" type="TextureRect" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_v4as3")
+expand_mode = 1
+
+[node name="Button" parent="CONTROLS/SCROLL/V/Extra2" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 1260.0
+offset_bottom = 52.0
+text = "MENU_EXTRA2"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "MENU_EXTRA2_DESC"
+button_layout = 3
+press_sound_name = "confirm3"
+call_string = "ui_extra2"
+call_function_name = "_assign_control"
+parent_screen = NodePath("../../../../..")
+
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/Extra2"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+color = Color(0.664062, 0.664062, 0.664062, 0.12549)
+
+[node name="Icon" type="TextureRect" parent="CONTROLS/SCROLL/V/Extra2"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+pivot_offset = Vector2(24, 24)
+texture = SubResource("100")
+expand_mode = 1
+
+[node name="Sep2" type="Control" parent="CONTROLS/SCROLL/V"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "KEY_CATEGORY3"
+label_settings = SubResource("LabelSettings_xk0on")
+uppercase = true
+
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/Label3"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 1320.0
+offset_bottom = 44.0
+
+[node name="Screenshot" type="TextureRect" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("136")
+expand_mode = 1
+
+[node name="Button" parent="CONTROLS/SCROLL/V/Screenshot" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 1260.0
+offset_bottom = 52.0
+text = "SCREENSHOT_KEY"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "SCREENSHOT_KEY_DESC"
+button_layout = 3
+press_sound_name = "confirm3"
+call_string = "screenshot"
+call_function_name = "_assign_control"
+parent_screen = NodePath("../../../../..")
+
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/Screenshot"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+color = Color(0.664062, 0.664062, 0.664062, 0.12549)
+
+[node name="Icon" type="TextureRect" parent="CONTROLS/SCROLL/V/Screenshot"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+pivot_offset = Vector2(24, 24)
+texture = SubResource("100")
+expand_mode = 1
+
+[node name="Fullscreen" type="TextureRect" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("136")
+expand_mode = 1
+
+[node name="Button" parent="CONTROLS/SCROLL/V/Fullscreen" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 1260.0
+offset_bottom = 52.0
+text = "FULLESCREEN_KEY"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "FULLESCREEN_KEY_DESC"
+button_layout = 3
+press_sound_name = "confirm3"
+call_string = "toggle_fullscreen"
+call_function_name = "_assign_control"
+parent_screen = NodePath("../../../../..")
+
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/Fullscreen"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+color = Color(0.664062, 0.664062, 0.664062, 0.12549)
+
+[node name="Icon" type="TextureRect" parent="CONTROLS/SCROLL/V/Fullscreen"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+pivot_offset = Vector2(24, 24)
+texture = SubResource("100")
+expand_mode = 1
+
+[node name="FPS" type="TextureRect" parent="CONTROLS/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("136")
+expand_mode = 1
+
+[node name="Button" parent="CONTROLS/SCROLL/V/FPS" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 1260.0
+offset_bottom = 52.0
+text = "FPS_COUNTER_KEY"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "FPS_COUNTER_KEY_DESC"
+button_layout = 3
+press_sound_name = "confirm3"
+call_string = "fps_counter"
+call_function_name = "_assign_control"
+parent_screen = NodePath("../../../../..")
+
+[node name="ColorRect" type="ColorRect" parent="CONTROLS/SCROLL/V/FPS"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+color = Color(0.664062, 0.664062, 0.664062, 0.12549)
+
+[node name="Icon" type="TextureRect" parent="CONTROLS/SCROLL/V/FPS"]
+layout_mode = 0
+offset_left = 1268.0
+offset_right = 1320.0
+offset_bottom = 52.0
+pivot_offset = Vector2(24, 24)
+texture = SubResource("100")
+expand_mode = 1
+
+[node name="Input" type="Control" parent="CONTROLS"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="QuickDrop" type="TextureRect" parent="CONTROLS/Input"]
 layout_mode = 0
@@ -2662,9 +3479,9 @@ stretch_mode = 1
 
 [node name="Label2" type="Label" parent="CONTROLS/Input"]
 layout_mode = 0
-offset_top = 264.0
+offset_top = 280.0
 offset_right = 428.0
-offset_bottom = 316.0
+offset_bottom = 332.0
 text = "KEY_CATEGORY2"
 label_settings = SubResource("LabelSettings_xk0on")
 uppercase = true
@@ -2677,9 +3494,9 @@ offset_bottom = 44.0
 
 [node name="Accept" type="TextureRect" parent="CONTROLS/Input"]
 layout_mode = 0
-offset_top = 328.0
+offset_top = 344.0
 offset_right = 48.0
-offset_bottom = 376.0
+offset_bottom = 392.0
 texture = SubResource("141")
 expand_mode = 1
 
@@ -2716,9 +3533,9 @@ stretch_mode = 1
 [node name="Cancel" type="TextureRect" parent="CONTROLS/Input"]
 layout_mode = 0
 offset_left = 696.0
-offset_top = 328.0
+offset_top = 344.0
 offset_right = 744.0
-offset_bottom = 376.0
+offset_bottom = 392.0
 texture = SubResource("142")
 expand_mode = 1
 
@@ -2754,9 +3571,9 @@ stretch_mode = 1
 
 [node name="Extra" type="TextureRect" parent="CONTROLS/Input"]
 layout_mode = 0
-offset_top = 392.0
+offset_top = 408.0
 offset_right = 48.0
-offset_bottom = 440.0
+offset_bottom = 456.0
 texture = SubResource("143")
 expand_mode = 1
 
@@ -2794,10 +3611,10 @@ stretch_mode = 1
 modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
 texture_filter = 1
 layout_mode = 0
-offset_left = 20.0
-offset_top = 676.0
-offset_right = 252.0
-offset_bottom = 695.0
+offset_left = 28.0
+offset_top = 692.0
+offset_right = 261.0
+offset_bottom = 711.0
 text = "OPTIONS_ARROW5"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
@@ -2817,28 +3634,23 @@ flip_h = true
 flip_v = true
 
 [node name="LANGUAGE" type="Control" parent="."]
-visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 536.0
-offset_top = 88.0
-offset_right = -16.0
-offset_bottom = -312.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_left = 48.0
+offset_top = 2076.0
+offset_right = 1424.0
+offset_bottom = 2756.0
 
 [node name="SCROLL" type="ScrollContainer" parent="LANGUAGE"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 1384.0
-offset_bottom = 720.0
+offset_right = 1368.0
+offset_bottom = 712.0
 theme = SubResource("92")
 
 [node name="V" type="VBoxContainer" parent="LANGUAGE/SCROLL"]
+custom_minimum_size = Vector2(1320, 356)
 layout_mode = 2
 theme_override_constants/separation = 16
 
@@ -2877,7 +3689,7 @@ texture = SubResource("145")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="ENGLISH" parent="LANGUAGE/SCROLL/V/Flag" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="ENGLISH" parent="LANGUAGE/SCROLL/V/Flag" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 2
 offset_left = 88.0
 offset_right = 1320.0
@@ -2889,6 +3701,7 @@ description = "SET_LANGUAGE_DESC"
 press_sound_name = "enter"
 call_string = "en"
 call_function_name = "_select_language"
+parent_screen = NodePath("../../../../..")
 
 [node name="Mark" type="TextureRect" parent="LANGUAGE/SCROLL/V/Flag" groups=["language_marks"]]
 visible = false
@@ -2907,7 +3720,7 @@ texture = SubResource("146")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="ITALIAN" parent="LANGUAGE/SCROLL/V/Flag2" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="ITALIAN" parent="LANGUAGE/SCROLL/V/Flag2" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 2
 offset_left = 88.0
 offset_right = 1320.0
@@ -2919,6 +3732,7 @@ description = "SET_LANGUAGE_DESC"
 press_sound_name = "enter"
 call_string = "it"
 call_function_name = "_select_language"
+parent_screen = NodePath("../../../../..")
 
 [node name="Mark" type="TextureRect" parent="LANGUAGE/SCROLL/V/Flag2" groups=["language_marks"]]
 visible = false
@@ -2937,7 +3751,7 @@ texture = SubResource("AtlasTexture_5n373")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="ITALIAN" parent="LANGUAGE/SCROLL/V/Flag3" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="ITALIAN" parent="LANGUAGE/SCROLL/V/Flag3" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 2
 offset_left = 88.0
 offset_right = 1320.0
@@ -2949,6 +3763,7 @@ description = "SET_LANGUAGE_DESC"
 press_sound_name = "enter"
 call_string = "pt"
 call_function_name = "_select_language"
+parent_screen = NodePath("../../../../..")
 
 [node name="Mark" type="TextureRect" parent="LANGUAGE/SCROLL/V/Flag3" groups=["language_marks"]]
 visible = false
@@ -2963,7 +3778,7 @@ expand_mode = 1
 [node name="Blank" type="TextureRect" parent="LANGUAGE/SCROLL/V"]
 layout_mode = 2
 
-[node name="GITHUB" parent="LANGUAGE/SCROLL/V/Blank" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="GITHUB" parent="LANGUAGE/SCROLL/V/Blank" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 offset_top = -1.0
@@ -2975,15 +3790,16 @@ glow_color = Color(0.6875, 0.384033, 0.625858, 1)
 description = "TRANSLATION_PAGE_DESC"
 press_sound_name = "enter"
 call_function_name = "_open_translation_page"
+parent_screen = NodePath("../../../../..")
 
 [node name="Detail5" type="Label" parent="LANGUAGE"]
 modulate = Color(0.639, 0.639, 0.639, 0.5)
 texture_filter = 1
 layout_mode = 0
-offset_left = 20.0
-offset_top = 676.0
-offset_right = 272.0
-offset_bottom = 695.0
+offset_left = 28.0
+offset_top = 692.0
+offset_right = 280.0
+offset_bottom = 711.0
 text = "OPTIONS_ARROW6"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
@@ -2999,19 +3815,300 @@ offset_right = -11.0
 offset_bottom = 20.0
 texture = SubResource("AtlasTexture_1fbr7")
 expand_mode = 1
+flip_h = true
+flip_v = true
+
+[node name="GAME" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 0
+offset_left = 1504.0
+offset_top = 2064.0
+offset_right = 2880.0
+offset_bottom = 2744.0
+
+[node name="SCROLL" type="ScrollContainer" parent="GAME"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 0
+offset_right = 1376.0
+offset_bottom = 688.0
+theme = SubResource("92")
+
+[node name="V" type="VBoxContainer" parent="GAME/SCROLL"]
+custom_minimum_size = Vector2(1320, 356)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="GAME/SCROLL/V"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_fonts/font = SubResource("135")
+text = "GENERAL SETTINGS"
+label_settings = SubResource("LabelSettings_xk0on")
+uppercase = true
+
+[node name="ColorRect" type="ColorRect" parent="GAME/SCROLL/V/Label"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 1328.0
+offset_bottom = 44.0
+
+[node name="SCORESAVE" type="TextureRect" parent="GAME/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_ebb25")
+expand_mode = 1
+
+[node name="Button" parent="GAME/SCROLL/V/SCORESAVE" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+text = "SAVE_ONLINE_SCORE"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "SAVE_ONLINE_SCORE_DESC"
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "fullscreen"
+parent_screen = NodePath("../../../../..")
+
+[node name="IO" type="Label" parent="GAME/SCROLL/V/SCORESAVE/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -26.0
+offset_right = -8.0
+offset_bottom = 24.0
+text = "OFF"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Sep" type="Control" parent="GAME/SCROLL/V"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="GAME/SCROLL/V"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_fonts/font = SubResource("135")
+text = "LUMINEXT SETTINGS"
+label_settings = SubResource("LabelSettings_xk0on")
+uppercase = true
+
+[node name="ColorRect" type="ColorRect" parent="GAME/SCROLL/V/Label2"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 1328.0
+offset_bottom = 44.0
+
+[node name="ASSIST" type="TextureRect" parent="GAME/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_gu0ri")
+expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="GAME/SCROLL/V/ASSIST"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.24, 0.24, 0.24, 0.5)
+
+[node name="Label" type="Label" parent="GAME/SCROLL/V/ASSIST"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 4.0
+offset_right = 737.0
+offset_bottom = 48.0
+text = "GAME_ASSIST"
+label_settings = SubResource("LabelSettings_x3w21")
+vertical_alignment = 1
+uppercase = true
+
+[node name="Slider" parent="GAME/SCROLL/V/ASSIST" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("10")]
+layout_mode = 0
+offset_left = 560.0
+offset_right = 1040.0
+offset_bottom = 52.0
+max_value = 3.0
+value = 2.0
+tick_count = 4
+description_node = NodePath("../../../../../Desc/Text")
+description = "GAME_ASSIST1_DESC"
+call_string = "fx_quality"
+call_function_name = "_change_option"
+parent_screen = NodePath("../../../../..")
+
+[node name="Power" type="Label" parent="GAME/SCROLL/V/ASSIST/Slider"]
+layout_mode = 0
+offset_left = 304.0
+offset_right = 752.0
+offset_bottom = 52.0
+text = "MEDIUM"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+
+[node name="BLOCKTRAIL" type="TextureRect" parent="GAME/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("124")
+expand_mode = 1
+
+[node name="Button" parent="GAME/SCROLL/V/BLOCKTRAIL" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+text = "BLOCK_TRAIL"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "BLOCK_TRAIL_DESC"
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "block_trail"
+parent_screen = NodePath("../../../../..")
+
+[node name="IO" type="Label" parent="GAME/SCROLL/V/BLOCKTRAIL/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -26.0
+offset_right = -8.0
+offset_bottom = 24.0
+text = "OFF"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="EQVISUAL" type="TextureRect" parent="GAME/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("126")
+expand_mode = 1
+
+[node name="Button" parent="GAME/SCROLL/V/EQVISUAL" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+text = "EQ_VISUALIZER"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "EQ_VISUALIZER_DESC"
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "EQ_visual"
+parent_screen = NodePath("../../../../..")
+
+[node name="IO" type="Label" parent="GAME/SCROLL/V/EQVISUAL/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -26.0
+offset_right = -8.0
+offset_bottom = 24.0
+text = "OFF"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="BONUS" type="TextureRect" parent="GAME/SCROLL/V"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_wuusd")
+expand_mode = 1
+
+[node name="Button" parent="GAME/SCROLL/V/BONUS" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 1328.0
+offset_bottom = 52.0
+text = "CLASSIC_BONUS"
+description_node = NodePath("../../../../../Desc/Text")
+glow_color = Color(0.152941, 0.631373, 0.639216, 1)
+description = "CLASSIC_BONUS_DESC"
+button_layout = 9
+is_setting_button = true
+work_mode = 4
+press_sound_name = "confirm3"
+call_string = "classic_bonus_animation"
+parent_screen = NodePath("../../../../..")
+
+[node name="IO" type="Label" parent="GAME/SCROLL/V/BONUS/Button"]
+modulate = Color(0.537255, 0.537255, 0.537255, 1)
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -26.0
+offset_right = -8.0
+offset_bottom = 24.0
+text = "OFF"
+label_settings = SubResource("LabelSettings_x3w21")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Detail5" type="Label" parent="GAME"]
+modulate = Color(0.639, 0.639, 0.639, 0.5)
+texture_filter = 1
+layout_mode = 0
+offset_left = 28.0
+offset_top = 692.0
+offset_right = 280.0
+offset_bottom = 711.0
+text = "OPTIONS_ARROW7"
+label_settings = SubResource("LabelSettings_dplwv")
+uppercase = true
+
+[node name="Icon" type="TextureRect" parent="GAME/Detail5"]
+texture_filter = 2
+layout_mode = 0
+offset_left = -33.0
+offset_top = -2.0
+offset_right = -11.0
+offset_bottom = 20.0
+texture = SubResource("AtlasTexture_1fbr7")
+expand_mode = 1
+flip_h = true
+flip_v = true
 
 [node name="Desc" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.092
-anchor_top = 0.059
-anchor_right = 0.092
-anchor_bottom = 0.059
-offset_left = -176.64
-offset_top = 744.28
-offset_right = 1743.36
-offset_bottom = 952.28
+offset_top = 824.0
+offset_right = 1920.0
+offset_bottom = 1016.0
 scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(0, 160)
 mouse_filter = 2
@@ -3024,8 +4121,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 24.0
 offset_top = 16.0
-offset_right = -32.0
-offset_bottom = -36.0
+offset_right = -24.0
+offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
 label_settings = SubResource("LabelSettings_bb3qu")
@@ -3036,9 +4133,9 @@ modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
 texture_filter = 1
 layout_mode = 0
 offset_left = 44.0
-offset_top = 180.0
-offset_right = 276.0
-offset_bottom = 199.0
+offset_top = 164.0
+offset_right = 277.0
+offset_bottom = 183.0
 text = "OPTIONS_ARROW2"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
@@ -3061,21 +4158,19 @@ flip_v = true
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.059
-anchor_bottom = 0.059
-offset_top = 8.28
+offset_top = 72.0
 offset_right = 496.0
-offset_bottom = 728.28
+offset_bottom = 808.0
 scale = Vector2(1, 1e-05)
 mouse_filter = 2
 color = Color(0, 0, 0, 0.501961)
 
-[node name="AUDIO" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="AUDIO" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 100.0
 offset_right = 480.0
-offset_bottom = 156.0
+offset_bottom = 152.0
 scale = Vector2(1, 1e-05)
 text = "AUDIO"
 description_node = NodePath("../../Desc/Text")
@@ -3086,6 +4181,7 @@ menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm"
 call_string = "audio"
 call_function_name = "_change_tab"
+parent_screen = NodePath("../..")
 
 [node name="Icon2" type="TextureRect" parent="Menu/AUDIO"]
 layout_mode = 1
@@ -3093,21 +4189,21 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 392.0
-offset_top = -28.0
+offset_top = -26.0
 offset_right = 456.0
-offset_bottom = 28.0
+offset_bottom = 26.0
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("148")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="VISUAL" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="VISUAL" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 168.0
+offset_top = 164.0
 offset_right = 480.0
-offset_bottom = 224.0
+offset_bottom = 212.0
 scale = Vector2(1, 1e-05)
 text = "VIDEO"
 description_node = NodePath("../../Desc/Text")
@@ -3118,6 +4214,7 @@ menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm"
 call_string = "video"
 call_function_name = "_change_tab"
+parent_screen = NodePath("../..")
 
 [node name="Icon2" type="TextureRect" parent="Menu/VISUAL"]
 layout_mode = 1
@@ -3125,21 +4222,21 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 392.0
-offset_top = -28.0
+offset_top = -24.0
 offset_right = 456.0
-offset_bottom = 28.0
+offset_bottom = 24.0
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("147")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CONTROL" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="CONTROL" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 236.0
+offset_top = 228.0
 offset_right = 480.0
-offset_bottom = 292.0
+offset_bottom = 276.0
 scale = Vector2(1, 1e-05)
 text = "CONTROLS"
 description_node = NodePath("../../Desc/Text")
@@ -3150,6 +4247,7 @@ menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm"
 call_string = "controls"
 call_function_name = "_change_tab"
+parent_screen = NodePath("../..")
 
 [node name="Icon2" type="TextureRect" parent="Menu/CONTROL"]
 layout_mode = 1
@@ -3157,21 +4255,21 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 392.0
-offset_top = -28.0
+offset_top = -24.0
 offset_right = 456.0
-offset_bottom = 28.0
+offset_bottom = 24.0
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("149")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LANGUAGE" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="LANGUAGE" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 304.0
+offset_top = 292.0
 offset_right = 480.0
-offset_bottom = 360.0
+offset_bottom = 340.0
 scale = Vector2(1, 1e-05)
 text = "LANGUAGE"
 description_node = NodePath("../../Desc/Text")
@@ -3182,6 +4280,7 @@ press_sound_name = "confirm"
 is_cancel_button = true
 call_string = "language"
 call_function_name = "_change_tab"
+parent_screen = NodePath("../..")
 
 [node name="Icon2" type="TextureRect" parent="Menu/LANGUAGE"]
 layout_mode = 1
@@ -3189,21 +4288,54 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 392.0
-offset_top = -28.0
+offset_top = -24.0
 offset_right = 456.0
-offset_bottom = 28.0
+offset_bottom = 24.0
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("150")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="GAME" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 356.0
+offset_right = 480.0
+offset_bottom = 404.0
+scale = Vector2(1, 1e-05)
+text = "GAME_CONFIG"
+description_node = NodePath("../../Desc/Text")
+glow_color = Color(0.670588, 0.403922, 0.792157, 1)
+description = "GAME_CONFIG_DESC"
+menu_position = Vector2i(-1, -1)
+press_sound_name = "confirm"
+is_cancel_button = true
+call_string = "game"
+call_function_name = "_change_tab"
+parent_screen = NodePath("../..")
+
+[node name="Icon2" type="TextureRect" parent="Menu/GAME"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 392.0
+offset_top = -24.0
+offset_right = 456.0
+offset_bottom = 24.0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_8lnt1")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Line" type="ColorRect" parent="Menu"]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 380.0
+offset_top = 420.0
 offset_right = 480.0
-offset_bottom = 384.0
+offset_bottom = 424.0
 scale = Vector2(1e-05, 1)
 
 [node name="Line2" type="ColorRect" parent="Menu"]
@@ -3214,12 +4346,12 @@ offset_right = 480.0
 offset_bottom = 84.0
 scale = Vector2(1e-05, 1)
 
-[node name="APPLY" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="APPLY" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 404.0
+offset_top = 440.0
 offset_right = 480.0
-offset_bottom = 460.0
+offset_bottom = 488.0
 scale = Vector2(1, 1e-05)
 text = "APPLY"
 description_node = NodePath("../../Desc/Text")
@@ -3229,6 +4361,7 @@ button_layout = 2
 menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm4"
 call_function_name = "_exit_with_apply"
+parent_screen = NodePath("../..")
 
 [node name="Icon2" type="TextureRect" parent="Menu/APPLY"]
 layout_mode = 1
@@ -3236,21 +4369,21 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 392.0
-offset_top = -28.0
+offset_top = -24.0
 offset_right = 456.0
-offset_bottom = 28.0
+offset_bottom = 24.0
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("151")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="RESET" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="RESET" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 472.0
+offset_top = 504.0
 offset_right = 480.0
-offset_bottom = 528.0
+offset_bottom = 552.0
 scale = Vector2(1, 1e-05)
 text = "RESET_CHANGES"
 description_node = NodePath("../../Desc/Text")
@@ -3260,6 +4393,7 @@ button_layout = 2
 menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm2"
 call_function_name = "_reset_current_tab_changes"
+parent_screen = NodePath("../..")
 
 [node name="Icon2" type="TextureRect" parent="Menu/RESET"]
 layout_mode = 1
@@ -3267,21 +4401,21 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 392.0
-offset_top = -28.0
+offset_top = -24.0
 offset_right = 456.0
-offset_bottom = 28.0
+offset_bottom = 24.0
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("156")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="RESET2" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="RESET2" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 540.0
+offset_top = 568.0
 offset_right = 480.0
-offset_bottom = 596.0
+offset_bottom = 616.0
 scale = Vector2(1, 1e-05)
 text = "RESET_TO_STANDARD"
 description_node = NodePath("../../Desc/Text")
@@ -3292,6 +4426,7 @@ menu_position = Vector2i(-1, -1)
 press_sound_name = "confirm2"
 is_cancel_button = true
 call_function_name = "_reset_current_tab_to_standard"
+parent_screen = NodePath("../..")
 
 [node name="Icon2" type="TextureRect" parent="Menu/RESET2"]
 layout_mode = 1
@@ -3299,9 +4434,9 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 392.0
-offset_top = -28.0
+offset_top = -24.0
 offset_right = 456.0
-offset_bottom = 28.0
+offset_bottom = 24.0
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("AtlasTexture_txdk3")
@@ -3309,12 +4444,12 @@ expand_mode = 1
 stretch_mode = 5
 flip_h = true
 
-[node name="EXIT" parent="Menu" node_paths=PackedStringArray("description_node") instance=ExtResource("11")]
+[node name="EXIT" parent="Menu" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("11")]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 608.0
+offset_top = 632.0
 offset_right = 480.0
-offset_bottom = 664.0
+offset_bottom = 680.0
 scale = Vector2(1, 1e-05)
 text = "CANCEL"
 description_node = NodePath("../../Desc/Text")
@@ -3325,6 +4460,7 @@ menu_position = Vector2i(-1, -1)
 press_sound_name = "cancel"
 is_cancel_button = true
 call_function_name = "_exit_with_cancel"
+parent_screen = NodePath("../..")
 
 [node name="Icon2" type="TextureRect" parent="Menu/EXIT"]
 layout_mode = 1
@@ -3332,9 +4468,9 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 392.0
-offset_top = -28.0
+offset_top = -24.0
 offset_right = 456.0
-offset_bottom = 28.0
+offset_bottom = 24.0
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("98")
@@ -3345,10 +4481,10 @@ stretch_mode = 5
 modulate = Color(0.639216, 0.639216, 0.639216, 0.501961)
 texture_filter = 1
 layout_mode = 0
-offset_left = 40.0
-offset_top = 692.0
-offset_right = 272.0
-offset_bottom = 711.0
+offset_left = 44.0
+offset_top = 708.0
+offset_right = 276.0
+offset_bottom = 727.0
 text = "OPTIONS_ARROW1"
 label_settings = SubResource("LabelSettings_dplwv")
 uppercase = true
@@ -3394,7 +4530,7 @@ offset_left = 48.0
 offset_right = 696.0
 offset_bottom = 72.0
 text = "OPTIONS"
-label_settings = SubResource("LabelSettings_6nh55")
+label_settings = SubResource("LabelSettings_umkuq")
 vertical_alignment = 1
 uppercase = true
 
@@ -3410,7 +4546,7 @@ mouse_filter = 2
 color = Color(0, 0.207843, 0.164706, 1)
 
 [node name="Icon" type="TextureRect" parent="Top/Iconhold"]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(0, 0, 0, 0)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5

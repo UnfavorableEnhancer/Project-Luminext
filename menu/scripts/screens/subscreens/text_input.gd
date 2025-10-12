@@ -1,5 +1,5 @@
 # Project Luminext - an advanced open-source Lumines spiritual successor
-# Copyright (C) <2024> <unfavorable_enhancer>
+# Copyright (C) <2024-2025> <unfavorable_enhancer>
 # Contact : <random.likes.apes@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -18,32 +18,36 @@
 
 extends MenuScreen
 
-signal closed(result : bool)
-signal closed_text(text : String)
+##-----------------------------------------------------------------------
+## Special dialog for inputting text
+##-----------------------------------------------------------------------
 
-var desc_text : String = "" :
+signal closed(result : bool) ## Emitted when dialog is closed and returns true if player confirmed action, otherwise returns false
+signal closed_text(text : String) ## Emitted when dialog is closed and returns inputtted text
+
+var desc_text : String = "" : ## Dialog description text
 	set(text) : $ColorRect/Label.text = text
 
-var accept_function : Callable
-var cancel_function : Callable
+var accept_function : Callable ## Function will will be called on confirmation accept
+var cancel_function : Callable ## Function will will be called on confirmation cancel
 
 
 func _ready() -> void:
-	menu.screens["foreground"]._raise()
+	parent_menu.screens["foreground"]._raise()
 
-	await menu.all_screens_added
+	await parent_menu.all_screens_added
 	$ColorRect/Name.grab_focus()
 
 	await $ColorRect/Name.text_submitted
 	var input : String = $ColorRect/Name.text
 
 	if input.is_empty():
-		Data.menu._sound("cancel")
+		parent_menu._play_sound("cancel")
 		if cancel_function : cancel_function.call(input)
 		closed.emit(false)
 		closed_text.emit("")
 	else:
-		Data.menu._sound("confirm3")
+		parent_menu._play_sound("confirm3")
 		if accept_function : accept_function.call(input)
 		closed.emit(true)
 		closed_text.emit(input)

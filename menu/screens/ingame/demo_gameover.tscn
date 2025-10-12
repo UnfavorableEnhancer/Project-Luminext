@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://datfro40r61ei"]
 
-[ext_resource type="Script" path="res://menu/scripts/screens/demo_gameover.gd" id="1_ev22y"]
+[ext_resource type="Script" uid="uid://bbxljabxj6iwo" path="res://menu/scripts/screens/demo_gameover.gd" id="1_ev22y"]
 
 [sub_resource type="Animation" id="Animation_sha14"]
 resource_name = "end"
@@ -13,8 +13,8 @@ step = 0.05
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i76yb"]
 _data = {
-"end": SubResource("Animation_sha14"),
-"start": SubResource("14")
+&"end": SubResource("Animation_sha14"),
+&"start": SubResource("14")
 }
 
 [node name="Gameover" type="Control"]

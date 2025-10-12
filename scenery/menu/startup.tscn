@@ -1,38 +1,39 @@
-[gd_scene load_steps=20 format=3 uid="uid://cltu0m5su5emu"]
+[gd_scene load_steps=21 format=3 uid="uid://cltu0m5su5emu"]
 
-[ext_resource type="Script" path="res://scripts/startup.gd" id="1_uko8a"]
+[ext_resource type="Script" uid="uid://2x5wikcfefsb" path="res://scripts/menu/startup.gd" id="1_uko8a"]
+[ext_resource type="FontFile" uid="uid://elfhukttav8" path="res://fonts/Gravity-Light.otf" id="2_66eqt"]
 [ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2_epdba"]
-[ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="3_vil0g"]
 [ext_resource type="Texture2D" uid="uid://cnhvvl7npvop0" path="res://images/menu/disclaimer_icon.png" id="4_a603p"]
+[ext_resource type="FontFile" uid="uid://sawohm8dc1a" path="res://fonts/Gravity-Book.otf" id="4_edjs4"]
 [ext_resource type="Texture2D" uid="uid://bwaxxfoss3b83" path="res://images/menu/epylepsy_warning.png" id="6_vgagi"]
 [ext_resource type="Texture2D" uid="uid://nbb1lk4huo71" path="res://images/menu/headphones_icon.png" id="7_ax6gv"]
 
 [sub_resource type="FontVariation" id="FontVariation_ow1hw"]
-base_font = ExtResource("3_vil0g")
-variation_embolden = -0.5
-spacing_glyph = 1
+base_font = ExtResource("2_66eqt")
+spacing_glyph = 4
 
 [sub_resource type="LabelSettings" id="LabelSettings_uou4c"]
 font = SubResource("FontVariation_ow1hw")
 font_size = 48
 
-[sub_resource type="FontVariation" id="FontVariation_5xkws"]
-base_font = ExtResource("3_vil0g")
-variation_embolden = -0.5
-spacing_glyph = 1
+[sub_resource type="FontVariation" id="FontVariation_66eqt"]
+base_font = ExtResource("2_66eqt")
 
-[sub_resource type="LabelSettings" id="LabelSettings_5u6r6"]
-font = SubResource("FontVariation_5xkws")
-font_size = 64
+[sub_resource type="LabelSettings" id="LabelSettings_hs52g"]
+font = SubResource("FontVariation_66eqt")
+font_size = 48
 
 [sub_resource type="LabelSettings" id="LabelSettings_mvt77"]
 font = ExtResource("2_epdba")
-font_size = 72
+font_size = 64
+
+[sub_resource type="FontVariation" id="FontVariation_hs52g"]
+base_font = ExtResource("4_edjs4")
+spacing_glyph = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_bclqd"]
-line_spacing = 16.0
-font = ExtResource("3_vil0g")
-font_size = 42
+font = SubResource("FontVariation_hs52g")
+font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_s3mvs"]
 font = ExtResource("2_epdba")
@@ -43,10 +44,7 @@ base_font = ExtResource("2_epdba")
 
 [sub_resource type="LabelSettings" id="LabelSettings_n5sj1"]
 font = SubResource("FontVariation_7a1b8")
-font_size = 36
-
-[sub_resource type="Animation" id="Animation_vejhr"]
-length = 0.001
+font_size = 28
 
 [sub_resource type="Animation" id="Animation_ffffa"]
 resource_name = "end"
@@ -192,9 +190,8 @@ tracks/9/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t132f"]
 _data = {
-"RESET": SubResource("Animation_vejhr"),
-"end": SubResource("Animation_ffffa"),
-"start": SubResource("Animation_ffffs")
+&"end": SubResource("Animation_ffffa"),
+&"start": SubResource("Animation_ffffs")
 }
 
 [node name="Startup" type="Control"]
@@ -231,7 +228,7 @@ metadata/_edit_group_ = true
 layout_mode = 0
 offset_top = 312.0
 offset_right = 1920.0
-offset_bottom = 728.0
+offset_bottom = 688.0
 text = "MADE_BY"
 label_settings = SubResource("LabelSettings_uou4c")
 horizontal_alignment = 1
@@ -245,7 +242,7 @@ offset_bottom = 696.0
 text = "
 
 unfavorable_enhancer"
-label_settings = SubResource("LabelSettings_5u6r6")
+label_settings = SubResource("LabelSettings_hs52g")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -260,26 +257,27 @@ metadata/_edit_group_ = true
 [node name="Label" type="Label" parent="Hide/Disclaimer"]
 modulate = Color(1, 1, 1, 5.96046e-08)
 layout_mode = 0
-offset_left = 128.0
-offset_top = 120.0
+offset_top = 232.0
 offset_right = 1920.0
-offset_bottom = 222.0
+offset_bottom = 334.0
 text = "DISCLAIMER"
 label_settings = SubResource("LabelSettings_mvt77")
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="V" type="VBoxContainer" parent="Hide/Disclaimer"]
 layout_mode = 0
 offset_left = 128.0
-offset_top = 280.0
+offset_top = 392.0
 offset_right = 1784.0
-offset_bottom = 960.0
+offset_bottom = 1072.0
 
 [node name="Text" type="Label" parent="Hide/Disclaimer/V"]
 custom_minimum_size = Vector2(1656, 0)
 layout_mode = 2
 text = "DISCLAIMER_TEXT"
 label_settings = SubResource("LabelSettings_bclqd")
+horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="Space" type="Control" parent="Hide/Disclaimer/V"]
@@ -291,6 +289,7 @@ custom_minimum_size = Vector2(1656, 0)
 layout_mode = 2
 text = "DISCLAIMER_TEXT2"
 label_settings = SubResource("LabelSettings_bclqd")
+horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="Space3" type="Control" parent="Hide/Disclaimer/V"]
@@ -302,6 +301,7 @@ custom_minimum_size = Vector2(1656, 0)
 layout_mode = 2
 text = "DISCLAIMER_TEXT3"
 label_settings = SubResource("LabelSettings_bclqd")
+horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="Space2" type="Control" parent="Hide/Disclaimer/V"]
@@ -313,10 +313,11 @@ custom_minimum_size = Vector2(1656, 0)
 layout_mode = 2
 text = "DISCLAIMER_TEXT4"
 label_settings = SubResource("LabelSettings_bclqd")
+horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="Sign" type="TextureRect" parent="Hide/Disclaimer"]
-modulate = Color(1, 1, 1, 0.164706)
+modulate = Color(1, 1, 1, 0.0823529)
 self_modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 layout_mode = 0
@@ -339,26 +340,27 @@ metadata/_edit_group_ = true
 [node name="Label" type="Label" parent="Hide/Epylepsy"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 128.0
-offset_top = 160.0
-offset_right = 1856.0
-offset_bottom = 239.0
+offset_top = 296.0
+offset_right = 1920.0
+offset_bottom = 375.0
 text = "WARNING"
 label_settings = SubResource("LabelSettings_s3mvs")
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="V" type="VBoxContainer" parent="Hide/Epylepsy"]
 layout_mode = 0
 offset_left = 128.0
-offset_top = 312.0
+offset_top = 448.0
 offset_right = 1784.0
-offset_bottom = 960.0
+offset_bottom = 848.0
 
 [node name="Text" type="Label" parent="Hide/Epylepsy/V"]
 custom_minimum_size = Vector2(1656, 0)
 layout_mode = 2
 text = "WARNING_TEXT"
 label_settings = SubResource("LabelSettings_bclqd")
+horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="Space" type="Control" parent="Hide/Epylepsy/V"]
@@ -370,10 +372,11 @@ custom_minimum_size = Vector2(1656, 0)
 layout_mode = 2
 text = "WARNING_TEXT2"
 label_settings = SubResource("LabelSettings_bclqd")
+horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="Sign" type="TextureRect" parent="Hide/Epylepsy"]
-modulate = Color(1, 1, 1, 0.164706)
+modulate = Color(1, 1, 1, 0.0823529)
 self_modulate = Color(1, 1, 1, 0)
 texture_filter = 2
 layout_mode = 0
@@ -396,9 +399,9 @@ metadata/_edit_group_ = true
 [node name="Text" type="Label" parent="Hide/Headphones"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 320.0
+offset_left = 192.0
 offset_top = 408.0
-offset_right = 1680.0
+offset_right = 1792.0
 offset_bottom = 712.0
 text = "HEADPHONES_TEXT"
 label_settings = SubResource("LabelSettings_n5sj1")
@@ -408,7 +411,7 @@ autowrap_mode = 2
 uppercase = true
 
 [node name="Sign" type="TextureRect" parent="Hide/Headphones"]
-modulate = Color(1, 1, 1, 0.164706)
+modulate = Color(1, 1, 1, 0.0823529)
 texture_filter = 2
 layout_mode = 0
 offset_left = 944.0
@@ -421,5 +424,5 @@ stretch_mode = 5
 
 [node name="A" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_t132f")
+&"": SubResource("AnimationLibrary_t132f")
 }

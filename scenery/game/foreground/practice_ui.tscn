@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://brfogw4f8r2g0"]
 
-[ext_resource type="Script" path="res://scripts/game/foreground/practice_ui.gd" id="1_3d3ea"]
+[ext_resource type="Script" uid="uid://cv854k1l7g2td" path="res://scripts/game/foreground/practice_ui.gd" id="1_3d3ea"]
 [ext_resource type="FontFile" uid="uid://hde2h44fr046" path="res://fonts/sani_trixie_sans.ttf" id="3_g2jsu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hcbsy"]
