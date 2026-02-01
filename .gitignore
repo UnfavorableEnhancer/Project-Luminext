@@ -1,0 +1,15 @@
+.import/*
+.godot/*
+
+.vscode/*
+/Luminext.code-workspace
+Project Luminext.code-workspace
+
+bin/*
+user/*
+content/*
+dev/*
+
+addons/ffmpeg/win64/~libgdffmpeg.windows.template_debug.x86_64.dlls
+addons/ffmpeg/win64/~libgdffmpeg.windows.template_debug.x86_64.dll
+
