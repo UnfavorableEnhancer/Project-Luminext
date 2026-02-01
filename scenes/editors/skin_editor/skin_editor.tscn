@@ -1,0 +1,557 @@
+[gd_scene format=3 uid="uid://didcexusdrgu2"]
+
+[ext_resource type="Theme" uid="uid://drr0gigl428ht" path="res://scenes/editors/editor_theme.theme" id="1_e42xq"]
+[ext_resource type="Theme" uid="uid://c2fwvrb6qjj20" path="res://scenes/editors/editor_big_theme.theme" id="2_gtltq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gtltq"]
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_7f0oo"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_e42xq"]
+
+[node name="SkinEditor" type="Control" unique_id=153203508]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_e42xq")
+
+[node name="CoreV" type="VBoxContainer" parent="." unique_id=2066152351]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EditorOptions" type="ColorRect" parent="CoreV" unique_id=1530090867]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+color = Color(0.46875, 0.46875, 0.46875, 1)
+
+[node name="H" type="HBoxContainer" parent="CoreV/EditorOptions" unique_id=622561290]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FileMenu" type="MenuButton" parent="CoreV/EditorOptions/H" unique_id=155442621]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "File"
+item_count = 7
+popup/item_0/text = "New skin"
+popup/item_0/id = 2
+popup/item_1/text = "Load skin"
+popup/item_1/id = 1
+popup/item_2/text = "Save skin"
+popup/item_2/id = 0
+popup/item_3/text = "Save skin as"
+popup/item_3/id = 3
+popup/item_4/id = 5
+popup/item_4/separator = true
+popup/item_5/text = "Export skin assets"
+popup/item_5/id = 4
+popup/item_6/text = "View skin edit history"
+popup/item_6/id = 6
+
+[node name="EditMenu" type="MenuButton" parent="CoreV/EditorOptions/H" unique_id=2049558850]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Edit"
+item_count = 4
+popup/item_0/text = "Undo action"
+popup/item_0/id = 0
+popup/item_1/text = "Redo action"
+popup/item_1/id = 1
+popup/item_2/id = 2
+popup/item_2/separator = true
+popup/item_3/text = "View current assets"
+popup/item_3/id = 3
+
+[node name="Settings" type="Button" parent="CoreV/EditorOptions/H" unique_id=1597534218]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Settings"
+flat = true
+
+[node name="HelpMenu" type="MenuButton" parent="CoreV/EditorOptions/H" unique_id=459635472]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Help"
+item_count = 3
+popup/item_0/text = "View common ID's"
+popup/item_0/id = 0
+popup/item_1/text = "View editor shortcuts"
+popup/item_1/id = 1
+popup/item_2/text = "Open documentation"
+popup/item_2/id = 2
+
+[node name="Info" type="Label" parent="CoreV/EditorOptions/H" unique_id=1925272521]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Project Luminext Skin Editor v0.1"
+horizontal_alignment = 1
+
+[node name="Playtest" type="Button" parent="CoreV/EditorOptions/H" unique_id=720894782]
+custom_minimum_size = Vector2(148, 0)
+layout_mode = 2
+toggle_mode = true
+text = "Playtest skin"
+
+[node name="Exit" type="Button" parent="CoreV/EditorOptions/H" unique_id=778633693]
+custom_minimum_size = Vector2(148, 0)
+layout_mode = 2
+toggle_mode = true
+text = "Exit the editor"
+
+[node name="V" type="VSplitContainer" parent="CoreV" unique_id=2023823533]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="H" type="HSplitContainer" parent="CoreV/V" unique_id=1847339274]
+layout_mode = 2
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(0, 0)
+
+[node name="SkinTree" type="Tree" parent="CoreV/V/H" unique_id=649717153]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+allow_search = false
+
+[node name="Scenery" type="SubViewportContainer" parent="CoreV/V/H" unique_id=2137548303]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CoreV/V/H/Scenery" unique_id=1394458708]
+handle_input_locally = false
+size = Vector2i(1137, 508)
+render_target_update_mode = 4
+
+[node name="PropertyEditor" type="ColorRect" parent="CoreV/V/H" unique_id=1393900648]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.15234375, 0.15234375, 0.15234375, 1)
+
+[node name="Scroll" type="ScrollContainer" parent="CoreV/V/H/PropertyEditor" unique_id=61109440]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="V" type="VBoxContainer" parent="CoreV/V/H/PropertyEditor/Scroll" unique_id=645791452]
+layout_mode = 2
+
+[node name="V" type="VBoxContainer" parent="CoreV/V" unique_id=216116819]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TimingSettings" type="ColorRect" parent="CoreV/V/V" unique_id=1426685511]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+color = Color(0, 0, 0, 1)
+
+[node name="H" type="HBoxContainer" parent="CoreV/V/V/TimingSettings" unique_id=1535592135]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text1" type="Label" parent="CoreV/V/V/TimingSettings/H" unique_id=429582361]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "BPM"
+label_settings = SubResource("LabelSettings_gtltq")
+horizontal_alignment = 1
+
+[node name="BPM" type="SpinBox" parent="CoreV/V/V/TimingSettings/H" unique_id=308704838]
+layout_mode = 2
+theme = ExtResource("2_gtltq")
+max_value = 1000.0
+value = 120.0
+alignment = 1
+
+[node name="Text2" type="Label" parent="CoreV/V/V/TimingSettings/H" unique_id=1355968235]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Length"
+label_settings = SubResource("LabelSettings_gtltq")
+horizontal_alignment = 1
+
+[node name="Length" type="SpinBox" parent="CoreV/V/V/TimingSettings/H" unique_id=1158313036]
+layout_mode = 2
+theme = ExtResource("2_gtltq")
+alignment = 1
+
+[node name="Time" type="Label" parent="CoreV/V/V/TimingSettings/H" unique_id=636976823]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "beat 1 - bar 2 - 00:12.12 / 02:34.00"
+label_settings = SubResource("LabelSettings_gtltq")
+horizontal_alignment = 1
+
+[node name="SequenceEditor" type="ColorRect" parent="CoreV/V/V" unique_id=286842540]
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.05859375, 0.05859375, 0.05859375, 1)
+
+[node name="H" type="HBoxContainer" parent="CoreV/V/V/SequenceEditor" unique_id=2059342310]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="V" type="VBoxContainer" parent="CoreV/V/V/SequenceEditor/H" unique_id=1373734287]
+layout_mode = 2
+
+[node name="Dummy" type="Label" parent="CoreV/V/V/SequenceEditor/H/V" unique_id=1034403353]
+custom_minimum_size = Vector2(256, 32)
+layout_mode = 2
+text = "Sequence Editor"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tracks" type="ScrollContainer" parent="CoreV/V/V/SequenceEditor/H/V" unique_id=1254969528]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="V" type="VBoxContainer" parent="CoreV/V/V/SequenceEditor/H/V/Tracks" unique_id=1373182776]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SequenceTest" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/V/Tracks/V" unique_id=1154200333]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.45606542, 0.13851929, 0.6953125, 1)
+
+[node name="Label" type="Label" parent="CoreV/V/V/SequenceEditor/H/V/Tracks/V/SequenceTest" unique_id=1477606014]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Sequence"
+label_settings = SubResource("LabelSettings_7f0oo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioTest" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/V/Tracks/V" unique_id=1602393314]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.69411767, 0.13725488, 0.48964462, 1)
+
+[node name="Label" type="Label" parent="CoreV/V/V/SequenceEditor/H/V/Tracks/V/AudioTest" unique_id=1188650910]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Audio 1"
+label_settings = SubResource("LabelSettings_7f0oo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioTest2" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/V/Tracks/V" unique_id=1350153660]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.69411767, 0.13725488, 0.48964462, 1)
+
+[node name="Label" type="Label" parent="CoreV/V/V/SequenceEditor/H/V/Tracks/V/AudioTest2" unique_id=1096905986]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Audio 2"
+label_settings = SubResource("LabelSettings_7f0oo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimTest" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/V/Tracks/V" unique_id=281930253]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.13725488, 0.69411767, 0.40698528, 1)
+
+[node name="Label" type="Label" parent="CoreV/V/V/SequenceEditor/H/V/Tracks/V/AnimTest" unique_id=492620676]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Animation 1"
+label_settings = SubResource("LabelSettings_7f0oo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TweenTest" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/V/Tracks/V" unique_id=45868711]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.13725488, 0.44613966, 0.69411767, 1)
+
+[node name="Label" type="Label" parent="CoreV/V/V/SequenceEditor/H/V/Tracks/V/TweenTest" unique_id=1352877202]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Tween 1"
+label_settings = SubResource("LabelSettings_7f0oo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Add" type="HBoxContainer" parent="CoreV/V/V/SequenceEditor/H/V/Tracks/V" unique_id=48595677]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="Audio" type="Button" parent="CoreV/V/V/SequenceEditor/H/V/Tracks/V/Add" unique_id=268880432]
+modulate = Color(1, 0.3359375, 0.92736816, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "+"
+
+[node name="Animation" type="Button" parent="CoreV/V/V/SequenceEditor/H/V/Tracks/V/Add" unique_id=376129983]
+modulate = Color(0.1328125, 1, 0.6748047, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "+"
+
+[node name="Tween" type="Button" parent="CoreV/V/V/SequenceEditor/H/V/Tracks/V/Add" unique_id=429347389]
+modulate = Color(0.296875, 0.7363281, 1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "+"
+
+[node name="Sequence" type="ScrollContainer" parent="CoreV/V/V/SequenceEditor/H" unique_id=1071529199]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="V" type="VBoxContainer" parent="CoreV/V/V/SequenceEditor/H/Sequence" unique_id=1120851483]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Timereel" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/Sequence/V" unique_id=451709801]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.1796875, 0.1796875, 0.1796875, 1)
+
+[node name="Timeline" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/Sequence/V/Timereel" unique_id=182777595]
+z_index = 1
+layout_mode = 0
+offset_left = 674.0
+offset_right = 678.0
+offset_bottom = 9999.0
+color = Color(1, 0.65625, 0, 1)
+
+[node name="Track1" type="HBoxContainer" parent="CoreV/V/V/SequenceEditor/H/Sequence/V" unique_id=1812344441]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Test" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/Sequence/V/Track1" unique_id=6999034]
+custom_minimum_size = Vector2(196, 48)
+layout_mode = 2
+color = Color(0.28312236, 0.09887695, 0.421875, 1)
+
+[node name="Test2" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/Sequence/V/Track1" unique_id=1575367685]
+custom_minimum_size = Vector2(196, 48)
+layout_mode = 2
+color = Color(0.28312236, 0.09887695, 0.421875, 1)
+
+[node name="Test3" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/Sequence/V/Track1" unique_id=129265313]
+custom_minimum_size = Vector2(196, 48)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Test4" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/Sequence/V/Track1" unique_id=708966743]
+custom_minimum_size = Vector2(196, 48)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Test5" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/Sequence/V/Track1" unique_id=649376200]
+custom_minimum_size = Vector2(196, 48)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Test6" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/Sequence/V/Track1" unique_id=1138911318]
+custom_minimum_size = Vector2(196, 48)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Test7" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/Sequence/V/Track1" unique_id=101542051]
+custom_minimum_size = Vector2(196, 48)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Test8" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/Sequence/V/Track1" unique_id=1385804083]
+custom_minimum_size = Vector2(196, 48)
+layout_mode = 2
+color = Color(0.28312236, 0.09887695, 0.421875, 1)
+
+[node name="Test9" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/Sequence/V/Track1" unique_id=517710145]
+custom_minimum_size = Vector2(196, 48)
+layout_mode = 2
+color = Color(0.28312236, 0.09887695, 0.421875, 1)
+
+[node name="Test10" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/Sequence/V/Track1" unique_id=1558778367]
+custom_minimum_size = Vector2(196, 48)
+layout_mode = 2
+color = Color(0.28312236, 0.09887695, 0.421875, 1)
+
+[node name="Test11" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/Sequence/V/Track1" unique_id=1371663628]
+custom_minimum_size = Vector2(196, 48)
+layout_mode = 2
+color = Color(0.28312236, 0.09887695, 0.421875, 1)
+
+[node name="Track2" type="HBoxContainer" parent="CoreV/V/V/SequenceEditor/H/Sequence/V" unique_id=1730693874]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Test" type="ColorRect" parent="CoreV/V/V/SequenceEditor/H/Sequence/V/Track2" unique_id=953213467]
+custom_minimum_size = Vector2(196, 48)
+layout_mode = 2
+color = Color(0.453125, 0.061950684, 0.30987808, 1)
+
+[node name="AnimationEditor" type="ColorRect" parent="CoreV/V/V" unique_id=870028606]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.05859375, 0.05859375, 0.05859375, 1)
+
+[node name="H" type="HBoxContainer" parent="CoreV/V/V/AnimationEditor" unique_id=558049603]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="V" type="VBoxContainer" parent="CoreV/V/V/AnimationEditor/H" unique_id=2002708658]
+layout_mode = 2
+
+[node name="Dummy" type="Label" parent="CoreV/V/V/AnimationEditor/H/V" unique_id=1675468876]
+custom_minimum_size = Vector2(256, 32)
+layout_mode = 2
+text = "Animation Editor"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tracks" type="ScrollContainer" parent="CoreV/V/V/AnimationEditor/H/V" unique_id=1840777203]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="V" type="VBoxContainer" parent="CoreV/V/V/AnimationEditor/H/V/Tracks" unique_id=163621666]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Test" type="ColorRect" parent="CoreV/V/V/AnimationEditor/H/V/Tracks/V" unique_id=2008516032]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.390625, 0.390625, 0.390625, 1)
+
+[node name="Label" type="Label" parent="CoreV/V/V/AnimationEditor/H/V/Tracks/V/Test" unique_id=581772741]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Object 1 [Position]"
+label_settings = SubResource("LabelSettings_e42xq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Test2" type="ColorRect" parent="CoreV/V/V/AnimationEditor/H/V/Tracks/V" unique_id=1825123287]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.390625, 0.390625, 0.390625, 1)
+
+[node name="Label" type="Label" parent="CoreV/V/V/AnimationEditor/H/V/Tracks/V/Test2" unique_id=2062228893]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Object 1 [Rotation]"
+label_settings = SubResource("LabelSettings_e42xq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Add2" type="Button" parent="CoreV/V/V/AnimationEditor/H/V/Tracks/V" unique_id=1907721789]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add track"
+
+[node name="Sequence" type="ScrollContainer" parent="CoreV/V/V/AnimationEditor/H" unique_id=177795517]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="V" type="VBoxContainer" parent="CoreV/V/V/AnimationEditor/H/Sequence" unique_id=2116340798]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Timereel" type="ColorRect" parent="CoreV/V/V/AnimationEditor/H/Sequence/V" unique_id=1176343001]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 1)
+
+[node name="Timeline" type="ColorRect" parent="CoreV/V/V/AnimationEditor/H/Sequence/V/Timereel" unique_id=1483613428]
+z_index = 1
+layout_mode = 0
+offset_left = 674.0
+offset_right = 678.0
+offset_bottom = 9999.0
+color = Color(1, 0.65625, 0, 1)
+
+[node name="Track1" type="Control" parent="CoreV/V/V/AnimationEditor/H/Sequence/V" unique_id=1128506088]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Test" type="ColorRect" parent="CoreV/V/V/AnimationEditor/H/Sequence/V/Track1" unique_id=599578228]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
+offset_left = 105.99999
+offset_top = 2.9999752
+offset_right = 122.0
+offset_bottom = 18.999975
+rotation = 0.7853982
