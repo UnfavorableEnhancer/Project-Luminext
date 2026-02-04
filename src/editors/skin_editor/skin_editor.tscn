@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://didcexusdrgu2"]
 
-[ext_resource type="Theme" uid="uid://drr0gigl428ht" path="res://scenes/editors/editor_theme.theme" id="1_e42xq"]
-[ext_resource type="Theme" uid="uid://c2fwvrb6qjj20" path="res://scenes/editors/editor_big_theme.theme" id="2_gtltq"]
+[ext_resource type="Theme" uid="uid://drr0gigl428ht" path="res://src/editors/editor_theme.theme" id="1_e42xq"]
+[ext_resource type="Theme" uid="uid://c2fwvrb6qjj20" path="res://src/editors/editor_big_theme.theme" id="2_gtltq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gtltq"]
 font_size = 20
@@ -124,7 +124,9 @@ split_offsets = PackedInt32Array(0, 0)
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+allow_rmb_select = true
 allow_search = false
+hide_root = true
 
 [node name="Scenery" type="SubViewportContainer" parent="CoreV/V/H" unique_id=2137548303]
 layout_mode = 2

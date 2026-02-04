@@ -20,8 +20,26 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Project Luminext"
 config/description="Project Luminext Reborn"
+run/main_scene="uid://didcexusdrgu2"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://assets/icon_256.png"
+
+[autoload]
+
+Console="*uid://crfxd17dil4cj"
+Consts="*uid://syj8hegdcdw2"
+Content="*uid://cofq1otc531n8"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+gdscript/warnings/inferred_declaration=1
+gdscript/warnings/unsafe_property_access=1
+gdscript/warnings/unsafe_method_access=1
+gdscript/warnings/unsafe_cast=1
+gdscript/warnings/unsafe_call_argument=1
+gdscript/warnings/return_value_discarded=1
+gdscript/warnings/missing_await=1
 
 [display]
 
