@@ -103,23 +103,23 @@ func load_database() -> STATE:
 	filepath_links.clear()
 	locked_skins.clear()
 	
-	for file_path : String in skin_file_paths : add_file_skin(file_path)
+	for file_path : String in skin_file_paths : 
+		Console.log.call_deferred("Adding skin to database with path : " + file_path)
+		var skin_metadata : SkinMetadata = SkinData.get_metadata_from_file(file_path)
+		add_skin_to_database(skin_metadata, file_path)
 	
 	return STATE.LOADED
 
 
 ## Adds [SkinMetadata] from given skin file **path** into database.
-func add_file_skin(path : String) -> void:
-	Console.log.call_deferred("Adding skin to database with path : " + path)
-	var skin_metadata : SkinMetadata = SkinData.get_metadata_from_file(path)
-	
+func add_skin_to_database(skin_metadata : SkinMetadata, filepath : String) -> void:
 	var album_name : String = skin_metadata.album_name
 	var album_number : int = skin_metadata.album_number
 	if album_number < 0 or (skins.has(album_name) and skins[album_name].has(album_number)): 
 		if skins.has(album_name) : album_number = 9999 - skins[album_name].size()
 		else: album_number = 9999
 	skin_metadata.album_number = album_number
-	skin_metadata.skin_filepath = path
+	skin_metadata.skin_filepath = filepath
 	
 	var skin_uid : StringName = skin_metadata.skin_uid
 	var skin_hash : StringName = skin_metadata.skin_hash
@@ -129,23 +129,22 @@ func add_file_skin(path : String) -> void:
 		var stored_skin_metadata : SkinMetadata = uid_links[skin_uid]
 
 		if stored_skin_metadata.save_timestamp < skin_metadata.save_timestamp:
+			Console.log.call_deferred("Found newer version skin. Older version skin now can be accessed only by its hash.")
 			uid_links[skin_uid] = skin_metadata
 			hash_links[skin_hash] = stored_skin_metadata
-			Console.log.call_deferred("Found newer version skin. Older version skin now can be accessed only by its hash.")
-
-		if stored_skin_metadata.save_timestamp == skin_metadata.save_timestamp:
+		elif stored_skin_metadata.save_timestamp == skin_metadata.save_timestamp:
 			Console.log.call_deferred("Found duplicate skin. Ignoring.")
 			skin_metadata.free()
 			return
 		else:
-			hash_links[skin_hash] = skin_metadata
 			Console.log.call_deferred("Found older version skin. Older version skin can be accessed only by its hash.")
+			hash_links[skin_hash] = skin_metadata
 	else:
 		uid_links[skin_uid] = skin_metadata
 	
 	Console.log.call_deferred("Added skin : %s (%s | %s) [%s | %s]" % [skin_metadata.name, album_name, album_number, skin_uid, skin_hash])
 	
-	filepath_links[path] = skin_metadata
+	filepath_links[filepath] = skin_metadata
 	if not skins.has(album_name) : skins[album_name] = {}
 	skins[album_name][album_number] = skin_metadata
 	
