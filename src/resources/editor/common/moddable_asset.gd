@@ -40,7 +40,7 @@ class TextureAsset:
 		BMP
 	}
 	
-	var texture : Texture = null
+	var texture : Texture2D = null
 	var raw_bytes : PackedByteArray
 	var format : FORMAT = FORMAT.UNKNOWN
 	var uid : StringName = &""

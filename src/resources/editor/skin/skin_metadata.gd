@@ -112,7 +112,6 @@ func insert_asset(asset_type : ASSET_TYPE, asset_filepath : String) -> bool:
 
 ## Loads all metadata assets
 func load_all_assets() -> void:
-	@warning_ignore("return_value_discarded")
 	for asset_type : ASSET_TYPE in ASSET_TYPE : load_asset(asset_type)
 
 ## Loads specified metadata asset

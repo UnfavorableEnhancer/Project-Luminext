@@ -40,7 +40,6 @@ func _notification(what: int) -> void:
 func load(_file : FileAccess) -> SkinConsts.IO_ERROR:
 	return SkinConsts.IO_ERROR.OK
 
-
 ## Saves assets data to passed FileAccess **(must be used only by SkinData.load)**
 func save(_file : FileAccess) -> SkinConsts.IO_ERROR:
 	return SkinConsts.IO_ERROR.OK

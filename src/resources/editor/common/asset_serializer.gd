@@ -39,6 +39,31 @@ static func process_texture(texture_filepath : String, texture_asset : ModdableA
 	return texture_asset
 
 
+## Serializes passed spritesheet file into array of [ModdableAsset.TextureAsset].[br]
+## Passed spritesheet must be linear.[br]
+static func process_spritesheet(texture_filepath : String) -> Array[ModdableAsset.TextureAsset]:
+	var image : Image = Image.load_from_file(texture_filepath)
+	var width : int = image.get_width()
+	var height : int = image.get_height()
+	var frames_amount : int = width / height
+	
+	if frames_amount <= 0 : return []
+	
+	var output_array : Array[ModdableAsset.TextureAsset] = [] 
+	for i : int in frames_amount:
+		var frame : Image = image.get_region(Rect2i(i * width, 0, width, height))
+		var frame_raw : PackedByteArray = frame.save_png_to_buffer()
+		
+		var texture_asset : ModdableAsset.TextureAsset = ModdableAsset.TextureAsset.new()
+		texture_asset.raw_bytes = frame_raw
+		texture_asset.uid = StringName("t" + str(frame_raw).md5_text())
+		texture_asset.format = ModdableAsset.TextureAsset.FORMAT.PNG
+		
+		output_array.append(texture_asset)
+	
+	return output_array
+
+
 ## Serializes passed audio stream file into [ModdableAsset.AudioAsset].[br]
 ## Can serialise into existing passed [ModdableAsset.AudioAsset] for asset replacement.
 static func process_audio(audio_stream_filepath : String, audio_asset : ModdableAsset.AudioAsset = null) -> ModdableAsset.AudioAsset:
