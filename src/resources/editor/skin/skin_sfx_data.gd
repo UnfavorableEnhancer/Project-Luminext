@@ -23,28 +23,51 @@ class_name SkinSFXData
 ## All avaiable sound types.[br]
 ## Each array can store multiple sounds under same UID. If multiple sounds have same UID and segment ID, game will pick random one of those
 var sound_effects : Dictionary[StringName, Array] = {
+	&"move_left" : [],
+	&"move_right" : [],
+	&"rotate_left" : [],
+	&"rotate_right" : [],
+	&"dash_left" : [],
+	&"dash_right" : [],
+	&"drop" : [],
+	&"square_blast" : [],
+	&"square_create" : [],
+	&"timeline_pass" : [],
+	&"timeline_scan" : [],
+	&"4x_bonus" : [],
+	&"special_bonus" : [],
+	&"level_up" : []
 }
 
 ## All used in current sequence segment sounds.
 var current_sound_effects : Dictionary[StringName, SkinSFX] = {
+	&"move_left" : null,
+	&"move_right" : null,
+	&"rotate_left" : null,
+	&"rotate_right" : null,
+	&"dash_left" : null,
+	&"dash_right" : null,
+	&"drop" : null,
+	&"square_blast" : null,
+	&"square_create" : null,
+	&"timeline_pass" : null,
+	&"timeline_scan" : null,
+	&"4x_bonus" : null,
+	&"special_bonus" : null,
+	&"level_up" : null
 }
 
-## Sounds which will be used for UID's which are completely missing in **sounds**.[br]
-# TODO : Put placeholders file paths here
-static var placeholder_sounds : Dictionary[StringName, SkinSFX] = {
-	#&"level_up" : SkinSFX.new(),
-}
 
-## Loads sounds data from passed FileAccess **(must be used only by SkinData.load)**
+## Loads sounds data from passed FileAccess, which has valid skin file opened
 func load(file : FileAccess) -> SkinConsts.IO_ERROR:
 	return SkinConsts.IO_ERROR.OK
 
-## Saves sounds data to passed FileAccess **(must be used only by SkinData.load)**
+## Saves sounds data to passed FileAccess, which has valid skin file opened
 func save(file : FileAccess) -> SkinConsts.IO_ERROR:
 	return SkinConsts.IO_ERROR.OK
 
 ## Loads all sounds with assets from passed [SkinAssetData]
-func prepare(asset_data : SkinAssetData) -> void:
+func load_assets(asset_data : SkinAssetData) -> void:
 	for sound_effects_array : Array in sound_effects.values():
 		for sound_effect : SkinSFX in sound_effects_array:
 			sound_effect.load_assets(asset_data)
@@ -82,31 +105,12 @@ class SkinSFX:
 	var volumes : Array[float] = []
 	## All streams pitch scales
 	var pitches : Array[float] = []
-	
-	
-	## Constructor. If texture path is passed, creates own texture assets from it and creates sprite
-	## NOTE : Should be used only for placeholder blocks
-	func _init(audio_filepath : String = "") -> void:
-		if audio_filepath.is_empty() : return
-		
-		var our_audio_asset : ModdableAsset.AudioAsset = AssetSerializer.process_audio(audio_filepath)
-		AssetLoader.load_audio_stream(our_audio_asset)
-		
-		audio_assets[our_audio_asset.uid] = our_audio_asset
-		streams.append(our_audio_asset.stream)
-		volumes.append(0.0)
-		pitches.append(0.0)
 
 
-	## Copies all needed [AudioAssets] from passed [SkinAssetData]
+	## Copies all needed [AudioAsset] from passed [SkinAssetData]
 	func load_assets(asset_data : SkinAssetData) -> void:
 		for audio_asset_uid : StringName in audio_assets.keys():
-			# If some audio asset is missing, use placeholder audio stream instead
 			if not asset_data.audio.has(audio_asset_uid):
-				if not SkinSFXData.placeholder_sounds.has(uid) : return
-				streams = SkinSFXData.placeholder_sounds[uid].streams
-				volumes = SkinSFXData.placeholder_sounds[uid].volumes
-				pitches = SkinSFXData.placeholder_sounds[uid].pitches
 				return
 			
 			audio_assets[audio_asset_uid] = asset_data.audio[audio_asset_uid]
@@ -120,5 +124,14 @@ class SkinSFX:
 		for audio_asset : ModdableAsset.AudioAsset in audio_assets.values():
 			streams.append(audio_asset.stream)
 
+
+	## Loads sound effect data from passed FileAccess, which has valid skin file opened
+	func load(file : FileAccess) -> SkinConsts.IO_ERROR:
+		return SkinConsts.IO_ERROR.OK
+
+
+	## Saves sound effect data to passed FileAccess, which has valid skin file opened
+	func save(file : FileAccess) -> SkinConsts.IO_ERROR:
+		return SkinConsts.IO_ERROR.OK
 
 # TODO : Add function for passing streams in AudioBus

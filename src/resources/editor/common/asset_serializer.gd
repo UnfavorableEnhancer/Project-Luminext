@@ -22,12 +22,12 @@ class_name AssetSerializer
 
 
 ## Serializes passed texture file into [ModdableAsset.TextureAsset].[br]
-## Can serialise into existing passed [ModdableAsset.TextureAsset] for asset replacement.
-static func process_texture(texture_filepath : String, texture_asset : ModdableAsset.TextureAsset = null) -> ModdableAsset.TextureAsset:
+## Returns **null** on failure.
+static func process_texture(texture_filepath : String) -> ModdableAsset.TextureAsset:
 	var texture_file : FileAccess = FileAccess.open(texture_filepath, FileAccess.READ)
 	if texture_file == null : return null
 	
-	if texture_asset == null : texture_asset = ModdableAsset.TextureAsset.new()
+	var texture_asset : ModdableAsset.TextureAsset = ModdableAsset.TextureAsset.new()
 	
 	texture_asset.raw_bytes = texture_file.get_buffer(texture_file.get_length())
 	match texture_filepath.get_extension():
@@ -40,7 +40,8 @@ static func process_texture(texture_filepath : String, texture_asset : ModdableA
 
 
 ## Serializes passed spritesheet file into array of [ModdableAsset.TextureAsset].[br]
-## Passed spritesheet must be linear.[br]
+## **Passed spritesheet must be linear.**[br]
+## Returns **empty array** on failure.[br]
 static func process_spritesheet(texture_filepath : String) -> Array[ModdableAsset.TextureAsset]:
 	var image : Image = Image.load_from_file(texture_filepath)
 	var width : int = image.get_width()
@@ -65,12 +66,12 @@ static func process_spritesheet(texture_filepath : String) -> Array[ModdableAsse
 
 
 ## Serializes passed audio stream file into [ModdableAsset.AudioAsset].[br]
-## Can serialise into existing passed [ModdableAsset.AudioAsset] for asset replacement.
-static func process_audio(audio_stream_filepath : String, audio_asset : ModdableAsset.AudioAsset = null) -> ModdableAsset.AudioAsset:
+## Returns **null** on failure.
+static func process_audio(audio_stream_filepath : String) -> ModdableAsset.AudioAsset:
 	var audio_file : FileAccess = FileAccess.open(audio_stream_filepath, FileAccess.READ)
 	if audio_file == null : return null
 	
-	if audio_asset == null : audio_asset = ModdableAsset.AudioAsset.new()
+	var audio_asset : ModdableAsset.AudioAsset = ModdableAsset.AudioAsset.new()
 	
 	audio_asset.raw_bytes = audio_file.get_buffer(audio_file.get_length())
 	match audio_stream_filepath.get_extension():
@@ -83,12 +84,12 @@ static func process_audio(audio_stream_filepath : String, audio_asset : Moddable
 
 
 ## Serializes passed video stream file into [ModdableAsset.VideoAsset].[br]
-## Can serialise into existing passed [ModdableAsset.VideoAsset] for asset replacement.
-static func process_video(video_stream_filepath : String, video_asset : ModdableAsset.VideoAsset = null) -> ModdableAsset.VideoAsset:
+## Returns **null** on failure.
+static func process_video(video_stream_filepath : String) -> ModdableAsset.VideoAsset:
 	var video_file : FileAccess = FileAccess.open(video_stream_filepath, FileAccess.READ)
 	if video_file == null : return null
 	
-	if video_asset == null : video_asset = ModdableAsset.VideoAsset.new()
+	var video_asset : ModdableAsset.VideoAsset = ModdableAsset.VideoAsset.new()
 	
 	video_asset.raw_bytes = video_file.get_buffer(video_file.get_length())
 	match video_stream_filepath.get_extension():
@@ -100,12 +101,12 @@ static func process_video(video_stream_filepath : String, video_asset : Moddable
 
 
 ## Serializes passed font file into [ModdableAsset.FontAsset].[br]
-## Can serialise into existing passed [ModdableAsset.FontAsset] for asset replacement.
-static func process_font(font_filepath : String, font_asset : ModdableAsset.FontAsset = null) -> ModdableAsset.FontAsset:
+## Returns **null** on failure.
+static func process_font(font_filepath : String) -> ModdableAsset.FontAsset:
 	var font_file : FileAccess = FileAccess.open(font_filepath, FileAccess.READ)
 	if font_file == null : return null
 	
-	if font_asset == null : font_asset = ModdableAsset.FontAsset.new()
+	var font_asset : ModdableAsset.FontAsset = ModdableAsset.FontAsset.new()
 	
 	font_asset.raw_bytes = font_file.get_buffer(font_file.get_length())
 	match font_filepath.get_extension():

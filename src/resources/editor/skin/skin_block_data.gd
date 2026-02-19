@@ -21,15 +21,42 @@
 ##
 class_name SkinBlockData
 
-signal current_blocks_changed ## Emitted when current block set is updated with other ones
+signal blocks_changed ## Emitted when block set is updated
+signal current_blocks_changed ## Emitted when current block set is updated
 
 ## All avaiable block types.[br]
 ## Each array can store multiple blocks under same UID. If multiple blocks have same UID and segment ID, game will pick random one of those on block spawn
 var blocks : Dictionary[StringName, Array] = {
+	&"red" : [],
+	&"white" : [],
+	&"green" : [],
+	&"purple" : [],
+	&"chain" : [],
+	&"merge" : [],
+	&"wipe" : [],
+	&"column" : [],
+	&"row" : [],
+	&"multi" : [],
+	&"garbage" : [],
+	&"dark" : [],
+	&"erase" : []
 }
 
 ## All used in current sequence segment blocks.
 var current_blocks : Dictionary[StringName, Array] = {
+	&"red" : [],
+	&"white" : [],
+	&"green" : [],
+	&"purple" : [],
+	&"chain" : [],
+	&"merge" : [],
+	&"wipe" : [],
+	&"column" : [],
+	&"row" : [],
+	&"multi" : [],
+	&"garbage" : [],
+	&"dark" : [],
+	&"erase" : []
 }
 
 ## Blocks which will be used for UID's which are completely missing in **blocks**.[br]
@@ -48,19 +75,19 @@ static var placeholder_blocks : Dictionary[StringName, Array] = {
 	&"multi" : [],
 	&"garbage" : [],
 	&"dark" : [],
-	&"erase" : [],
+	&"erase" : []
 }
 
-## Loads blocks data from passed FileAccess **(must be used only by SkinData.load)**
+## Loads all blocks data from passed FileAccess, which has valid skin file opened
 func load(file : FileAccess) -> SkinConsts.IO_ERROR:
 	return SkinConsts.IO_ERROR.OK
 
-## Saves blocks data to passed FileAccess **(must be used only by SkinData.load)**
+## Saves all blocks data to passed FileAccess, which has valid skin file opened
 func save(file : FileAccess) -> SkinConsts.IO_ERROR:
 	return SkinConsts.IO_ERROR.OK
 
 ## Loads all blocks with assets from passed [SkinAssetData]
-func prepare(asset_data : SkinAssetData) -> void:
+func load_assets(asset_data : SkinAssetData) -> void:
 	for block_array : Array in blocks.values():
 		for block : SkinBlock in block_array:
 			block.load_assets(asset_data)
@@ -93,8 +120,8 @@ class SkinBlock:
 	var sprite_frames : SpriteFrames = null ## SpriteFrames instance which game can use for block instance
 	
 	var animation_timing : Array[bool] ## Array of beats on which block animation should start playing
-	var loop_animation : bool = false : set = set_animation_loop ## If true, this block animation will run from start and loop infinitely
-	var animation_fps : int = 30 : set = set_animation_fps ## Animation frames per second
+	var loop_animation : bool = false : set = _set_animation_loop ## If true, this block animation will run from start and loop infinitely
+	var animation_fps : int = 30 : set = _set_animation_fps ## Animation frames per second
 	
 	## Contains all textures used by this blocks
 	var texture_assets : Dictionary[StringName, ModdableAsset.TextureAsset] = { 
@@ -102,13 +129,13 @@ class SkinBlock:
 	}
 	
 	## All frames which contain this animation
-	var frames_assets_uids : Array[StringName] = []
+	var frames : Array[StringName] = []
 	
-	func set_animation_loop(value : bool) -> void:
+	func _set_animation_loop(value : bool) -> void:
 		loop_animation = value
 		if sprite_frames : sprite_frames.set_animation_loop(&"default", value)
 
-	func set_animation_fps(value : int) -> void:
+	func _set_animation_fps(value : int) -> void:
 		animation_fps = value
 		if sprite_frames : sprite_frames.set_animation_speed(&"default", value)
 	
@@ -123,10 +150,10 @@ class SkinBlock:
 		for texture_asset : ModdableAsset.TextureAsset in our_texture_assets:
 			AssetLoader.load_texture(texture_asset)
 			texture_assets[texture_asset.uid] = texture_asset
-			frames_assets_uids[i] = texture_asset.uid
+			frames[i] = texture_asset.uid
 			i += 1
 		
-		create_sprite_frames()
+		_create_sprite_frames()
 
 
 	## Copies all frames [TextureAssets] from passed [SkinAssetData]
@@ -140,16 +167,26 @@ class SkinBlock:
 			
 			texture_assets[texture_asset_uid] = asset_data.textures[texture_asset_uid]
 		
-		create_sprite_frames()
+		_create_sprite_frames()
 
 
 	## Creates proper sprite frames
-	func create_sprite_frames() -> void:
+	func _create_sprite_frames() -> void:
 		sprite_frames = SpriteFrames.new()
 		
-		for texture_asset_uid : StringName in frames_assets_uids:
+		for texture_asset_uid : StringName in frames:
 			var texture_asset : ModdableAsset.TextureAsset = texture_assets[texture_asset_uid]
 			
 			sprite_frames.add_frame(&"default", texture_asset.texture)
 			sprite_frames.set_animation_speed(&"default", animation_fps)
 			sprite_frames.set_animation_loop(&"default", loop_animation)
+
+
+	## Loads block data from passed FileAccess, which has valid skin file opened
+	func load(file : FileAccess) -> SkinConsts.IO_ERROR:
+		return SkinConsts.IO_ERROR.OK
+
+
+	## Saves block data to passed FileAccess, which has valid skin file opened
+	func save(file : FileAccess) -> SkinConsts.IO_ERROR:
+		return SkinConsts.IO_ERROR.OK
