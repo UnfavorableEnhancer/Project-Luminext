@@ -49,7 +49,7 @@ var album_number : int = 0 ## Number of the skin inside album
 
 var info : String = "" ## Additional info about skin
 
-#NOTE ModdableAssets stored here shouldn't be stored in [SkinAssetData] in order to be able to be loaded separately from it
+# NOTE ModdableAssets stored here shouldn't be stored in [SkinAssetData] in order to be able to be loaded separately from it
 
 var cover_art : ModdableAsset.TextureAsset = null ## Skin cover art texture (256x256)
 var label_art : ModdableAsset.TextureAsset = null ## Skin label art texture (256x64)
@@ -67,47 +67,32 @@ func save(file : FileAccess) -> SkinConsts.IO_ERROR:
 	return SkinConsts.IO_ERROR.OK
 
 
+# TODO : Move to modifier class (node)
 ## Inserts asset from passed file path into metadata [ASSET_TYPE][br]
 ## Returns true on success.
 func insert_asset(asset_type : ASSET_TYPE, asset_filepath : String) -> bool:
 	match asset_type:
 		ASSET_TYPE.COVER_ART:
-			var texture_asset : ModdableAsset.TextureAsset
-			
-			if cover_art == null : texture_asset = AssetSerializer.process_texture(asset_filepath)
-			else : texture_asset = AssetSerializer.process_texture(asset_filepath, cover_art)
-			
+			var texture_asset : ModdableAsset.TextureAsset = AssetSerializer.process_texture(asset_filepath)
 			if texture_asset == null : return false
 			cover_art = texture_asset
 			
 		ASSET_TYPE.LABEL_ART:
-			var texture_asset : ModdableAsset.TextureAsset
-			
-			if label_art == null : texture_asset = AssetSerializer.process_texture(asset_filepath)
-			else : texture_asset = AssetSerializer.process_texture(asset_filepath, label_art)
-			
+			var texture_asset : ModdableAsset.TextureAsset = AssetSerializer.process_texture(asset_filepath)
 			if texture_asset == null : return false
 			label_art = texture_asset
 			
 		ASSET_TYPE.ANNOUNCE_SAMPLE:
-			var audio_asset : ModdableAsset.AudioAsset
-			
-			if announce_sample == null : audio_asset = AssetSerializer.process_audio(asset_filepath)
-			else : audio_asset = AssetSerializer.process_audio(asset_filepath, announce_sample)
-			
+			var audio_asset : ModdableAsset.AudioAsset = AssetSerializer.process_audio(asset_filepath)
 			if audio_asset == null : return false
 			announce_sample = audio_asset
 			
 		ASSET_TYPE.PREVIEW_SAMPLE:
-			var audio_asset : ModdableAsset.AudioAsset
-			
-			if preview_sample == null : audio_asset = AssetSerializer.process_audio(asset_filepath)
-			else : audio_asset = AssetSerializer.process_audio(asset_filepath, preview_sample)
-			
+			var audio_asset : ModdableAsset.AudioAsset = AssetSerializer.process_audio(asset_filepath)
 			if audio_asset == null : return false
 			preview_sample = audio_asset
 	
-	return true
+	return load_asset(asset_type)
 
 
 ## Loads all metadata assets

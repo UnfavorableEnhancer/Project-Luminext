@@ -21,30 +21,31 @@
 ##
 class_name SkinBlockData
 
-signal blocks_changed ## Emitted when block set is updated
 signal current_blocks_changed ## Emitted when current block set is updated
 
 ## All avaiable block types.[br]
 ## Each array can store multiple blocks under same UID. If multiple blocks have same UID and segment ID, game will pick random one of those on block spawn
 var blocks : Dictionary[StringName, Array] = {
-	&"red" : [],
-	&"white" : [],
-	&"green" : [],
-	&"purple" : [],
-	&"chain" : [],
-	&"merge" : [],
-	&"wipe" : [],
-	&"column" : [],
-	&"row" : [],
-	&"multi" : [],
-	&"garbage" : [],
-	&"dark" : [],
-	&"erase" : []
+	&"red" : [], # Red block
+	&"white" : [], # White block
+	&"green" : [], # Green block
+	&"purple" : [], # Purple block
+	&"chain" : [], # Chain block overlay (chains and removes all adjacent same-colored blocks)
+	&"merge" : [], # Merge block overlay (turns all blocks in area into own color)
+	&"wipe" : [], # Wipe block overlay (removes all same-colored blocks in area)
+	&"column" : [], # Column block overlay (turns all blocks on same column into own color)
+	&"row" : [], # Row block overlay (turns all blocks on same row into own color)
+	&"multi" : [], # Multi block (can be squared with any color)
+	&"garbage" : [], # Garbage block (erased when adjacent blocks are erased)
+	&"dark" : [], # Dark block (cannot be erased)
+	&"ready" : [], # Ready to delete block overlay
+	&"scan" : [], # Scanned by timeline block overlay
+	&"erase" : [] # Block erase animation overlay
 }
 
 ## All used in current sequence segment blocks.
 var current_blocks : Dictionary[StringName, Array] = {
-	&"red" : [],
+	&"red" : [], 
 	&"white" : [],
 	&"green" : [],
 	&"purple" : [],
@@ -56,6 +57,8 @@ var current_blocks : Dictionary[StringName, Array] = {
 	&"multi" : [],
 	&"garbage" : [],
 	&"dark" : [],
+	&"ready" : [],
+	&"scan" : [],
 	&"erase" : []
 }
 
@@ -75,6 +78,8 @@ static var placeholder_blocks : Dictionary[StringName, Array] = {
 	&"multi" : [],
 	&"garbage" : [],
 	&"dark" : [],
+	&"ready" : [],
+	&"scan" : [],
 	&"erase" : []
 }
 

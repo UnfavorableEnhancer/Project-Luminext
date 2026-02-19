@@ -20,23 +20,25 @@
 ##
 class_name SkinSFXData
 
+signal current_sound_effects_changed ## Emitted when current sound effects set is updated
+
 ## All avaiable sound types.[br]
-## Each array can store multiple sounds under same UID. If multiple sounds have same UID and segment ID, game will pick random one of those
+## Each array can store multiple sounds effects under same UID, but they all must have different **segment ID**.
 var sound_effects : Dictionary[StringName, Array] = {
-	&"move_left" : [],
-	&"move_right" : [],
-	&"rotate_left" : [],
-	&"rotate_right" : [],
-	&"dash_left" : [],
-	&"dash_right" : [],
-	&"drop" : [],
-	&"square_blast" : [],
-	&"square_create" : [],
-	&"timeline_pass" : [],
-	&"timeline_scan" : [],
-	&"4x_bonus" : [],
-	&"special_bonus" : [],
-	&"level_up" : []
+	&"move_left" : [], # Played when piece moves left
+	&"move_right" : [], # Played when piece moves right
+	&"rotate_left" : [],  # Played when piece rotates left
+	&"rotate_right" : [], # Played when piece rotates right
+	&"dash_left" : [], # Played when piece dashes left
+	&"dash_right" : [], # Played when piece dashes right
+	&"land" : [], # Played when piece lands
+	&"square_blast" : [], # Played when square is erased by timeline and explodes
+	&"square_create" : [], # Played when square is created
+	&"timeline_pass" : [], # Played when timeline passes thru blocks
+	&"timeline_scan" : [], # Played when timeline scans erasable blocks
+	&"4x_bonus" : [], # Played when 4x bonus occurs
+	&"special_bonus" : [], # Played when some special bonus (all clear, single color) occurs
+	&"level_up" : [] # Played when next level is reached
 }
 
 ## All used in current sequence segment sounds.
@@ -47,7 +49,7 @@ var current_sound_effects : Dictionary[StringName, SkinSFX] = {
 	&"rotate_right" : null,
 	&"dash_left" : null,
 	&"dash_right" : null,
-	&"drop" : null,
+	&"land" : null,
 	&"square_blast" : null,
 	&"square_create" : null,
 	&"timeline_pass" : null,
@@ -73,21 +75,14 @@ func load_assets(asset_data : SkinAssetData) -> void:
 			sound_effect.load_assets(asset_data)
 
 
-## Called by [SkinSequenceData] when segment changes, so current blocks would be switched with blocks prepared for specified segment.
+## Called by [SkinSequenceData] when segment changes, so current sound effects would be switched with sound effects prepared for specified segment.
 func select_segment(segment_id : int) -> void:
-	var changed_uids : Array[StringName] = []
-	
 	for uid : String in sound_effects.keys():
 		for sound : SkinSFX in sound_effects[uid]:
 			if sound.segment_id == segment_id:
-				if not uid in changed_uids and current_sound_effects.has(uid): 
-					changed_uids.append(uid)
-					current_sound_effects.erase(uid)
-				
-				if not current_sound_effects.has(uid):
-					changed_uids.append(uid)
-				
 				current_sound_effects[uid] = sound
+	
+	current_sound_effects_changed.emit()
 
 
 class SkinSFX:
@@ -99,8 +94,8 @@ class SkinSFX:
 		# audio_asset_uid : audio_asset
 	}
 	
-	## All audio streams which this sound effect can use
-	var streams : Array[AudioStream] = []
+	## All audio assets UID's, which streams this sound effect will use
+	var streams : Array[StringName] = []
 	## All streams volumes
 	var volumes : Array[float] = []
 	## All streams pitch scales
@@ -118,13 +113,6 @@ class SkinSFX:
 		set_streams()
 
 
-	## Creates proper audio streams
-	func set_streams() -> void:
-		streams.clear()
-		for audio_asset : ModdableAsset.AudioAsset in audio_assets.values():
-			streams.append(audio_asset.stream)
-
-
 	## Loads sound effect data from passed FileAccess, which has valid skin file opened
 	func load(file : FileAccess) -> SkinConsts.IO_ERROR:
 		return SkinConsts.IO_ERROR.OK
@@ -134,4 +122,7 @@ class SkinSFX:
 	func save(file : FileAccess) -> SkinConsts.IO_ERROR:
 		return SkinConsts.IO_ERROR.OK
 
-# TODO : Add function for passing streams in AudioBus
+
+	# TODO : Add function for passing streams in AudioBus
+	func set_streams() -> void:
+		pass
