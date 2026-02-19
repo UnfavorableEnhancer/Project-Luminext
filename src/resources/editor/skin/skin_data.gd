@@ -33,7 +33,7 @@ var latest_error : SkinConsts.IO_ERROR = SkinConsts.IO_ERROR.OK ## Latest loadin
 var metadata : SkinMetadata = SkinMetadata.new() ## Contains skin name, artist, BPM and other frontend info
 var assets : SkinAssetData = SkinAssetData.new() ## Contains skin textures, audio streams and other assets
 var animations : SkinAnimationData = SkinAnimationData.new() ## Contains animations for skin scene, effects and other objects
-var scene : SkinSceneData = SkinSceneData.new() ## Contains skin background scenery
+var background_scene : ModdableScene = ModdableScene.new() ## Contains skin background scenery
 var sequence : SkinSequenceData = SkinSequenceData.new() ## Contains skin playback sequence
 var blocks : SkinBlockData = SkinBlockData.new() ## Contains skin blocks data
 var sfx : SkinSFXData = SkinSFXData.new() ## Contains skin sound effects
@@ -72,7 +72,7 @@ func load_from_path(path : String) -> void:
 			SkinConsts.IO_STAGE.METADATA : object_to_load = metadata
 			SkinConsts.IO_STAGE.ASSETS : object_to_load = assets
 			SkinConsts.IO_STAGE.ANIMATIONS : object_to_load = animations
-			SkinConsts.IO_STAGE.SCENE : object_to_load = scene
+			SkinConsts.IO_STAGE.SCENE : object_to_load = background_scene
 			SkinConsts.IO_STAGE.SEQUENCE : object_to_load = sequence
 			SkinConsts.IO_STAGE.BLOCKS : object_to_load = blocks
 			SkinConsts.IO_STAGE.SFX : object_to_load = sfx
@@ -119,7 +119,7 @@ func save_to_file(path : String) -> void:
 			SkinConsts.IO_STAGE.METADATA : object_to_save = metadata
 			SkinConsts.IO_STAGE.ASSETS : object_to_save = assets
 			SkinConsts.IO_STAGE.ANIMATIONS : object_to_save = animations
-			SkinConsts.IO_STAGE.SCENE : object_to_save = scene
+			SkinConsts.IO_STAGE.SCENE : object_to_save = background_scene
 			SkinConsts.IO_STAGE.SEQUENCE : object_to_save = sequence
 			SkinConsts.IO_STAGE.BLOCKS : object_to_save = blocks
 			SkinConsts.IO_STAGE.SFX : object_to_save = sfx

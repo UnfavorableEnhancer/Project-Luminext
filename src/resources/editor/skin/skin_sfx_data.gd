@@ -20,8 +20,6 @@
 ##
 class_name SkinSFXData
 
-signal current_sound_effects_changed ## Emitted when current sound effects set is updated
-
 ## All avaiable sound types.[br]
 ## Each array can store multiple sounds effects under same UID, but they all must have different **segment ID**.
 var sound_effects : Dictionary[StringName, Array] = {
@@ -41,7 +39,7 @@ var sound_effects : Dictionary[StringName, Array] = {
 	&"level_up" : [] # Played when next level is reached
 }
 
-## All used in current sequence segment sounds.
+## All used in current sequence segment sound effects.
 var current_sound_effects : Dictionary[StringName, SkinSFX] = {
 	&"move_left" : null,
 	&"move_right" : null,
@@ -81,8 +79,7 @@ func select_segment(segment_id : int) -> void:
 		for sound : SkinSFX in sound_effects[uid]:
 			if sound.segment_id == segment_id:
 				current_sound_effects[uid] = sound
-	
-	current_sound_effects_changed.emit()
+				sound.set_streams()
 
 
 class SkinSFX:

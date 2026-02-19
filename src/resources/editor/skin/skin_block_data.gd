@@ -24,7 +24,7 @@ class_name SkinBlockData
 signal current_blocks_changed ## Emitted when current block set is updated
 
 ## All avaiable block types.[br]
-## Each array can store multiple blocks under same UID. If multiple blocks have same UID and segment ID, game will pick random one of those on block spawn
+## Each array can store multiple blocks under same UID. If multiple blocks have same UID and segment ID, game will pick random one of those on block spawn.
 var blocks : Dictionary[StringName, Array] = {
 	&"red" : [], # Red block
 	&"white" : [], # White block

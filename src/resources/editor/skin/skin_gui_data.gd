@@ -46,7 +46,7 @@ var gui_modifiers : Dictionary[StringName, Array] = {
 	&"luminext_score_inc_popup" : [] # Luminext score increase number popup (only font and color can be modified)
 }
 
-## All used in current sequence segment blocks.
+## All used in current sequence segment GUI modifiers.
 var current_gui_modifiers : Dictionary[StringName, SkinGUIModifier] = {
 	&"header_score" : null,
 	&"counter_score" : null,
