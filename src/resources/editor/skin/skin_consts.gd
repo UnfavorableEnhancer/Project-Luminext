@@ -26,6 +26,15 @@ const LEGACY_VERSION : int = 7 ## Format version from legacy versions of Project
 const VERSION : int = 10 ## Current format version
 const FILE_COMPRESSION : FileAccess.CompressionMode = FileAccess.CompressionMode.COMPRESSION_ZSTD ## File compression algorythm
 
+## All avaiable skin playback states
+enum PLAYBACK_STATE {
+	CONTINUE, ## Continue and go to the next sample
+	LOOP, ## Loop in the current sample
+	SAVE_AND_CONTINUE, ## Save current sample as checkpoint and go to the next sample
+	SAVE_AND_LOOP, ## Save current sample as checkpoint and loop in it
+	RETURN, ## Return to the latest saved checkpoint sample on reach, switch to this sample when requested by gameplay
+}
+
 ## Enum of skin data states
 enum STATE {
 	NONE,
@@ -39,12 +48,12 @@ enum IO_STAGE {
 	METADATA,
 	ASSETS,
 	ANIMATIONS,
-	SCENE,
-	SEQUENCE,
 	BLOCKS,
 	SFX,
 	EFFECTS,
 	GUI,
+	SCENE,
+	SEQUENCE,
 	FINISHED
 }
 
@@ -54,5 +63,8 @@ enum IO_ERROR {
 	FILE_ERROR,
 	DEPRECATED_VERSION,
 	VERSION_WRITE_FAILURE,
-	NO_METADATA
+	NO_METADATA,
+	MISSING_ASSETS,
+	MISSING_ASSETS_OR_ANIMATIONS,
+	UNKNONW
 }

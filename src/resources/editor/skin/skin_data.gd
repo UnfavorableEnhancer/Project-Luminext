@@ -85,6 +85,24 @@ func load_from_path(path : String) -> void:
 			file.close()
 			io_finished.emit.call_deferred()
 			return
+		
+		if stage in [SkinConsts.IO_STAGE.SCENE, 
+			SkinConsts.IO_STAGE.BLOCKS, 
+			SkinConsts.IO_STAGE.SFX, 
+			SkinConsts.IO_STAGE.EFFECTS, 
+			SkinConsts.IO_STAGE.GUI]:
+				if not object_to_load.load_assets(assets):
+					latest_error = SkinConsts.IO_ERROR.MISSING_ASSETS
+					file.close()
+					io_finished.emit.call_deferred()
+					return
+		
+		if stage == SkinConsts.IO_STAGE.SEQUENCE:
+			if not object_to_load.load_tracks_assets(assets, animations):
+				latest_error = SkinConsts.IO_ERROR.MISSING_ASSETS_OR_ANIMATIONS
+				file.close()
+				io_finished.emit.call_deferred()
+				return
 	
 	metadata.skin_filepath = path
 	

@@ -87,7 +87,7 @@ func load_database() -> STATE:
 	Console.space.call_deferred()
 	Console.log.call_deferred("Loading skin database...")
 	
-	var skin_file_paths : PackedStringArray = get_skin_files()
+	var skin_file_paths : PackedStringArray = _get_skin_files()
 	var current_skin_files_count : int = skin_file_paths.size()
 	Console.log.call_deferred("Found: %s skin files" % current_skin_files_count)
 	
@@ -194,7 +194,7 @@ func get_random_skins_metadata(amount : int = -1) -> Array[SkinMetadata]:
 
 
 ## Returns skin files paths array.
-func get_skin_files() -> PackedStringArray:
+func _get_skin_files() -> PackedStringArray:
 	var skin_file_paths : PackedStringArray = PackedStringArray()
 	
 	var search_func : Callable
