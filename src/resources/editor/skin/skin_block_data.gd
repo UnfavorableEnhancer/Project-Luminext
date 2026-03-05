@@ -24,7 +24,7 @@ class_name SkinBlockData
 signal current_blocks_changed ## Emitted when current block set is updated
 
 ## All avaiable block types.[br]
-## Each array can store multiple blocks under same UID. If multiple blocks have same UID and segment ID, game will pick random one of those on block spawn.
+## Each array can store multiple blocks under same UID. If multiple blocks have same UID and variant ID, game will pick random one of those on block spawn.
 var blocks : Dictionary[StringName, Array] = {
 	&"red" : [], # Red block
 	&"white" : [], # White block
@@ -43,7 +43,7 @@ var blocks : Dictionary[StringName, Array] = {
 	&"erase" : [] # Block erase animation overlay
 }
 
-## All used in current sequence segment blocks.
+## All currently used blocks.
 var current_blocks : Dictionary[StringName, Array] = {
 	&"red" : [], 
 	&"white" : [],
@@ -98,13 +98,13 @@ func load_assets(asset_data : SkinAssetData) -> void:
 			block.load_assets(asset_data)
 
 
-## Called by [SkinSequenceData] when segment changes, so current blocks would be switched with blocks prepared for specified segment.
-func select_segment(segment_id : int) -> void:
+## Called by [SkinSequenceData] when data variant changes, so current blocks would be switched with blocks prepared for specified variant.
+func select_variant(variant_id : int) -> void:
 	var changed_uids : Array[StringName] = []
 	
 	for uid : String in blocks.keys():
 		for block : SkinBlock in blocks[uid]:
-			if block.segment_id == segment_id:
+			if block.variant_id == variant_id:
 				if not uid in changed_uids and current_blocks.has(uid): 
 					changed_uids.append(uid)
 					current_blocks.erase(uid)
@@ -121,7 +121,9 @@ func select_segment(segment_id : int) -> void:
 
 class SkinBlock:
 	var uid : StringName = &"none" ## Unique ID used by certain block types to take it's texture from
-	var segment_id : int = 0 ## Skin sequence segment on which this block will be used
+	var index : int = 0 ## Index inside array containing this block
+	
+	var variant_id : int = 0 ## Data variant number on which this block will be used
 	var sprite_frames : SpriteFrames = null ## SpriteFrames instance which game can use for block instance
 	
 	var animation_timing : Array[bool] ## Array of beats on which block animation should start playing

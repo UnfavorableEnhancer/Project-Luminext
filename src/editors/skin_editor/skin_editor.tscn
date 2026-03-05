@@ -2,6 +2,8 @@
 
 [ext_resource type="Theme" uid="uid://drr0gigl428ht" path="res://src/editors/editor_theme.theme" id="1_e42xq"]
 [ext_resource type="Theme" uid="uid://c2fwvrb6qjj20" path="res://src/editors/editor_big_theme.theme" id="2_gtltq"]
+[ext_resource type="Script" uid="uid://8wyfa18m4ci7" path="res://src/editors/skin_editor/skin_editor.gd" id="2_q5srf"]
+[ext_resource type="Script" uid="uid://cnmuxvnsyli5a" path="res://src/editors/skin_editor/tree/skin_editor_tree.gd" id="3_873s3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gtltq"]
 font_size = 20
@@ -19,6 +21,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_e42xq")
+script = ExtResource("2_q5srf")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="CoreV" type="VBoxContainer" parent="." unique_id=2066152351]
 layout_mode = 1
@@ -121,12 +126,14 @@ size_flags_vertical = 3
 split_offsets = PackedInt32Array(0, 0)
 
 [node name="SkinTree" type="Tree" parent="CoreV/V/H" unique_id=649717153]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 allow_rmb_select = true
 allow_search = false
 hide_root = true
+script = ExtResource("3_873s3")
 
 [node name="Scenery" type="SubViewportContainer" parent="CoreV/V/H" unique_id=2137548303]
 layout_mode = 2
@@ -557,3 +564,117 @@ offset_top = 2.9999752
 offset_right = 122.0
 offset_bottom = 18.999975
 rotation = 0.7853982
+
+[node name="OptionsPopup" type="PopupMenu" parent="." unique_id=1789843646]
+oversampling_override = 1.0
+
+[node name="FileBrowser" type="FileDialog" parent="." unique_id=1635968224]
+oversampling_override = 1.0
+initial_position = 1
+size = Vector2i(1280, 720)
+
+[node name="Center" type="CenterContainer" parent="." unique_id=107925575]
+z_index = 10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ConfirmDialog" type="ColorRect" parent="Center" unique_id=1195689296]
+custom_minimum_size = Vector2(480, 180)
+layout_mode = 2
+color = Color(0.15234375, 0.15234375, 0.15234375, 1)
+
+[node name="V" type="VBoxContainer" parent="Center/ConfirmDialog" unique_id=978803689]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="M" type="Control" parent="Center/ConfirmDialog/V" unique_id=1272014932]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Center/ConfirmDialog/V" unique_id=1315123781]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+text = "Everything is bad"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="Center/ConfirmDialog/V" unique_id=389516547]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Do something with it?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="H" type="HBoxContainer" parent="Center/ConfirmDialog/V" unique_id=204886166]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 96
+alignment = 1
+
+[node name="Confirm" type="Button" parent="Center/ConfirmDialog/V/H" unique_id=409521628]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Confirm"
+
+[node name="Cancel" type="Button" parent="Center/ConfirmDialog/V/H" unique_id=2120967074]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Cancel"
+
+[node name="M2" type="Control" parent="Center/ConfirmDialog/V" unique_id=548347359]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="MessageDialog" type="ColorRect" parent="Center" unique_id=1459294545]
+visible = false
+custom_minimum_size = Vector2(480, 180)
+layout_mode = 2
+color = Color(0.15234375, 0.15234375, 0.15234375, 1)
+
+[node name="V" type="VBoxContainer" parent="Center/MessageDialog" unique_id=2114161659]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="M" type="Control" parent="Center/MessageDialog/V" unique_id=98323745]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Center/MessageDialog/V" unique_id=232422664]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+text = "Error!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="Center/MessageDialog/V" unique_id=1934731276]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Everything gone wrong!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OK" type="Button" parent="Center/MessageDialog/V" unique_id=972385369]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "OK"
+
+[node name="M2" type="Control" parent="Center/MessageDialog/V" unique_id=307879239]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[connection signal="item_edited" from="CoreV/V/H/SkinTree" to="CoreV/V/H/SkinTree" method="_on_item_edited"]
+[connection signal="item_mouse_selected" from="CoreV/V/H/SkinTree" to="CoreV/V/H/SkinTree" method="_on_item_mouse_selected"]
+[connection signal="item_selected" from="CoreV/V/H/SkinTree" to="CoreV/V/H/SkinTree" method="_on_item_selected"]
