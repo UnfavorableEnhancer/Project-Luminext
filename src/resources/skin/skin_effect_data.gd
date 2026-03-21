@@ -20,26 +20,31 @@
 ##
 class_name SkinEffectData
 
-## All avaiable effects.[br]
-## Each array can store multiple effects under same UID. If multiple effects have same UID and segment ID, game will pick random one of those on effect spawn.
-var effects : Dictionary[StringName, Array] = {
-	&"red_square" : [], # Red square
-	&"white_square" : [], # White square
-	&"green_square" : [], # Green square
-	&"purple_square" : [], # Purple square
-	&"square_blast" : [], # Spawned when timeline erases square
-	&"square_scan" : [], # Spawned when timeline scans square
-	&"4x_bonus_1" : [], # Spawned on 4X bonus
-	&"4x_bonus_2" : [], # Spawned on 4X bonus (when combo == 2)
-	&"4x_bonus_3" : [], # Spawned on 4X bonus (when combo == 3) 
-	&"4x_bonus_4" : [], # Spawned on 4X bonus (when combo >= 4)
-	&"rotate_left" : [], # Spawned when piece rotates left
-	&"rotate_right" : [], # Spawned when piece rotates right
-	&"move_left" : [], # Spawned when piece moves left
-	&"move_right" : [], # Spawned when piece moves right
-	&"dash_left" : [], # Spawned when piece dashes left
-	&"dash_right" : [], # Spawned when piece dashes right
-	&"piece_land" : [] # Spawned when piece lands
+## All avaiable visual effects.[br]
+## This dictionary contains several "variants" (indicated by int), each containing own dictionary of effects arrays.[br]
+## Each effects array in variant dictionary is assigned to specific effect UID, which gives the game an idea when this effect should be used.[br]
+## If array has multiple effects, game will select random one on spawn.[br]
+## If on variant switch, there aren't any effects of some type in next variant, game will keep working with previous variant effects.
+var effects : Dictionary[int, Dictionary] = {
+	0 : {
+		&"red_square" : [], # Red square
+		&"white_square" : [], # White square
+		&"green_square" : [], # Green square
+		&"purple_square" : [], # Purple square
+		&"square_blast" : [], # Spawned when timeline erases square
+		&"square_scan" : [], # Spawned when timeline scans square
+		&"4x_bonus_1" : [], # Spawned on 4X bonus
+		&"4x_bonus_2" : [], # Spawned on 4X bonus (when combo == 2)
+		&"4x_bonus_3" : [], # Spawned on 4X bonus (when combo == 3) 
+		&"4x_bonus_4" : [], # Spawned on 4X bonus (when combo >= 4)
+		&"rotate_left" : [], # Spawned when piece rotates left
+		&"rotate_right" : [], # Spawned when piece rotates right
+		&"move_left" : [], # Spawned when piece moves left
+		&"move_right" : [], # Spawned when piece moves right
+		&"dash_left" : [], # Spawned when piece dashes left
+		&"dash_right" : [], # Spawned when piece dashes right
+		&"piece_land" : [] # Spawned when piece lands
+	}
 }
 
 ## All used in current sequence segment effects.
@@ -78,28 +83,20 @@ func load_assets(asset_data : SkinAssetData) -> void:
 			effect.load_assets(asset_data)
 
 
-## Called by [SkinSequenceData] when segment changes, so current effects would be switched with effects prepared for specified segment.
-func select_segment(segment_id : int) -> void:
-	var changed_uids : Array[StringName] = []
-	
-	for uid : String in effects.keys():
-		for effect : SkinEffect in effects[uid]:
-			if effect.segment_id == segment_id:
-				if not uid in changed_uids and current_effects.has(uid): 
-					changed_uids.append(uid)
-					current_effects.erase(uid)
-					current_effects[uid] = []
-				
-				if not current_effects.has(uid):
-					changed_uids.append(uid)
-					current_effects[uid] = []
-				
-				current_effects[uid].append(effects[uid])
+## Called by [SkinSequenceData] when variant changes, so current visual effects would be switched with effects prepared for specified variant.
+func select_variant(variant_id : int) -> void:
+	var next_variant_effects : Dictionary = effects[variant_id]
+	for uid : String in next_variant_effects.keys():
+		var effects_array : Array = next_variant_effects[uid]
+		if effects_array.is_empty() : continue
+		
+		current_effects[uid] = effects_array
 
 
 class SkinEffect:
-	var uid : StringName = &"none" ## Unique ID used by certain GUI element to modify itself
-	var segment_id : int = 0 ## Skin sequence segment on which this GUI modifier will be used
+	var uid : StringName = &"none" ## Visual effect unique ID, used by game to determine when to use it
+	var index : int = 0 ## Index inside array containing this effect
+	var variant_id : int = 0 ## Data variant number on which this visual effect will be used
 	
 	var scene : ModdableScene = ModdableScene.new()
 	var animation : Animation = Animation.new()

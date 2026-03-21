@@ -52,78 +52,83 @@ func _load_all_assets() -> void:
 	for font_asset : ModdableAsset.FontAsset in fonts.values() : AssetLoader.load_font(font_asset)
 
 
-## Inserts passed texture file into texture assets dictionary and returns serialized and loaded [ModdableAsset.TextureAsset].[br]
+## Inserts passed texture file into texture assets dictionary and returns serialized and loaded [ModdableAsset.TextureAsset] UID.[br]
 ## Returns **null** on failure.
-func insert_texture(texture_filepath : String) -> ModdableAsset.TextureAsset:
+func insert_texture(texture_filepath : String) -> StringName:
 	var texture_asset : ModdableAsset.TextureAsset = AssetSerializer.process_texture(texture_filepath)
-	if texture_asset == null : return null
+	if texture_asset == null : return &""
 	
 	# If this texture is already inserted or exactly same, reuse it
-	if texture_asset.uid in textures : return textures[texture_asset.uid]
+	if texture_asset.uid in textures : return texture_asset.uid
 	
 	textures[texture_asset.uid] = texture_asset
 	AssetLoader.load_texture(texture_asset)
-	return texture_asset
+	return texture_asset.uid
 
 
-## Inserts passed spritesheet file into texture assets dictionary and returns array of serialized and loaded [ModdableAsset.TextureAsset].[br]
+## Inserts passed spritesheet file into texture assets dictionary and returns array of serialized and loaded [ModdableAsset.TextureAsset] UID's.[br]
 ## Returns **empty array** on failure.
-func insert_spritesheet(texture_filepath : String) -> Array[ModdableAsset.TextureAsset]:
+func insert_spritesheet(texture_filepath : String) -> Array[StringName]:
+	# TODO : Fix invalid texture splitting
+	
 	var texture_assets : Array[ModdableAsset.TextureAsset] = AssetSerializer.process_spritesheet(texture_filepath)
 	if texture_assets.is_empty() : return []
 	
+	var texture_uids : Array[StringName] = []
 	for texture_asset : ModdableAsset.TextureAsset in texture_assets:
+		texture_uids.append(texture_asset.uid)
 		if texture_asset.uid in textures: continue
 		
 		textures[texture_asset.uid] = texture_asset
 		AssetLoader.load_texture(texture_asset)
 	
-	return texture_assets
+	return texture_uids
 
 
-## Inserts passed audio stream file into audio assets dictionary and returns serialized and loaded [ModdableAsset.AudioAsset].[br]
+## Inserts passed audio stream file into audio assets dictionary and returns serialized and loaded [ModdableAsset.AudioAsset] UID.[br]
 ## Returns **null** on failure.
-func insert_audio(audio_stream_filepath : String) -> ModdableAsset.AudioAsset:
+func insert_audio(audio_stream_filepath : String) -> StringName:
 	var audio_asset : ModdableAsset.AudioAsset = AssetSerializer.process_audio(audio_stream_filepath)
-	if audio_asset == null : return null
+	if audio_asset == null : return &""
 	
 	# If this texture is already inserted or exactly same, reuse it
-	if audio_asset.uid in audio : return audio[audio_asset.uid]
+	if audio_asset.uid in audio : return audio_asset.uid
 	
 	audio[audio_asset.uid] = audio_asset
 	AssetLoader.load_audio_stream(audio_asset)
-	return audio_asset
+	return audio_asset.uid
 
 
-## Inserts passed video stream file into video assets dictionary and returns serialized and loaded [ModdableAsset.VideoAsset].[br]
+## Inserts passed video stream file into video assets dictionary and returns serialized and loaded [ModdableAsset.VideoAsset] UID.[br]
 ## Returns **null** on failure.
-func insert_video(video_stream_filepath : String) -> ModdableAsset.VideoAsset:
+func insert_video(video_stream_filepath : String) -> StringName:
 	var video_asset : ModdableAsset.VideoAsset = AssetSerializer.process_video(video_stream_filepath)
-	if video_asset == null : return null
+	if video_asset == null : return &""
 	
 	# If this texture is already inserted or exactly same, reuse it
-	if video_asset.uid in video : return video[video_asset.uid]
+	if video_asset.uid in video : return video_asset.uid
 	
 	video[video_asset.uid] = video_asset
 	AssetLoader.load_video_stream(video_asset)
-	return video_asset
+	return video_asset.uid
 
 
-## Inserts passed texture file into texture assets dictionary and returns serialized and loaded [ModdableAsset.FontAsset].[br]
+## Inserts passed texture file into texture assets dictionary and returns serialized and loaded [ModdableAsset.FontAsset] UID.[br]
 ## Returns **null** on failure.
-func insert_font(font_filepath : String) -> ModdableAsset.FontAsset:
+func insert_font(font_filepath : String) -> StringName:
 	var font_asset : ModdableAsset.FontAsset = AssetSerializer.process_font(font_filepath)
-	if font_asset == null : return null
+	if font_asset == null : return &""
 	
 	# If this font is already inserted or exactly same, reuse it
-	if font_asset.uid in fonts : return fonts[font_asset.uid]
+	if font_asset.uid in fonts : return font_asset.uid
 	
 	fonts[font_asset.uid] = font_asset
 	AssetLoader.load_font(font_asset)
-	return font_asset
+	return font_asset.uid
 
 
 ## Removes all loaded video files from cache
+# TODO : Fix error on exit
 func _clear_video_cache() -> void:
 	for video_asset : ModdableAsset.VideoAsset in video.values():
 		if video_asset.stream != null:

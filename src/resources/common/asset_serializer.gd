@@ -34,8 +34,9 @@ static func process_texture(texture_filepath : String) -> ModdableAsset.TextureA
 		"png" : texture_asset.format = ModdableAsset.TextureAsset.FORMAT.PNG
 		"jpg", "jpeg" : texture_asset.format = ModdableAsset.TextureAsset.FORMAT.JPEG
 		"bmp" : texture_asset.format = ModdableAsset.TextureAsset.FORMAT.BMP
+		_ : return null
 	
-	texture_asset.uid = StringName("t" + FileAccess.get_md5(texture_filepath))
+	texture_asset.uid = StringName(ModdableAsset.TextureAsset.UID_PREFIX + FileAccess.get_md5(texture_filepath))
 	return texture_asset
 
 
@@ -57,7 +58,7 @@ static func process_spritesheet(texture_filepath : String) -> Array[ModdableAsse
 		
 		var texture_asset : ModdableAsset.TextureAsset = ModdableAsset.TextureAsset.new()
 		texture_asset.raw_bytes = frame_raw
-		texture_asset.uid = StringName("t" + str(frame_raw).md5_text())
+		texture_asset.uid = StringName(ModdableAsset.TextureAsset.UID_PREFIX + str(frame_raw).md5_text())
 		texture_asset.format = ModdableAsset.TextureAsset.FORMAT.PNG
 		
 		output_array.append(texture_asset)
@@ -78,8 +79,9 @@ static func process_audio(audio_stream_filepath : String) -> ModdableAsset.Audio
 		"ogg" : audio_asset.format = ModdableAsset.AudioAsset.FORMAT.OGG
 		"mp3" : audio_asset.format = ModdableAsset.AudioAsset.FORMAT.MP3
 		"wav" : audio_asset.format = ModdableAsset.AudioAsset.FORMAT.WAV
+		_ : return null
 	
-	audio_asset.uid = StringName("a" + FileAccess.get_md5(audio_stream_filepath))
+	audio_asset.uid = StringName(ModdableAsset.AudioAsset.UID_PREFIX + FileAccess.get_md5(audio_stream_filepath))
 	return audio_asset
 
 
@@ -95,8 +97,9 @@ static func process_video(video_stream_filepath : String) -> ModdableAsset.Video
 	match video_stream_filepath.get_extension():
 		"webm" : video_asset.format = ModdableAsset.VideoAsset.FORMAT.WEBM
 		"mp4" : video_asset.format = ModdableAsset.VideoAsset.FORMAT.MP4
+		_ : return null
 	
-	video_asset.uid = StringName("v" + FileAccess.get_md5(video_stream_filepath))
+	video_asset.uid = StringName(ModdableAsset.VideoAsset.UID_PREFIX + FileAccess.get_md5(video_stream_filepath))
 	return video_asset
 
 
@@ -112,6 +115,7 @@ static func process_font(font_filepath : String) -> ModdableAsset.FontAsset:
 	match font_filepath.get_extension():
 		"ttf" : font_asset.format = ModdableAsset.FontAsset.FORMAT.TTF
 		"otf" : font_asset.format = ModdableAsset.FontAsset.FORMAT.OTF
+		_ : return null
 	
-	font_asset.uid = StringName("f" + FileAccess.get_md5(font_filepath))
+	font_asset.uid = StringName(ModdableAsset.FontAsset.UID_PREFIX + FileAccess.get_md5(font_filepath))
 	return font_asset

@@ -23,27 +23,31 @@ class_name SkinGUIData
 signal current_gui_modifiers_changed ## Emitted when current GUI modifiers set is updated
 
 ## All avaiable GUI modifiers.[br]
-## Each array can store multiple GUI modifiers under same UID, but they all must have different **segment ID**.
-var gui_modifiers : Dictionary[StringName, Array] = {
-	&"header_score" : [], # Score counter header (only texture can be modified)
-	&"counter_score" : [], # Score counter (only font and color can be modified)
-	&"header_hiscore" : [], # Hi-Score counter header (only texture can be modified)
-	&"counter_hiscore" : [], # Hi-Score counter (only font and color can be modified)
-	&"header_time" : [], # Time counter header (only texture can be modified)
-	&"counter_time" : [], # Time counter (only font and color can be modified)
-	&"header_level" : [], # Level counter header (only texture can be modified)
-	&"counter_level" : [], # Level counter (only font and color can be modified)
-	&"header_deleted" : [], # Deleted counter header (only texture can be modified)
-	&"counter_deleted" : [], # Deleted counter (only font and color can be modified)
-	&"luminext_board" : [], # Luminext base board, where blocks, squares and timeline are shown
-	&"luminext_piece_queue" : [], # Luminext piece queue, which shows next pieces in queue
-	&"luminext_piece_holder" : [], # Luminext piece holder, which holds current piece
-	&"luminext_audio_visualizer" : [], # Luminext audio visualizer, which reacts to all audio playing
-	&"luminext_timeline" : [], # Luminext timeline header
-	&"luminext_timeline_bar" : [], # Luminext timeline bar
-	&"luminext_4x_bonus_popup" : [], # Luminext 4x bonus results popup
-	&"luminext_square_num_popup" : [], # Luminext square amount number popup (only font and color can be modified)
-	&"luminext_score_inc_popup" : [] # Luminext score increase number popup (only font and color can be modified)
+## This dictionary contains several "variants" (indicated by int), each containing own dictionary of GUI modifiers.[br]
+## Each GUI modifier in variant dictionary is assigned to specific GUI modifier UID, which gives the game an idea where this GUI modifier should be used.[br]
+## If on variant switch, there aren't any GUI modifier of some type in next variant, game will keep working with previous GUI modifier.
+var gui_modifiers : Dictionary[int, Dictionary] = {
+	0 : {
+		&"header_score" : null, # Score counter header (only texture can be modified)
+		&"counter_score" : null, # Score counter (only font and color can be modified)
+		&"header_hiscore" : null, # Hi-Score counter header (only texture can be modified)
+		&"counter_hiscore" : null, # Hi-Score counter (only font and color can be modified)
+		&"header_time" : null, # Time counter header (only texture can be modified)
+		&"counter_time" : null, # Time counter (only font and color can be modified)
+		&"header_level" : null, # Level counter header (only texture can be modified)
+		&"counter_level" : null, # Level counter (only font and color can be modified)
+		&"header_deleted" : null, # Deleted counter header (only texture can be modified)
+		&"counter_deleted" : null, # Deleted counter (only font and color can be modified)
+		&"luminext_board" : null, # Luminext base board, where blocks, squares and timeline are shown
+		&"luminext_piece_queue" : null, # Luminext piece queue, which shows next pieces in queue
+		&"luminext_piece_holder" : null, # Luminext piece holder, which holds current piece
+		&"luminext_audio_visualizer" : null, # Luminext audio visualizer, which reacts to all audio playing
+		&"luminext_timeline" : null, # Luminext timeline header
+		&"luminext_timeline_bar" : null, # Luminext timeline bar
+		&"luminext_4x_bonus_popup" : null, # Luminext 4x bonus results popup
+		&"luminext_square_num_popup" : null, # Luminext square amount number popup (only font and color can be modified)
+		&"luminext_score_inc_popup" : null # Luminext score increase number popup (only font and color can be modified)
+	}
 }
 
 ## All used in current sequence segment GUI modifiers.
@@ -86,19 +90,19 @@ func load_assets(asset_data : SkinAssetData) -> void:
 			gui_modifier.load_assets(asset_data)
 
 
-## Called by [SkinSequenceData] when segment changes, so current GUI modifiers would be switched with GUI modifiers prepared for specified segment.
-func select_segment(segment_id : int) -> void:
-	for uid : String in gui_modifiers.keys():
-		for gui_modifier : SkinGUIModifier in gui_modifiers[uid]:
-			if gui_modifier.segment_id == segment_id:
-				current_gui_modifiers[uid] = gui_modifier
-	
-	current_gui_modifiers_changed.emit()
+## Called by [SkinSequenceData] when variant changes, so current GUI modifier would be switched with GUI modifier prepared for specified variant.
+func select_variant(variant_id : int) -> void:
+	var next_variant_modifiers : Dictionary = gui_modifiers[variant_id]
+	for uid : String in next_variant_modifiers.keys():
+		var gui_modifier : SkinGUIModifier = next_variant_modifiers[uid]
+		if gui_modifier == null : continue
+		
+		current_gui_modifiers[uid] = gui_modifier
 
 
 class SkinGUIModifier:
 	var uid : StringName = &"none" ## Unique ID used by certain GUI element to modify itself
-	var segment_id : int = 0 ## Skin sequence segment on which this GUI modifier will be used
+	var variant_id : int = 0 ## Data variant number on which this GUI modifier will be used
 	
 	var texture : ModdableAsset.TextureAsset = null ## GUI element texture asset
 	var texture_uid : StringName = &"" ## GUI element texture asset uid

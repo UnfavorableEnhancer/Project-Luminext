@@ -40,6 +40,8 @@ class TextureAsset:
 		BMP
 	}
 	
+	const UID_PREFIX : String = "t"
+	
 	var texture : Texture2D = null
 	var raw_bytes : PackedByteArray
 	var format : FORMAT = FORMAT.UNKNOWN
@@ -54,6 +56,8 @@ class AudioAsset:
 		MP3
 	}
 	
+	const UID_PREFIX : String = "a"
+	
 	var stream : AudioStream = null
 	var raw_bytes : PackedByteArray
 	var format : FORMAT = FORMAT.UNKNOWN
@@ -67,6 +71,8 @@ class VideoAsset:
 		MP4
 	}
 	
+	const UID_PREFIX : String = "v"
+	
 	var stream : FFmpegVideoStream = null
 	var raw_bytes : PackedByteArray
 	var format : FORMAT = FORMAT.UNKNOWN
@@ -79,6 +85,8 @@ class FontAsset:
 		TTF,
 		OTF
 	}
+	
+	const UID_PREFIX : String = "f"
 	
 	var font : FontFile = null
 	var raw_bytes : PackedByteArray

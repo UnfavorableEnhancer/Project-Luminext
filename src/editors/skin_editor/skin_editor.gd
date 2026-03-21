@@ -21,7 +21,7 @@ extends Control
 ##
 class_name SkinEditor
 
-var skin : SkinData = SkinData.new() ## Currently editing [SkinData] instance. By default a standrad
+var skin_data : SkinData = SkinData.new() ## Currently editing [SkinData] instance. By default a standrad
 
 @onready var skin_data_tree : SkinEditorTree = %SkinTree ## Contains all objects of the [SkinData] sub-structures and allows to select, edit or add new objects
 
@@ -42,12 +42,10 @@ var animation_editor ## Allows to edit selected animation
 @onready var message_dialog : Control = $Center/MessageDialog ## Shows some warning or error message
 
 
-var copy_buffer : Variant = null ## Contains some object which can be pasted somewhere in the editor
-var undo_buffer : Array[Callable] = [] ## Contains callables which can undo previously made by user actions
 
 
 func _ready() -> void:
-	skin_data_tree.skin_editor = self
+	skin_data_tree.build_tree(skin_data)
 	
 	pass
 

@@ -23,27 +23,32 @@ class_name SkinBlockData
 
 signal current_blocks_changed ## Emitted when current block set is updated
 
-## All avaiable block types.[br]
-## Each array can store multiple blocks under same UID. If multiple blocks have same UID and variant ID, game will pick random one of those on block spawn.
-var blocks : Dictionary[StringName, Array] = {
-	&"red" : [], # Red block
-	&"white" : [], # White block
-	&"green" : [], # Green block
-	&"purple" : [], # Purple block
-	&"chain" : [], # Chain block overlay (chains and removes all adjacent same-colored blocks)
-	&"merge" : [], # Merge block overlay (turns all blocks in area into own color)
-	&"wipe" : [], # Wipe block overlay (removes all same-colored blocks in area)
-	&"column" : [], # Column block overlay (turns all blocks on same column into own color)
-	&"row" : [], # Row block overlay (turns all blocks on same row into own color)
-	&"multi" : [], # Multi block (can be squared with any color)
-	&"garbage" : [], # Garbage block (erased when adjacent blocks are erased)
-	&"dark" : [], # Dark block (cannot be erased)
-	&"ready" : [], # Ready to delete block overlay
-	&"scan" : [], # Scanned by timeline block overlay
-	&"erase" : [] # Block erase animation overlay
+## All avaiable blocks.[br]
+## This dictionary contains several "variants" (indicated by int), each containing own dictionary of blocks arrays.[br]
+## Each blocks array in variant dictionary is assigned to specific block UID, which gives the game an idea when this block should be used.[br]
+## If array has multiple blocks, game will select random one on spawn.[br]
+## If on variant switch, there aren't any blocks of some type in next variant, game will keep working with previous variant blocks.
+var blocks : Dictionary[int, Dictionary] = {
+	0 : {
+		&"red" : [], # Red block
+		&"white" : [], # White block
+		&"green" : [], # Green block
+		&"purple" : [], # Purple block
+		&"chain" : [], # Chain block overlay (chains and removes all adjacent same-colored blocks)
+		&"merge" : [], # Merge block overlay (turns all blocks in area into own color)
+		&"wipe" : [], # Wipe block overlay (removes all same-colored blocks in area)
+		&"column" : [], # Column block overlay (turns all blocks on same column into own color)
+		&"row" : [], # Row block overlay (turns all blocks on same row into own color)
+		&"multi" : [], # Multi block (can be squared with any color)
+		&"garbage" : [], # Garbage block (erased when adjacent blocks are erased)
+		&"dark" : [], # Dark block (cannot be erased)
+		&"ready" : [], # Ready to delete block overlay
+		&"scan" : [], # Scanned by timeline block overlay
+		&"erase" : [] # Block erase animation overlay
+	}
 }
 
-## All currently used blocks.
+## All currently used by the game blocks.
 var current_blocks : Dictionary[StringName, Array] = {
 	&"red" : [], 
 	&"white" : [],
@@ -62,7 +67,7 @@ var current_blocks : Dictionary[StringName, Array] = {
 	&"erase" : []
 }
 
-## Blocks which will be used for UID's which are completely missing in **blocks**.[br]
+## Blocks which will be used for UID's which are completely missing in **blocks** or special option is enabled in settings.[br]
 ## Each array contains two variants: standard (index 0) and colorblind-friendly (index 1)
 # TODO : Put placeholders file paths here
 static var placeholder_blocks : Dictionary[StringName, Array] = {
@@ -98,44 +103,36 @@ func load_assets(asset_data : SkinAssetData) -> void:
 			block.load_assets(asset_data)
 
 
-## Called by [SkinSequenceData] when data variant changes, so current blocks would be switched with blocks prepared for specified variant.
+## Called by [SkinSequenceData] when variant changes, so current blocks would be switched with blocks prepared for specified variant.
 func select_variant(variant_id : int) -> void:
-	var changed_uids : Array[StringName] = []
+	var next_variant_blocks : Dictionary = blocks[variant_id]
+	for uid : String in next_variant_blocks.keys():
+		var blocks_array : Array = next_variant_blocks[uid]
+		if blocks_array.is_empty() : continue
+		
+		current_blocks[uid] = blocks_array
 	
-	for uid : String in blocks.keys():
-		for block : SkinBlock in blocks[uid]:
-			if block.variant_id == variant_id:
-				if not uid in changed_uids and current_blocks.has(uid): 
-					changed_uids.append(uid)
-					current_blocks.erase(uid)
-					current_blocks[uid] = []
-				
-				if not current_blocks.has(uid):
-					changed_uids.append(uid)
-					current_blocks[uid] = []
-				
-				current_blocks[uid].append(blocks[uid])
+	# Put blocks placeholders in case some UID's are missing in 0 variant
+	if variant_id == 0:
+		for uid : String in placeholder_blocks.keys():
+			if not current_blocks.has(uid) or current_blocks[uid].is_empty():
+				current_blocks[uid] = placeholder_blocks[uid]
 	
 	current_blocks_changed.emit()
 
 
 class SkinBlock:
-	var uid : StringName = &"none" ## Unique ID used by certain block types to take it's texture from
+	var uid : StringName = &"none" ## Block unique ID, used by game to determine when to use it
 	var index : int = 0 ## Index inside array containing this block
-	
 	var variant_id : int = 0 ## Data variant number on which this block will be used
+	
 	var sprite_frames : SpriteFrames = null ## SpriteFrames instance which game can use for block instance
 	
 	var animation_timing : Array[bool] ## Array of beats on which block animation should start playing
 	var loop_animation : bool = false : set = _set_animation_loop ## If true, this block animation will run from start and loop infinitely
 	var animation_fps : int = 30 : set = _set_animation_fps ## Animation frames per second
 	
-	## Contains all textures used by this blocks
-	var texture_assets : Dictionary[StringName, ModdableAsset.TextureAsset] = { 
-		# texture_asset_uid : texture_asset
-	}
-	
-	## All frames which contain this animation
+	## Contains all frames texture assets UID's used by this block sprite
 	var frames : Array[StringName] = []
 	
 	func _set_animation_loop(value : bool) -> void:
@@ -148,45 +145,37 @@ class SkinBlock:
 	
 	
 	## Constructor. If texture path is passed, creates own texture assets from it and creates sprite
-	## NOTE : Should be used only for placeholder blocks
+	## WARNING : Should be used only for placeholder blocks, as it doesn't put created texture assets into SkinAssetData
 	func _init(texture_filepath : String = "") -> void:
 		if texture_filepath.is_empty() : return
 		
+		sprite_frames = SpriteFrames.new()
+		
 		var our_texture_assets : Array[ModdableAsset.TextureAsset] = AssetSerializer.process_spritesheet(texture_filepath)
-		var i : int = 0
 		for texture_asset : ModdableAsset.TextureAsset in our_texture_assets:
 			AssetLoader.load_texture(texture_asset)
-			texture_assets[texture_asset.uid] = texture_asset
-			frames[i] = texture_asset.uid
-			i += 1
+			sprite_frames.add_frame(&"default", texture_asset.texture)
 		
-		_create_sprite_frames()
+		sprite_frames.set_animation_speed(&"default", animation_fps)
+		sprite_frames.set_animation_loop(&"default", loop_animation)
 
 
 	## Copies all frames [TextureAssets] from passed [SkinAssetData]
 	func load_assets(asset_data : SkinAssetData) -> void:
-		for texture_asset_uid : StringName in texture_assets.keys():
+		sprite_frames = SpriteFrames.new()
+		
+		for texture_asset_uid : StringName in frames:
 			# If some texture asset is missing, use placeholder block sprite instead
 			if not asset_data.textures.has(texture_asset_uid): 
 				if not SkinBlockData.placeholder_blocks.has(uid) : return
 				sprite_frames = SkinBlockData.placeholder_blocks[uid][0].sprite_frames
 				return
 			
-			texture_assets[texture_asset_uid] = asset_data.textures[texture_asset_uid]
-		
-		_create_sprite_frames()
-
-
-	## Creates proper sprite frames
-	func _create_sprite_frames() -> void:
-		sprite_frames = SpriteFrames.new()
-		
-		for texture_asset_uid : StringName in frames:
-			var texture_asset : ModdableAsset.TextureAsset = texture_assets[texture_asset_uid]
-			
+			var texture_asset : ModdableAsset.TextureAsset = asset_data.textures[texture_asset_uid]
 			sprite_frames.add_frame(&"default", texture_asset.texture)
-			sprite_frames.set_animation_speed(&"default", animation_fps)
-			sprite_frames.set_animation_loop(&"default", loop_animation)
+		
+		sprite_frames.set_animation_speed(&"default", animation_fps)
+		sprite_frames.set_animation_loop(&"default", loop_animation)
 
 
 	## Loads block data from passed FileAccess, which has valid skin file opened

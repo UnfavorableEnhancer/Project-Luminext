@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://daqfhbmugyrwt"
+path="res://.godot/imported/wb_anim.png-3858bc2e4af7423b68c2eb0c90694143.image"
+
+[deps]
+
+source_file="res://assets/textures/base/skin/wb_anim.png"
+dest_files=["res://.godot/imported/wb_anim.png-3858bc2e4af7423b68c2eb0c90694143.image"]
+
+[params]
+

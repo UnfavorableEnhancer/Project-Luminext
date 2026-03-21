@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://4cqj4f6gobsy"
+path="res://.godot/imported/wb_single.png-1f8b25b56cbea7c9aafceb32044ba317.image"
+
+[deps]
+
+source_file="res://assets/textures/base/skin/wb_single.png"
+dest_files=["res://.godot/imported/wb_single.png-1f8b25b56cbea7c9aafceb32044ba317.image"]
+
+[params]
+
