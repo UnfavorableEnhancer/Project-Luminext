@@ -53,7 +53,7 @@ static func process_spritesheet(texture_filepath : String) -> Array[ModdableAsse
 	
 	var output_array : Array[ModdableAsset.TextureAsset] = [] 
 	for i : int in frames_amount:
-		var frame : Image = image.get_region(Rect2i(i * width, 0, width, height))
+		var frame : Image = image.get_region(Rect2i(i * height, 0, height, height))
 		var frame_raw : PackedByteArray = frame.save_png_to_buffer()
 		
 		var texture_asset : ModdableAsset.TextureAsset = ModdableAsset.TextureAsset.new()

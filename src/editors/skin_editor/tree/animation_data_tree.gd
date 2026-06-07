@@ -15,11 +15,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-extends SkinEditorTree.SubTree
+extends EditorSubTree
 ##
 ## Shows all skin background animations and allows to edit them or add new ones
 ##
-class_name SEAnimationsTree
+class_name SEAnimationsSubTree
 
 var anim_data : SkinAnimationData
 
@@ -36,7 +36,7 @@ func build_tree(new_data : Variant) -> bool:
 ## Returns **true** if selected item exists in this sub-tree and selected successfully.
 func select_item(item : TreeItem) -> bool:
 	if item == root : return true
-	if not _is_item_valid(item): return false
+	if not _is_item_inside(item): return false
 	
 	# TODO : Request property editor here
 	print(item.get_metadata(0).object)
@@ -61,7 +61,7 @@ func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_positio
 		options_popup.position = mouse_position
 		return true
 	
-	if not _is_item_valid(item): return false
+	if not _is_item_inside(item): return false
 	
 	options_popup.full_clear()
 	options_popup.add_option("Add new animation", _add_animation)
@@ -92,7 +92,7 @@ func remove_item(item : TreeItem) -> bool:
 
 
 ## Resolves pasted by copy manager item metadata to decide if item copy can be created
-func paste_item(selected_item : TreeItem, item_metadata : ItemMetadata) -> bool:
+func paste_item(selected_item : TreeItem, item_metadata : EditorTreeItemMetadata) -> bool:
 	if item_metadata.type == SkinEditorTree.ITEM_TYPE.BLOCK:
 		pass
 	

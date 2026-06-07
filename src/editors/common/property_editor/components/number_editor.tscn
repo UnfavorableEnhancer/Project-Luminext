@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://4mc1x1sxlejv"]
+
+[ext_resource type="Script" uid="uid://ds3hvpw5geas1" path="res://src/editors/common/property_editor/components/number_editor.gd" id="1_u3rdn"]
+
+[node name="NumberEditor" type="VBoxContainer" unique_id=1750681444]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u3rdn")
+
+[node name="Name" type="Label" parent="." unique_id=1538102622]
+layout_mode = 2
+text = "Some value"
+
+[node name="X" type="SpinBox" parent="." unique_id=1352808756]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 99999.0
+
+[connection signal="value_changed" from="X" to="." method="_on_x_value_changed"]

@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://dj6uuc23lh130"]
+
+[ext_resource type="Script" uid="uid://bmvl6lxpefmd3" path="res://src/editors/skin_editor/property_editor/block_property_editor.gd" id="1_kxw73"]
+[ext_resource type="PackedScene" uid="uid://nh0itdt2kcp4" path="res://src/editors/common/property_editor/components/variant_selector.tscn" id="2_e7ah0"]
+[ext_resource type="PackedScene" uid="uid://b3vbqudqt516l" path="res://src/editors/common/property_editor/components/anim_texture_editor.tscn" id="3_dky3u"]
+[ext_resource type="PackedScene" uid="uid://q6360mb54upj" path="res://src/editors/common/property_editor/components/anim_texture_sequence_editor.tscn" id="4_qkm4u"]
+
+[node name="BlockPropertyEditor" type="ScrollContainer" unique_id=517326560]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kxw73")
+
+[node name="AnimTimer" type="Timer" parent="." unique_id=684908132]
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=424249997]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 12
+
+[node name="Properties" type="VBoxContainer" parent="Margin" unique_id=220137312]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ID" parent="Margin/Properties" unique_id=1750681444 instance=ExtResource("2_e7ah0")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HS" type="HSeparator" parent="Margin/Properties" unique_id=1215580974]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="AnimTextureEditor" parent="Margin/Properties" unique_id=1217890031 instance=ExtResource("3_dky3u")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HS2" type="HSeparator" parent="Margin/Properties" unique_id=186269773]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="AnimTextureSequenceEditor" parent="Margin/Properties" unique_id=216231806 instance=ExtResource("4_qkm4u")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="variant_selected" from="Margin/Properties/ID" to="." method="_on_id_selected"]
+[connection signal="all_frames_removed" from="Margin/Properties/AnimTextureEditor" to="." method="_on_animation_all_frames_removed"]
+[connection signal="fps_changed" from="Margin/Properties/AnimTextureEditor" to="." method="_on_animation_fps_changed"]
+[connection signal="frame_moved" from="Margin/Properties/AnimTextureEditor" to="." method="_on_animation_frame_moved"]
+[connection signal="frame_removed" from="Margin/Properties/AnimTextureEditor" to="." method="_on_animation_frame_removed"]
+[connection signal="frame_replaced" from="Margin/Properties/AnimTextureEditor" to="." method="_on_animation_frame_replaced"]
+[connection signal="frames_added" from="Margin/Properties/AnimTextureEditor" to="." method="_on_animation_frames_added"]
+[connection signal="loop_state_changed" from="Margin/Properties/AnimTextureEditor" to="." method="_on_animation_loop_changed"]
+[connection signal="spritesheet_added" from="Margin/Properties/AnimTextureEditor" to="." method="_on_animation_spritesheet_added"]
+[connection signal="pattern_changed" from="Margin/Properties/AnimTextureSequenceEditor" to="." method="_on_animation_pattern_changed"]

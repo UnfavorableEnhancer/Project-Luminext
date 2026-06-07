@@ -27,10 +27,8 @@ var skin_data : SkinData = SkinData.new() ## Currently editing [SkinData] instan
 
 var editor_options_panel ## Contains general editor options (save skin, start playtest, exit the editor and etc.)
 
-var skin_inspector ## Shows currently built skin background scenery and allows to edit any object inside
-var object_inspector ## Shows currently selected in skin tree visual object (block, effect or gui element)
-
-var property_editor ## Shows properties of currently selected object
+@onready var viewport_manager : EditorViewportManager = %ViewportManager ## Shows currently selected in skin tree object (block, effect or scenery element)
+@onready var property_editor : PropertyEditorManager = %PropertyEditorManager ## Shows properties of currently selected object
 
 var playback_panel ## Contains playback related options (play, pause and etc.), allows to set skin BPM and shows current playback position
 var sequence_editor ## Allows to edit skin sequence, which defines what background animations and music would be played
@@ -45,6 +43,27 @@ var animation_editor ## Allows to edit selected animation
 
 
 func _ready() -> void:
+	property_editor.dependencies[&"skin_data"] = skin_data
+	property_editor.required_editor_types = [
+		PropertyEditorManager.EDITOR_TYPE.VARIANT,
+		PropertyEditorManager.EDITOR_TYPE.SKIN_METADATA,
+		PropertyEditorManager.EDITOR_TYPE.SKIN_BLOCK,
+		PropertyEditorManager.EDITOR_TYPE.SKIN_SFX,
+		PropertyEditorManager.EDITOR_TYPE.SKIN_EFFECT,
+		PropertyEditorManager.EDITOR_TYPE.SKIN_GUI_MODIFIER,
+		PropertyEditorManager.EDITOR_TYPE.SKIN_CAMERA,
+		PropertyEditorManager.EDITOR_TYPE.ANIMATION,
+		PropertyEditorManager.EDITOR_TYPE.SCENERY_NODE,
+		PropertyEditorManager.EDITOR_TYPE.SCENERY_SPRITE,
+		PropertyEditorManager.EDITOR_TYPE.SCENERY_ANIM_SPRITE,
+		PropertyEditorManager.EDITOR_TYPE.SCENERY_PARTICLES,
+		PropertyEditorManager.EDITOR_TYPE.SCENERY_VIDEO,
+		PropertyEditorManager.EDITOR_TYPE.SCENERY_RECT,
+		PropertyEditorManager.EDITOR_TYPE.SCENERY_TEXT,
+		PropertyEditorManager.EDITOR_TYPE.SCENERY_SHADER,
+	]
+	property_editor.load_assets()
+	
 	skin_data_tree.build_tree(skin_data)
 	
 	pass

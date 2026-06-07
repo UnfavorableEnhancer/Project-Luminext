@@ -70,8 +70,8 @@ func insert_object_to_copy(object : Variant) -> bool:
 			ModdableAsset.VideoAsset.UID_PREFIX : copy_buffer[COPY_TYPE.VIDEO_UID] = object
 			ModdableAsset.FontAsset.UID_PREFIX : copy_buffer[COPY_TYPE.FONT_UID] = object
 	
-	elif object is SkinEditorTree.ItemMetadata : 
-		var item_copy : SkinEditorTree.ItemMetadata = object.duplicate()
+	elif object is EditorTreeItemMetadata : 
+		var item_copy : EditorTreeItemMetadata = object.duplicate()
 		if item_copy == null : return false
 		copy_buffer[COPY_TYPE.SE_TREE_ITEM] = item_copy
 	

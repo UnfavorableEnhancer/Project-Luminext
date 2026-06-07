@@ -1,0 +1,189 @@
+[gd_scene format=3 uid="uid://b3vbqudqt516l"]
+
+[ext_resource type="Script" uid="uid://5u31am5y28q4" path="res://src/editors/common/property_editor/components/anim_texture_editor.gd" id="1_0fx12"]
+[ext_resource type="PackedScene" uid="uid://ctwib7162yk65" path="res://src/editors/common/property_editor/components/anim_texture_editor_frame.tscn" id="1_jq1c2"]
+
+[node name="AnimTextureEditor" type="VBoxContainer" unique_id=1750681444]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+script = ExtResource("1_0fx12")
+
+[node name="Name" type="Label" parent="." unique_id=1538102622]
+layout_mode = 2
+text = "Some animated texture"
+
+[node name="V" type="VBoxContainer" parent="." unique_id=385132841]
+custom_minimum_size = Vector2(0, 270)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="H" type="HBoxContainer" parent="V" unique_id=90199418]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 8
+
+[node name="Control" type="Control" parent="V/H" unique_id=359155177]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="V/H" unique_id=604375445]
+layout_mode = 2
+text = "Page"
+
+[node name="PageUp" type="Button" parent="V/H" unique_id=1983860223]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "/\\"
+
+[node name="Page" type="LineEdit" parent="V/H" unique_id=1914245398]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "1"
+
+[node name="PageDown" type="Button" parent="V/H" unique_id=1279507305]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "\\/"
+
+[node name="Grid" type="GridContainer" parent="V" unique_id=1408748801]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 24
+columns = 4
+
+[node name="Frame1" parent="V/Grid" unique_id=1493943946 instance=ExtResource("1_jq1c2")]
+layout_mode = 2
+
+[node name="Frame2" parent="V/Grid" unique_id=990329031 instance=ExtResource("1_jq1c2")]
+layout_mode = 2
+
+[node name="Frame3" parent="V/Grid" unique_id=550313610 instance=ExtResource("1_jq1c2")]
+layout_mode = 2
+
+[node name="Frame4" parent="V/Grid" unique_id=803902047 instance=ExtResource("1_jq1c2")]
+layout_mode = 2
+
+[node name="Frame5" parent="V/Grid" unique_id=606441763 instance=ExtResource("1_jq1c2")]
+layout_mode = 2
+
+[node name="Frame6" parent="V/Grid" unique_id=1048376658 instance=ExtResource("1_jq1c2")]
+layout_mode = 2
+
+[node name="Frame7" parent="V/Grid" unique_id=1687951807 instance=ExtResource("1_jq1c2")]
+layout_mode = 2
+
+[node name="Frame8" parent="V/Grid" unique_id=1552751934 instance=ExtResource("1_jq1c2")]
+layout_mode = 2
+
+[node name="Frame9" parent="V/Grid" unique_id=1168187292 instance=ExtResource("1_jq1c2")]
+layout_mode = 2
+
+[node name="Frame10" parent="V/Grid" unique_id=939254438 instance=ExtResource("1_jq1c2")]
+layout_mode = 2
+
+[node name="Frame11" parent="V/Grid" unique_id=1120799480 instance=ExtResource("1_jq1c2")]
+layout_mode = 2
+
+[node name="Frame12" parent="V/Grid" unique_id=1626780674 instance=ExtResource("1_jq1c2")]
+layout_mode = 2
+
+[node name="Info" type="Label" parent="." unique_id=1785745003]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+text = "Click on any frame to select it"
+vertical_alignment = 2
+
+[node name="Buttons" type="GridContainer" parent="." unique_id=621320261]
+layout_mode = 2
+columns = 2
+
+[node name="Add" type="Button" parent="Buttons" unique_id=1084822121]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add frames"
+
+[node name="Replace" type="Button" parent="Buttons" unique_id=1865455320]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Replace frame"
+
+[node name="MoveLeft" type="Button" parent="Buttons" unique_id=1730204148]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Move frame left"
+
+[node name="MoveRight" type="Button" parent="Buttons" unique_id=522622780]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Move frame right"
+
+[node name="DeleteAll" type="Button" parent="Buttons" unique_id=2032314012]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Delete all frames"
+
+[node name="DeleteSelected" type="Button" parent="Buttons" unique_id=1977767753]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Delete frame"
+
+[node name="H" type="HBoxContainer" parent="." unique_id=688532636]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="H" unique_id=1625797813]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Animation FPS"
+horizontal_alignment = 1
+
+[node name="FPS" type="SpinBox" parent="H" unique_id=763656250]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1000.0
+value = 30.0
+rounded = true
+
+[node name="H2" type="HBoxContainer" parent="." unique_id=1623718267]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="H2" unique_id=389482440]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Loop animation"
+horizontal_alignment = 1
+
+[node name="Loop" type="CheckButton" parent="H2" unique_id=839906144]
+layout_mode = 2
+text = "
+"
+
+[node name="Free" type="Control" parent="." unique_id=161947763]
+layout_mode = 2
+
+[node name="Selection" type="ReferenceRect" parent="Free" unique_id=553136075]
+visible = false
+layout_mode = 0
+offset_left = 1.0
+offset_top = -515.0
+offset_right = 65.0
+offset_bottom = -419.0
+border_color = Color(0, 0.953125, 1, 1)
+border_width = 4.0
+editor_only = false
+
+[connection signal="pressed" from="V/H/PageUp" to="." method="_on_page_up_pressed"]
+[connection signal="text_submitted" from="V/H/Page" to="." method="_on_page_value_changed"]
+[connection signal="pressed" from="V/H/PageDown" to="." method="_on_page_down_pressed"]
+[connection signal="pressed" from="Buttons/Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="Buttons/Replace" to="." method="_on_replace_pressed"]
+[connection signal="pressed" from="Buttons/MoveLeft" to="." method="_on_move_left_pressed"]
+[connection signal="pressed" from="Buttons/MoveRight" to="." method="_on_move_right_pressed"]
+[connection signal="pressed" from="Buttons/DeleteAll" to="." method="_on_delete_all_pressed"]
+[connection signal="pressed" from="Buttons/DeleteSelected" to="." method="_on_delete_selected_pressed"]
+[connection signal="value_changed" from="H/FPS" to="." method="_on_fps_value_changed"]
+[connection signal="toggled" from="H2/Loop" to="." method="_on_loop_toggled"]

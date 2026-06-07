@@ -3,10 +3,14 @@
 [ext_resource type="Theme" uid="uid://drr0gigl428ht" path="res://src/editors/editor_theme.theme" id="1_e42xq"]
 [ext_resource type="Theme" uid="uid://c2fwvrb6qjj20" path="res://src/editors/editor_big_theme.theme" id="2_gtltq"]
 [ext_resource type="Script" uid="uid://8wyfa18m4ci7" path="res://src/editors/skin_editor/skin_editor.gd" id="2_q5srf"]
-[ext_resource type="Script" uid="uid://csj2qb7adyivj" path="res://src/editors/common/edit_history_manager.gd" id="3_4g028"]
+[ext_resource type="Script" uid="uid://csj2qb7adyivj" path="res://src/editors/common/components/editor_history_manager.gd" id="3_4g028"]
 [ext_resource type="Script" uid="uid://cnmuxvnsyli5a" path="res://src/editors/skin_editor/tree/skin_editor_tree.gd" id="3_873s3"]
-[ext_resource type="Script" uid="uid://p13plwgxkq4r" path="res://src/editors/common/editor_copy_manager.gd" id="4_4g028"]
-[ext_resource type="Script" uid="uid://c6fpvptrh7qgn" path="res://src/editors/common/options_popup.gd" id="7_5q7i8"]
+[ext_resource type="Script" uid="uid://p13plwgxkq4r" path="res://src/editors/common/components/editor_copy_manager.gd" id="4_4g028"]
+[ext_resource type="Script" uid="uid://1bma42cwyesy" path="res://src/editors/common/property_editor/viewport_manager.gd" id="6_ex8co"]
+[ext_resource type="Script" uid="uid://c6b8qfbablctx" path="res://src/editors/skin_editor/property_editor/object_window.gd" id="6_nsclh"]
+[ext_resource type="Script" uid="uid://dj3qwe8rm3bux" path="res://src/editors/common/property_editor/property_editor_manager.gd" id="6_wl6c6"]
+[ext_resource type="Script" uid="uid://c6fpvptrh7qgn" path="res://src/editors/common/components/options_popup.gd" id="7_5q7i8"]
+[ext_resource type="Script" uid="uid://mckml14l4fnl" path="res://src/editors/common/components/file_browser.gd" id="11_o81a4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gtltq"]
 font_size = 20
@@ -134,47 +138,93 @@ size_flags_vertical = 3
 [node name="H" type="HSplitContainer" parent="CoreV/V" unique_id=1847339274]
 layout_mode = 2
 size_flags_vertical = 3
-split_offsets = PackedInt32Array(0, 0)
+size_flags_stretch_ratio = 1.8
+split_offsets = PackedInt32Array(256, 268)
+split_offset = 256
 
-[node name="SkinTree" type="Tree" parent="CoreV/V/H" unique_id=649717153 node_paths=PackedStringArray("undo_manager", "copy_manager", "options_popup", "confirm_dialog", "message_dialog")]
+[node name="SkinTree" type="Tree" parent="CoreV/V/H" unique_id=649717153 node_paths=PackedStringArray("property_editor_manager", "undo_manager", "copy_manager", "options_popup", "confirm_dialog", "message_dialog")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(128, 0)
+custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 allow_rmb_select = true
 allow_search = false
 hide_root = true
 script = ExtResource("3_873s3")
+property_editor_manager = NodePath("../PropertyEditorManager")
 undo_manager = NodePath("../../../../Components/EditorHistoryManager")
 copy_manager = NodePath("../../../../Components/EditorCopyManager")
 options_popup = NodePath("../../../../OptionsPopup")
 confirm_dialog = NodePath("../../../../Center/ConfirmDialog")
 message_dialog = NodePath("../../../../Center/MessageDialog")
 
-[node name="Scenery" type="SubViewportContainer" parent="CoreV/V/H" unique_id=2137548303]
+[node name="ViewportManager" type="Control" parent="CoreV/V/H" unique_id=1804904758]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
+script = ExtResource("6_ex8co")
+
+[node name="SceneryWindow" type="SubViewportContainer" parent="CoreV/V/H/ViewportManager" unique_id=2137548303]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CoreV/V/H/Scenery" unique_id=1394458708]
+[node name="SubViewport" type="SubViewport" parent="CoreV/V/H/ViewportManager/SceneryWindow" unique_id=1394458708]
 handle_input_locally = false
-size = Vector2i(1137, 508)
-render_target_update_mode = 4
+size = Vector2i(1280, 654)
+render_target_update_mode = 0
 
-[node name="PropertyEditor" type="ColorRect" parent="CoreV/V/H" unique_id=1393900648]
+[node name="ObjectWindow" type="SubViewportContainer" parent="CoreV/V/H/ViewportManager" unique_id=125457911]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+stretch = true
+script = ExtResource("6_nsclh")
+
+[node name="Viewport" type="SubViewport" parent="CoreV/V/H/ViewportManager/ObjectWindow" unique_id=1546092233]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(1280, 654)
+render_target_update_mode = 0
+
+[node name="Camera" type="Camera2D" parent="CoreV/V/H/ViewportManager/ObjectWindow/Viewport" unique_id=538515790]
+ignore_rotation = false
+limit_enabled = false
+
+[node name="PropertyEditorManager" type="ColorRect" parent="CoreV/V/H" unique_id=1393900648 node_paths=PackedStringArray("copy_manager", "undo_manager", "viewport_manager", "file_browser")]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 8
 color = Color(0.15234375, 0.15234375, 0.15234375, 1)
+script = ExtResource("6_wl6c6")
+copy_manager = NodePath("../../../../Components/EditorCopyManager")
+undo_manager = NodePath("../../../../Components/EditorHistoryManager")
+viewport_manager = NodePath("../ViewportManager")
+file_browser = NodePath("../../../../FileBrowser")
 
-[node name="Scroll" type="ScrollContainer" parent="CoreV/V/H/PropertyEditor" unique_id=61109440]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="V" type="VBoxContainer" parent="CoreV/V/H/PropertyEditor/Scroll" unique_id=645791452]
-layout_mode = 2
+[node name="Margin" type="MarginContainer" parent="CoreV/V/H/PropertyEditorManager" unique_id=1048484392]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
 
 [node name="V" type="VBoxContainer" parent="CoreV/V" unique_id=216116819]
 custom_minimum_size = Vector2(0, 200)
@@ -589,6 +639,7 @@ script = ExtResource("7_5q7i8")
 oversampling_override = 1.0
 initial_position = 1
 size = Vector2i(1280, 720)
+script = ExtResource("11_o81a4")
 
 [node name="Center" type="CenterContainer" parent="." unique_id=107925575]
 visible = false
@@ -694,9 +745,37 @@ text = "OK"
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 
+[node name="MessageQueue" type="VBoxContainer" parent="." unique_id=309843599]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Message" type="ColorRect" parent="MessageQueue" unique_id=1821885938]
+custom_minimum_size = Vector2(800, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+color = Color(0, 0, 0, 0.7058824)
+
+[node name="Text" type="Label" parent="MessageQueue/Message" unique_id=178606202]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Something went wrong"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="focus_entered" from="CoreV/V/H/SkinTree" to="CoreV/V/H/SkinTree" method="_on_focus_entered"]
 [connection signal="focus_exited" from="CoreV/V/H/SkinTree" to="CoreV/V/H/SkinTree" method="_on_focus_exited"]
 [connection signal="item_edited" from="CoreV/V/H/SkinTree" to="CoreV/V/H/SkinTree" method="_on_item_edited"]
 [connection signal="item_mouse_selected" from="CoreV/V/H/SkinTree" to="CoreV/V/H/SkinTree" method="_on_item_mouse_selected"]
 [connection signal="item_selected" from="CoreV/V/H/SkinTree" to="CoreV/V/H/SkinTree" method="_on_item_selected"]
+[connection signal="mouse_entered" from="CoreV/V/H/ViewportManager/ObjectWindow" to="CoreV/V/H/ViewportManager/ObjectWindow" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CoreV/V/H/ViewportManager/ObjectWindow" to="CoreV/V/H/ViewportManager/ObjectWindow" method="_on_mouse_exited"]
 [connection signal="id_pressed" from="OptionsPopup" to="OptionsPopup" method="_on_id_pressed"]

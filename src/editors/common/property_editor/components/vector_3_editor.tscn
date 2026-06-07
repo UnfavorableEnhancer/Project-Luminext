@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://ctiuqthm6dx44"]
+
+[ext_resource type="Script" uid="uid://c1ms8o8gr4cul" path="res://src/editors/common/property_editor/components/vector_3_editor.gd" id="1_gfenq"]
+
+[node name="Vector3Editor" type="VBoxContainer" unique_id=1750681444]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gfenq")
+
+[node name="Name" type="Label" parent="." unique_id=1538102622]
+layout_mode = 2
+text = "Some value"
+
+[node name="H" type="HBoxContainer" parent="." unique_id=1251005417]
+layout_mode = 2
+
+[node name="X" type="SpinBox" parent="H" unique_id=1352808756]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 99999.0
+prefix = "X :"
+
+[node name="Y" type="SpinBox" parent="H" unique_id=465861682]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 99999.0
+prefix = "Y :"
+
+[node name="Z" type="SpinBox" parent="H" unique_id=1367173980]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 99999.0
+prefix = "Z :"
+
+[connection signal="value_changed" from="H/X" to="." method="_on_x_value_changed"]
+[connection signal="value_changed" from="H/Y" to="." method="_on_y_value_changed"]
+[connection signal="value_changed" from="H/Z" to="." method="_on_z_value_changed"]

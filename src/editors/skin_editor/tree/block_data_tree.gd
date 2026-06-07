@@ -15,11 +15,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-extends SkinEditorTree.SubTree
+extends EditorSubTree
 ##
 ## Shows all skin blocks and allows to edit them or add new ones
 ##
-class_name SEBlocksTree
+class_name SEBlocksSubTree
 
 var block_data : SkinBlockData
 
@@ -32,8 +32,8 @@ func build_tree(new_data : Variant) -> bool:
 	block_data = new_data
 	
 	for variant_id : int in block_data.blocks.keys():
-		var variant_item_meta : SkinEditorTree.ItemMetadata = SkinEditorTree.ItemMetadata.new(SkinEditorTree.ITEM_TYPE.VARIANT, self, variant_id)
-		var variant_item  : TreeItem = _create_item("Variant " + str(variant_id), &"variant", variant_item_meta, root)
+		var variant_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.VARIANT, self, variant_id)
+		var variant_item  : TreeItem = _create_item("Variant " + str(variant_id), SkinEditorTree.tree_icons[&"variant"], variant_item_meta, root)
 		variant_item_meta.owner = variant_item
 		variant_items[variant_id] = variant_item
 		variant_item.set_editable(0, false)
@@ -41,8 +41,8 @@ func build_tree(new_data : Variant) -> bool:
 		var variant_blocks : Dictionary = block_data.blocks[variant_id]
 		for block_uid : StringName in variant_blocks:
 			for block : SkinBlockData.SkinBlock in variant_blocks[block_uid]:
-				var block_item_meta : SkinEditorTree.ItemMetadata = SkinEditorTree.ItemMetadata.new(SkinEditorTree.ITEM_TYPE.BLOCK, self, block)
-				var block_item : TreeItem = _create_item(block.uid + str(block.index + 1), &"object", block_item_meta, variant_item)
+				var block_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.BLOCK, self, block)
+				var block_item : TreeItem = _create_item(str(block.id + str(block.index + 1)), SkinEditorTree.tree_icons[&"object"], block_item_meta, variant_item)
 				block_item.set_editable(0, false)
 				block_item_meta.owner = block_item
 	
@@ -53,10 +53,9 @@ func build_tree(new_data : Variant) -> bool:
 ## Returns **true** if selected item exists in this sub-tree and selected successfully.
 func select_item(item : TreeItem) -> bool:
 	if item == root : return true
-	if not _is_item_valid(item): return false
+	if not _is_item_inside(item): return false
 	
-	# TODO : Request property editor here
-	print(item.get_metadata(0).object)
+	property_editor_manager.open_editor(item.get_metadata(0))
 	
 	return true
 
@@ -78,10 +77,10 @@ func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_positio
 		options_popup.position = mouse_position
 		return true
 	
-	if not _is_item_valid(item): return false
+	if not _is_item_inside(item): return false
 	
-	var item_meta : ItemMetadata = item.get_metadata(0)
-	if item_meta.type == ITEM_TYPE.VARIANT:
+	var item_meta : EditorTreeItemMetadata = item.get_metadata(0)
+	if item_meta.type == SkinEditorTree.ITEM_TYPE.VARIANT:
 		options_popup.full_clear()
 		options_popup.add_option("Add new block", _add_block.bind(item_meta.object))
 		options_popup.add_option("Duplicate variant", duplicate_item.bind(item))
@@ -119,8 +118,8 @@ func _add_variant() -> void:
 	block_data.blocks[variant_id] = {}
 	block_data.blocks[variant_id][&"red"] = []
 	
-	var variant_item_meta : SkinEditorTree.ItemMetadata = SkinEditorTree.ItemMetadata.new(SkinEditorTree.ITEM_TYPE.VARIANT, self, variant_id)
-	var variant_item  : TreeItem = _create_item("Variant " + str(variant_id), &"variant", variant_item_meta, root)
+	var variant_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.VARIANT, self, variant_id)
+	var variant_item  : TreeItem = _create_item("Variant " + str(variant_id), SkinEditorTree.tree_icons[&"variant"], variant_item_meta, root)
 	variant_item_meta.owner = variant_item
 	variant_items[variant_id] = variant_item
 	variant_item.set_editable(0, false)
@@ -130,29 +129,18 @@ func _add_block(variant_id : int) -> void:
 	if not block_data.blocks.has(variant_id) : return
 	
 	var new_block : SkinBlockData.SkinBlock = SkinBlockData.SkinBlock.new()
-	new_block.uid = &"red"
+	new_block.id = &"red"
 	new_block.variant_id = variant_id
 	
-	var frames : Array[StringName] = asset_data.insert_spritesheet("res://assets/textures/base/skin/rb_anim.png")
-	
-	var test : Sprite2D = Sprite2D.new()
-	test.texture = asset_data.textures[frames[0]].texture
-	test.position = Vector2(100,999)
-	var test2 : Sprite2D = Sprite2D.new()
-	test2.texture = asset_data.textures[frames[1]].texture
-	test2.position = Vector2(999,100)
-	skin_tree.add_child(test)
-	skin_tree.add_child(test2)
-	
-	new_block.frames = frames
-	new_block.load_assets(asset_data)
 	new_block.index = block_data.blocks[variant_id][&"red"].size()
 	block_data.blocks[variant_id][&"red"].append(new_block)
 	
-	var block_item_meta : SkinEditorTree.ItemMetadata = SkinEditorTree.ItemMetadata.new(SkinEditorTree.ITEM_TYPE.BLOCK, self, new_block)
-	var block_item : TreeItem = _create_item(new_block.uid + str(new_block.index + 1), &"object", block_item_meta, variant_items[variant_id])
+	var block_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.BLOCK, self, new_block)
+	var block_item : TreeItem = _create_item(str(new_block.id + str(new_block.index + 1)), SkinEditorTree.tree_icons[&"object"], block_item_meta, variant_items[variant_id])
 	block_item.set_editable(0, false)
 	block_item_meta.owner = block_item
+	
+	property_editor_manager.open_editor(block_item_meta)
 
 ## Removes item from this sub-tree and removes respective object from current skin sub-structure **data**.
 func remove_item(item : TreeItem) -> bool:
@@ -160,7 +148,7 @@ func remove_item(item : TreeItem) -> bool:
 
 
 ## Resolves pasted by copy manager item metadata to decide if item copy can be created
-func paste_item(selected_item : TreeItem, item_metadata : ItemMetadata) -> bool:
+func paste_item(selected_item : TreeItem, item_metadata : EditorTreeItemMetadata) -> bool:
 	if item_metadata.type == SkinEditorTree.ITEM_TYPE.BLOCK:
 		pass
 	

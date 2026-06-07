@@ -15,11 +15,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-extends SkinEditorTree.SubTree
+extends EditorSubTree
 ##
 ## Used for skin metadata tree item
 ##
-class_name SEMetadataTree
+class_name SEMetadataSubTree
 
 var metadata : SkinMetadata
 
@@ -64,5 +64,5 @@ func remove_item(item : TreeItem) -> bool:
 	return false
 
 ## Resolves pasted by copy manager item metadata to decide if item copy can be created
-func paste_item(_selected_item : TreeItem, _item_metadata : ItemMetadata) -> bool:
+func paste_item(_selected_item : TreeItem, _item_metadata : EditorTreeItemMetadata) -> bool:
 	return false

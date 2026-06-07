@@ -40,6 +40,13 @@ class TextureAsset:
 		BMP
 	}
 	
+	const FORMAT_EXTENSIONS : Dictionary[FORMAT, Array] = {
+		FORMAT.UNKNOWN : [],
+		FORMAT.PNG : [".png"],
+		FORMAT.JPEG : [".jpg", ".jpeg"],
+		FORMAT.BMP : [".bmp"],
+	}
+	
 	const UID_PREFIX : String = "t"
 	
 	var texture : Texture2D = null
@@ -54,6 +61,13 @@ class AudioAsset:
 		WAV,
 		OGG,
 		MP3
+	}
+	
+	const FORMAT_EXTENSIONS : Dictionary[FORMAT, Array] = {
+		FORMAT.UNKNOWN : [],
+		FORMAT.WAV : [".wav"],
+		FORMAT.OGG : [".ogg"],
+		FORMAT.MP3 : [".mp3"],
 	}
 	
 	const UID_PREFIX : String = "a"
@@ -71,6 +85,12 @@ class VideoAsset:
 		MP4
 	}
 	
+	const FORMAT_EXTENSIONS : Dictionary[FORMAT, Array] = {
+		FORMAT.UNKNOWN : [],
+		FORMAT.WEBM : [".webm"],
+		FORMAT.MP4 : [".mp4"],
+	}
+	
 	const UID_PREFIX : String = "v"
 	
 	var stream : FFmpegVideoStream = null
@@ -84,6 +104,12 @@ class FontAsset:
 		UNKNOWN,
 		TTF,
 		OTF
+	}
+	
+	const FORMAT_EXTENSIONS : Dictionary[FORMAT, Array] = {
+		FORMAT.UNKNOWN : [],
+		FORMAT.TTF : [".ttf"],
+		FORMAT.OTF : [".otf"],
 	}
 	
 	const UID_PREFIX : String = "f"

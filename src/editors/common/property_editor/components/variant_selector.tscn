@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://nh0itdt2kcp4"]
+
+[ext_resource type="Script" uid="uid://0j2gx0kyqh48" path="res://src/editors/common/property_editor/components/variant_selector.gd" id="1_qt4g0"]
+
+[node name="VariantSelector" type="VBoxContainer" unique_id=1750681444]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qt4g0")
+
+[node name="Name" type="Label" parent="." unique_id=1538102622]
+layout_mode = 2
+text = "Some value"
+
+[node name="Selector" type="OptionButton" parent="." unique_id=114876547]
+layout_mode = 2
+
+[connection signal="item_selected" from="Selector" to="." method="_on_selector_item_selected"]

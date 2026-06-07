@@ -33,7 +33,9 @@ var fonts : Dictionary[StringName, ModdableAsset.FontAsset] = {} ## Contains fon
 ## Destructor
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:
-		_clear_video_cache()
+		# TODO : Figure out why it crashes here
+		pass
+		#_clear_video_cache()
 
 
 ## Saves assets data to passed FileAccess **(must be used only by SkinData.load)**
@@ -69,8 +71,6 @@ func insert_texture(texture_filepath : String) -> StringName:
 ## Inserts passed spritesheet file into texture assets dictionary and returns array of serialized and loaded [ModdableAsset.TextureAsset] UID's.[br]
 ## Returns **empty array** on failure.
 func insert_spritesheet(texture_filepath : String) -> Array[StringName]:
-	# TODO : Fix invalid texture splitting
-	
 	var texture_assets : Array[ModdableAsset.TextureAsset] = AssetSerializer.process_spritesheet(texture_filepath)
 	if texture_assets.is_empty() : return []
 	

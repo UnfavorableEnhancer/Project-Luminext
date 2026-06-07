@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://6g4jmaekksvj"]
+
+[ext_resource type="Script" uid="uid://cgad7qgodsa53" path="res://src/editors/common/property_editor/components/texture_input.gd" id="1_amcfy"]
+
+[node name="TextureInput" type="VBoxContainer" unique_id=1750681444]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_amcfy")
+
+[node name="Name" type="Label" parent="." unique_id=1538102622]
+layout_mode = 2
+text = "Some texture"
+
+[node name="H" type="HBoxContainer" parent="." unique_id=404693168]
+layout_mode = 2
+
+[node name="Texture" type="TextureRect" parent="H" unique_id=566298374]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+
+[node name="Input" type="Button" parent="H" unique_id=2046232329]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Insert image"
+
+[connection signal="pressed" from="H/Input" to="." method="_on_input_pressed"]

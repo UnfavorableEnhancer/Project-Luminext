@@ -67,6 +67,8 @@ var current_blocks : Dictionary[StringName, Array] = {
 	&"erase" : []
 }
 
+var currently_selected_variants : Array[int] = [0] ## Currently selected by [SkinSequenceData] block variants
+
 ## Blocks which will be used for UID's which are completely missing in **blocks** or special option is enabled in settings.[br]
 ## Each array contains two variants: standard (index 0) and colorblind-friendly (index 1)
 # TODO : Put placeholders file paths here
@@ -103,32 +105,42 @@ func load_assets(asset_data : SkinAssetData) -> void:
 			block.load_assets(asset_data)
 
 
-## Called by [SkinSequenceData] when variant changes, so current blocks would be switched with blocks prepared for specified variant.
-func select_variant(variant_id : int) -> void:
-	var next_variant_blocks : Dictionary = blocks[variant_id]
-	for uid : String in next_variant_blocks.keys():
-		var blocks_array : Array = next_variant_blocks[uid]
-		if blocks_array.is_empty() : continue
-		
-		current_blocks[uid] = blocks_array
+## Called by [SkinSequenceData] when selected block variants has changed, so current blocks would be switched with blocks prepared for specified variants.
+func select_variants(variant_ids : Array[int]) -> void:
+	var touched_ids : Array[StringName] = []
 	
-	# Put blocks placeholders in case some UID's are missing in 0 variant
-	if variant_id == 0:
-		for uid : String in placeholder_blocks.keys():
-			if not current_blocks.has(uid) or current_blocks[uid].is_empty():
-				current_blocks[uid] = placeholder_blocks[uid]
+	for variant_id : int in variant_ids:
+		var next_variant_blocks : Dictionary = blocks[variant_id]
+		for block_id : String in next_variant_blocks.keys():
+			var blocks_array : Array = next_variant_blocks[block_id]
+			if blocks_array.is_empty() : continue
+			
+			# Reset current blocks array only if we found some new blocks in passed variant
+			if not block_id in touched_ids : current_blocks[block_id] = []
+			touched_ids.append(block_id)
+			
+			current_blocks[block_id].append_array(blocks_array)
 	
+	# Put blocks placeholders into still empty ID's
+	for block_id : String in placeholder_blocks.keys():
+		if not current_blocks.has(block_id) or current_blocks[block_id].is_empty():
+			current_blocks[block_id] = placeholder_blocks[block_id]
+	
+	currently_selected_variants = variant_ids
 	current_blocks_changed.emit()
 
 
 class SkinBlock:
-	var uid : StringName = &"none" ## Block unique ID, used by game to determine when to use it
+	var id : StringName = &"none" ## Block ID, used by game to determine when to use it
 	var index : int = 0 ## Index inside array containing this block
 	var variant_id : int = 0 ## Data variant number on which this block will be used
 	
-	var sprite_frames : SpriteFrames = null ## SpriteFrames instance which game can use for block instance
+	var sprite_frames : SpriteFrames = SpriteFrames.new() ## SpriteFrames instance which game can use for block instance
 	
-	var animation_timing : Array[bool] ## Array of beats on which block animation should start playing
+	var animation_timing : Array[bool] = [false, false, false, false,
+										false, false, false, false,
+										false, false, false, false,
+										false, false, false, false] ## Array of beats on which block animation should start playing
 	var loop_animation : bool = false : set = _set_animation_loop ## If true, this block animation will run from start and loop infinitely
 	var animation_fps : int = 30 : set = _set_animation_fps ## Animation frames per second
 	
@@ -147,6 +159,9 @@ class SkinBlock:
 	## Constructor. If texture path is passed, creates own texture assets from it and creates sprite
 	## WARNING : Should be used only for placeholder blocks, as it doesn't put created texture assets into SkinAssetData
 	func _init(texture_filepath : String = "") -> void:
+		sprite_frames.set_animation_loop(&"default", false)
+		sprite_frames.set_animation_speed(&"default", 30)
+		
 		if texture_filepath.is_empty() : return
 		
 		sprite_frames = SpriteFrames.new()
@@ -167,8 +182,8 @@ class SkinBlock:
 		for texture_asset_uid : StringName in frames:
 			# If some texture asset is missing, use placeholder block sprite instead
 			if not asset_data.textures.has(texture_asset_uid): 
-				if not SkinBlockData.placeholder_blocks.has(uid) : return
-				sprite_frames = SkinBlockData.placeholder_blocks[uid][0].sprite_frames
+				if not SkinBlockData.placeholder_blocks.has(id) : return
+				sprite_frames = SkinBlockData.placeholder_blocks[id][0].sprite_frames
 				return
 			
 			var texture_asset : ModdableAsset.TextureAsset = asset_data.textures[texture_asset_uid]

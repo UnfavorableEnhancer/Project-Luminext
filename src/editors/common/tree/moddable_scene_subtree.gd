@@ -15,28 +15,28 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-extends SkinEditorTree.SubTree
+extends EditorSubTree
 ##
-## Shows all background scenery objects and allows to edit them or add new ones
+## Shows all objects from inserted [ModdableScene] and allows to edit them or add new ones.
 ##
-class_name SEBackgroundSceneTree
+class_name ModdableSceneSubTree
 
-var skin_background : ModdableScene
+var moddable_scene : ModdableScene
 
 
-## Builds this sub-tree using passed skin sub-structure **data**.
+## Builds this sub-tree using passed [ModdableScene].
 func build_tree(new_data : Variant) -> bool:
 	if not new_data is ModdableScene : return false
-	skin_background = new_data
+	moddable_scene = new_data
 	
 	return true
 
 
-## Called by root tree when some item is selected.[br]
-## Returns **true** if selected item exists in this sub-tree and selected successfully.
+## Called by parent tree when some [TreeItem] is selected.[br]
+## Returns **true** if selected [TreeItem] exists in this sub-tree and selected successfully.
 func select_item(item : TreeItem) -> bool:
 	if item == root : return true
-	if not _is_item_valid(item): return false
+	if not _is_item_inside(item): return false
 	
 	# TODO : Request property editor here
 	print(item.get_metadata(0).object)
@@ -44,14 +44,15 @@ func select_item(item : TreeItem) -> bool:
 	return true
 
 
-## Called by root tree when some item name is edited.[br]
-## Returns **true** if selected item exists in this sub-tree and processed successfully.
+## Called by parent tree when some [TreeItem] name is edited.[br]
+## Returns **true** if selected [TreeItem] exists in this sub-tree and processed successfully.
 func edit_item_name(_item : TreeItem) -> bool:
+	# TODO : Change linked object name
 	return false
 
 
-## Called by root tree when some item is right clicked.[br]
-## Returns **true** if selected item exists in this sub-tree and options popup is built successfully.
+## Called by parent tree when some [TreeItem] is right clicked.[br]
+## Returns **true** if selected [TreeItem] exists in this sub-tree and options popup is built successfully.
 func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_position : Vector2) -> bool:
 	if item == root : 
 		options_popup.full_clear()
@@ -68,7 +69,7 @@ func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_positio
 		options_popup.position = mouse_position
 		return true
 	
-	if not _is_item_valid(item): return false
+	if not _is_item_inside(item): return false
 	
 	options_popup.full_clear()
 	options_popup.add_option("Add child node", _add_node)
@@ -91,51 +92,51 @@ func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_positio
 	return true
 
 
-## Duplicates selected subtree item data.
+## Duplicates selected subtree [TreeItem].
 func duplicate_item(item : TreeItem) -> bool:
 	return false
 
 
-## Adds new node to this sub-tree and creates respective object for current skin sub-structure **data**.
+## Adds new node to this subtree and creates respective object for current [ModdableScene].
 func _add_node(parent_item : TreeItem) -> void:
 	pass
 
-## Adds new sprite to this sub-tree and creates respective object for current skin sub-structure **data**.
+## Adds new sprite to this subtree and creates respective object for current [ModdableScene].
 func _add_sprite(parent_item : TreeItem) -> void:
 	pass
 
-## Adds new animated sprite to this sub-tree and creates respective object for current skin sub-structure **data**.
+## Adds new animated sprite to this subtree and creates respective object for current [ModdableScene].
 func _add_anim_sprite(parent_item : TreeItem) -> void:
 	pass
 
-## Adds new particles to this sub-tree and creates respective object for current skin sub-structure **data**.
+## Adds new particles to this subtree and creates respective object for current [ModdableScene].
 func _add_particles(parent_item : TreeItem) -> void:
 	pass
 
-## Adds new video player to this sub-tree and creates respective object for current skin sub-structure **data**.
+## Adds new video player to this subtree and creates respective object for current [ModdableScene].
 func _add_video(parent_item : TreeItem) -> void:
 	pass
 
-## Adds new color rect to this sub-tree and creates respective object for current skin sub-structure **data**.
+## Adds new color rect to this subtree and creates respective object for current [ModdableScene].
 func _add_rect(parent_item : TreeItem) -> void:
 	pass
 
-## Adds new text to this sub-tree and creates respective object for current skin sub-structure **data**.
+## Adds new text to this subtree and creates respective object for current [ModdableScene].
 func _add_text(parent_item : TreeItem) -> void:
 	pass
 
-## Adds new shader to this sub-tree and creates respective object for current skin sub-structure **data**.
+## Adds new shader to this subtree and creates respective object for current [ModdableScene].
 func _add_shader(parent_item : TreeItem) -> void:
 	pass
 
 
-## Removes item from this sub-tree and removes respective object from current skin sub-structure **data**.
+## Removes [TreeItem] from this subtree and removes respective object from [ModdableScene] that [TreeItem] was linked to.
 func remove_item(item : TreeItem) -> bool:
 	return false
 
 
-## Resolves pasted by copy manager item metadata to decide if item copy can be created
-func paste_item(selected_item : TreeItem, item_metadata : ItemMetadata) -> bool:
+## Resolves pasted by copy manager [TreeItem] metadata to decide if [TreeItem] copy can be inserted.
+func paste_item(selected_item : TreeItem, item_metadata : EditorTreeItemMetadata) -> bool:
 	if item_metadata.type == SkinEditorTree.ITEM_TYPE.BLOCK:
 		pass
 	

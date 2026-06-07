@@ -23,13 +23,16 @@ class_name SkinEditorTree
 
 ## All possible items inside this tree
 enum ITEM_TYPE {
-	ROOT, ## Links to sub-tree root # NOTE : Cannot be moved at all and cannot be copy/pasted
-	VARIANT, ## Links to any skin sub-structure data (blocks, effects, sfx, gui) variant # NOTE : Cannot be moved at all
-	BLOCK, ## Links to skin block # NOTE : Can be moved only inside own variant or to other blocks variant
-	SFX, ## Links to skin sound effect # NOTE : Can be moved only inside own variant or to other sound effects variant
-	EFFECT, ## Links to skin visual effect # NOTE : Can be moved only inside own variant or to other visual effects variant
-	GUI_MODIFIER, ## Links to an GUI modifier object # NOTE : Can be moved only inside own variant or to other GUI modifiers variant
-	SCENE_OBJECT ## Links to an skin background or visual effect scene object # NOTE : Can be moved only inside scene
+	ROOT = 0, ## Links to sub-tree root # NOTE : Cannot be moved at all and cannot be copy/pasted
+	VARIANT = 1, ## Links to any skin sub-structure data (blocks, effects, sfx, gui) variant # NOTE : Cannot be moved at all
+	BLOCK = 2, ## Links to skin block # NOTE : Can be moved only inside own variant or to other blocks variant
+	SFX = 3, ## Links to skin sound effect # NOTE : Can be moved only inside own variant or to other sound effects variant
+	EFFECT = 4, ## Links to skin visual effect # NOTE : Can be moved only inside own variant or to other visual effects variant
+	EFFECT_ANIMATION = 5, ## Links to skin visual effect animation # NOTE : Cannot be moved at all
+	EFFECT_SCENE = 6, ## Links to skin visual effect scene # NOTE : Cannot be moved at all
+	GUI_MODIFIER = 7, ## Links to an GUI modifier object # NOTE : Can be moved only inside own variant or to other GUI modifiers variant
+	BACKGROUND_ANIMATION = 8, ## Links to skin background scene animation # NOTE : Cannot be moved at all
+	SCENE_OBJECT = 9 ## Links to an skin background or visual effect scene object # NOTE : Can be moved only inside parent scene
 }
 
 const TREE_ICON_SIZE : int = 16 ## Size of the icon (height and width) used in all tree items
@@ -68,13 +71,15 @@ static var tree_icons : Dictionary[StringName, AtlasTexture] = {} ## Ready to us
 
 var skin_data : SkinData = null ## Skin data to view and edit.
 
-var metadata_tree : SEMetadataTree = SEMetadataTree.new() ## Contains skin metadata TreeItem
-var blocks_tree : SEBlocksTree = SEBlocksTree.new() ## Contains TreeItem's related to skin blocks
-var effects_tree : SEEffectsTree = SEEffectsTree.new() ## Contains TreeItem's related to skin visual effects
-var sounds_tree : SESFXTree = SESFXTree.new() ## Contains TreeItem's related to skin sound effects
-var gui_tree : SEGUIModifiersTree = SEGUIModifiersTree.new() ## Contains TreeItem's related to skin GUI modifiers
-var animation_tree : SEAnimationsTree = SEAnimationsTree.new() ## Contains TreeItem's related to skin background scene animations
-var background_tree : SEBackgroundSceneTree = SEBackgroundSceneTree.new() ## Contains TreeItem's related to skin background scene nodes
+var metadata_tree : SEMetadataSubTree = SEMetadataSubTree.new() ## Contains skin metadata TreeItem
+var blocks_tree : SEBlocksSubTree = SEBlocksSubTree.new() ## Contains TreeItem's related to skin blocks
+var effects_tree : SEEffectsSubTree = SEEffectsSubTree.new() ## Contains TreeItem's related to skin visual effects
+var sounds_tree : SESFXSubTree = SESFXSubTree.new() ## Contains TreeItem's related to skin sound effects
+var gui_tree : SEGUIModifiersSubTree = SEGUIModifiersSubTree.new() ## Contains TreeItem's related to skin GUI modifiers
+var animation_tree : SEAnimationsSubTree = SEAnimationsSubTree.new() ## Contains TreeItem's related to skin background scene animations
+var background_tree : ModdableSceneSubTree = ModdableSceneSubTree.new() ## Contains TreeItem's related to skin background scene nodes
+
+@export var property_editor_manager : PropertyEditorManager ## Used to edit objects represented by tree
 
 @export var undo_manager : EditorHistoryManager ## Used to add undo/redo commands
 @export var copy_manager : EditorCopyManager ## Used to handle TreeItem's copy/paste
@@ -85,6 +90,10 @@ var background_tree : SEBackgroundSceneTree = SEBackgroundSceneTree.new() ## Con
 
 
 func _ready() -> void:
+	load_assets()
+
+## Loads skin tree icons
+func load_assets() -> void:
 	if _tree_icons_tex == null : _tree_icons_tex = load("res://assets/textures/editors/skin_editor/tree_icons_80.png")
 	if not tree_icons.is_empty(): return
 	
@@ -107,7 +116,7 @@ func _on_focus_exited() -> void:
 
 
 ## Helper function to create TreeItem with specified text, icon, metadata and parent
-func _create_item(text : String, icon_uid : StringName = &"none", metadata : ItemMetadata = null, parent : TreeItem = null) -> TreeItem:
+func _create_item(text : String, icon_uid : StringName = &"none", metadata : EditorTreeItemMetadata = null, parent : TreeItem = null) -> TreeItem:
 	var item : TreeItem = create_item(parent)
 	item.set_text(0, text)
 	item.set_icon(0, tree_icons[icon_uid])
@@ -127,7 +136,7 @@ func build_tree(new_skin_data : SkinData) -> void:
 	
 	var skin_tree_root : TreeItem = _create_item("Skin")
 	
-	var subtrees_data : Dictionary[SubTree, Array] = {
+	var subtrees_data : Dictionary[EditorSubTree, Array] = {
 		metadata_tree :   ["Metadata",&"metadata",skin_data.metadata],
 		blocks_tree :   ["Blocks",&"blocks",skin_data.blocks],
 		effects_tree :   ["Effects",&"effects",skin_data.effects],
@@ -137,18 +146,18 @@ func build_tree(new_skin_data : SkinData) -> void:
 		background_tree :   ["Background",&"background",skin_data.background_scene],
 	}
 	
-	for subtree : SubTree in subtrees_data.keys():
-		var subtree_metadata : ItemMetadata = ItemMetadata.new(ITEM_TYPE.ROOT, subtree, null)
+	for subtree : EditorSubTree in subtrees_data.keys():
+		var subtree_metadata : EditorTreeItemMetadata = EditorTreeItemMetadata.new(ITEM_TYPE.ROOT, subtree, null)
 		var subtree_name : String = subtrees_data[subtree][0]
 		var icon_uid : StringName = subtrees_data[subtree][1]
 		var skin_subdata : Variant = subtrees_data[subtree][2]
 		var subtree_root : TreeItem = _create_item(subtree_name, icon_uid, subtree_metadata, skin_tree_root)
 		
 		subtree.root = subtree_root
-		subtree.skin_tree = self
-		subtree.asset_data = skin_data.assets
+		subtree.parent_tree = self
 		subtree.copy_manager = copy_manager
 		subtree.undo_manager = undo_manager
+		subtree.property_editor_manager = property_editor_manager
 		
 		subtree.build_tree(skin_subdata)
 
@@ -158,7 +167,7 @@ func _on_item_edited() -> void:
 	var selected_item : TreeItem = get_selected()
 	if selected_item == null : return
 	
-	for subtree : SubTree in [metadata_tree, blocks_tree, effects_tree, sounds_tree, gui_tree, animation_tree, background_tree]:
+	for subtree : EditorSubTree in [metadata_tree, blocks_tree, effects_tree, sounds_tree, gui_tree, animation_tree, background_tree]:
 		if subtree.edit_item_name(selected_item) : break
 
 ## Called when some tree item is selected.
@@ -166,7 +175,7 @@ func _on_item_selected() -> void:
 	var selected_item : TreeItem = get_selected()
 	if selected_item == null : return
 	
-	for subtree : SubTree in [metadata_tree, blocks_tree, effects_tree, sounds_tree, gui_tree, animation_tree, background_tree]:
+	for subtree : EditorSubTree in [metadata_tree, blocks_tree, effects_tree, sounds_tree, gui_tree, animation_tree, background_tree]:
 		if subtree.select_item(selected_item) : break
 
 ## Called when mouse presses on some tree item.
@@ -176,14 +185,14 @@ func _on_item_mouse_selected(mouse_position : Vector2, mouse_button_index : int)
 	var selected_item : TreeItem = get_selected()
 	if selected_item == null : return
 	
-	for subtree : SubTree in [metadata_tree, blocks_tree, effects_tree, sounds_tree, gui_tree, animation_tree, background_tree]:
+	for subtree : EditorSubTree in [metadata_tree, blocks_tree, effects_tree, sounds_tree, gui_tree, animation_tree, background_tree]:
 		if subtree.show_item_options(selected_item, options_popup, mouse_position) : break
 
 func _delete_selected_item() -> void:
 	var selected_item : TreeItem = get_selected()
 	if selected_item == null : return
 	
-	for subtree : SubTree in [metadata_tree, blocks_tree, effects_tree, sounds_tree, gui_tree, animation_tree, background_tree]:
+	for subtree : EditorSubTree in [metadata_tree, blocks_tree, effects_tree, sounds_tree, gui_tree, animation_tree, background_tree]:
 		if subtree.remove_item(selected_item) : break
 
 
@@ -198,7 +207,7 @@ func _on_paste_requested() -> void:
 	var item_metadata : Variant = copy_manager.get_paste_object(EditorCopyManager.COPY_TYPE.SE_TREE_ITEM)
 	if item_metadata == null : return
 	
-	for subtree : SubTree in [metadata_tree, blocks_tree, effects_tree, sounds_tree, gui_tree, animation_tree, background_tree]:
+	for subtree : EditorSubTree in [metadata_tree, blocks_tree, effects_tree, sounds_tree, gui_tree, animation_tree, background_tree]:
 		@warning_ignore("unsafe_call_argument")
 		if subtree.paste_item(selected_item, item_metadata) : break
 
@@ -219,91 +228,3 @@ func _on_cut_requested() -> void:
 	if item_metadata == null : return
 	
 	copy_manager.cut_object(_delete_selected_item, item_metadata)
-
-
-## Interface for making sub-trees, each representing own skin data sub-structure (ex. [SkinBlockData] or [SkinEffectData])
-@abstract class SubTree:
-	var asset_data : SkinAssetData = null ## Skin sub-structure which contains all assets (images, audio, video and etc.)
-	
-	var root : TreeItem = null ## Root TreeItem of this sub-tree
-	var skin_tree : SkinEditorTree = null ## Parent skin editor tree instance.
-	
-	var copy_manager : EditorCopyManager
-	var undo_manager : EditorHistoryManager
-
-	## Helper function to create TreeItem with specified text, icon, metadata and parent
-	func _create_item(text : String, icon_uid : StringName = &"none", metadata : ItemMetadata = null, parent : TreeItem = null) -> TreeItem:
-		var item : TreeItem = skin_tree.create_item(parent)
-		item.set_text(0, text)
-		item.set_icon(0, SkinEditorTree.tree_icons[icon_uid])
-		
-		if metadata != null : 
-			metadata.owner = item
-			item.set_metadata(0, metadata)
-		
-		return item
-
-	## Helper function, which returns **true** if item exists in this sub-tree
-	func _is_item_valid(item : TreeItem) -> bool:
-		if item == root : return true 
-		
-		var scan_func : Callable
-		scan_func = func(item_to_scan : TreeItem, target : TreeItem, rec_scan_func : Callable) -> bool:
-			var success : bool = false
-			if item_to_scan == target : return true
-			if item_to_scan.get_child_count() == 0 : return false
-				
-			for subitem : TreeItem in item_to_scan.get_children():
-				if subitem == target : return true
-				success = rec_scan_func.call(subitem, target, rec_scan_func)
-			
-			return success
-		
-		return scan_func.call(root, item, scan_func)
-
-
-	## Builds this sub-tree using passed skin sub-structure **data**.
-	@abstract func build_tree(new_data : Variant) -> bool
-	
-	## Called by root tree when some item is selected.[br]
-	## Returns **true** if selected item exists in this sub-tree and selected successfully.
-	@abstract func select_item(item : TreeItem) -> bool
-	## Called by root tree when some item name is edited.[br]
-	## Returns **true** if selected item exists in this sub-tree and processed successfully.
-	@abstract func edit_item_name(item : TreeItem) -> bool
-	## Called by root tree when some item is right clicked.[br]
-	## Returns **true** if selected item exists in this sub-tree and options popup is built successfully.
-	@abstract func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_position : Vector2) -> bool
-	
-	## Adds new item to this sub-tree and creates respective object for current skin sub-structure **data**.
-	#@abstract func _add_item() -> void
-	## Duplicates selected subtree item data.
-	@abstract func duplicate_item(item : TreeItem) -> bool
-	## Removes item from this sub-tree and removes respective object from current skin sub-structure **data**.
-	@abstract func remove_item(item : TreeItem) -> bool
-	## Resolves pasted by copy manager item metadata to decide if item copy can be created
-	@abstract func paste_item(selected_item : TreeItem, item_metadata : ItemMetadata) -> bool
-
-
-## Container for all [SubTree] items metadata
-class ItemMetadata:
-	var type : ITEM_TYPE ## Type of this ItemTree
-	var owner : TreeItem ## Owner ItemTree instance
-	var parent_subtree : SubTree ## Parent [SubTree]
-	var object : Variant ## Object this item represents
-
-	func _init(input_type : ITEM_TYPE, input_subtree : SubTree, input_object : Variant) -> void:
-		type = input_type
-		parent_subtree = input_subtree
-		object = input_object
-	
-	## Returns correct copy of this ItemMetadata
-	func duplicate() -> ItemMetadata:
-		if type == ITEM_TYPE.ROOT : return null
-		var copy : ItemMetadata = ItemMetadata.new(type, parent_subtree, null)
-		copy.owner = null
-		
-		if type in [ITEM_TYPE.BLOCK, ITEM_TYPE.SFX, ITEM_TYPE.EFFECT, ITEM_TYPE.GUI_MODIFIER, ITEM_TYPE.SCENE_OBJECT]:
-			copy.object = object.duplicate() # TODO : Implement duplicate for all ModdableAssets
-		
-		return copy

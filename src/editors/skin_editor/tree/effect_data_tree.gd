@@ -15,11 +15,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-extends SkinEditorTree.SubTree
+extends EditorSubTree
 ##
 ## Shows all skin visual effects and allows to edit them or add new ones
 ##
-class_name SEEffectsTree
+class_name SEEffectsSubTree
 
 var effect_data : SkinEffectData
 
@@ -32,8 +32,8 @@ func build_tree(new_data : Variant) -> bool:
 	effect_data = new_data
 	
 	for variant_id : int in effect_data.effects.keys():
-		var variant_item_meta : SkinEditorTree.ItemMetadata = SkinEditorTree.ItemMetadata.new(SkinEditorTree.ITEM_TYPE.VARIANT, self, variant_id)
-		var variant_item  : TreeItem = _create_item("Variant " + str(variant_id), &"variant", variant_item_meta, root)
+		var variant_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.VARIANT, self, variant_id)
+		var variant_item  : TreeItem = _create_item("Variant " + str(variant_id), SkinEditorTree.tree_icons[&"variant"], variant_item_meta, root)
 		variant_item_meta.owner = variant_item
 		variant_items[variant_id] = variant_item
 		variant_item.set_editable(0, false)
@@ -41,8 +41,8 @@ func build_tree(new_data : Variant) -> bool:
 		var variant_effects : Dictionary = effect_data.effects[variant_id]
 		for effect_uid : StringName in variant_effects:
 			for effect : SkinEffectData.SkinEffect in variant_effects[effect_uid]:
-				var effect_item_meta : SkinEditorTree.ItemMetadata = SkinEditorTree.ItemMetadata.new(SkinEditorTree.ITEM_TYPE.EFFECT, self, effect)
-				var effect_item : TreeItem = _create_item(effect.uid + str(effect.index + 1), &"object", effect_item_meta, variant_item)
+				var effect_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.EFFECT, self, effect)
+				var effect_item : TreeItem = _create_item(effect.uid + str(effect.index + 1), SkinEditorTree.tree_icons[&"object"], effect_item_meta, variant_item)
 				effect_item.set_editable(0, false)
 				effect_item_meta.owner = effect_item
 	
@@ -53,7 +53,7 @@ func build_tree(new_data : Variant) -> bool:
 ## Returns **true** if selected item exists in this sub-tree and selected successfully.
 func select_item(item : TreeItem) -> bool:
 	if item == root : return true
-	if not _is_item_valid(item): return false
+	if not _is_item_inside(item): return false
 	
 	# TODO : Request property editor here
 	print(item.get_metadata(0).object)
@@ -78,10 +78,10 @@ func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_positio
 		options_popup.position = mouse_position
 		return true
 	
-	if not _is_item_valid(item): return false
+	if not _is_item_inside(item): return false
 	
-	var item_meta : ItemMetadata = item.get_metadata(0)
-	if item_meta.type == ITEM_TYPE.VARIANT:
+	var item_meta : EditorTreeItemMetadata = item.get_metadata(0)
+	if item_meta.type == SkinEditorTree.ITEM_TYPE.VARIANT:
 		options_popup.full_clear()
 		options_popup.add_option("Add new effect", _add_effect.bind(item_meta.object))
 		options_popup.add_option("Duplicate variant", duplicate_item.bind(item))
@@ -119,8 +119,8 @@ func _add_variant() -> void:
 	effect_data.effects[variant_id] = {}
 	effect_data.effects[variant_id][&"red_square"] = []
 	
-	var variant_item_meta : SkinEditorTree.ItemMetadata = SkinEditorTree.ItemMetadata.new(SkinEditorTree.ITEM_TYPE.VARIANT, self, variant_id)
-	var variant_item  : TreeItem = _create_item("Variant " + str(variant_id), &"variant", variant_item_meta, root)
+	var variant_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.VARIANT, self, variant_id)
+	var variant_item  : TreeItem = _create_item("Variant " + str(variant_id), SkinEditorTree.tree_icons[&"variant"], variant_item_meta, root)
 	variant_item_meta.owner = variant_item
 	variant_items[variant_id] = variant_item
 	variant_item.set_editable(0, false)
@@ -138,8 +138,8 @@ func _add_effect(variant_id : int) -> void:
 	new_effect.index = effect_data.effects[variant_id][&"red_square"].size()
 	effect_data.effects[variant_id][&"red_square"].append(new_effect)
 	
-	var effect_item_meta : SkinEditorTree.ItemMetadata = SkinEditorTree.ItemMetadata.new(SkinEditorTree.ITEM_TYPE.EFFECT, self, new_effect)
-	var effect_item : TreeItem = _create_item(new_effect.uid + str(new_effect.index + 1), &"object", effect_item_meta, variant_items[variant_id])
+	var effect_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.EFFECT, self, new_effect)
+	var effect_item : TreeItem = _create_item(new_effect.uid + str(new_effect.index + 1), SkinEditorTree.tree_icons[&"object"], effect_item_meta, variant_items[variant_id])
 	effect_item.set_editable(0, false)
 	effect_item_meta.owner = effect_item
 
@@ -149,7 +149,7 @@ func remove_item(item : TreeItem) -> bool:
 
 
 ## Resolves pasted by copy manager item metadata to decide if item copy can be created
-func paste_item(selected_item : TreeItem, item_metadata : ItemMetadata) -> bool:
+func paste_item(selected_item : TreeItem, item_metadata : EditorTreeItemMetadata) -> bool:
 	if item_metadata.type == SkinEditorTree.ITEM_TYPE.EFFECT:
 		pass
 	

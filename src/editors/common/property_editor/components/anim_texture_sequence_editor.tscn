@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://q6360mb54upj"]
+
+[ext_resource type="Script" uid="uid://g4k403den3pl" path="res://src/editors/common/property_editor/components/anim_texture_sequence_editor.gd" id="1_hy5ad"]
+
+[node name="AnimTextureSequenceEditor" type="VBoxContainer" unique_id=1750681444]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hy5ad")
+
+[node name="Name" type="Label" parent="." unique_id=1538102622]
+layout_mode = 2
+text = "Some animated texture sequence"
+
+[node name="H" type="GridContainer" parent="." unique_id=1277253356]
+layout_mode = 2
+columns = 5
+
+[node name="T" type="Label" parent="H" unique_id=451815623]
+layout_mode = 2
+text = "Beats 1 - 4 :"
+
+[node name="B1" type="CheckBox" parent="H" unique_id=559390685]
+layout_mode = 2
+
+[node name="B2" type="CheckBox" parent="H" unique_id=2095117978]
+layout_mode = 2
+
+[node name="B3" type="CheckBox" parent="H" unique_id=1508183836]
+layout_mode = 2
+
+[node name="B4" type="CheckBox" parent="H" unique_id=1179620780]
+layout_mode = 2
+
+[node name="T2" type="Label" parent="H" unique_id=1994876555]
+layout_mode = 2
+text = "Beats 5 - 8 :"
+
+[node name="B5" type="CheckBox" parent="H" unique_id=1917426598]
+layout_mode = 2
+
+[node name="B6" type="CheckBox" parent="H" unique_id=389679090]
+layout_mode = 2
+
+[node name="B7" type="CheckBox" parent="H" unique_id=1913060920]
+layout_mode = 2
+
+[node name="B8" type="CheckBox" parent="H" unique_id=481934363]
+layout_mode = 2
+
+[node name="T3" type="Label" parent="H" unique_id=1971700265]
+layout_mode = 2
+text = "Beats 9 - 12 :"
+
+[node name="B9" type="CheckBox" parent="H" unique_id=1888785708]
+layout_mode = 2
+
+[node name="B10" type="CheckBox" parent="H" unique_id=1427992126]
+layout_mode = 2
+
+[node name="B11" type="CheckBox" parent="H" unique_id=566072025]
+layout_mode = 2
+
+[node name="B12" type="CheckBox" parent="H" unique_id=22373551]
+layout_mode = 2
+
+[node name="T4" type="Label" parent="H" unique_id=522551590]
+layout_mode = 2
+text = "Beats 13 - 16 :"
+
+[node name="B13" type="CheckBox" parent="H" unique_id=1962185653]
+layout_mode = 2
+
+[node name="B14" type="CheckBox" parent="H" unique_id=916779473]
+layout_mode = 2
+
+[node name="B15" type="CheckBox" parent="H" unique_id=1252727474]
+layout_mode = 2
+
+[node name="B16" type="CheckBox" parent="H" unique_id=1722564617]
+layout_mode = 2
+
+[connection signal="toggled" from="H/B1" to="." method="_on_b_toggled" binds= [0]]
+[connection signal="toggled" from="H/B2" to="." method="_on_b_toggled" binds= [1]]
+[connection signal="toggled" from="H/B3" to="." method="_on_b_toggled" binds= [2]]
+[connection signal="toggled" from="H/B4" to="." method="_on_b_toggled" binds= [3]]
+[connection signal="toggled" from="H/B5" to="." method="_on_b_toggled" binds= [4]]
+[connection signal="toggled" from="H/B6" to="." method="_on_b_toggled" binds= [5]]
+[connection signal="toggled" from="H/B7" to="." method="_on_b_toggled" binds= [6]]
+[connection signal="toggled" from="H/B8" to="." method="_on_b_toggled" binds= [7]]
+[connection signal="toggled" from="H/B9" to="." method="_on_b_toggled" binds= [8]]
+[connection signal="toggled" from="H/B10" to="." method="_on_b_toggled" binds= [9]]
+[connection signal="toggled" from="H/B11" to="." method="_on_b_toggled" binds= [10]]
+[connection signal="toggled" from="H/B12" to="." method="_on_b_toggled" binds= [11]]
+[connection signal="toggled" from="H/B13" to="." method="_on_b_toggled" binds= [12]]
+[connection signal="toggled" from="H/B14" to="." method="_on_b_toggled" binds= [13]]
+[connection signal="toggled" from="H/B15" to="." method="_on_b_toggled" binds= [14]]
+[connection signal="toggled" from="H/B16" to="." method="_on_b_toggled" binds= [15]]
