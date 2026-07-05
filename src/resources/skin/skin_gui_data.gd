@@ -23,9 +23,9 @@ class_name SkinGUIData
 signal current_gui_modifiers_changed ## Emitted when current GUI modifiers set is updated
 
 ## All avaiable GUI modifiers.[br]
-## This dictionary contains several "variants" (indicated by int), each containing own dictionary of GUI modifiers.[br]
-## Each GUI modifier in variant dictionary is assigned to specific GUI modifier UID, which gives the game an idea where this GUI modifier should be used.[br]
-## If on variant switch, there aren't any GUI modifier of some type in next variant, game will keep working with previous GUI modifier.
+## This dictionary contains several "presets" (indicated by int), each containing own dictionary of GUI modifiers.[br]
+## Each GUI modifier in presets dictionary is assigned to specific GUI modifier ID, which defines where this GUI modifier should be used.[br]
+## If on preset change, there aren't any GUI modifier of some type in the next preset, game will keep working with previous GUI modifier.
 var gui_modifiers : Dictionary[int, Dictionary] = {
 	0 : {
 		&"header_score" : null, # Score counter header (only texture can be modified)
@@ -90,19 +90,21 @@ func load_assets(asset_data : SkinAssetData) -> void:
 			gui_modifier.load_assets(asset_data)
 
 
-## Called by [SkinSequenceData] when variant changes, so current GUI modifier would be switched with GUI modifier prepared for specified variant.
-func select_variant(variant_id : int) -> void:
-	var next_variant_modifiers : Dictionary = gui_modifiers[variant_id]
-	for uid : String in next_variant_modifiers.keys():
-		var gui_modifier : SkinGUIModifier = next_variant_modifiers[uid]
+## Called by [SkinSequenceData] when preset changes, so current GUI modifier would be switched with GUI modifier prepared for specified preset.
+func select_preset(preset_id : int) -> void:
+	var next_preset_modifiers : Dictionary = gui_modifiers[preset_id]
+	for gui_modifier_id : String in next_preset_modifiers.keys():
+		var gui_modifier : SkinGUIModifier = next_preset_modifiers[gui_modifier_id]
 		if gui_modifier == null : continue
 		
-		current_gui_modifiers[uid] = gui_modifier
+		current_gui_modifiers[gui_modifier_id] = gui_modifier
+	
+	current_gui_modifiers_changed.emit()
 
 
 class SkinGUIModifier:
-	var uid : StringName = &"none" ## Unique ID used by certain GUI element to modify itself
-	var variant_id : int = 0 ## Data variant number on which this GUI modifier will be used
+	var id : StringName = &"none" ## GUI modifier identifier, which defines what GUI element this object modifies
+	var preset_id : int = 0 ## Preset number on which this GUI modifier will be used
 	
 	var texture : ModdableAsset.TextureAsset = null ## GUI element texture asset
 	var texture_uid : StringName = &"" ## GUI element texture asset uid

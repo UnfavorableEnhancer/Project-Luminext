@@ -24,6 +24,15 @@ class_name ModdableSceneSubTree
 var moddable_scene : ModdableScene
 
 
+## Builds this sub-tree using passed skin sub-structure **data**.
+func build(new_data : Variant) -> bool:
+	return false
+
+
+func rebuild() -> bool:
+	return false
+
+
 ## Builds this sub-tree using passed [ModdableScene].
 func build_tree(new_data : Variant) -> bool:
 	if not new_data is ModdableScene : return false
@@ -85,7 +94,7 @@ func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_positio
 	options_popup.add_separator()
 	options_popup.add_option("Cut", copy_manager.cut_object.bind(remove_item.bind(item), item))
 	options_popup.add_option("Copy", copy_manager.insert_object_to_copy.bind(item))
-	options_popup.add_option("Paste", paste_item.bind(item, copy_manager.get_paste_object(EditorCopyManager.COPY_TYPE.SE_TREE_ITEM)))
+	options_popup.add_option("Paste", paste_item.bind(item, copy_manager.get_paste_object(EditorCopyManager.COPY_TYPE.TREE_ITEM)))
 	
 	options_popup.popup()
 	options_popup.position = mouse_position
@@ -140,7 +149,7 @@ func paste_item(selected_item : TreeItem, item_metadata : EditorTreeItemMetadata
 	if item_metadata.type == SkinEditorTree.ITEM_TYPE.BLOCK:
 		pass
 	
-	if item_metadata.type == SkinEditorTree.ITEM_TYPE.VARIANT:
+	if item_metadata.type == SkinEditorTree.ITEM_TYPE.PRESET:
 		pass
 	
 	return false

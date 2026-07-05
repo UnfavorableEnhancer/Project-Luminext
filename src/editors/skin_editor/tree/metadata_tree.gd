@@ -25,6 +25,15 @@ var metadata : SkinMetadata
 
 
 ## Builds this sub-tree using passed skin sub-structure **data**.
+func build(new_data : Variant) -> bool:
+	return false
+
+
+func rebuild() -> bool:
+	return false
+
+
+## Builds this sub-tree using passed skin sub-structure **data**.
 func build_tree(new_data : Variant) -> bool:
 	if not new_data is SkinMetadata: return false
 	metadata = new_data 

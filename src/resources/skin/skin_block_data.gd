@@ -21,56 +21,19 @@
 ##
 class_name SkinBlockData
 
-signal current_blocks_changed ## Emitted when current block set is updated
+signal current_blocks_changed ## Emitted when current block preset changes
 
-## All avaiable blocks.[br]
-## This dictionary contains several "variants" (indicated by int), each containing own dictionary of blocks arrays.[br]
-## Each blocks array in variant dictionary is assigned to specific block UID, which gives the game an idea when this block should be used.[br]
-## If array has multiple blocks, game will select random one on spawn.[br]
-## If on variant switch, there aren't any blocks of some type in next variant, game will keep working with previous variant blocks.
-var blocks : Dictionary[int, Dictionary] = {
-	0 : {
-		&"red" : [], # Red block
-		&"white" : [], # White block
-		&"green" : [], # Green block
-		&"purple" : [], # Purple block
-		&"chain" : [], # Chain block overlay (chains and removes all adjacent same-colored blocks)
-		&"merge" : [], # Merge block overlay (turns all blocks in area into own color)
-		&"wipe" : [], # Wipe block overlay (removes all same-colored blocks in area)
-		&"column" : [], # Column block overlay (turns all blocks on same column into own color)
-		&"row" : [], # Row block overlay (turns all blocks on same row into own color)
-		&"multi" : [], # Multi block (can be squared with any color)
-		&"garbage" : [], # Garbage block (erased when adjacent blocks are erased)
-		&"dark" : [], # Dark block (cannot be erased)
-		&"ready" : [], # Ready to delete block overlay
-		&"scan" : [], # Scanned by timeline block overlay
-		&"erase" : [] # Block erase animation overlay
-	}
+
+## All avaiable blocks presets.
+var blocks_presets : Dictionary[int, SkinBlockPreset] = {
+	0 : SkinBlockPreset.new()
 }
 
-## All currently used by the game blocks.
-var current_blocks : Dictionary[StringName, Array] = {
-	&"red" : [], 
-	&"white" : [],
-	&"green" : [],
-	&"purple" : [],
-	&"chain" : [],
-	&"merge" : [],
-	&"wipe" : [],
-	&"column" : [],
-	&"row" : [],
-	&"multi" : [],
-	&"garbage" : [],
-	&"dark" : [],
-	&"ready" : [],
-	&"scan" : [],
-	&"erase" : []
-}
+## Currently used by game blocks preset.
+var current_blocks_preset : SkinBlockPreset = null
 
-var currently_selected_variants : Array[int] = [0] ## Currently selected by [SkinSequenceData] block variants
-
-## Blocks which will be used for UID's which are completely missing in **blocks** or special option is enabled in settings.[br]
-## Each array contains two variants: standard (index 0) and colorblind-friendly (index 1)
+## Blocks which will be used for ID's which are completely missing in current blocks preset or when special option is enabled in settings.[br]
+## Each array contains two presets: standard (index 0) and colorblind-friendly (index 1)
 # TODO : Put placeholders file paths here
 static var placeholder_blocks : Dictionary[StringName, Array] = {
 	&"red" : [],
@@ -90,50 +53,102 @@ static var placeholder_blocks : Dictionary[StringName, Array] = {
 	&"erase" : []
 }
 
-## Loads all blocks data from passed FileAccess, which has valid skin file opened
+## Loads all blocks data from passed FileAccess, which has valid skin file opened.
 func load(file : FileAccess) -> SkinConsts.IO_ERROR:
 	return SkinConsts.IO_ERROR.OK
 
-## Saves all blocks data to passed FileAccess, which has valid skin file opened
+## Saves all blocks data to passed FileAccess, which has valid skin file opened.
 func save(file : FileAccess) -> SkinConsts.IO_ERROR:
 	return SkinConsts.IO_ERROR.OK
 
-## Loads all blocks with assets from passed [SkinAssetData]
+## Loads all blocks with assets from passed [SkinAssetData].
 func load_assets(asset_data : SkinAssetData) -> void:
-	for block_array : Array in blocks.values():
-		for block : SkinBlock in block_array:
-			block.load_assets(asset_data)
+	for block_preset : SkinBlockPreset in blocks_presets.values():
+		for block_array : Array in block_preset.blocks.values():
+			for block : SkinBlock in block_array:
+				block.load_assets(asset_data)
 
 
-## Called by [SkinSequenceData] when selected block variants has changed, so current blocks would be switched with blocks prepared for specified variants.
-func select_variants(variant_ids : Array[int]) -> void:
-	var touched_ids : Array[StringName] = []
-	
-	for variant_id : int in variant_ids:
-		var next_variant_blocks : Dictionary = blocks[variant_id]
-		for block_id : String in next_variant_blocks.keys():
-			var blocks_array : Array = next_variant_blocks[block_id]
-			if blocks_array.is_empty() : continue
-			
-			# Reset current blocks array only if we found some new blocks in passed variant
-			if not block_id in touched_ids : current_blocks[block_id] = []
-			touched_ids.append(block_id)
-			
-			current_blocks[block_id].append_array(blocks_array)
+## Changes currently used blocks preset.
+func select_preset(preset_id : int) -> void:
+	current_blocks_preset = blocks_presets[preset_id]
 	
 	# Put blocks placeholders into still empty ID's
-	for block_id : String in placeholder_blocks.keys():
-		if not current_blocks.has(block_id) or current_blocks[block_id].is_empty():
-			current_blocks[block_id] = placeholder_blocks[block_id]
+	for block_id : StringName in placeholder_blocks.keys():
+		if current_blocks_preset.blocks[block_id].is_empty():
+			current_blocks_preset.blocks[block_id].append(placeholder_blocks[block_id])
 	
-	currently_selected_variants = variant_ids
 	current_blocks_changed.emit()
 
 
+##
+## Contains arrays of [SkinBlock]'s of different types, which are used by the game to spawn blocks.[br]
+## A random block from array will be used on block spawn.
+## 
+class SkinBlockPreset:
+	var id : int = 0 : set = _set_id
+	var blocks : Dictionary[StringName, Array] = {
+		&"red" : [], # Red block
+		&"white" : [], # White block
+		&"green" : [], # Green block
+		&"purple" : [], # Purple block
+		&"chain" : [], # Chain block overlay (chains and removes all adjacent same-colored blocks)
+		&"merge" : [], # Merge block overlay (turns all blocks in area into own color)
+		&"wipe" : [], # Wipe block overlay (removes all same-colored blocks in area)
+		&"column" : [], # Column block overlay (turns all blocks on same column into own color)
+		&"row" : [], # Row block overlay (turns all blocks on same row into own color)
+		&"multi" : [], # Multi block (can be squared with any color)
+		&"garbage" : [], # Garbage block (erased when adjacent blocks are erased)
+		&"dark" : [], # Dark block (cannot be erased)
+		&"ready" : [], # Ready to delete block overlay
+		&"scan" : [], # Scanned by timeline block overlay
+		&"erase" : [] # Block erase animation overlay
+	}
+	
+	func _set_id(value : int) -> void:
+		id = value
+		var block_ids_array : Array[StringName] = blocks.keys()
+		for block_id : StringName in block_ids_array:
+			var blocks_array : Array = blocks[block_id]
+			for block : SkinBlock in blocks_array:
+				block.preset_id = value
+	
+	
+	## Creates a unique clone of this blocks preset data.
+	func duplicate() -> SkinBlockPreset:
+		return clone(self)
+	
+	## Creates a unique clone of passed blocks preset data.
+	static func clone(blocks_preset : SkinBlockPreset) -> SkinBlockPreset:
+		var clone_blocks_preset : SkinBlockPreset = SkinBlockPreset.new()
+		clone_blocks_preset.id = blocks_preset.id
+		
+		var block_ids_array : Array[StringName] = blocks_preset.blocks.keys()
+		for block_id : StringName in block_ids_array:
+			var blocks_array : Array = blocks_preset.blocks[block_id]
+			for block : SkinBlock in blocks_array:
+				var block_clone : SkinBlock = SkinBlock.clone(block)
+				block_clone.index = clone_blocks_preset.blocks[block_id].size()
+				clone_blocks_preset.blocks[block_id].append(block_clone)
+		
+		return clone_blocks_preset
+
+	## Loads blocks preset data from passed FileAccess, which has valid skin file opened
+	func load(file : FileAccess) -> SkinConsts.IO_ERROR:
+		return SkinConsts.IO_ERROR.OK
+
+	## Saves blocks preset data to passed FileAccess, which has valid skin file opened
+	func save(file : FileAccess) -> SkinConsts.IO_ERROR:
+		return SkinConsts.IO_ERROR.OK
+
+
+##
+## Contains all graphics and animation settings for single block instance.
+##
 class SkinBlock:
-	var id : StringName = &"none" ## Block ID, used by game to determine when to use it
+	var id : StringName = &"none" ## Block identifier, which defines for what block types this block texture will be used
 	var index : int = 0 ## Index inside array containing this block
-	var variant_id : int = 0 ## Data variant number on which this block will be used
+	var preset_id : int = 0 ## Preset number on which this block will be used
 	
 	var sprite_frames : SpriteFrames = SpriteFrames.new() ## SpriteFrames instance which game can use for block instance
 	
@@ -173,6 +188,30 @@ class SkinBlock:
 		
 		sprite_frames.set_animation_speed(&"default", animation_fps)
 		sprite_frames.set_animation_loop(&"default", loop_animation)
+
+
+	## Creates a unique clone of this block data.
+	func duplicate() -> SkinBlock:
+		return clone(self)
+
+	
+	## Creates a unique clone of passed block data.
+	static func clone(block : SkinBlock) -> SkinBlock:
+		var clone_block : SkinBlock = SkinBlock.new()
+		clone_block.id = block.id
+		clone_block.preset_id = block.preset_id
+		clone_block.animation_timing = block.animation_timing
+		
+		clone_block.frames = block.frames
+		clone_block.sprite_frames = SpriteFrames.new()
+		
+		for i : int in block.sprite_frames.get_frame_count(&"default"):
+			clone_block.sprite_frames.add_frame(&"default", block.sprite_frames.get_frame_texture(&"default", i))
+		
+		clone_block.animation_fps = block.animation_fps
+		clone_block.loop_animation = block.loop_animation
+		
+		return clone_block
 
 
 	## Copies all frames [TextureAssets] from passed [SkinAssetData]

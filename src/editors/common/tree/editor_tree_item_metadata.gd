@@ -16,7 +16,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-## Container for all [SubTree] items metadata
+## Container for [TreeItem] metadata.[br]
+## type - One of [SkinEditorTree.ITEM_TYPE];[br]
+## owner - [TreeItem] which holds this metadata;[br]
+## parent_subtree - [SubTree] in which parent [TreeItem] exists;[br]
+## object - Some variable or object this metadata can contain
 class_name EditorTreeItemMetadata
 
 var type : int ## Type of this ItemTree (defined by editor tree)

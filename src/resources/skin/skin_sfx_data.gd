@@ -21,10 +21,10 @@
 class_name SkinSFXData
 
 ## All avaiable sound effects.[br]
-## This dictionary contains several "variants" (indicated by int), each containing own dictionary of sounds arrays.[br]
-## Each sounds array in variant dictionary is assigned to specific sound UID, which gives the game an idea when this sound effect should be used.[br]
+## This dictionary contains several "presets" (indicated by int), each containing own dictionary of sounds arrays.[br]
+## Each sounds array in presets dictionary is assigned to specific sound ID, which defines when this sound effect should be used.[br]
 ## If array has multiple sounds, game will select random one on spawn.[br]
-## If on variant switch, there aren't any sounds of some type in next variant, game will keep working with previous variant sound effects.
+## If on preset change, there aren't any sounds of some type in the next preset, game will keep working with previous preset sound effects.
 var sounds : Dictionary[int, Dictionary] = {
 	0 : {
 		&"move_left" : [], # Played when piece moves left
@@ -78,20 +78,20 @@ func load_assets(asset_data : SkinAssetData) -> void:
 			sound.load_assets(asset_data)
 
 
-## Called by [SkinSequenceData] when variant changes, so current sound effects would be switched with sounds prepared for specified variant.
-func select_variant(variant_id : int) -> void:
-	var next_variant_sounds : Dictionary = sounds[variant_id]
-	for uid : String in next_variant_sounds.keys():
-		var sounds_array : Array = next_variant_sounds[uid]
+## Called by [SkinSequenceData] when preset changes, so current sound effects would be switched with sounds prepared for specified preset.
+func select_preset(preset_id : int) -> void:
+	var next_preset_sounds : Dictionary = sounds[preset_id]
+	for sound_id : String in next_preset_sounds.keys():
+		var sounds_array : Array = next_preset_sounds[sound_id]
 		if sounds_array.is_empty() : continue
 		
-		current_sounds[uid] = sounds_array
+		current_sounds[sound_id] = sounds_array
 
 
 class SkinSFX:
-	var uid : StringName = &"none" ## Unique ID used by certain game events to make sound effect
+	var id : StringName = &"none" ## Sound identifier, which defines on what events this sound effect should be played
 	var index : int = 0 ## Index inside array containing this sound effect
-	var variant_id : int = 0 ## Data variant number on which this sound effect will be used
+	var preset_id : int = 0 ## Preset number on which this sound effect will be used
 	
 	var audio_asset : ModdableAsset.AudioAsset = null ## Used audio asset
 	var audio_asset_uid : StringName = &"" ## Used audio asset UID

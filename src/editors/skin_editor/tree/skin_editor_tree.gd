@@ -24,13 +24,13 @@ class_name SkinEditorTree
 ## All possible items inside this tree
 enum ITEM_TYPE {
 	ROOT = 0, ## Links to sub-tree root # NOTE : Cannot be moved at all and cannot be copy/pasted
-	VARIANT = 1, ## Links to any skin sub-structure data (blocks, effects, sfx, gui) variant # NOTE : Cannot be moved at all
-	BLOCK = 2, ## Links to skin block # NOTE : Can be moved only inside own variant or to other blocks variant
-	SFX = 3, ## Links to skin sound effect # NOTE : Can be moved only inside own variant or to other sound effects variant
-	EFFECT = 4, ## Links to skin visual effect # NOTE : Can be moved only inside own variant or to other visual effects variant
+	PRESET = 1, ## Links to any skin sub-structure data (blocks, effects, sfx, gui) preset # NOTE : Cannot be moved at all
+	BLOCK = 2, ## Links to skin block # NOTE : Can be moved only inside own preset or to other blocks preset
+	SFX = 3, ## Links to skin sound effect # NOTE : Can be moved only inside own preset or to other sound effects preset
+	EFFECT = 4, ## Links to skin visual effect # NOTE : Can be moved only inside own preset or to other visual effects preset
 	EFFECT_ANIMATION = 5, ## Links to skin visual effect animation # NOTE : Cannot be moved at all
 	EFFECT_SCENE = 6, ## Links to skin visual effect scene # NOTE : Cannot be moved at all
-	GUI_MODIFIER = 7, ## Links to an GUI modifier object # NOTE : Can be moved only inside own variant or to other GUI modifiers variant
+	GUI_MODIFIER = 7, ## Links to an GUI modifier object # NOTE : Can be moved only inside own preset or to other GUI modifiers preset
 	BACKGROUND_ANIMATION = 8, ## Links to skin background scene animation # NOTE : Cannot be moved at all
 	SCENE_OBJECT = 9 ## Links to an skin background or visual effect scene object # NOTE : Can be moved only inside parent scene
 }
@@ -42,7 +42,7 @@ static var _tree_icons_tex : Texture = null ## Texture used for tree items icons
 ## Defines regions for cutting "_tree_icons_tex" atlas
 var _tree_icons_regions : Dictionary[StringName, Rect2i] = {
 	&"none" : Rect2i(TREE_ICON_SIZE * 4, TREE_ICON_SIZE * 4, TREE_ICON_SIZE, TREE_ICON_SIZE),
-	&"variant" : Rect2i(TREE_ICON_SIZE * 0, TREE_ICON_SIZE * 4, TREE_ICON_SIZE, TREE_ICON_SIZE),
+	&"preset" : Rect2i(TREE_ICON_SIZE * 0, TREE_ICON_SIZE * 4, TREE_ICON_SIZE, TREE_ICON_SIZE),
 	&"object" : Rect2i(TREE_ICON_SIZE * 1, TREE_ICON_SIZE * 4, TREE_ICON_SIZE, TREE_ICON_SIZE),
 	&"metadata" : Rect2i(TREE_ICON_SIZE * 0, TREE_ICON_SIZE * 0, TREE_ICON_SIZE, TREE_ICON_SIZE),
 	&"camera" : Rect2i(TREE_ICON_SIZE * 1, TREE_ICON_SIZE * 0, TREE_ICON_SIZE, TREE_ICON_SIZE),
@@ -159,24 +159,29 @@ func build_tree(new_skin_data : SkinData) -> void:
 		subtree.undo_manager = undo_manager
 		subtree.property_editor_manager = property_editor_manager
 		
-		subtree.build_tree(skin_subdata)
+		subtree.build(skin_subdata)
 
 
-## Called when some tree item name is changed.
-func _on_item_edited() -> void:
-	var selected_item : TreeItem = get_selected()
-	if selected_item == null : return
-	
-	for subtree : EditorSubTree in [metadata_tree, blocks_tree, effects_tree, sounds_tree, gui_tree, animation_tree, background_tree]:
-		if subtree.edit_item_name(selected_item) : break
+
+
 
 ## Called when some tree item is selected.
 func _on_item_selected() -> void:
 	var selected_item : TreeItem = get_selected()
 	if selected_item == null : return
+	var item_metadata : Variant = selected_item.get_metadata(0)
+	if not item_metadata or item_metadata is not EditorTreeItemMetadata : return
 	
-	for subtree : EditorSubTree in [metadata_tree, blocks_tree, effects_tree, sounds_tree, gui_tree, animation_tree, background_tree]:
-		if subtree.select_item(selected_item) : break
+	item_metadata.parent_subtree.select_item(selected_item)
+
+## Called when some tree item name is changed.
+func _on_item_edited() -> void:
+	var selected_item : TreeItem = get_selected()
+	if selected_item == null : return
+	var item_metadata : Variant = selected_item.get_metadata(0)
+	if not item_metadata or item_metadata is not EditorTreeItemMetadata : return
+	
+	item_metadata.parent_subtree.edit_item_name(selected_item)
 
 ## Called when mouse presses on some tree item.
 func _on_item_mouse_selected(mouse_position : Vector2, mouse_button_index : int) -> void:
@@ -184,47 +189,52 @@ func _on_item_mouse_selected(mouse_position : Vector2, mouse_button_index : int)
 	
 	var selected_item : TreeItem = get_selected()
 	if selected_item == null : return
+	var item_metadata : Variant = selected_item.get_metadata(0)
+	if not item_metadata or item_metadata is not EditorTreeItemMetadata : return
 	
-	for subtree : EditorSubTree in [metadata_tree, blocks_tree, effects_tree, sounds_tree, gui_tree, animation_tree, background_tree]:
-		if subtree.show_item_options(selected_item, options_popup, mouse_position) : break
+	item_metadata.parent_subtree.show_item_options(selected_item, options_popup, mouse_position)
 
+## Deletes currently selected tree item.
 func _delete_selected_item() -> void:
 	var selected_item : TreeItem = get_selected()
 	if selected_item == null : return
+	var item_metadata : Variant = selected_item.get_metadata(0)
+	if not item_metadata or item_metadata is not EditorTreeItemMetadata : return
 	
-	for subtree : EditorSubTree in [metadata_tree, blocks_tree, effects_tree, sounds_tree, gui_tree, animation_tree, background_tree]:
-		if subtree.remove_item(selected_item) : break
+	item_metadata.parent_subtree.remove_item(selected_item)
 
 
 func _input(event: InputEvent) -> void:
+	if not has_focus() : return
 	if event.is_action_pressed("ui_delete"): _delete_selected_item()
 
 
+## Called by [EditorCopyManager] when object paste is requested
 func _on_paste_requested() -> void:
 	var selected_item : TreeItem = get_selected()
 	if selected_item == null : return
+	var item_metadata : Variant = selected_item.get_metadata(0)
+	if not item_metadata or item_metadata is not EditorTreeItemMetadata : return
 	
-	var item_metadata : Variant = copy_manager.get_paste_object(EditorCopyManager.COPY_TYPE.SE_TREE_ITEM)
-	if item_metadata == null : return
+	var item_metadata_to_paste : Variant = copy_manager.get_paste_object(EditorCopyManager.COPY_TYPE.TREE_ITEM)
+	if item_metadata_to_paste == null : return
 	
-	for subtree : EditorSubTree in [metadata_tree, blocks_tree, effects_tree, sounds_tree, gui_tree, animation_tree, background_tree]:
-		@warning_ignore("unsafe_call_argument")
-		if subtree.paste_item(selected_item, item_metadata) : break
+	item_metadata.parent_subtree.paste_item(selected_item, item_metadata_to_paste)
 
+## Called by [EditorCopyManager] when object copy is requested
 func _on_copy_requested() -> void:
 	var selected_item : TreeItem = get_selected()
 	if selected_item == null : return
-	
 	var item_metadata : Variant = selected_item.get_metadata(0)
-	if item_metadata == null : return
+	if not item_metadata or item_metadata is not EditorTreeItemMetadata : return
 	
-	copy_manager.insert_object_to_copy(item_metadata)
+	copy_manager.copy_object(item_metadata)
 
+## Called by [EditorCopyManager] when object cut is requested
 func _on_cut_requested() -> void:
 	var selected_item : TreeItem = get_selected()
 	if selected_item == null : return
-	
 	var item_metadata : Variant = selected_item.get_metadata(0)
-	if item_metadata == null : return
+	if not item_metadata or item_metadata is not EditorTreeItemMetadata : return
 	
 	copy_manager.cut_object(_delete_selected_item, item_metadata)

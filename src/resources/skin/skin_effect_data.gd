@@ -21,10 +21,10 @@
 class_name SkinEffectData
 
 ## All avaiable visual effects.[br]
-## This dictionary contains several "variants" (indicated by int), each containing own dictionary of effects arrays.[br]
-## Each effects array in variant dictionary is assigned to specific effect UID, which gives the game an idea when this effect should be used.[br]
+## This dictionary contains several "presets" (indicated by int), each containing own dictionary of effects arrays.[br]
+## Each effects array in presets dictionary is assigned to specific effect ID, which defines when this effect should be used.[br]
 ## If array has multiple effects, game will select random one on spawn.[br]
-## If on variant switch, there aren't any effects of some type in next variant, game will keep working with previous variant effects.
+## If on preset change, there aren't any effects of some type in the next preset, game will keep working with previous preset effects.
 var effects : Dictionary[int, Dictionary] = {
 	0 : {
 		&"red_square" : [], # Red square
@@ -83,20 +83,20 @@ func load_assets(asset_data : SkinAssetData) -> void:
 			effect.load_assets(asset_data)
 
 
-## Called by [SkinSequenceData] when variant changes, so current visual effects would be switched with effects prepared for specified variant.
-func select_variant(variant_id : int) -> void:
-	var next_variant_effects : Dictionary = effects[variant_id]
-	for uid : String in next_variant_effects.keys():
-		var effects_array : Array = next_variant_effects[uid]
+## Called by [SkinSequenceData] when preset changes, so current visual effects would be switched with effects prepared for specified preset.
+func select_preset(preset_id : int) -> void:
+	var next_preset_effects : Dictionary = effects[preset_id]
+	for effect_id : String in next_preset_effects.keys():
+		var effects_array : Array = next_preset_effects[effect_id]
 		if effects_array.is_empty() : continue
 		
-		current_effects[uid] = effects_array
+		current_effects[effect_id] = effects_array
 
 
 class SkinEffect:
-	var uid : StringName = &"none" ## Visual effect unique ID, used by game to determine when to use it
+	var id : StringName = &"none" ## Visual effect identifier, which defines when and how this effect will be spawned
 	var index : int = 0 ## Index inside array containing this effect
-	var variant_id : int = 0 ## Data variant number on which this visual effect will be used
+	var preset_id : int = 0 ## Preset number on which this visual effect will be used
 	
 	var scene : ModdableScene = ModdableScene.new()
 	var animation : Animation = Animation.new()

@@ -27,26 +27,12 @@ var variant_items : Dictionary[int, TreeItem] = {}
 
 
 ## Builds this sub-tree using passed skin sub-structure **data**.
-func build_tree(new_data : Variant) -> bool:
-	if not new_data is SkinSFXData : return false
-	sfx_data = new_data
-	
-	for variant_id : int in sfx_data.sounds.keys():
-		var variant_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.VARIANT, self, variant_id)
-		var variant_item : TreeItem = _create_item("Variant " + str(variant_id), SkinEditorTree.tree_icons[&"variant"], variant_item_meta, root)
-		variant_item_meta.owner = variant_item
-		variant_items[variant_id] = variant_item
-		variant_item.set_editable(0, false)
-		
-		var variant_sounds : Dictionary = sfx_data.sounds[variant_id]
-		for sound_uid : StringName in variant_sounds:
-			for sound : SkinSFXData.SkinSFX in variant_sounds[sound_uid]:
-				var sound_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.SFX, self, sound)
-				var sound_item : TreeItem = _create_item(sound.uid + str(sound.index + 1), SkinEditorTree.tree_icons[&"object"], sound_item_meta, variant_item)
-				sound_item.set_editable(0, false)
-				sound_item_meta.owner = sound_item
-	
-	return true
+func build(new_data : Variant) -> bool:
+	return false
+
+
+func rebuild() -> bool:
+	return false
 
 
 ## Called by root tree when some item is selected.[br]
@@ -81,7 +67,7 @@ func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_positio
 	if not _is_item_inside(item): return false
 	
 	var item_meta : EditorTreeItemMetadata = item.get_metadata(0)
-	if item_meta.type == SkinEditorTree.ITEM_TYPE.VARIANT:
+	if item_meta.type == SkinEditorTree.ITEM_TYPE.PRESET:
 		options_popup.full_clear()
 		options_popup.add_option("Add new sound", _add_sound.bind(item_meta.object))
 		options_popup.add_option("Duplicate variant", duplicate_item.bind(item))
@@ -89,7 +75,7 @@ func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_positio
 		options_popup.add_separator()
 		options_popup.add_option("Cut", copy_manager.cut_object.bind(remove_item.bind(item), item))
 		options_popup.add_option("Copy", copy_manager.insert_object_to_copy.bind(item))
-		options_popup.add_option("Paste", paste_item.bind(item, copy_manager.get_paste_object(EditorCopyManager.COPY_TYPE.SE_TREE_ITEM)))
+		options_popup.add_option("Paste", paste_item.bind(item, copy_manager.get_paste_object(EditorCopyManager.COPY_TYPE.TREE_ITEM)))
 		
 		options_popup.popup()
 		options_popup.position = mouse_position
@@ -102,7 +88,7 @@ func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_positio
 	options_popup.add_separator()
 	options_popup.add_option("Cut", copy_manager.cut_object.bind(remove_item.bind(item), item))
 	options_popup.add_option("Copy", copy_manager.insert_object_to_copy.bind(item))
-	options_popup.add_option("Paste", paste_item.bind(item, copy_manager.get_paste_object(EditorCopyManager.COPY_TYPE.SE_TREE_ITEM)))
+	options_popup.add_option("Paste", paste_item.bind(item, copy_manager.get_paste_object(EditorCopyManager.COPY_TYPE.TREE_ITEM)))
 	
 	options_popup.popup()
 	options_popup.position = mouse_position
@@ -119,7 +105,7 @@ func _add_variant() -> void:
 	sfx_data.sounds[variant_id] = {}
 	sfx_data.sounds[variant_id][&"move_left"] = []
 	
-	var variant_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.VARIANT, self, variant_id)
+	var variant_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.PRESET, self, variant_id)
 	var variant_item : TreeItem = _create_item("Variant " + str(variant_id), SkinEditorTree.tree_icons[&"variant"], variant_item_meta, root)
 	variant_item_meta.owner = variant_item
 	variant_items[variant_id] = variant_item
@@ -151,7 +137,7 @@ func paste_item(selected_item : TreeItem, item_metadata : EditorTreeItemMetadata
 	if item_metadata.type == SkinEditorTree.ITEM_TYPE.SFX:
 		pass
 	
-	if item_metadata.type == SkinEditorTree.ITEM_TYPE.VARIANT:
+	if item_metadata.type == SkinEditorTree.ITEM_TYPE.PRESET:
 		pass
 	
 	return false

@@ -46,22 +46,40 @@ func _is_item_inside(item : TreeItem) -> bool:
 	if item == root : return true 
 	
 	var scan_func : Callable
-	scan_func = func(item_to_scan : TreeItem, target : TreeItem, rec_scan_func : Callable) -> bool:
-		var success : bool = false
-		if item_to_scan == target : return true
+	scan_func = func(item_to_scan : TreeItem, item_to_check : TreeItem, rec_scan_func : Callable) -> bool:
+		if item_to_scan == item_to_check : return true
 		if item_to_scan.get_child_count() == 0 : return false
-			
+		
+		var success : bool = false
 		for subitem : TreeItem in item_to_scan.get_children():
-			if subitem == target : return true
-			success = rec_scan_func.call(subitem, target, rec_scan_func)
+			success = rec_scan_func.call(subitem, item_to_check, rec_scan_func)
+			if success : break
 		
 		return success
 	
 	return scan_func.call(root, item, scan_func)
 
+## Helper function, which recursively deletes all childs of an passed [TreeItem], except passed item itself.
+func _clear_item(item : TreeItem) -> void:
+	var clear_func : Callable
+	clear_func = func(item_to_clear : TreeItem, rec_clear_func : Callable) -> void:
+		var children : Array[TreeItem] = item_to_clear.get_children()
+		
+		if not children.is_empty():
+			for child : TreeItem in children:
+				rec_clear_func.call(child, rec_clear_func)
+		
+		item_to_clear.free()
+	
+	var item_children : Array[TreeItem] = item.get_children()
+	for child : TreeItem in item_children:
+		clear_func.call(child, clear_func)
+
 
 ## Builds this sub-tree using passed skin sub-structure **data**.
-@abstract func build_tree(new_data : Variant) -> bool
+@abstract func build(new_data : Variant) -> bool
+## Rebuilds tree using already existing data.
+@abstract func rebuild() -> bool
 
 ## Called by parent tree when some [TreeItem] is selected.[br]
 ## Returns **true** if selected [TreeItem] exists in this sub-tree and selected successfully.

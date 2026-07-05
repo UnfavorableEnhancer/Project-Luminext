@@ -36,18 +36,21 @@ var anim_timer : Timer = null ## Timer which periodically starts block animation
 
 
 func _ready() -> void:
+	block_data = dependencies[&"skin_data"].blocks
+	asset_data = dependencies[&"skin_data"].assets
+	
 	id_selector.set_property_name("Block type:")
 	anim_sprite_editor.set_property_name("Block animation frames:")
 	anim_sprite_editor.file_browser = file_browser
 	anim_pattern_editor.set_property_name("Block animation timing:")
 
 
-func open_object(new_object : Variant, new_viewport : SubViewportContainer, new_object_tree_item : TreeItem = null) -> void:
+func open_object(new_object : Variant, new_display_viewport : SubViewportContainer, new_object_subtree : EditorSubTree = null, _new_object_display_instance : Node = null) -> void:
 	if new_object is not SkinBlockData.SkinBlock : return
 	
 	block = new_object
-	display_viewport = new_viewport
-	object_tree_item = new_object_tree_item
+	display_viewport = new_display_viewport
+	object_subtree = new_object_subtree
 	
 	id_selector.set_variants({
 		"Red" : &"red",
@@ -107,15 +110,17 @@ func _on_id_selected(variant : Variant) -> void:
 	if not block : return
 	if block.id == variant : return
 	
-	block_data.blocks[block.variant_id][block.id].remove_at(block.index)
-	
-	
+	var original_blocks_array : Array = block_data.blocks_presets[block.preset_id].blocks[block.id]
+	original_blocks_array.remove_at(block.index)
+	for i : int in range(block.index, original_blocks_array.size()) : original_blocks_array[i].index = i
 	
 	block.id = variant
-	block.index = block_data.blocks[block.variant_id][variant].size()
-	block_data.blocks[block.variant_id][variant].append(block)
+	var new_blocks_array : Array = block_data.blocks_presets[block.preset_id].blocks[block.id]
+	block.index = new_blocks_array.size()
+	new_blocks_array.append(block)
 	
-	object_tree_item.set_text(0, str(variant) + str(block.index + 1))
+	object_subtree.item_object_to_select = block
+	object_subtree.rebuild()
 
 
 func _on_animation_pattern_changed(pattern: Array[bool]) -> void:

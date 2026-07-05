@@ -26,9 +26,11 @@ var copy_manager : EditorCopyManager = null ## Parent editor copy manager instan
 var undo_manager : EditorHistoryManager = null ## Parent editor history manager instance
 var file_browser : FileBrowser = null ## Parent editor file browser instance
 
-var object_tree_item : TreeItem ## Currently editing object tree item which represents its current position in data tree
+var dependencies : Dictionary[StringName, Variant] = {} ## Some dependencies required for editor work
+
+var object_subtree : EditorSubTree ## Currently editing object subtree
 var display_viewport : SubViewportContainer ## Sub-viewport where current object instance will be shown
 var object_display_instance : Node = null ## Current object instance in shown sub-viewport
 
 
-@abstract func open_object(new_object : Variant, new_viewport : SubViewportContainer, new_object_tree_item : TreeItem = null) -> void
+@abstract func open_object(new_object : Variant, new_display_viewport : SubViewportContainer, new_object_subtree : EditorSubTree = null, new_object_display_instance : Node = null) -> void

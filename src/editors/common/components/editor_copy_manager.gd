@@ -34,7 +34,7 @@ enum COPY_TYPE {
 	VIDEO_UID,
 	FONT_UID,
 	ANIMATION_UID,
-	SE_TREE_ITEM
+	TREE_ITEM
 }
 
 ## Holds objects of several types for future paste in some editor node
@@ -47,7 +47,7 @@ var copy_buffer : Dictionary[COPY_TYPE, Variant] = {
 	COPY_TYPE.VIDEO_UID : null,
 	COPY_TYPE.FONT_UID : null,
 	COPY_TYPE.ANIMATION_UID : null,
-	COPY_TYPE.SE_TREE_ITEM : null
+	COPY_TYPE.TREE_ITEM : null
 }
 
 
@@ -58,7 +58,7 @@ func _input(event: InputEvent) -> void:
 
 
 ## Inserts passed object into copy buffer if possible
-func insert_object_to_copy(object : Variant) -> bool:
+func copy_object(object : Variant) -> bool:
 	if object is int or object is float : copy_buffer[COPY_TYPE.NUMBER] = object
 	elif object is String : copy_buffer[COPY_TYPE.STRING] = object
 	elif object is Color : copy_buffer[COPY_TYPE.COLOR] = object
@@ -73,7 +73,7 @@ func insert_object_to_copy(object : Variant) -> bool:
 	elif object is EditorTreeItemMetadata : 
 		var item_copy : EditorTreeItemMetadata = object.duplicate()
 		if item_copy == null : return false
-		copy_buffer[COPY_TYPE.SE_TREE_ITEM] = item_copy
+		copy_buffer[COPY_TYPE.TREE_ITEM] = item_copy
 	
 	else : return false
 	
@@ -85,7 +85,7 @@ func get_paste_object(type : COPY_TYPE) -> Variant:
 
 ## Inserts passed object into copy buffer if possible and calls callable to remove original object on success
 func cut_object(delete_callable : Callable, object : Variant) -> bool:
-	if not insert_object_to_copy(object):return false
+	if not copy_object(object) : return false
 	
 	delete_callable.call()
 	return true
