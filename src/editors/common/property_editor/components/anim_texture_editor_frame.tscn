@@ -54,9 +54,11 @@ func _on_pressed() -> void:
 [sub_resource type="LabelSettings" id="LabelSettings_q4vsa"]
 
 [node name="Frame" type="TextureButton" unique_id=1493943946]
+custom_minimum_size = Vector2(64, 64)
 offset_right = 64.0
 offset_bottom = 64.0
 texture_normal = SubResource("ImageTexture_3t0bq")
+ignore_texture_size = true
 stretch_mode = 0
 script = SubResource("GDScript_b4gbd")
 

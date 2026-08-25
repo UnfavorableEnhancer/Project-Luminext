@@ -64,6 +64,26 @@ const EDITOR_PATHS : Dictionary[EDITOR_TYPE, String] = {
 	EDITOR_TYPE.SCENERY_SHADER : "",
 }
 
+const EDITOR_DEPENDENCIES : Dictionary[EDITOR_TYPE, Array] = {
+	EDITOR_TYPE.NONE : [],
+	EDITOR_TYPE.VARIANT : [],
+	EDITOR_TYPE.SKIN_METADATA : [],
+	EDITOR_TYPE.SKIN_BLOCK : [&"asset_data", &"block_data"],
+	EDITOR_TYPE.SKIN_SFX : [],
+	EDITOR_TYPE.SKIN_EFFECT : [],
+	EDITOR_TYPE.SKIN_GUI_MODIFIER : [],
+	EDITOR_TYPE.SKIN_CAMERA : [],
+	EDITOR_TYPE.ANIMATION : [],
+	EDITOR_TYPE.SCENERY_NODE : [],
+	EDITOR_TYPE.SCENERY_SPRITE : [],
+	EDITOR_TYPE.SCENERY_ANIM_SPRITE : [],
+	EDITOR_TYPE.SCENERY_PARTICLES : [],
+	EDITOR_TYPE.SCENERY_VIDEO : [],
+	EDITOR_TYPE.SCENERY_TEXT : [],
+	EDITOR_TYPE.SCENERY_RECT : [],
+	EDITOR_TYPE.SCENERY_SHADER : [],
+}
+
 @export var copy_manager : EditorCopyManager  = null ## Parent editor copy manager instance
 @export var undo_manager : EditorHistoryManager = null ## Parent editor history manager instance
 
@@ -75,12 +95,12 @@ var dependencies : Dictionary[StringName, Variant] = {} ## Some additional depen
 var _loaded_editors : Dictionary[EDITOR_TYPE, PropertyEditor] = {}
 
 var currently_opened_editor : PropertyEditor = null
+var currently_opened_object : Variant = null
 
 
 ## Opens valid and loaded editor for passed object
 func open_editor(object : Variant) -> bool :
-	if currently_opened_editor != null : $Margin.remove_child(currently_opened_editor)
-	currently_opened_editor = null
+	if currently_opened_object == object : return false
 	
 	var editor_type : EDITOR_TYPE
 	var object_subtree : EditorSubTree = null
@@ -88,28 +108,35 @@ func open_editor(object : Variant) -> bool :
 	if object is EditorTreeItemMetadata:
 		object_subtree = object.parent_subtree
 		object = object.object
+		if currently_opened_object == object : return false
 		
 		if object is SkinBlockData.SkinBlock : editor_type = EDITOR_TYPE.SKIN_BLOCK 
 		else : return false
 	else : return false
 	
 	if not _loaded_editors.has(editor_type) or _loaded_editors[editor_type] == null :
-		if EDITOR_PATHS[editor_type].is_empty() : return false
+		assert(not EDITOR_PATHS[editor_type].is_empty())
 		
 		var editor : PropertyEditor = load(EDITOR_PATHS[editor_type]).instantiate()
 		editor.copy_manager = copy_manager
 		editor.undo_manager = undo_manager
 		_loaded_editors[editor_type] = editor
-		
-	currently_opened_editor = _loaded_editors[editor_type]
 	
 	var display_viewport : SubViewportContainer = viewport_manager.get_display_viewport_for_object(object)
 	if display_viewport == null : return false
 	
-	currently_opened_editor.dependencies = dependencies
+	if currently_opened_editor != null : $Margin.remove_child(currently_opened_editor)
+	currently_opened_editor = _loaded_editors[editor_type]
+	
+	for dependency_name : StringName in EDITOR_DEPENDENCIES[editor_type]:
+		assert(dependencies.has(dependency_name))
+		currently_opened_editor.set(dependency_name, dependencies[dependency_name])
+	
 	currently_opened_editor.file_browser = file_browser
 	currently_opened_editor.copy_manager = copy_manager
 	currently_opened_editor.undo_manager = undo_manager
+	
+	currently_opened_object = object
 	
 	$Margin.add_child(currently_opened_editor)
 	currently_opened_editor.open_object(object, display_viewport, object_subtree)

@@ -25,8 +25,8 @@ signal current_blocks_changed ## Emitted when current block preset changes
 
 
 ## All avaiable blocks presets.
-var blocks_presets : Dictionary[int, SkinBlockPreset] = {
-	0 : SkinBlockPreset.new()
+var blocks_presets : Dictionary[String, SkinBlockPreset] = {
+	"Preset 1" : SkinBlockPreset.new()
 }
 
 ## Currently used by game blocks preset.
@@ -70,7 +70,7 @@ func load_assets(asset_data : SkinAssetData) -> void:
 
 
 ## Changes currently used blocks preset.
-func select_preset(preset_id : int) -> void:
+func select_preset(preset_id : String) -> void:
 	current_blocks_preset = blocks_presets[preset_id]
 	
 	# Put blocks placeholders into still empty ID's
@@ -86,7 +86,7 @@ func select_preset(preset_id : int) -> void:
 ## A random block from array will be used on block spawn.
 ## 
 class SkinBlockPreset:
-	var id : int = 0 : set = _set_id
+	var id : String = "Preset 1" : set = _set_id
 	var blocks : Dictionary[StringName, Array] = {
 		&"red" : [], # Red block
 		&"white" : [], # White block
@@ -105,7 +105,8 @@ class SkinBlockPreset:
 		&"erase" : [] # Block erase animation overlay
 	}
 	
-	func _set_id(value : int) -> void:
+	## ID setter
+	func _set_id(value : String) -> void:
 		id = value
 		var block_ids_array : Array[StringName] = blocks.keys()
 		for block_id : StringName in block_ids_array:
@@ -148,7 +149,7 @@ class SkinBlockPreset:
 class SkinBlock:
 	var id : StringName = &"none" ## Block identifier, which defines for what block types this block texture will be used
 	var index : int = 0 ## Index inside array containing this block
-	var preset_id : int = 0 ## Preset number on which this block will be used
+	var preset_id : String = "" ## Preset number on which this block will be used
 	
 	var sprite_frames : SpriteFrames = SpriteFrames.new() ## SpriteFrames instance which game can use for block instance
 	
@@ -194,13 +195,14 @@ class SkinBlock:
 	func duplicate() -> SkinBlock:
 		return clone(self)
 
-	
+
 	## Creates a unique clone of passed block data.
 	static func clone(block : SkinBlock) -> SkinBlock:
 		var clone_block : SkinBlock = SkinBlock.new()
 		clone_block.id = block.id
+		clone_block.index = block.index
 		clone_block.preset_id = block.preset_id
-		clone_block.animation_timing = block.animation_timing
+		clone_block.animation_timing = block.animation_timing.duplicate(true)
 		
 		clone_block.frames = block.frames
 		clone_block.sprite_frames = SpriteFrames.new()

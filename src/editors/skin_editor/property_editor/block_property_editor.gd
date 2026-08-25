@@ -27,6 +27,7 @@ var block_data : SkinBlockData = null
 var asset_data : SkinAssetData = null
 
 var block : SkinBlockData.SkinBlock = null ## Currently editing block object
+var block_modifier : SEBlockModifier = null ## Modifies currently editing block object
 
 var anim_timer : Timer = null ## Timer which periodically starts block animation
 
@@ -36,9 +37,6 @@ var anim_timer : Timer = null ## Timer which periodically starts block animation
 
 
 func _ready() -> void:
-	block_data = dependencies[&"skin_data"].blocks
-	asset_data = dependencies[&"skin_data"].assets
-	
 	id_selector.set_property_name("Block type:")
 	anim_sprite_editor.set_property_name("Block animation frames:")
 	anim_sprite_editor.file_browser = file_browser
@@ -49,6 +47,13 @@ func open_object(new_object : Variant, new_display_viewport : SubViewportContain
 	if new_object is not SkinBlockData.SkinBlock : return
 	
 	block = new_object
+	block_modifier = SEBlockModifier.new(block.preset_id, block.id, block.index, block_data)
+	block_modifier.undo_manager = undo_manager
+	block_modifier.asset_data = asset_data
+	block_modifier.id_changed.connect(_update_editor_block_id)
+	block_modifier.values_changed.connect(_update_editor_values)
+	block_modifier.animation_changed.connect(anim_sprite_editor.show_frames)
+	
 	display_viewport = new_display_viewport
 	object_subtree = new_object_subtree
 	
@@ -70,12 +75,25 @@ func open_object(new_object : Variant, new_display_viewport : SubViewportContain
 		"Erase" : &"erase"
 	})
 	id_selector.insert(block.id)
+	
+	_update_editor_values()
 	anim_sprite_editor.set_frames(block.sprite_frames)
+	
+	_display_block()
+
+func _update_editor_values() -> void:
 	anim_sprite_editor.set_animation_fps(block.animation_fps)
 	anim_sprite_editor.set_animation_loop(block.loop_animation)
 	anim_pattern_editor.insert(block.animation_timing)
 	
-	_display_block()
+	_set_block_anim_timer()
+
+func _update_editor_block_id() -> void:
+	id_selector.insert(block.id)
+	
+	object_subtree.item_object_to_select = block
+	object_subtree.rebuild()
+
 
 ## Puts block object instance inside sub-viewport for display
 func _display_block() -> void:
@@ -107,83 +125,45 @@ func _set_block_anim_timer() -> void:
 
 
 func _on_id_selected(variant : Variant) -> void:
-	if not block : return
-	if block.id == variant : return
-	
-	var original_blocks_array : Array = block_data.blocks_presets[block.preset_id].blocks[block.id]
-	original_blocks_array.remove_at(block.index)
-	for i : int in range(block.index, original_blocks_array.size()) : original_blocks_array[i].index = i
-	
-	block.id = variant
-	var new_blocks_array : Array = block_data.blocks_presets[block.preset_id].blocks[block.id]
-	block.index = new_blocks_array.size()
-	new_blocks_array.append(block)
-	
-	object_subtree.item_object_to_select = block
-	object_subtree.rebuild()
+	var new_block_id : StringName = variant
+	block_modifier.set_id_and_index(new_block_id)
 
-
-func _on_animation_pattern_changed(pattern: Array[bool]) -> void:
-	block.animation_timing = pattern
+func _on_animation_pattern_changed(index : int, on : bool) -> void:
+	block_modifier.set_animation_pattern(index, on)
 
 func _on_animation_loop_changed(new_state: bool) -> void:
-	block.loop_animation = new_state
-	_set_block_anim_timer()
+	block_modifier.set_animation_loop(new_state)
 
 func _on_animation_fps_changed(new_value: int) -> void:
-	block.animation_fps = new_value
-	_set_block_anim_timer()
-
+	block_modifier.set_animation_fps(new_value)
 
 func _on_animation_frames_added(textures_filepaths : PackedStringArray) -> void:
+	var texture_asset_uids : Array[StringName]
 	for filepath : String in textures_filepaths:
 		var texture_asset_uid : StringName = asset_data.insert_texture(filepath)
 		if texture_asset_uid.is_empty() : continue
 		
-		block.frames.append(texture_asset_uid)
-		block.sprite_frames.add_frame(&"default", asset_data.textures[texture_asset_uid].texture)
+		texture_asset_uids.append(texture_asset_uid)
 	
-	anim_sprite_editor.show_frames()
+	block_modifier.add_animation_frames(texture_asset_uids)
 
 func _on_animation_spritesheet_added(spritesheet_filepath: String) -> void:
 	var texture_asset_uids : Array[StringName] = asset_data.insert_spritesheet(spritesheet_filepath)
 	if texture_asset_uids.is_empty() : return
 	
-	for texture_uid : StringName in texture_asset_uids:
-		block.frames.append(texture_uid)
-		block.sprite_frames.add_frame(&"default", asset_data.textures[texture_uid].texture)
-	
-	anim_sprite_editor.show_frames()
+	block_modifier.add_animation_frames(texture_asset_uids)
 
 func _on_animation_frame_replaced(at: int, texture_filepath: String) -> void:
 	var texture_asset_uid : StringName = asset_data.insert_texture(texture_filepath)
 	if texture_asset_uid.is_empty() : return
 	
-	block.frames[at] = texture_asset_uid
-	block.sprite_frames.set_frame(&"default", at, asset_data.textures[texture_asset_uid].texture)
-	
-	anim_sprite_editor.show_frames()
+	block_modifier.replace_animation_frame(at, texture_asset_uid)
 
-func _on_animation_frame_moved(from: int, to: int) -> void:
-	var texture_buff : Texture2D = block.sprite_frames.get_frame_texture(&"default", to)
-	var texture_uid_buff : StringName = block.frames[to]
-	
-	block.sprite_frames.set_frame(&"default", to, block.sprite_frames.get_frame_texture(&"default", from))
-	block.sprite_frames.set_frame(&"default", from, texture_buff)
-	
-	block.frames[to] = block.frames[from]
-	block.frames[from] = texture_uid_buff
-	
-	anim_sprite_editor.show_frames()
+func _on_animation_frame_moved(from: int, to: int) -> void: 
+	block_modifier.move_animation_frame(from, to)
 
 func _on_animation_frame_removed(at: int) -> void:
-	block.frames.remove_at(at)
-	block.sprite_frames.remove_frame(&"default", at)
-	
-	anim_sprite_editor.show_frames()
+	block_modifier.remove_animation_frame(at)
 
 func _on_animation_all_frames_removed() -> void:
-	block.frames.clear()
-	block.sprite_frames.clear(&"default")
-	
-	anim_sprite_editor.show_frames()
+	block_modifier.remove_all_animation_frames()

@@ -43,10 +43,15 @@ var animation_editor ## Allows to edit selected animation
 
 
 func _ready() -> void:
-	property_editor.dependencies[&"skin_data"] = skin_data
-	skin_data_tree.build_tree(skin_data)
+	property_editor.dependencies[&"metadata"] = skin_data.metadata
+	property_editor.dependencies[&"asset_data"] = skin_data.assets
+	property_editor.dependencies[&"block_data"] = skin_data.blocks
+	property_editor.dependencies[&"sfx_data"] = skin_data.sfx
+	property_editor.dependencies[&"animation_data"] = skin_data.animations
+	property_editor.dependencies[&"effect_data"] = skin_data.effects
+	property_editor.dependencies[&"gui_data"] = skin_data.gui
 	
-	pass
+	skin_data_tree.build_tree(skin_data)
 
 
 func load_from_path(file_path : String) -> void:

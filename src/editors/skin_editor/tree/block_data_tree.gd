@@ -35,7 +35,7 @@ func build(new_data : Variant) -> bool:
 	
 	for preset : SkinBlockData.SkinBlockPreset in block_data.blocks_presets.values():
 		var preset_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.PRESET, self, preset)
-		var preset_item_text : String = "Preset " + str(preset.id + 1)
+		var preset_item_text : String = preset.id
 		var preset_item  : TreeItem = _create_item(preset_item_text, SkinEditorTree.tree_icons[&"preset"], preset_item_meta, root)
 		if preset == item_object_to_select : item_to_select = preset_item
 		preset_item.set_editable(0, false)
@@ -85,7 +85,7 @@ func edit_item_name(_item : TreeItem) -> bool:
 func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_position : Vector2) -> bool:
 	if item == root : 
 		options_popup.full_clear()
-		options_popup.add_option("Add new preset", _add_preset)
+		options_popup.add_option("Add new preset", _create_preset)
 		
 		options_popup.popup()
 		options_popup.position = mouse_position
@@ -94,7 +94,7 @@ func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_positio
 	var item_metadata : EditorTreeItemMetadata = item.get_metadata(0)
 	if item_metadata.type == SkinEditorTree.ITEM_TYPE.PRESET:
 		options_popup.full_clear()
-		options_popup.add_option("Add new block", _add_block.bind(item_metadata.object.id))
+		options_popup.add_option("Add new block", _create_block.bind(item_metadata.object.id))
 		options_popup.add_option("Duplicate preset", duplicate_item.bind(item))
 		options_popup.add_option("Delete preset", remove_item.bind(item))
 		options_popup.add_separator()
@@ -107,7 +107,7 @@ func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_positio
 		return true
 	
 	options_popup.full_clear()
-	options_popup.add_option("Add new block", _add_block.bind(item_metadata.object.preset_id))
+	options_popup.add_option("Add new block", _create_block.bind(item_metadata.object.preset_id))
 	options_popup.add_option("Duplicate block", duplicate_item.bind(item))
 	options_popup.add_option("Delete block", remove_item.bind(item))
 	options_popup.add_separator()
@@ -120,17 +120,21 @@ func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_positio
 	return true
 
 
-## Adds new preset to this sub-tree and creates respective object for current skin sub-structure **data**.
-func _add_preset() -> void:
+func _create_preset() -> void:
 	var new_preset : SkinBlockData.SkinBlockPreset = SkinBlockData.SkinBlockPreset.new()
-	new_preset.id = block_data.blocks_presets.size()
+	new_preset.id = "Preset " + str(block_data.blocks_presets.size() + 1)
 	block_data.blocks_presets[new_preset.id] = new_preset
+	
+	undo_manager.track(
+		self,
+		_remove_preset.bind(new_preset), 
+		_create_preset
+	)
 	
 	item_object_to_select = new_preset
 	rebuild()
 
-## Adds new block to this sub-tree and creates respective object for current skin sub-structure **data**.
-func _add_block(preset_id : int) -> void:
+func _create_block(preset_id : String) -> void:
 	if not block_data.blocks_presets.has(preset_id) : return
 	
 	var new_block : SkinBlockData.SkinBlock = SkinBlockData.SkinBlock.new()
@@ -139,7 +143,46 @@ func _add_block(preset_id : int) -> void:
 	new_block.index = block_data.blocks_presets[preset_id].blocks[&"red"].size()
 	block_data.blocks_presets[preset_id].blocks[&"red"].append(new_block)
 	
+	undo_manager.track(
+		self,
+		_remove_block.bind(new_block), 
+		_create_block.bind(preset_id)
+	)
+	
 	item_object_to_select = new_block
+	rebuild()
+
+func _add_preset(preset : SkinBlockData.SkinBlockPreset) -> void:
+	var preset_clone : SkinBlockData.SkinBlockPreset = SkinBlockData.SkinBlockPreset.clone(preset)
+	if (block_data.blocks_presets.has(preset.id)) : preset.id = preset.id + "+"
+	block_data.blocks_presets[preset.id] = preset_clone
+	
+	undo_manager.track(
+		self,
+		_remove_preset.bind(preset_clone), 
+		_add_preset.bind(preset_clone)
+	)
+	
+	item_object_to_select = preset
+	rebuild()
+
+func _add_block(block : SkinBlockData.SkinBlock, preset_id : String = "") -> void:
+	if not preset_id : preset_id = block.preset_id
+	if not block_data.blocks_presets.has(preset_id) : return
+	
+	var block_clone : SkinBlockData.SkinBlock = SkinBlockData.SkinBlock.clone(block)
+	
+	var origin_blocks_array : Array = block_data.blocks_presets[preset_id].blocks[block_clone.id]
+	origin_blocks_array.insert(block_clone.index, block_clone)
+	for i : int in range(block_clone.index, origin_blocks_array.size()) : origin_blocks_array[i].index = i
+	
+	undo_manager.track(
+		self,
+		_remove_block.bind(block_clone), 
+		_add_block.bind(block_clone, preset_id)
+	)
+	
+	item_object_to_select = block_clone
 	rebuild()
 
 
@@ -149,27 +192,46 @@ func duplicate_item(item : TreeItem) -> bool:
 	var item_metadata : EditorTreeItemMetadata = item.get_metadata(0)
 	
 	if item_metadata.type == SkinEditorTree.ITEM_TYPE.BLOCK:
-		var original_block : SkinBlockData.SkinBlock = item_metadata.object
-		var new_block : SkinBlockData.SkinBlock = SkinBlockData.SkinBlock.clone(original_block)
-		
-		new_block.index = block_data.blocks_presets[new_block.preset_id].blocks[new_block.id].size()
-		block_data.blocks_presets[new_block.preset_id].blocks[new_block.id].append(new_block)
-		
-		item_object_to_select = new_block
+		var block : SkinBlockData.SkinBlock = item_metadata.object
+		_duplicate_block(block)
 	
 	elif item_metadata.type == SkinEditorTree.ITEM_TYPE.PRESET:
 		if item_metadata.parent_subtree != self : return false
-		
-		var original_preset : SkinBlockData.SkinBlockPreset = item_metadata.object
-		var new_preset : SkinBlockData.SkinBlockPreset = SkinBlockData.SkinBlockPreset.clone(original_preset)
-		
-		new_preset.id = block_data.blocks_presets.size()
-		block_data.blocks_presets[new_preset.id] = new_preset
-		
-		item_object_to_select = new_preset
+		var preset : SkinBlockData.SkinBlockPreset = item_metadata.object
+		_duplicate_preset(preset)
 	
-	rebuild()
 	return true
+
+func _duplicate_block(block : SkinBlockData.SkinBlock) -> void:
+	var new_block : SkinBlockData.SkinBlock = SkinBlockData.SkinBlock.clone(block)
+	
+	new_block.index = block_data.blocks_presets[new_block.preset_id].blocks[new_block.id].size()
+	block_data.blocks_presets[new_block.preset_id].blocks[new_block.id].append(new_block)
+	
+	undo_manager.track(
+		self,
+		_remove_block.bind(new_block), 
+		_duplicate_block.bind(block)
+	)
+	
+	item_object_to_select = new_block
+	rebuild()
+
+func _duplicate_preset(preset : SkinBlockData.SkinBlockPreset) -> void:
+	var new_preset : SkinBlockData.SkinBlockPreset = SkinBlockData.SkinBlockPreset.clone(preset)
+	
+	new_preset.id = new_preset.id + "+"
+	block_data.blocks_presets[new_preset.id] = new_preset
+	
+	undo_manager.track(
+		self,
+		_remove_preset.bind(new_preset), 
+		_duplicate_preset.bind(preset)
+	)
+	
+	item_object_to_select = new_preset
+	rebuild()
+
 
 ## Removes item from this sub-tree and removes respective object from current skin sub-structure **data**.
 func remove_item(item : TreeItem) -> bool:
@@ -178,19 +240,39 @@ func remove_item(item : TreeItem) -> bool:
 	
 	if item_metadata.type == SkinEditorTree.ITEM_TYPE.BLOCK:
 		var block : SkinBlockData.SkinBlock = item_metadata.object
-		var blocks_array : Array = block_data.blocks_presets[block.preset_id].blocks[block.id]
-		
-		blocks_array.remove_at(block.index)
-		for i : int in range(block.index, blocks_array.size()) : blocks_array[i].index = i
+		_remove_block(block)
 	
 	elif item_metadata.type == SkinEditorTree.ITEM_TYPE.PRESET:
 		if item_metadata.parent_subtree != self : return false
+		var preset : SkinBlockData.SkinBlockPreset = item_metadata.object
+		_remove_preset(preset)
+	
+	return true
+
+func _remove_block(block : SkinBlockData.SkinBlock) -> void:
+	var blocks_array : Array = block_data.blocks_presets[block.preset_id].blocks[block.id]
 		
-		var preset_id : int = item_metadata.object.id
-		block_data.blocks_presets.erase(preset_id)
+	blocks_array.remove_at(block.index)
+	for i : int in range(block.index, blocks_array.size()) : blocks_array[i].index = i
+	
+	undo_manager.track(
+		self,
+		_add_block.bind(block), 
+		_remove_block.bind(block)
+	)
 	
 	rebuild()
-	return true
+
+func _remove_preset(preset : SkinBlockData.SkinBlockPreset) -> void:
+	block_data.blocks_presets.erase(preset.id)
+	undo_manager.track(
+		self,
+		_add_preset.bind(preset), 
+		_remove_preset.bind(preset)
+	)
+	
+	rebuild()
+
 
 ## Resolves pasted by copy manager item metadata to decide if item copy can be created
 func paste_item(selected_item : TreeItem, item_metadata : EditorTreeItemMetadata) -> bool:
@@ -200,30 +282,18 @@ func paste_item(selected_item : TreeItem, item_metadata : EditorTreeItemMetadata
 	if item_metadata.type == SkinEditorTree.ITEM_TYPE.BLOCK:
 		if selected_item == root : return false
 		
-		var block_copy : SkinBlockData.SkinBlock = item_metadata.object
-		var block_clone : SkinBlockData.SkinBlock = SkinBlockData.SkinBlock.clone(block_copy)
-		
-		var preset_id : int
+		var block : SkinBlockData.SkinBlock = item_metadata.object
+		var preset_id : String
 		if selected_metadata.type == SkinEditorTree.ITEM_TYPE.BLOCK : preset_id = selected_metadata.object.preset_id
 		elif selected_metadata.type == SkinEditorTree.ITEM_TYPE.PRESET : preset_id = selected_metadata.object.id
 		
-		block_clone.index = block_data.blocks_presets[preset_id].blocks[block_clone.id].size()
-		block_data.blocks_presets[preset_id].blocks[block_clone.id].append(block_clone)
-		
-		item_object_to_select = block_clone
+		_add_block(block, preset_id)
 	
 	elif item_metadata.type == SkinEditorTree.ITEM_TYPE.PRESET:
 		if item_metadata.parent_subtree != self : return false
 		if selected_metadata.type == SkinEditorTree.ITEM_TYPE.BLOCK : return false
-		if selected_metadata.type == SkinEditorTree.ITEM_TYPE.PRESET : return false
 		
-		var preset_copy : SkinBlockData.SkinBlockPreset = item_metadata.object
-		var preset_clone : SkinBlockData.SkinBlockPreset = SkinBlockData.SkinBlockPreset.clone(preset_copy)
-		
-		preset_clone.id = block_data.blocks_presets.size()
-		block_data.blocks_presets[preset_clone.id] = preset_clone
-		
-		item_object_to_select = preset_clone
+		var preset : SkinBlockData.SkinBlockPreset = item_metadata.object
+		_add_preset(preset)
 	
-	rebuild()
 	return true

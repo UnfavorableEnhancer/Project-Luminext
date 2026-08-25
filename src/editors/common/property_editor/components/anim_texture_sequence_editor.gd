@@ -21,12 +21,14 @@ extends VBoxContainer
 ##
 class_name AnimatedTextureSequencePropertyEditor
 
-signal pattern_changed(pattern : Array[bool])
+signal pattern_changed(index : int, on : bool)
 
 var current_pattern : Array[bool] = [false, false, false, false,
 									false, false, false, false,
 									false, false, false, false,
 									false, false, false, false]
+
+var _record : bool = true
 
 
 ## Sets property name
@@ -35,9 +37,13 @@ func set_property_name(value_name : String) -> void:
 
 ## Sets beat pattern
 func insert(new_pattern : Array[bool]) -> void:
+	_record = false
 	for i : int in range(0,16):
 		get_node("H/B" + str(i + 1)).button_pressed = new_pattern[i]
+	_record = true
 
 func _on_b_toggled(toggled_on : bool, index : int) -> void:
+	if not _record : return
+	
 	current_pattern[index] = toggled_on
-	pattern_changed.emit(current_pattern)
+	pattern_changed.emit(index, toggled_on)

@@ -21,32 +21,50 @@ extends Node
 ##
 class_name EditorHistoryManager
 
-var undo_buffer : Array[Callable] = [] ## Contains callables which can undo previously made by user actions
-var redo_buffer : Array[Callable] = [] ## Contains callables which can redo previously undone actions
-var current_buffer_index : int = 0 ## Current undo/redo buffers index position
+var _instance_buffer : Array[RefCounted] = [] ## Contains references to object instances, at which undo/redo functions must be called.
+var _undo_buffer : Array[Callable] = [] ## Contains callables which can undo previously made by user actions.
+var _redo_buffer : Array[Callable] = [] ## Contains callables which can redo previously undone actions.
+
+var _current_undo_index : int = -1 ## Pointer to latest made action to undo
+var _current_redo_index : int = -1 ## Pointer to latest undone action to redo
+
+var _is_tracking : bool = true ## If false, actions wouldn't be tracked
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_undo"): undo()
-	if event.is_action_pressed("ui_redo"): redo()
+	if event.is_action_pressed("ui_redo") : redo()
+	elif event.is_action_pressed("ui_undo") : undo()
 
-func track(undo_action : Callable, redo_action : Callable) -> void:
-	var current_rewind_length : int = undo_buffer.size() - current_buffer_index
-	if current_rewind_length > 0:
-		for i : int in current_rewind_length: 
-			undo_buffer.pop_back()
-			redo_buffer.pop_back()
+func track(object : RefCounted, undo_action : Callable, redo_action : Callable) -> void:
+	if not _is_tracking : return
 	
-	undo_buffer.append(undo_action)
-	redo_buffer.append(redo_action)
-	current_buffer_index = undo_buffer.size()
+	for i : int in range(_current_undo_index, _undo_buffer.size() - 1):
+		_undo_buffer.pop_back()
+		_redo_buffer.pop_back()
+		_instance_buffer.pop_back()
+	
+	_instance_buffer.append(object)
+	_undo_buffer.append(undo_action)
+	_redo_buffer.append(redo_action)
+	_current_undo_index += 1
+	_current_redo_index = -1
 
 func undo() -> void:
-	if current_buffer_index == 0 : return
-	current_buffer_index -= 1
-	undo_buffer[current_buffer_index].call()
+	if _undo_buffer.is_empty() or _current_undo_index < 0: return
+	
+	_is_tracking = false
+	_undo_buffer[_current_undo_index].call()
+	_is_tracking = true
+	
+	_current_redo_index = _current_undo_index
+	_current_undo_index -= 1
 
 func redo() -> void:
-	if current_buffer_index == undo_buffer.size() : return
-	current_buffer_index += 1
-	redo_buffer[current_buffer_index].call()
+	if _redo_buffer.is_empty() or _current_redo_index < 0 or _current_redo_index >= _redo_buffer.size(): return
+	
+	_is_tracking = false
+	_redo_buffer[_current_redo_index].call()
+	_is_tracking = true
+	
+	_current_redo_index += 1
+	_current_undo_index += 1

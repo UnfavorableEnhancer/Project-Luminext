@@ -162,9 +162,6 @@ func build_tree(new_skin_data : SkinData) -> void:
 		subtree.build(skin_subdata)
 
 
-
-
-
 ## Called when some tree item is selected.
 func _on_item_selected() -> void:
 	var selected_item : TreeItem = get_selected()
