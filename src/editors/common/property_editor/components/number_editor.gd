@@ -26,12 +26,12 @@ signal value_changed(new_value : float)
 var value : float
 
 
-## Sets property name
-func set_property_name(value_name : String) -> void:
+## Sets text above editor
+func set_label_text(value_name : String) -> void:
 	$Name.text = value_name
 
-## Inserts value into editor for update
-func insert(new_value : float) -> void:
+## Sets value into editor
+func set_value(new_value : float) -> void:
 	value = new_value
 	$X.text = str(value)
 

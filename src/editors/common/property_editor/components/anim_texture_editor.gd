@@ -55,20 +55,20 @@ func _ready() -> void:
 		frame.visible = false
 
 
-## Sets property name
-func set_property_name(value_name : String) -> void:
+## Sets text above editor
+func set_label_text(value_name : String) -> void:
 	$Name.text = value_name
 
-## Sets property spritesheet and updates frames
+## Sets [SpriteFrames] frames to edit
 func set_frames(new_spriteframes : SpriteFrames) -> void:
 	spriteframes = new_spriteframes
 	show_frames()
 
-## Sets property animation fps
+## Sets currently editing spritesheet animation fps
 func set_animation_fps(new_fps : int) -> void:
 	$H/FPS.value = new_fps
 
-## Sets property animation loop
+## Sets currently editing spritesheet animation loop
 func set_animation_loop(enabled : bool) -> void:
 	$H2/Loop.button_pressed = enabled
 
@@ -199,6 +199,13 @@ func _on_fps_value_changed(value: float) -> void:
 func _on_loop_toggled(toggled_on: bool) -> void:
 	loop_state_changed.emit(toggled_on)
 
+
+func _on_file_browser_canceled() -> void:
+	file_browser.files_selected.disconnect(_on_file_browser_files_selected)
+	
+	if not is_replacing_frame:
+		file_browser.file_selected.disconnect(_on_file_browser_file_selected)
+		file_browser.dir_selected.disconnect(_on_file_browser_dir_selected)
 
 func _on_file_browser_files_selected(filepath : PackedStringArray) -> void:
 	file_browser.files_selected.disconnect(_on_file_browser_files_selected)

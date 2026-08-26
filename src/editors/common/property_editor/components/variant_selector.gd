@@ -26,20 +26,20 @@ signal variant_selected(new_value : Variant)
 var variants : Dictionary[String, Variant] = {}
 
 
-## Sets property name
-func set_property_name(value_name : String) -> void:
+## Sets text above editor
+func set_label_text(value_name : String) -> void:
 	$Name.text = value_name
 
-## Sets variants to select
-func set_variants(new_variants : Dictionary[String, Variant]) -> void:
+## Adds variants to select
+func add_variants(new_variants : Dictionary[String, Variant]) -> void:
 	$Selector.clear()
 	variants = new_variants
 	
 	for variant_name : String in variants.keys():
 		$Selector.add_item(variant_name)
 
-## Inserts value into editor for update
-func insert(new_variant : Variant) -> void:
+## Sets currently selected variant
+func set_value(new_variant : Variant) -> void:
 	var key_index : int = variants.values().find(new_variant)
 	if key_index == -1 : return
 	$Selector.select(key_index)

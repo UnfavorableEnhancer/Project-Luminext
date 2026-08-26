@@ -17,11 +17,15 @@ text = "Some value"
 [node name="Input" type="LineEdit" parent="." unique_id=317862962]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
 placeholder_text = "Enter text here..."
 context_menu_enabled = false
 emoji_menu_enabled = false
 middle_mouse_paste_enabled = false
 drag_and_drop_selection_enabled = false
 caret_blink = true
+
+[node name="CallbackDelay" type="Timer" parent="." unique_id=1993819702]
+one_shot = true
 
 [connection signal="text_changed" from="Input" to="." method="_on_input_text_changed"]

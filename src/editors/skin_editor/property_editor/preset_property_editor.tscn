@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bwwlq7353i5qx"]
+
+[ext_resource type="Script" uid="uid://dntqsjup22i5y" path="res://src/editors/skin_editor/property_editor/preset_property_editor.gd" id="1_l0etw"]
+[ext_resource type="PackedScene" uid="uid://c6jsjmf6jf42b" path="res://src/editors/common/property_editor/components/string_editor.tscn" id="2_d5pfp"]
+
+[node name="PresetPropertyEditor" type="ScrollContainer" unique_id=517326560]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l0etw")
+
+[node name="AnimTimer" type="Timer" parent="." unique_id=684908132]
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=424249997]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 12
+
+[node name="Properties" type="VBoxContainer" parent="Margin" unique_id=220137312]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PresetName" parent="Margin/Properties" unique_id=1750681444 instance=ExtResource("2_d5pfp")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="value_changed" from="Margin/Properties/PresetName" to="." method="_on_preset_id_changed"]

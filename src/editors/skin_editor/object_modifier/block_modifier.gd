@@ -39,8 +39,6 @@ func _init(new_preset_id : String, new_id : StringName, new_index : int, new_blo
 	id = new_id
 	index = new_index
 	block_data = new_block_data
-	
-	_find_block()
 
 ## Returns currently active block instance at current preset ID, ID and index.
 func _find_block() -> SkinBlockData.SkinBlock:
@@ -78,30 +76,33 @@ func set_id_and_index(new_id : StringName, new_index : int = -1) -> void:
 ## Sets value at given index 'at' at block animation pattern array
 func set_animation_pattern(at : int, on : bool) -> void:
 	var block : SkinBlockData.SkinBlock = _find_block()
-	if block.animation_timing[at] == on : return
 	
-	var old_value : bool = block.animation_timing[at]
+	var mask : int = 1 << at
+	var old_value : bool = block.animation_timing & mask
+	
 	undo_manager.track(
 		self,
 		set_animation_pattern.bind(at, old_value),
 		set_animation_pattern.bind(at, on)
 	)
-	block.animation_timing[at] = on
+	
+	if on : block.animation_timing |= mask # Set bit 'at' to 1
+	else : block.animation_timing &= ~mask # Set bit 'at' to 0
 	
 	values_changed.emit()
 
 ## Sets block animation loop state
 func set_animation_loop(new_state : bool) -> void:
 	var block : SkinBlockData.SkinBlock = _find_block()
-	if block.loop_animation == new_state : return
+	if block.animation_loop == new_state : return
 	
-	var old_value : bool = block.loop_animation
+	var old_value : bool = block.animation_loop
 	undo_manager.track(
 		self,
 		set_animation_loop.bind(old_value),
 		set_animation_loop.bind(new_state)
 	)
-	block.loop_animation = new_state
+	block.animation_loop = new_state
 	
 	values_changed.emit()
 
@@ -125,12 +126,12 @@ func add_animation_frames(texture_asset_uids : Array[StringName]) -> void:
 	var block : SkinBlockData.SkinBlock = _find_block()
 	
 	for texture_uid : StringName in texture_asset_uids:
-		block.frames.append(texture_uid)
+		block.frames_assets_uids.append(texture_uid)
 		block.sprite_frames.add_frame(&"default", asset_data.textures[texture_uid].texture)
 	
 	undo_manager.track(
 		self,
-		remove_animation_frames.bind(range(block.frames.size() - 1, block.frames.size() - texture_asset_uids.size() - 1, -1)), 
+		remove_animation_frames.bind(range(block.frames_assets_uids.size() - 1, block.frames_assets_uids.size() - texture_asset_uids.size() - 1, -1)), 
 		add_animation_frames.bind(texture_asset_uids)
 	)
 	
@@ -140,7 +141,7 @@ func add_animation_frames(texture_asset_uids : Array[StringName]) -> void:
 func insert_animation_frame(at : int, texture_asset_uid : StringName) -> void:
 	var block : SkinBlockData.SkinBlock = _find_block()
 	
-	block.frames.insert(at, texture_asset_uid)
+	block.frames_assets_uids.insert(at, texture_asset_uid)
 	block.sprite_frames.add_frame(&"default", asset_data.textures[texture_asset_uid].texture, 1.0, at)
 	
 	animation_changed.emit()
@@ -149,14 +150,14 @@ func insert_animation_frame(at : int, texture_asset_uid : StringName) -> void:
 func replace_animation_frame(at : int, texture_asset_uid : StringName) -> void:
 	var block : SkinBlockData.SkinBlock = _find_block()
 	
-	var original_texture_asset_uid : StringName = block.frames[at]
+	var original_texture_asset_uid : StringName = block.frames_assets_uids[at]
 	undo_manager.track(
 		self,
 		replace_animation_frame.bind(at, original_texture_asset_uid), 
 		replace_animation_frame.bind(at, texture_asset_uid)
 	)
 	
-	block.frames[at] = texture_asset_uid
+	block.frames_assets_uids[at] = texture_asset_uid
 	block.sprite_frames.set_frame(&"default", at, asset_data.textures[texture_asset_uid].texture)
 	
 	animation_changed.emit()
@@ -166,13 +167,13 @@ func move_animation_frame(from : int, to : int) -> void:
 	var block : SkinBlockData.SkinBlock = _find_block()
 	
 	var texture_buff : Texture2D = block.sprite_frames.get_frame_texture(&"default", to)
-	var texture_uid_buff : StringName = block.frames[to]
+	var texture_uid_buff : StringName = block.frames_assets_uids[to]
 	
 	block.sprite_frames.set_frame(&"default", to, block.sprite_frames.get_frame_texture(&"default", from))
 	block.sprite_frames.set_frame(&"default", from, texture_buff)
 	
-	block.frames[to] = block.frames[from]
-	block.frames[from] = texture_uid_buff
+	block.frames_assets_uids[to] = block.frames_assets_uids[from]
+	block.frames_assets_uids[from] = texture_uid_buff
 	
 	undo_manager.track(
 		self,
@@ -186,9 +187,9 @@ func move_animation_frame(from : int, to : int) -> void:
 func remove_animation_frame(at : int) -> void:
 	var block : SkinBlockData.SkinBlock = _find_block()
 	
-	var frame_texture_asset_uid : StringName = block.frames[at]
+	var frame_texture_asset_uid : StringName = block.frames_assets_uids[at]
 	
-	block.frames.remove_at(at)
+	block.frames_assets_uids.remove_at(at)
 	block.sprite_frames.remove_frame(&"default", at)
 	
 	undo_manager.track(
@@ -204,7 +205,7 @@ func remove_animation_frames(range_ : Array) -> void:
 	var block : SkinBlockData.SkinBlock = _find_block()
 	
 	for i : int in range_: 
-		block.frames.remove_at(i)
+		block.frames_assets_uids.remove_at(i)
 		block.sprite_frames.remove_frame(&"default", i)
 	
 	animation_changed.emit()
@@ -213,9 +214,9 @@ func remove_animation_frames(range_ : Array) -> void:
 func remove_all_animation_frames() -> void:
 	var block : SkinBlockData.SkinBlock = _find_block()
 	
-	var frame_texture_asset_uids : Array[StringName] = block.frames
+	var frame_texture_asset_uids : Array[StringName] = block.frames_assets_uids
 	
-	block.frames.clear()
+	block.frames_assets_uids.clear()
 	block.sprite_frames.clear(&"default")
 	
 	undo_manager.track(

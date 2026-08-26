@@ -21,6 +21,15 @@
 ##
 class_name EditorSubTree
 
+## All possible item drag&drop placement sections. Matches [Tree.get_drop_section_at_position()] output.
+enum DROP_PLACEMENT {
+	NONE = -100,
+	ABOVE = -1,
+	HERE = 0,
+	UNDER = 1,
+	INSIDE = 2
+}
+
 var root : TreeItem = null ## Root TreeItem of this sub-tree
 var parent_tree : Tree = null ## Parent tree instance.
 
@@ -29,11 +38,13 @@ var undo_manager : EditorHistoryManager
 
 var property_editor_manager : PropertyEditorManager
 
+
 ## Helper function to create TreeItem with specified text, icon, metadata and parent
 func _create_item(text : String, icon : Texture2D, metadata : EditorTreeItemMetadata = null, parent : TreeItem = null) -> TreeItem:
 	var item : TreeItem = parent_tree.create_item(parent)
 	item.set_text(0, text)
 	item.set_icon(0, icon)
+	item.set_icon_max_width(0, 16)
 	
 	if metadata != null : 
 		metadata.owner = item
@@ -76,7 +87,7 @@ func _clear_item(item : TreeItem) -> void:
 		clear_func.call(child, clear_func)
 
 
-## Builds this sub-tree using passed skin sub-structure **data**.
+## Builds this sub-tree using passed **data**.
 @abstract func build(new_data : Variant) -> bool
 ## Rebuilds tree using already existing data.
 @abstract func rebuild() -> bool
@@ -90,6 +101,13 @@ func _clear_item(item : TreeItem) -> void:
 ## Called by parent tree when some [TreeItem] is right clicked.[br]
 ## Returns **true** if selected [TreeItem] exists in this subtree and options popup is built successfully.
 @abstract func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_position : Vector2) -> bool
+
+## Called by parent tree when some [TreeItem] is dragged from some part of the parent tree into this subtree [TreeItem] 'target_item'.[br]
+## Returns **true** if dragged [TreeItem] can be put here.
+@abstract func can_drop_item(dragged_item : TreeItem, target_item : TreeItem, drop_placement : DROP_PLACEMENT) -> bool
+## Called by parent tree when some [TreeItem] is dropped from some part of the parent tree into this subtree [TreeItem] 'target_item'.[br]
+## Returns **true** if dropped [TreeItem] is processed successfully.
+@abstract func drop_item(dragged_item : TreeItem, target_item : TreeItem, drop_placement : DROP_PLACEMENT) -> bool
 
 ## Duplicates selected subtree [TreeItem].
 @abstract func duplicate_item(item : TreeItem) -> bool

@@ -39,6 +39,15 @@ func build_tree(new_data : Variant) -> bool:
 	metadata = new_data 
 	return true
 
+func can_drag_item(item : TreeItem) -> bool:
+	return false
+
+func can_drop_item(item : TreeItem, drop_position : TreeItem, drop_section : int) -> bool:
+	return false
+
+func drop_item(item : TreeItem, drop_position : TreeItem, drop_section : int) -> bool:
+	return false
+
 
 ## Called by root tree when some item is selected.[br]
 ## Returns **true** if selected item exists in this sub-tree and selected successfully.

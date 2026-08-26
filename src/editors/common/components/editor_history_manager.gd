@@ -29,6 +29,7 @@ var _current_undo_index : int = -1 ## Pointer to latest made action to undo
 var _current_redo_index : int = -1 ## Pointer to latest undone action to redo
 
 var _is_tracking : bool = true ## If false, actions wouldn't be tracked
+var is_tracking : bool = true ## If false, actions wouldn't be tracked
 
 
 func _input(event: InputEvent) -> void:
@@ -36,7 +37,7 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("ui_undo") : undo()
 
 func track(object : RefCounted, undo_action : Callable, redo_action : Callable) -> void:
-	if not _is_tracking : return
+	if not is_tracking or not _is_tracking: return
 	
 	for i : int in range(_current_undo_index, _undo_buffer.size() - 1):
 		_undo_buffer.pop_back()

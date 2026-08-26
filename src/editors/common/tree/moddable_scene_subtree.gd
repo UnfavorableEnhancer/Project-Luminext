@@ -100,6 +100,15 @@ func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_positio
 	options_popup.position = mouse_position
 	return true
 
+func can_drag_item(item : TreeItem) -> bool:
+	return false
+
+func can_drop_item(item : TreeItem, drop_position : TreeItem, drop_section : DROP_PLACEMENT) -> bool:
+	return false
+
+func drop_item(item : TreeItem, drop_position : TreeItem, drop_section : DROP_PLACEMENT) -> bool:
+	return false
+
 
 ## Duplicates selected subtree [TreeItem].
 func duplicate_item(item : TreeItem) -> bool:
@@ -146,10 +155,4 @@ func remove_item(item : TreeItem) -> bool:
 
 ## Resolves pasted by copy manager [TreeItem] metadata to decide if [TreeItem] copy can be inserted.
 func paste_item(selected_item : TreeItem, item_metadata : EditorTreeItemMetadata) -> bool:
-	if item_metadata.type == SkinEditorTree.ITEM_TYPE.BLOCK:
-		pass
-	
-	if item_metadata.type == SkinEditorTree.ITEM_TYPE.PRESET:
-		pass
-	
 	return false

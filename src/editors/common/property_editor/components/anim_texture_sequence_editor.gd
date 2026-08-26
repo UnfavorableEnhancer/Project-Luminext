@@ -31,15 +31,18 @@ var current_pattern : Array[bool] = [false, false, false, false,
 var _record : bool = true
 
 
-## Sets property name
-func set_property_name(value_name : String) -> void:
+## Sets text above editor
+func set_label_text(value_name : String) -> void:
 	$Name.text = value_name
 
 ## Sets beat pattern
-func insert(new_pattern : Array[bool]) -> void:
+func set_value(new_pattern : int) -> void:
 	_record = false
-	for i : int in range(0,16):
-		get_node("H/B" + str(i + 1)).button_pressed = new_pattern[i]
+	
+	for i : int in range(16):
+		current_pattern[i] = new_pattern & (1 << i)
+		get_node("H/B" + str(i + 1)).button_pressed = current_pattern[i]
+	
 	_record = true
 
 func _on_b_toggled(toggled_on : bool, index : int) -> void:

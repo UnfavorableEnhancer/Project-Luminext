@@ -36,6 +36,7 @@ var viewports : Dictionary[VIEWPORT_TYPE, Node] = {
 
 var currently_opened_viewport : Node = null
 
+
 func _ready() -> void:
 	for node : Node in get_children():
 		if node is SEObjectWindow : viewports[VIEWPORT_TYPE.SKIN_OBJECT_DISPLAY] = node
@@ -50,6 +51,7 @@ func get_display_viewport_for_object(object : Variant) -> SubViewportContainer:
 		currently_opened_viewport = null
 	
 	if object is SkinBlockData.SkinBlock : currently_opened_viewport = viewports[VIEWPORT_TYPE.SKIN_OBJECT_DISPLAY]
+	elif object is SkinBlockData.SkinBlockPreset : currently_opened_viewport = viewports[VIEWPORT_TYPE.SKIN_OBJECT_DISPLAY]
 	else : return null
 	
 	currently_opened_viewport.visible = true

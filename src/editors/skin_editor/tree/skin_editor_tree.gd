@@ -21,18 +21,22 @@ extends Tree
 ##
 class_name SkinEditorTree
 
+
 ## All possible items inside this tree
 enum ITEM_TYPE {
 	ROOT = 0, ## Links to sub-tree root # NOTE : Cannot be moved at all and cannot be copy/pasted
-	PRESET = 1, ## Links to any skin sub-structure data (blocks, effects, sfx, gui) preset # NOTE : Cannot be moved at all
-	BLOCK = 2, ## Links to skin block # NOTE : Can be moved only inside own preset or to other blocks preset
-	SFX = 3, ## Links to skin sound effect # NOTE : Can be moved only inside own preset or to other sound effects preset
-	EFFECT = 4, ## Links to skin visual effect # NOTE : Can be moved only inside own preset or to other visual effects preset
-	EFFECT_ANIMATION = 5, ## Links to skin visual effect animation # NOTE : Cannot be moved at all
-	EFFECT_SCENE = 6, ## Links to skin visual effect scene # NOTE : Cannot be moved at all
-	GUI_MODIFIER = 7, ## Links to an GUI modifier object # NOTE : Can be moved only inside own preset or to other GUI modifiers preset
-	BACKGROUND_ANIMATION = 8, ## Links to skin background scene animation # NOTE : Cannot be moved at all
-	SCENE_OBJECT = 9 ## Links to an skin background or visual effect scene object # NOTE : Can be moved only inside parent scene
+	BLOCK_PRESET, ## Links to skin blocks preset # NOTE : Cannot be moved at all. Can be copy/pasted.
+	BLOCK, ## Links to skin block # NOTE : Can be moved/copy/pasted only to other blocks preset
+	SFX_PRESET, ## Links to skin sfx preset # NOTE : Cannot be moved at all. Can be copy/pasted.
+	SFX, ## Links to skin sound effect # NOTE : Can be moved/copy/pasted only to other sound effects preset
+	EFFECT_PRESET, ## Links to skin effects preset # NOTE : Cannot be moved at all. Can be copy/pasted.
+	EFFECT, ## Links to skin visual effect # NOTE : Can be moved/copy/pasted only to other visual effects preset
+	EFFECT_ANIMATION, ## Links to skin visual effect animation # NOTE : Cannot be moved at all. Can be copy/pasted.
+	EFFECT_SCENE_OBJECT, ## Links to skin visual effect scene object # NOTE : Can be moved/copy/pasted to any position in own scene, or to some other scene.
+	GUI_MODIFIER_PRESET, ## Links to skin gui modifiers preset # NOTE : Cannot be moved at all. Can be copy/pasted.
+	GUI_MODIFIER, ## Links to an GUI modifier object # NOTE : Can be moved/copy/pasted only to other GUI modifiers preset
+	BACKGROUND_ANIMATION, ## Links to skin background scene animation # NOTE : Cannot be moved at all. Can be copy/pasted.
+	BACKGROUND_SCENE_OBJECT ## Links to an skin background scene object # NOTE : Can be moved/copy/pasted to any position in own scene, or to some other scene
 }
 
 const TREE_ICON_SIZE : int = 16 ## Size of the icon (height and width) used in all tree items
@@ -68,6 +72,7 @@ var _tree_icons_regions : Dictionary[StringName, Rect2i] = {
 }
 
 static var tree_icons : Dictionary[StringName, AtlasTexture] = {} ## Ready to use icons for tree items
+static var _drag_and_drop_preview : PackedScene = null ## Preview for [TreeItem] drap & drop
 
 var skin_data : SkinData = null ## Skin data to view and edit.
 
@@ -92,10 +97,12 @@ var background_tree : ModdableSceneSubTree = ModdableSceneSubTree.new() ## Conta
 func _ready() -> void:
 	load_assets()
 
-## Loads skin tree icons
+## Loads skin tree icons and drag and drop preview node
 func load_assets() -> void:
 	if _tree_icons_tex == null : _tree_icons_tex = load("res://assets/textures/editors/skin_editor/tree_icons_80.png")
 	if not tree_icons.is_empty(): return
+	
+	if _drag_and_drop_preview == null : _drag_and_drop_preview = load("res://src/editors/common/tree/tree_drop_preview.tscn")
 	
 	for icon_name : StringName in _tree_icons_regions.keys():
 		var icon_region : Rect2i = _tree_icons_regions[icon_name]
@@ -199,6 +206,58 @@ func _delete_selected_item() -> void:
 	if not item_metadata or item_metadata is not EditorTreeItemMetadata : return
 	
 	item_metadata.parent_subtree.remove_item(selected_item)
+
+
+## Drags [TreeItem] from some place of the tree
+func _get_drag_data(at_position: Vector2) -> Variant:
+	var selected_item : TreeItem = get_item_at_position(at_position)
+	if selected_item == null : return null
+	
+	var selected_item_metadata : EditorTreeItemMetadata = selected_item.get_metadata(0)
+	if not selected_item_metadata or selected_item_metadata is not EditorTreeItemMetadata : return null
+	
+	if selected_item_metadata.type == ITEM_TYPE.ROOT \
+	or selected_item_metadata.type == ITEM_TYPE.BLOCK_PRESET \
+	or selected_item_metadata.type == ITEM_TYPE.SFX_PRESET \
+	or selected_item_metadata.type == ITEM_TYPE.EFFECT_PRESET \
+	or selected_item_metadata.type == ITEM_TYPE.GUI_MODIFIER_PRESET \
+	or selected_item_metadata.type == ITEM_TYPE.EFFECT_ANIMATION \
+	or selected_item_metadata.type == ITEM_TYPE.BACKGROUND_ANIMATION : return null
+	
+	drop_mode_flags = DROP_MODE_INBETWEEN | DROP_MODE_ON_ITEM
+	
+	var drag_and_drop_preview_instance : ColorRect = _drag_and_drop_preview.instantiate()
+	drag_and_drop_preview_instance.get_node("Icon").texture = selected_item.get_icon(0)
+	drag_and_drop_preview_instance.get_node("Label").text = selected_item.get_text(0)
+	set_drag_preview(drag_and_drop_preview_instance)
+	
+	return selected_item
+
+## Checks if [TreeItem] can be dropped into position
+func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
+	if data is not TreeItem : return false
+	var dragged_item : TreeItem = data
+	
+	var target_item : TreeItem = get_item_at_position(at_position)
+	if dragged_item == target_item : return false
+	
+	var target_item_metadata : EditorTreeItemMetadata = target_item.get_metadata(0)
+	if not target_item_metadata or target_item_metadata is not EditorTreeItemMetadata : return false
+	
+	return target_item_metadata.parent_subtree.can_drop_item(dragged_item, target_item, get_drop_section_at_position(at_position))
+
+## Drops currently dragging [TreeItem]
+func _drop_data(at_position: Vector2, data: Variant) -> void:
+	if data is not TreeItem : return
+	var dragged_item : TreeItem = data
+	
+	var target_item : TreeItem = get_item_at_position(at_position)
+	if dragged_item == target_item : return
+	
+	var target_item_metadata : EditorTreeItemMetadata = target_item.get_metadata(0)
+	if not target_item_metadata or target_item_metadata is not EditorTreeItemMetadata : return
+	
+	target_item_metadata.parent_subtree.drop_item(dragged_item, target_item, get_drop_section_at_position(at_position))
 
 
 func _input(event: InputEvent) -> void:

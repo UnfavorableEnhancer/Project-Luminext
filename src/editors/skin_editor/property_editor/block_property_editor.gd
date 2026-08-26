@@ -37,10 +37,10 @@ var anim_timer : Timer = null ## Timer which periodically starts block animation
 
 
 func _ready() -> void:
-	id_selector.set_property_name("Block type:")
-	anim_sprite_editor.set_property_name("Block animation frames:")
+	id_selector.set_label_text("Block type:")
+	anim_sprite_editor.set_label_text("Block animation frames:")
 	anim_sprite_editor.file_browser = file_browser
-	anim_pattern_editor.set_property_name("Block animation timing:")
+	anim_pattern_editor.set_label_text("Block animation timing:")
 
 
 func open_object(new_object : Variant, new_display_viewport : SubViewportContainer, new_object_subtree : EditorSubTree = null, _new_object_display_instance : Node = null) -> void:
@@ -57,7 +57,7 @@ func open_object(new_object : Variant, new_display_viewport : SubViewportContain
 	display_viewport = new_display_viewport
 	object_subtree = new_object_subtree
 	
-	id_selector.set_variants({
+	id_selector.add_variants({
 		"Red" : &"red",
 		"White" : &"white",
 		"Green" : &"green",
@@ -74,7 +74,8 @@ func open_object(new_object : Variant, new_display_viewport : SubViewportContain
 		"Scan" : &"scan",
 		"Erase" : &"erase"
 	})
-	id_selector.insert(block.id)
+	id_selector.set_value(block.id)
+	%Editing.text = block.preset_id + " / " + block.id + str(block.index + 1)
 	
 	_update_editor_values()
 	anim_sprite_editor.set_frames(block.sprite_frames)
@@ -83,13 +84,14 @@ func open_object(new_object : Variant, new_display_viewport : SubViewportContain
 
 func _update_editor_values() -> void:
 	anim_sprite_editor.set_animation_fps(block.animation_fps)
-	anim_sprite_editor.set_animation_loop(block.loop_animation)
-	anim_pattern_editor.insert(block.animation_timing)
+	anim_sprite_editor.set_animation_loop(block.animation_loop)
+	anim_pattern_editor.set_value(block.animation_timing)
 	
 	_set_block_anim_timer()
 
 func _update_editor_block_id() -> void:
-	id_selector.insert(block.id)
+	id_selector.set_value(block.id)
+	%Editing.text = block.preset_id + " / " + block.id + str(block.index + 1)
 	
 	object_subtree.item_object_to_select = block
 	object_subtree.rebuild()
@@ -113,7 +115,7 @@ func _set_block_anim_timer() -> void:
 	if object_display_instance == null : return
 	
 	# Check if its looping animation, then we just need to start once and stop timer
-	if block.loop_animation :
+	if block.animation_loop :
 		anim_timer.stop()
 		object_display_instance.play()
 		return

@@ -58,6 +58,14 @@ func select_item(item : TreeItem) -> bool:
 func edit_item_name(_item : TreeItem) -> bool:
 	return false
 
+func can_drag_item(item : TreeItem) -> bool:
+	return false
+
+func can_drop_item(item : TreeItem, drop_position : TreeItem, drop_section : int) -> bool:
+	return false
+
+func drop_item(item : TreeItem, drop_position : TreeItem, drop_section : int) -> bool:
+	return false
 
 ## Called by root tree when some item is right clicked.[br]
 ## Returns **true** if selected item exists in this sub-tree and options popup is built successfully.
@@ -105,7 +113,7 @@ func paste_item(selected_item : TreeItem, item_metadata : EditorTreeItemMetadata
 	if item_metadata.type == SkinEditorTree.ITEM_TYPE.BLOCK:
 		pass
 	
-	if item_metadata.type == SkinEditorTree.ITEM_TYPE.PRESET:
+	if item_metadata.type == SkinEditorTree.ITEM_TYPE.BLOCK_PRESET:
 		pass
 	
 	return false

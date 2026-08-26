@@ -19,22 +19,31 @@ extends VBoxContainer
 ##
 ## Edits String value
 ##
-class_name TextPropertyEditor
+class_name StringPropertyEditor
 
 signal value_changed(new_value : String)
 
+const CALLBACK_DELAY : float = 1.0 ## Delay until string is considered finished and sent upwards
+
+@onready var callback_delay_timer : Timer = $CallbackDelay ## Starts when user types new text into string, and calls 'value_changed' only after delay.
 var value : String
 
 
-## Sets property name
-func set_property_name(value_name : String) -> void:
+func _ready() -> void:
+	callback_delay_timer.timeout.connect(emit_value)
+
+## Sets text above editor
+func set_label_text(value_name : String) -> void:
 	$Name.text = value_name
 
-## Inserts value into editor for update
-func insert(new_value : String) -> void:
+## Sets value into editor
+func set_value(new_value : String) -> void:
 	value = new_value
-	$H/X.text = str(value)
+	$Input.text = str(value)
 
 func _on_input_text_changed(new_text: String) -> void:
 	value = new_text
+	callback_delay_timer.start(CALLBACK_DELAY)
+
+func emit_value() -> void:
 	value_changed.emit(value)

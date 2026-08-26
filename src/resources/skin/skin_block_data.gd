@@ -153,18 +153,15 @@ class SkinBlock:
 	
 	var sprite_frames : SpriteFrames = SpriteFrames.new() ## SpriteFrames instance which game can use for block instance
 	
-	var animation_timing : Array[bool] = [false, false, false, false,
-										false, false, false, false,
-										false, false, false, false,
-										false, false, false, false] ## Array of beats on which block animation should start playing
-	var loop_animation : bool = false : set = _set_animation_loop ## If true, this block animation will run from start and loop infinitely
+	var animation_timing : int = 0 ## Bit field of beats on which block animation should start playing
+	var animation_loop : bool = false : set = _set_animation_loop ## If true, this block animation will run from start and loop infinitely
 	var animation_fps : int = 30 : set = _set_animation_fps ## Animation frames per second
 	
 	## Contains all frames texture assets UID's used by this block sprite
-	var frames : Array[StringName] = []
+	var frames_assets_uids : Array[StringName] = []
 	
 	func _set_animation_loop(value : bool) -> void:
-		loop_animation = value
+		animation_loop = value
 		if sprite_frames : sprite_frames.set_animation_loop(&"default", value)
 
 	func _set_animation_fps(value : int) -> void:
@@ -188,7 +185,7 @@ class SkinBlock:
 			sprite_frames.add_frame(&"default", texture_asset.texture)
 		
 		sprite_frames.set_animation_speed(&"default", animation_fps)
-		sprite_frames.set_animation_loop(&"default", loop_animation)
+		sprite_frames.set_animation_loop(&"default", animation_loop)
 
 
 	## Creates a unique clone of this block data.
@@ -202,16 +199,16 @@ class SkinBlock:
 		clone_block.id = block.id
 		clone_block.index = block.index
 		clone_block.preset_id = block.preset_id
-		clone_block.animation_timing = block.animation_timing.duplicate(true)
+		clone_block.animation_timing = block.animation_timing
 		
-		clone_block.frames = block.frames
+		clone_block.frames_assets_uids = block.frames_assets_uids
 		clone_block.sprite_frames = SpriteFrames.new()
 		
 		for i : int in block.sprite_frames.get_frame_count(&"default"):
 			clone_block.sprite_frames.add_frame(&"default", block.sprite_frames.get_frame_texture(&"default", i))
 		
 		clone_block.animation_fps = block.animation_fps
-		clone_block.loop_animation = block.loop_animation
+		clone_block.animation_loop = block.animation_loop
 		
 		return clone_block
 
@@ -220,7 +217,7 @@ class SkinBlock:
 	func load_assets(asset_data : SkinAssetData) -> void:
 		sprite_frames = SpriteFrames.new()
 		
-		for texture_asset_uid : StringName in frames:
+		for texture_asset_uid : StringName in frames_assets_uids:
 			# If some texture asset is missing, use placeholder block sprite instead
 			if not asset_data.textures.has(texture_asset_uid): 
 				if not SkinBlockData.placeholder_blocks.has(id) : return
@@ -231,7 +228,7 @@ class SkinBlock:
 			sprite_frames.add_frame(&"default", texture_asset.texture)
 		
 		sprite_frames.set_animation_speed(&"default", animation_fps)
-		sprite_frames.set_animation_loop(&"default", loop_animation)
+		sprite_frames.set_animation_loop(&"default", animation_loop)
 
 
 	## Loads block data from passed FileAccess, which has valid skin file opened

@@ -5,6 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://b3vbqudqt516l" path="res://src/editors/common/property_editor/components/anim_texture_editor.tscn" id="3_dky3u"]
 [ext_resource type="PackedScene" uid="uid://q6360mb54upj" path="res://src/editors/common/property_editor/components/anim_texture_sequence_editor.tscn" id="4_qkm4u"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_dky3u"]
+font_size = 20
+
 [node name="BlockPropertyEditor" type="ScrollContainer" unique_id=517326560]
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,6 +26,13 @@ theme_override_constants/margin_right = 12
 [node name="Properties" type="VBoxContainer" parent="Margin" unique_id=220137312]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Editing" type="Label" parent="Margin/Properties" unique_id=402520223]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+text = "Currently editing :"
+label_settings = SubResource("LabelSettings_dky3u")
 
 [node name="ID" parent="Margin/Properties" unique_id=1750681444 instance=ExtResource("2_e7ah0")]
 unique_name_in_owner = true

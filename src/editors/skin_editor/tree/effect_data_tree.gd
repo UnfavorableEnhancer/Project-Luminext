@@ -41,7 +41,7 @@ func build_tree(new_data : Variant) -> bool:
 	effect_data = new_data
 	
 	for variant_id : int in effect_data.effects.keys():
-		var variant_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.PRESET, self, variant_id)
+		var variant_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.BLOCK_PRESET, self, variant_id)
 		var variant_item  : TreeItem = _create_item("Variant " + str(variant_id), SkinEditorTree.tree_icons[&"variant"], variant_item_meta, root)
 		variant_item_meta.owner = variant_item
 		variant_items[variant_id] = variant_item
@@ -56,6 +56,15 @@ func build_tree(new_data : Variant) -> bool:
 				effect_item_meta.owner = effect_item
 	
 	return true
+
+func can_drag_item(item : TreeItem) -> bool:
+	return false
+
+func can_drop_item(item : TreeItem, drop_position : TreeItem, drop_section : int) -> bool:
+	return false
+
+func drop_item(item : TreeItem, drop_position : TreeItem, drop_section : int) -> bool:
+	return false
 
 
 ## Called by root tree when some item is selected.[br]
@@ -90,7 +99,7 @@ func show_item_options(item : TreeItem, options_popup : PopupMenu, mouse_positio
 	if not _is_item_inside(item): return false
 	
 	var item_meta : EditorTreeItemMetadata = item.get_metadata(0)
-	if item_meta.type == SkinEditorTree.ITEM_TYPE.PRESET:
+	if item_meta.type == SkinEditorTree.ITEM_TYPE.BLOCK_PRESET:
 		options_popup.full_clear()
 		options_popup.add_option("Add new effect", _add_effect.bind(item_meta.object))
 		options_popup.add_option("Duplicate variant", duplicate_item.bind(item))
@@ -128,7 +137,7 @@ func _add_variant() -> void:
 	effect_data.effects[variant_id] = {}
 	effect_data.effects[variant_id][&"red_square"] = []
 	
-	var variant_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.PRESET, self, variant_id)
+	var variant_item_meta : EditorTreeItemMetadata = EditorTreeItemMetadata.new(SkinEditorTree.ITEM_TYPE.BLOCK_PRESET, self, variant_id)
 	var variant_item  : TreeItem = _create_item("Variant " + str(variant_id), SkinEditorTree.tree_icons[&"variant"], variant_item_meta, root)
 	variant_item_meta.owner = variant_item
 	variant_items[variant_id] = variant_item
@@ -162,7 +171,7 @@ func paste_item(selected_item : TreeItem, item_metadata : EditorTreeItemMetadata
 	if item_metadata.type == SkinEditorTree.ITEM_TYPE.EFFECT:
 		pass
 	
-	if item_metadata.type == SkinEditorTree.ITEM_TYPE.PRESET:
+	if item_metadata.type == SkinEditorTree.ITEM_TYPE.BLOCK_PRESET:
 		pass
 	
 	return false

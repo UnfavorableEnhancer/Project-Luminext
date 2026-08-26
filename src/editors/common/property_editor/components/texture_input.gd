@@ -26,12 +26,12 @@ signal texture_selected(texture_filepath : String)
 var file_browser : FileBrowser = null ## Parent editor file browser instance
 
 
-## Sets property name
-func set_property_name(value_name : String) -> void:
+## Sets text above editor
+func set_label_text(value_name : String) -> void:
 	$Name.text = value_name
 
 ## Sets texture to show
-func set_texture(new_texture : Texture) -> void:
+func set_value(new_texture : Texture) -> void:
 	$H/Texture.texture = new_texture
 
 func _on_input_pressed() -> void:

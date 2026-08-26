@@ -25,7 +25,7 @@ class_name PropertyEditorManager
 
 enum EDITOR_TYPE {
 	NONE,
-	VARIANT,
+	PRESET,
 	SKIN_METADATA,
 	SKIN_BLOCK,
 	SKIN_SFX,
@@ -46,7 +46,7 @@ enum EDITOR_TYPE {
 ## Contains paths to all avaiable property editors
 const EDITOR_PATHS : Dictionary[EDITOR_TYPE, String] = {
 	EDITOR_TYPE.NONE : "",
-	EDITOR_TYPE.VARIANT : "",
+	EDITOR_TYPE.PRESET : "res://src/editors/skin_editor/property_editor/preset_property_editor.tscn",
 	EDITOR_TYPE.SKIN_METADATA : "",
 	EDITOR_TYPE.SKIN_BLOCK : "res://src/editors/skin_editor/property_editor/block_property_editor.tscn",
 	EDITOR_TYPE.SKIN_SFX : "",
@@ -66,7 +66,7 @@ const EDITOR_PATHS : Dictionary[EDITOR_TYPE, String] = {
 
 const EDITOR_DEPENDENCIES : Dictionary[EDITOR_TYPE, Array] = {
 	EDITOR_TYPE.NONE : [],
-	EDITOR_TYPE.VARIANT : [],
+	EDITOR_TYPE.PRESET : [&"block_data", &"sfx_data", &"effect_data", &"gui_data"],
 	EDITOR_TYPE.SKIN_METADATA : [],
 	EDITOR_TYPE.SKIN_BLOCK : [&"asset_data", &"block_data"],
 	EDITOR_TYPE.SKIN_SFX : [],
@@ -111,6 +111,7 @@ func open_editor(object : Variant) -> bool :
 		if currently_opened_object == object : return false
 		
 		if object is SkinBlockData.SkinBlock : editor_type = EDITOR_TYPE.SKIN_BLOCK 
+		elif object is SkinBlockData.SkinBlockPreset : editor_type = EDITOR_TYPE.PRESET
 		else : return false
 	else : return false
 	
@@ -123,7 +124,6 @@ func open_editor(object : Variant) -> bool :
 		_loaded_editors[editor_type] = editor
 	
 	var display_viewport : SubViewportContainer = viewport_manager.get_display_viewport_for_object(object)
-	if display_viewport == null : return false
 	
 	if currently_opened_editor != null : $Margin.remove_child(currently_opened_editor)
 	currently_opened_editor = _loaded_editors[editor_type]
